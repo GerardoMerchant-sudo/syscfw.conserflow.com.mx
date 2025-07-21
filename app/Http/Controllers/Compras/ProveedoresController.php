@@ -340,8 +340,13 @@ class ProveedoresController extends Controller
         $bancoFinal[$campo . '2'] = $banco2[$campo] ?? 'N/D';
       }
      
+      $datos_adicionales= [
+        "tipo_Formato" => "NR02", 
+        "usuario" => Auth::user()->name
+      ];
       
-      $data = array_merge($proveedor, $bancoFinal);
+      $data = array_merge($proveedor, $bancoFinal,$datos_adicionales);
+
       $json = json_encode($data);
 
       return ["status" => true, "data" => $json];

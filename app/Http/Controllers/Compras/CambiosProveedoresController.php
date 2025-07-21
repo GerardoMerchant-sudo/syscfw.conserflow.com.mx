@@ -49,10 +49,12 @@ class CambiosProveedoresController extends Controller
             $cambio = ProveedorCambio::find($id);
             $revision = $cambio->fecha < "2022-08-22" ? "00" : "01";
             $emision = $cambio->fecha < "2022-08-22" ? "29.JUN.20" : "10.AGO.22";
-            $formatoNR02 = $cambio->fecha >= "2025-07-01";
 
             // Crear objeto
             $campos = json_decode($cambio["campos_cambios"]);
+
+            //validacion del tipo de formato
+            $formatoNR02 = isset($campos->tipo_Formato) && $campos->tipo_Formato === 'NR02';
 
             $modificaciones_pdf = [];
             $tipos_documentos_pdf= [];

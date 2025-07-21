@@ -353,7 +353,7 @@
                 <tr>
                     <td width="35%" class="bg-gray">Cambio de datos de contacto de ventas</td>
                     <td width="15%">{{ $tipos_documentos_pdf[1]['marcado'] ? 'Si' : '' }}</td>
-                    <td width="50%" rowspan="2"></td>
+                    <td width="50%" rowspan="2">{{$campos->usuario ?? ''}}</td>
                 </tr>
                 <tr>
                     <td width="35%" class="bg-gray">Caratula bancaría</td>
