@@ -516,20 +516,20 @@ export default
       );
       me.listaEmpleados_elabora=[
         {
-          id: 952,
-          name: 'CARLOS ADAN MARTINEZ ROSAS'
+          id: 390,
+          name: 'DOMINICK TOVANI MARTINEZ'
         },
         {
-          id: 71,
-          name: 'ERIKA HERNANDEZ MENDEZ'
+          id: 422,
+          name: 'ADRIANA HERRERA FLORES'
         },
         {
-          id: 205,
-          name: 'RAMON CRUZ MARTINEZ'
+          id: 833,
+          name: 'DIANA LARISSA PEREZ DIAZ'
         },
         {
-          id: 154,
-          name: 'VALERIA HERNANDEZ MARTINEZ'
+          id: 893,
+          name: 'JOSEFINA GUADALUPE LOPEZ BARTOLO'
         },
       ]
 
