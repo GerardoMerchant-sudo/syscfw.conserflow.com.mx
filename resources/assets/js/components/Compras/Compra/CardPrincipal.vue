@@ -510,14 +510,14 @@ export default
       me.listaEmpleados = [];
       me.listaEmpleados.push(
         {
-          id: 205,
-          name: 'RAMON CRUZ MARTINEZ'
+          id: 1149,
+          name: 'DIEGO CRUZ MARTINEZ'
         },
       );
       me.listaEmpleados_elabora=[
         {
           id: 390,
-          name: 'DOMINICK TOVANI MARTINEZ'
+          name: 'DOMINICK TOVANY MARTINEZ'
         },
         {
           id: 422,
@@ -525,7 +525,7 @@ export default
         },
         {
           id: 833,
-          name: 'DIANA LARISSA PEREZ DIAZ'
+          name: 'DIANA LARISA PEREZ DIAZ'
         },
         {
           id: 893,
