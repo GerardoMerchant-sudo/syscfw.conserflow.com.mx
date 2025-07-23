@@ -478,20 +478,21 @@ export default
     * [getListas Metodos de consulta a la BD ]
     * @return {Response} [Objetos almacenados en diferentes variables]
     */
-    getListas()
-    {
-      let me = this;
-      me.mostrar = 1;
-      axios.get("compras/proveedores/todos").then(res =>{
-
-        if(res.data.status)
-        {
-          me.listaProvedores=res.data.proveedores;
-        }else
-        {
-          toastr.error(res.data.mensaje);
-        }
-      })
+    getListas() {
+  let me = this;
+  me.mostrar = 1;
+  axios.get("compras/proveedores/todos").then(res => {
+    if (res.data.status) {
+      me.listaProvedores = res.data.proveedores.map(p => {
+        return {
+          ...p,
+          razon_social: `${p.id} - ${p.nombre} (${p.razon_social})`
+        };
+      });
+    } else {
+      toastr.error(res.data.mensaje);
+    }
+  })
 
       axios.get('/proyecto-listar-todos').then(response =>{
         me.listaProyectos = [];
