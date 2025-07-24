@@ -554,18 +554,28 @@ export default
             this.ObtenerProveedores();
             this.PermisosCrud = Utilerias.getCRUD(this.$route.path);
             this.listaEmpleados.push(
+                
             {
+                id: 390,
+                name: 'DOMINICK TOVANY MARTINEZ'
+            },
+             {
+                id: 422,
+                name: 'ADRIANA HERRERA FLORES'
+            },
+             {
+                id: 833,
+                name: 'DIANA LARISA PEREZ DIAZ'
+            },
+             {
                 id: 154,
                 name: 'VALERIA HERNANDEZ MARTINEZ'
             },
             {
-                id: 71,
-                name: 'ERIKA HERNANDEZ MENDEZ'
-            },
-            {
-                id: 1071,
-                name: 'JAZMIN NAYELI LOPEZ MAVIL'
-            });
+                id: 893,
+                name: 'JOSEFINA GUADALUPE LOPEZ BARTOLO'
+            }
+            );
         },
 
         /**

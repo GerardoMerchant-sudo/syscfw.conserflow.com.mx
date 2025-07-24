@@ -532,6 +532,11 @@ export default
           id: 893,
           name: 'JOSEFINA GUADALUPE LOPEZ BARTOLO'
         },
+        {
+          id: 154,
+          name: 'VALERIA HERNANDEZ MARTINEZ'
+        },
+        
       ]
 
       axios.get('/condicion_pago/ver').then(response =>{
