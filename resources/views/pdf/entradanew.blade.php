@@ -217,8 +217,12 @@
                 </td>
                 <td>&nbsp;</td>
                 <td class="pdb">
-                    @if ($entrada->fecha >= '2020-03-11')
-                        JUAN JAIME MARTINEZ HERRERA
+                    @if ($entrada->fecha >= '2020-03-11' && $entrada->fecha <= '2025-06-30')
+                    JUAN JAIME MARTINEZ HERRERA
+                    @endif
+
+                    @if ($entrada->fecha > '2025-06-30')
+                        VALERIA HERNANDEZ MARTINEZ
                     @endif
                 </td>
                 <td>&nbsp;</td>
