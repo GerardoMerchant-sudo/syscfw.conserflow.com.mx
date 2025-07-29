@@ -536,7 +536,10 @@ export default
           id: 154,
           name: 'VALERIA HERNANDEZ MARTINEZ'
         },
-        
+        {
+          id: 390,
+          name: 'MARIA DE LA LUZ MARTINEZ HERRERA'
+        },
       ]
 
       axios.get('/condicion_pago/ver').then(response =>{
