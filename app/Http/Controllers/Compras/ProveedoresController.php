@@ -19,6 +19,7 @@ use Error;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ProveedoresController extends Controller
 {
@@ -40,7 +41,7 @@ class ProveedoresController extends Controller
           "p.nombre",
           "p.razon_social",
           "p.giro",
-          "p.rfc",
+          DB::raw("COALESCE(p.rfc, p.taxid) AS IdentificadorFiscal"),
           "p.estado",
           "p.pagina",
           "p.calle",
@@ -61,8 +62,8 @@ class ProveedoresController extends Controller
           "p.condicion",
           "p.regimen_fiscal",
           "p.limite_credito",
-          'p.tipos_modificacion',
-          'p.tipos_documentos',
+          'p.tipos_modificacion', 
+          'p.tipos_documentos', 
         )
         ->orderBy("p.nombre")
         ->distinct()
@@ -100,6 +101,62 @@ class ProveedoresController extends Controller
       return Status::Error($e, "obtener los proveedores");
     }
   }
+
+  /** Se hace una carga de excel para crear un nuevo proveedor prueba*/
+
+  public function read(Request $request)
+{
+    // Verificar si se subió un archivo
+    if (!$request->hasFile('file')) {
+        return response()->json([
+            'status' => false,
+            'message' => 'No se subió ningún archivo'
+        ]);
+    }
+
+    // Obtener el archivo subido
+    $file = $request->file('file')->getPathname();
+
+    // Cargar el archivo con PhpSpreadsheet
+    $spreadsheet = IOFactory::load($file);
+
+    // Obtener la hoja activa
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Definir las celdas a leer
+    $cells = [
+        'Razón Social'=> 'B9',
+        'Nombre Comercial'=> 'B10',
+        'RFC'=> 'B11','Suministrar'=> 'E11', 'Nacionalidad'=>'I11',
+        'Calle'=> 'B12', 'No. Exterior' => 'F12', 'No.interior'=> 'I12',
+        'CP'=> 'B13', 'Colonia'=> 'F13',
+        'Alcadía/Municipio'=> 'B14', 'Ciudad'=> 'E14', 'Estado'=> 'H14',
+        'Banco'=> 'B17', 'Cuenta Clabe'=> 'F17', 'Tipo de moneda'=> 'J17',
+        'Credito si'=>'C19', 'Credito no'=>'E19', 'Limite de credito'=> 'H19',
+        'Contacto de ventas'=> 'B22', 'Teléfono de ventas'=> 'F22', 'Celular'=> 'I22',
+        'Correo'=> 'F23',
+        'Contacto de facturación'=> 'B24', 'Teléfono'=> 'F24', 'Celular'=> 'I24',
+        'correo'=> 'F25',
+        'Cambio de domicilio'=> 'D28', 'Cambio de datos bancarios'=> 'I28',
+        'Cambio de datos de contacto de ventas'=> 'D29', 'Cambio de datos de contacto de facturacion'=> 'I29',
+        'Constancia de situación fiscal'=> 'D32',
+        'Caratula Bancaria'=> 'D33'
+    ];
+
+    $datos = [];
+
+    foreach($cells as $key => $cell){
+        $valor = $sheet->getCell($cell)->getValue();
+        $datos[$key] = $valor ?: 'N/A';
+    }
+
+    return response()->json([
+        'status' => true,
+        'data' => $datos
+    ]);
+}
+
+
 
   /**
    * Obtiene los datos de los proveedores activos para los catalogos fuera de compras
@@ -174,15 +231,27 @@ class ProveedoresController extends Controller
         $tipo_movimiento = "ALTA";
         $modificacion = "-";
         $anexos = "-";
-        // Comprobar que no exista RFC
-        $rfc_existe = Proveedor::where("rfc", $request->rfc)->first();
-        // if ($rfc_existe != null)
-        //   return Status::Error2("El proveedor ya está registrado");
+           // Comprobar que no exista RFC
+          // $rfcGenerico =
+          // $request->rfc === "XAXX010101000"
+          // || $request->rfc === "XEXX010101000";
+
+          // $rfc_existe = Proveedor::where("rfc", $request->rfc)->first();
+          //  if ($rfc_existe && !$rfcGenerico)
+          //    return Status::Error2("El RFC ya esta destinado para un proveedor");
+
         // Comprobar que el proveedor no sea empleado
         $es_empleado = DB::table("empleados as e")->where("rfc", $request->rfc)->first();
 
         if ($es_empleado != null)
           return Status::Error2("El Proveedor no puede ser un Empleado");
+
+        // comprobar que solo se un TAXID unico
+
+        // $taxid_unico = Proveedor::where("taxid", $request->taxid)->first();
+        // if($taxid_unico)
+        //   return Status::Error2("El TAXID ya esta destinado para un proveedor");
+
 
         // Registrar
         $proveedor = new Proveedor();
@@ -240,7 +309,6 @@ class ProveedoresController extends Controller
         $proveedor_modificado = Auditoria::AuditarCambios($proveedor);
         $proveedor->update();
       }
-
 
       // guardar bancos
       if ($request->lista_bancos != null)

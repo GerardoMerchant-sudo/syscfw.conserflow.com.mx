@@ -64,7 +64,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-8">
                         <label for="comentario">Comentario para Proveedor</label>
-                        <textarea class="form-control" title="Texto que aparecera en el formato!" maxlength="75" v-validate="'max:75'" v-model="partidascompras.comentario" autocomplete="off" id="comentario" rows="3"></textarea>
+                        <textarea class="form-control" title="Texto que aparecera en el formato!"  v-model="partidascompras.comentario" autocomplete="off" id="comentario" rows="3"></textarea>
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
                             <div class="input-group-addon">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" v-bind:disabled="desabilitar_precios" v-validate="'decimal:2'" min="0" pattern="^[0-9]+" v-model="partidascompras.precio_unitario" v-bind:class="'form-control'+clases.precio_unitario" placeholder="Precio unitario" autocomplete="off" id="precio_unitario" data-vv-name="precio_unitario">
+                            <input type="text" v-bind:disabled="desabilitar_precios" v-validate="'decimal:6'" min="0" pattern="^[0-9]+" v-model="partidascompras.precio_unitario" v-bind:class="'form-control'+clases.precio_unitario" placeholder="Precio unitario" autocomplete="off" id="precio_unitario" data-vv-name="precio_unitario">
                         </div>
                         <span class="text-danger">{{ errors.first('precio_unitario') }}</span>
                     </div>
@@ -85,7 +85,7 @@
                             <div class="input-group-addon">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" v-bind:disabled="desabilitar_precios" v-validate="'decimal:2'" min="0" pattern="^[0-9]+" v-model="partidascompras.adicionales" v-bind:class="'form-control'+clases.precio_unitario" placeholder="Adicionales" autocomplete="off" id="adicionales" data-vv-name="adicionales">
+                            <input type="text" v-bind:disabled="desabilitar_precios" v-validate="'decimal:6'" min="0" pattern="^[0-9]+" v-model="partidascompras.adicionales" v-bind:class="'form-control'+clases.precio_unitario" placeholder="Adicionales" autocomplete="off" id="adicionales" data-vv-name="adicionales">
                         </div>
                         <span class="text-danger">{{ errors.first('adicionales') }}</span>
                     </div>

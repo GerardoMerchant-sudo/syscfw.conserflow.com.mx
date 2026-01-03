@@ -511,7 +511,7 @@ export default
       me.listaEmpleados = [];
       me.listaEmpleados.push(
         {
-          id: 1149,
+          id: 164,
           name: 'DIEGO CRUZ MARTINEZ'
         },
       );

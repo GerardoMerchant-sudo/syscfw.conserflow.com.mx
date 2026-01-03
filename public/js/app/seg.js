@@ -1,2 +1,16816 @@
-/*! For license information please see seg.js.LICENSE.txt */
-(self.webpackChunk=self.webpackChunk||[]).push([[578],{1764:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>l});function s(a){return s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a},s(a)}function o(a,t){var e=Object.keys(a);if(Object.getOwnPropertySymbols){var s=Object.getOwnPropertySymbols(a);t&&(s=s.filter((function(t){return Object.getOwnPropertyDescriptor(a,t).enumerable}))),e.push.apply(e,s)}return e}function i(a,t,e){return(t=function(a){var t=function(a,t){if("object"!=s(a)||!a)return a;var e=a[Symbol.toPrimitive];if(void 0!==e){var o=e.call(a,t||"default");if("object"!=s(o))return o;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(a)}(a,"string");return"symbol"==s(t)?t:t+""}(t))in a?Object.defineProperty(a,t,{value:e,enumerable:!0,configurable:!0,writable:!0}):a[t]=e,a}var r=e(96225).call(void 0);const n={data:function(){return i(i({url:"seguridad/platicas/",ver_modal_platicas:0,tituloModal:"",platica:{},list_empleados:[],tipoAccion:0,isPlaticas_loading:!1,isGuardarpl_loading:!1,columns_platicas:["id","fecha","tema","nombre","documento"],list_platicas:[],options_platicas:{headings:i(i({id:"Acción",nombre:"Nombre"},"nombre","Responsable"),"documento","Evidencia"),perPage:10,perPageValues:[],skin:r.skin,sortIcon:r.sortIcon,filterByColumn:!0,texts:r.texts},participante:{},list_participantes:[],participantes:[],tipoCard:1,isParticipantes_loading:!1,isGuardarparticip_loading:!1,columns_participantes:["nombre","puesto"]},"list_participantes",[]),"options_participantes",{headings:{id:"Acción",nombre:"Empleado"},perPage:10,perPageValues:[],skin:r.skin,sortIcon:r.sortIcon,filterByColumn:!0,texts:r.texts})},computed:{},methods:{ObtenerPlaticas:function(){var a=this;this.isPlaticas_loading=!0,axios.get(this.url+"obtenerplaticas").then((function(t){t.data.status?(a.isPlaticas_loading=!1,a.list_platicas=t.data.platicas):toastr.error(t.data.status)}))},AbrirModalPlaticas:function(){var a=!(arguments.length>0&&void 0!==arguments[0])||arguments[0],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};this.ver_modal_platicas=!0,a?(this.tipoAccion=1,this.tituloModal="Registar plática"):(this.tipoAccion=2,this.tituloModal="Actualizar plática",this.platica=function(a){for(var t=1;t<arguments.length;t++){var e=null!=arguments[t]?arguments[t]:{};t%2?o(Object(e),!0).forEach((function(t){i(a,t,e[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(a,Object.getOwnPropertyDescriptors(e)):o(Object(e)).forEach((function(t){Object.defineProperty(a,t,Object.getOwnPropertyDescriptor(e,t))}))}return a}({},t),this.platica.responsable={id:t.responsable_id,nombre:t.nombre})},ObtenerEmpleados:function(){var a=this;axios.get("generales/empleadoactivos").then((function(t){t.data.status?a.list_empleados=t.data.empleados:toastr.error(t.data.mensaje)}))},GuardarPlatica:function(){var a=this,t=arguments.length>0&&void 0!==arguments[0]&&arguments[0];this.$validator.validate().then((function(e){if(e){a.isGuardarpl_loading=!0;var s=new FormData;t||s.append("id",a.platica.id),s.append("fecha",a.platica.fecha),s.append("ubicacion",a.platica.ubicacion),s.append("tema",a.platica.tema),s.append("responsable_id",a.platica.responsable.id),axios.post(a.url+"guardar",s).then((function(t){a.isGuardarpl_loading=!1,t.data.status?(toastr.success("Plática guardada correctamente"),a.CerrarModalPlaticas(),a.ObtenerPlaticas()):toastr.error(t.data.mensaje)}))}}))},CerrarModalPlaticas:function(){this.ver_modal_platicas=0,this.platica={responsable:{}}},VerParticipantes:function(a){this.tipoCard=2,this.platica_id=a.id,this.isParticipantes_loading=!0,this.ObtenerParticipantes(a.id)},ObtenerParticipantes:function(){var a=this;this.isParticipantes_loading=!0,axios.get(this.url+"participantes/obtener/"+this.platica_id).then((function(t){a.isParticipantes_loading=!1,t.data.status?a.list_participantes=t.data.participantes:toastr.error(t.data.mensaje)}))},GuadarParticipantes:function(){var a=this;0!=this.participantes.length&&(this.isGuardarparticip_loading=!0,axios.post(this.url+"participantes/guardar",{platica_id:this.platica_id,participantes:this.participantes}).then((function(t){a.isGuardarparticip_loading=!1,t.data.status?(a.participantes=[],toastr.success("Guardado correctamente"),a.ObtenerParticipantes()):toastr.error(t.data.mensaje)})))},DescargarPlantilla:function(a){window.open(this.url+"descargarplantilla/"+a,"_blank")},SubirEvidencia:function(a){var t=this;Swal.fire({title:"Cargar documento de la plática",input:"file",confirmButtonText:"Cargar"}).then((function(e){if(console.error(e),null!=e.value)if("application/pdf"===e.value.type){var s=new FormData;s.append("platica_id",a),s.append("evidencia",e.value),axios.post(t.url+"subirevidencia",s).then((function(a){a.data.status?(toastr.success("Documento subido correctamente"),t.ObtenerPlaticas()):toastr.error(a.data.mensaje)})).catch((function(a){console.error(a),toastr.error("Error al subir el documento")}))}else toastr.warning("Seleccione un PDF")}))},DescargarEvidencia:function(a){window.open(this.url+"descargarevidencia/"+a,"_blank")}},mounted:function(){this.ObtenerPlaticas(),this.ObtenerEmpleados()}};const l=(0,e(14486).A)(n,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid",staticStyle:{"min-height":"40vh"}},[1==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Pláticas de Seguridad\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalPlaticas()}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("vue-element-loading",{attrs:{active:a.isPlaticas_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_platicas,data:a.list_platicas,options:a.options_platicas},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalPlaticas(!1,e.row)}}},[t("i",{staticClass:"fas fa-edit"}),a._v("  Actualizar\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.DescargarPlantilla(e.row.id)}}},[t("i",{staticClass:"fas fa-file-pdf"}),a._v("  Descargar Plantilla\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.SubirEvidencia(e.row.id)}}},[t("i",{staticClass:"fas fa-file-pdf"}),a._v("  Subir Evidencia\n                                    ")])])])])]}},{key:"documento",fn:function(e){return[null==e.row.documento?t("span",{staticClass:"btn btn-dark"},[a._v("N/D")]):t("button",{staticClass:"btn btn-dark",on:{click:function(t){return a.DescargarEvidencia(e.row.id)}}},[t("i",{staticClass:"fas fa-download"})])]}}],null,!1,3232101397)})],1)]):a._e(),a._v(" "),2==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Participantes\n                "),t("button",{staticClass:"btn btn-dark float-sm-right mx-1",attrs:{type:"button"},on:{click:function(t){a.tipoCard=1}}},[t("i",{staticClass:"fas fa-arrow-left"}),a._v(" Regresar\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("br"),a._v(" "),t("vue-element-loading",{attrs:{active:a.isGuardarparticip_loading}}),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Responsable")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{multiple:"",options:a.list_empleados,"data-vv-name":"Participantes",label:"nombre"},model:{value:a.participantes,callback:function(t){a.participantes=t},expression:"participantes"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Participantes")))])],1),a._v(" "),t("button",{staticClass:"btn btn-dark",on:{click:function(t){return a.GuadarParticipantes()}}},[t("i",{staticClass:"fas fa-plus"})])]),a._v(" "),t("br"),a._v(" "),t("br"),a._v(" "),t("vue-element-loading",{attrs:{active:a.isParticipantes_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_participantes,data:a.list_participantes,options:a.options_participantes}})],1)]):a._e()]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_platicas},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("vue-element-loading",{attrs:{active:a.isGuardarpl_loading}}),a._v(" "),t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.tituloModal)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalPlaticas()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Fecha")]),a._v(" "),t("div",{staticClass:"col-md-3"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.platica.fecha,expression:"platica.fecha"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha"},domProps:{value:a.platica.fecha},on:{input:function(t){t.target.composing||a.$set(a.platica,"fecha",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Ubicación")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required|max:50",expression:"'required|max:50'"},{name:"model",rawName:"v-model",value:a.platica.ubicacion,expression:"platica.ubicacion"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Ubicación",autocomplete:"off"},domProps:{value:a.platica.ubicacion},on:{input:function(t){t.target.composing||a.$set(a.platica,"ubicacion",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Ubicación")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Tema")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("textarea",{directives:[{name:"validate",rawName:"v-validate",value:"required|max:100",expression:"'required|max:100'"},{name:"model",rawName:"v-model",value:a.platica.tema,expression:"platica.tema"}],staticClass:"form-control",attrs:{"data-vv-name":"Tema"},domProps:{value:a.platica.tema},on:{input:function(t){t.target.composing||a.$set(a.platica,"tema",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Tema")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Responsable")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.list_empleados,"data-vv-name":"Responsable",label:"nombre"},model:{value:a.platica.responsable,callback:function(t){a.$set(a.platica,"responsable",t)},expression:"platica.responsable"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Responsable")))])],1)])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalPlaticas()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarPlatica(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarPlatica(!1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])],1)])])])])}),[],!1,null,null,null).exports},3434:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>r});var s=e(18785),o=e(96225).call(void 0);const i={data:function(){return{tipo:1,ver_modal_analisis:0,ver_modal_residuos:0,columns_analisis:["id","secuencia","riesgo","recomendacion"],columns_residuos:["residuo.id","residuo.residuo","fuente"],list_analisis:[],list_residuos:[],options_analisis:{headings:{id:"Acciones",secuencia:"Secuencia",riesgo:"Riesgo",recomendacion:"Recomendación"},perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,sortable:["id","secuencia","riesgo","recomendacion"],filterable:["id","secuencia","riesgo","recomendacion"],filterByColumn:!0,texts:o.texts},options_residuos:{headings:{"residuo.id":"Acciones","residuo.residuo":"Residuo"},perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,filterByColumn:!0,texts:o.texts},titulo_modal_analisis:"",tipoAccion_modal_analisis:0,analisis_modal:{},titulo_modal_residuos:"",tipoAccion_modal_residuos:0,residuos_modal:{residuo:"",fuente:"",tipo:"",id:0}}},computed:{},methods:{getData:function(){var a=this;axios.get("get/lista/catalogo/analisis").then((function(t){a.list_analisis=t.data})).catch((function(a){console.error(a)})),axios.get("get/lista/catalogo/residuos").then((function(t){a.list_residuos=t.data})).catch((function(a){console.error(a)}))},AbrirModalAnalisis:function(a){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[];this.ver_modal_analisis=!0,a?(this.titulo_modal_analisis="Registrar Analisis",this.tipoAccion_modal_analisis=1):(this.titulo_modal_analisis="Actualizar Analisis",this.tipoAccion_modal_analisis=2,this.analisis_modal.recomendacion=t.recomendacion,this.analisis_modal.riesgo=t.riesgo,this.analisis_modal.secuencia=t.secuencia,this.analisis_modal.id=t.id)},AbrirModalResiduos:function(a){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[];if(this.ver_modal_residuos=!0,a)this.titulo_modal_residuos="Registrar",this.tipoAccion_modal_residuos=1;else{var e=[];t.fuente.forEach((function(a,t){e.push(a.fuente_generacion)})),console.log(e),this.titulo_modal_residuos="Actualizar",this.tipoAccion_modal_residuos=2,this.residuos_modal.residuo=t.residuo.residuo,this.residuos_modal.id=t.residuo.id,this.residuos_modal.tipo=t.residuo.tipo,this.residuos_modal.fuente=e}},CerrarModalAnalisis:function(){this.ver_modal_analisis=!1,s.A.resetObject(this.analisis_modal)},CerrarModalResiduos:function(){this.ver_modal_residuos=!1,s.A.resetObject(this.residuos_modal)},GuardarAnalisis:function(a){var t=this;axios({method:a?"POST":"PUT",url:a?"guardar/lista/catalogo/analisis":"actualizar/lista/catalogo/analisis",data:{id:a?0:this.analisis_modal.id,secuencia:this.analisis_modal.secuencia,riesgo:this.analisis_modal.riesgo,recomendacion:this.analisis_modal.recomendacion}}).then((function(a){t.getData(),toastr.success("Correcto!!!"),t.CerrarModalAnalisis()})).catch((function(a){console.error(a)}))},GuardarResiduos:function(a){var t=this;axios({method:a?"POST":"PUT",url:a?"guardar/lista/catalogo/residuos":"actualizar/lista/catalogo/residuos",data:{id:a?0:this.residuos_modal.id,residuo:this.residuos_modal.residuo,tipo:this.residuos_modal.tipo,fuente:this.residuos_modal.fuente}}).then((function(a){t.getData(),toastr.success("Correcto!!!"),t.CerrarModalResiduos()})).catch((function(a){console.error(a)}))},Eliminar:function(a){var t=this;Swal.fire({title:"Eliminar la secuencia seleccionada",icon:"warning",showCancelButton:!0,confirmButtonColor:"#d33",cancelButtonColor:"#3085d6",confirmButtonText:"Eliminar",cancellButtonText:"Cancelar"}).then((function(e){null!=e.value&&e.value&&axios.post("eliminar/lista/catalogo/analisis",{id:a}).then((function(a){a.data.status?(toastr.success("Eliminado correctamente"),t.getData()):toastr.error(a.data.mensaje)}))}))}},mounted:function(){this.getData()}};const r=(0,e(14486).A)(i,(function(){var a=this,t=a._self._c;return t("div",{staticClass:"main"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" "+a._s(1==a.tipo?"Catálogo Analisis":2==a.tipo?"Catálogo Residuos":"Catálogos")+"\n            "),t("button",{directives:[{name:"show",rawName:"v-show",value:1==a.tipo,expression:"tipo == 1"}],staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalAnalisis(!0)}}},[t("i",{staticClass:"fas fa-plus"},[a._v(" ")]),a._v("Nuevo\n            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:2==a.tipo,expression:"tipo == 2"}],staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalResiduos(!0)}}},[t("i",{staticClass:"fas fa-plus"},[a._v(" ")]),a._v("Nuevo\n            ")]),a._v(" "),t("div",{staticClass:"dropdown float-sm-right"},[t("button",{staticClass:"btn btn-secondary dropdown-toggle",attrs:{type:"button",id:"dropmenub","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false",name:"button"}},[a._v("\n                    Tipo\n                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"dropdown"}},[t("button",{staticClass:"dropdown-item",on:{click:function(t){a.tipo=1}}},[a._v("Analisis")]),a._v(" "),t("button",{staticClass:"dropdown-item",on:{click:function(t){a.tipo=2}}},[a._v("Residuos")])])])]),a._v(" "),t("div",{directives:[{name:"show",rawName:"v-show",value:1==a.tipo,expression:"tipo == 1"}],staticClass:"card-body"},[t("div",{},[t("div",{},[t("v-client-table",{ref:"tbl_analisis",attrs:{columns:a.columns_analisis,data:a.list_analisis,options:a.options_analisis},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btn_id",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu"},[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalAnalisis(!1,e.row)}}},[t("i",{staticClass:"icon-pencil"}),a._v(" Actualizar\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.Eliminar(e.row.id)}}},[t("i",{staticClass:"fas fa-trash"}),a._v(" Eliminar\n                                    ")])])])]}}])})],1)])]),a._v(" "),t("div",{directives:[{name:"show",rawName:"v-show",value:2==a.tipo,expression:"tipo == 2"}],staticClass:"card-body"},[t("v-client-table",{attrs:{columns:a.columns_residuos,data:a.list_residuos,options:a.options_residuos},scopedSlots:a._u([{key:"residuo.id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btn_id",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                        ")]),a._v(" "),t("div",{staticClass:"dropdown-menu"},[[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalResiduos(!1,e.row)}}},[t("i",{staticClass:"icon-pencil"}),a._v(" Actualizar\n                                ")])]],2)])]}},{key:"fuente",fn:function(t){return[a._l(t.row.fuente,(function(t){return[a._v("\n                        "+a._s(t.fuente_generacion)+",\n                    ")]}))]}}])})],1),a._v(" "),t("div",{directives:[{name:"show",rawName:"v-show",value:0==a.tipo,expression:"tipo == 0"}],staticClass:"card-body"})]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_analisis},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.titulo_modal_analisis)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalAnalisis()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Secuencia")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.analisis_modal.secuencia,expression:"analisis_modal.secuencia"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.analisis_modal.secuencia},on:{input:function(t){t.target.composing||a.$set(a.analisis_modal,"secuencia",t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Riesgo")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.analisis_modal.riesgo,expression:"analisis_modal.riesgo"}],staticClass:"form-control",attrs:{name:"name",rows:"4",cols:"80"},domProps:{value:a.analisis_modal.riesgo},on:{input:function(t){t.target.composing||a.$set(a.analisis_modal,"riesgo",t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Recomendación")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.analisis_modal.recomendacion,expression:"analisis_modal.recomendacion"}],staticClass:"form-control",attrs:{name:"name",rows:"4",cols:"80"},domProps:{value:a.analisis_modal.recomendacion},on:{input:function(t){t.target.composing||a.$set(a.analisis_modal,"recomendacion",t.target.value)}}})])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalAnalisis()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion_modal_analisis?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarAnalisis(1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion_modal_analisis?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarAnalisis(0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_residuos},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.titulo_modal_residuos)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalResiduos()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-10 mb-3"},[t("label",[a._v("Residuo")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.residuos_modal.residuo,expression:"residuos_modal.residuo"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.residuos_modal.residuo},on:{input:function(t){t.target.composing||a.$set(a.residuos_modal,"residuo",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Tipo")]),a._v(" "),t("select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.residuos_modal.tipo,expression:"residuos_modal.tipo"}],staticClass:"form-control",attrs:{"data-vv-name":"Tipo"},on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.residuos_modal,"tipo",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:""}}),a._v(" "),t("option",{attrs:{value:"1"}},[a._v("RME")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("RP")])])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-12 mb-3"},[t("label",[a._v("Fuente")]),a._v(" "),t("v-select",{attrs:{taggable:"",multiple:""},model:{value:a.residuos_modal.fuente,callback:function(t){a.$set(a.residuos_modal,"fuente",t)},expression:"residuos_modal.fuente"}})],1)])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalResiduos()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion_modal_residuos?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarResiduos(1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion_modal_residuos?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarResiduos(0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])])])])])}),[],!1,null,null,null).exports},18041:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>c});function s(a){return s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a},s(a)}function o(a,t){var e=Object.keys(a);if(Object.getOwnPropertySymbols){var s=Object.getOwnPropertySymbols(a);t&&(s=s.filter((function(t){return Object.getOwnPropertyDescriptor(a,t).enumerable}))),e.push.apply(e,s)}return e}function i(a){for(var t=1;t<arguments.length;t++){var e=null!=arguments[t]?arguments[t]:{};t%2?o(Object(e),!0).forEach((function(t){r(a,t,e[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(a,Object.getOwnPropertyDescriptors(e)):o(Object(e)).forEach((function(t){Object.defineProperty(a,t,Object.getOwnPropertyDescriptor(e,t))}))}return a}function r(a,t,e){return(t=function(a){var t=function(a,t){if("object"!=s(a)||!a)return a;var e=a[Symbol.toPrimitive];if(void 0!==e){var o=e.call(a,t||"default");if("object"!=s(o))return o;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(a)}(a,"string");return"symbol"==s(t)?t:t+""}(t))in a?Object.defineProperty(a,t,{value:e,enumerable:!0,configurable:!0,writable:!0}):a[t]=e,a}var n=e(96225).call(void 0);const l={data:function(){return r(r(r(r({url:"seguridad/inspeccionepp/",ver_modal_inspecciones:0,tituloModal:"",Inspeccion:{},list_empleados:[],tipoAccion:0,isInspeccion_loading:!1,isGuardarpl_loading:!1,columns_inspecciones:["id","fecha","realiza","revisa","observaciones"],list_inspecciones:[],options_inspecciones:{headings:r({id:"Acción",nombre:"Nombre"},"nombre","Responsable"),perPage:10,perPageValues:[],skin:n.skin,sortIcon:n.sortIcon,filterByColumn:!0,texts:n.texts},participante:{},ver_modal_trabajador:!1,list_participantes:[],participantes:[],trabajador:{},tituloModal_trabajador:"",tipoAccion_trabajador:1,tipoCard:1,isParticipantes_loading:!1,isGuardarparticip_loading:!1,columns_participantes:["id","empleado","puesto"]},"list_participantes",[]),"opciones",[{clave:"OK",nombre:"BUENAS CONDICIONES"},{clave:"X",nombre:"MALAS CONDICIONES"},{clave:"CD",nombre:"CAMBIO POR DESGASTE"},{clave:"N/A",nombre:"NO APLICA"}]),"trabajador_id",0),"options_participantes",{headings:{id:"Acción"},pperPage:10,perPageValues:[],skin:n.skin,filterable:["id","empleado","puesto"],sortable:["id","empleado","puesto"],sortIcon:n.sortIcon,filterByColumn:!0,texts:n.texts})},computed:{},methods:{ObtenerInspeccion:function(){var a=this;this.isInspeccion_loading=!0,axios.get(this.url+"obtener").then((function(t){t.data.status?(a.isInspeccion_loading=!1,a.list_inspecciones=t.data.inspecciones):toastr.error(t.data.status)}))},AbrirModalInspeccion:function(){var a=!(arguments.length>0&&void 0!==arguments[0])||arguments[0],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};this.ver_modal_inspecciones=!0,a?(this.tipoAccion=1,this.tituloModal="Registar Inspección"):(this.tipoAccion=2,this.tituloModal="Actualizar Inspección",this.Inspeccion=i({},t),this.Inspeccion={id:t.id,fecha:t.fecha,ubicacion:t.ubicacion,observaciones:t.observaciones,revisa:{id:t.empleado_revisa_id,nombre:t.revisa},realiza:{id:t.empleado_realiza_id,nombre:t.realiza}})},ObtenerEmpleados:function(){var a=this;axios.get("generales/empleadoactivos").then((function(t){t.data.status?a.list_empleados=t.data.empleados:toastr.error(t.data.mensaje)}))},GuardarInspeccion:function(){var a=this,t=arguments.length>0&&void 0!==arguments[0]&&arguments[0];this.$validator.validate().then((function(e){if(e){a.isGuardarpl_loading=!0;var s=new FormData;t||s.append("id",a.Inspeccion.id),s.append("fecha",a.Inspeccion.fecha),s.append("ubicacion",a.Inspeccion.ubicacion),s.append("observaciones",a.Inspeccion.observaciones),s.append("empleado_realiza_id",a.Inspeccion.realiza.id),s.append("empleado_revisa_id",a.Inspeccion.revisa.id),axios.post(a.url+"guardar",s).then((function(t){a.isGuardarpl_loading=!1,t.data.status?(toastr.success("Plática guardada correctamente"),a.CerrarModalInspeccion(),a.ObtenerInspeccion()):toastr.error(t.data.mensaje)}))}}))},CerrarModalInspeccion:function(){this.ver_modal_inspecciones=0,this.Inspeccion={revisa:{},realiza:{}}},VerParticipantes:function(a){this.tipoCard=2,this.Inspeccion_id=a.id,this.isParticipantes_loading=!0,this.ObtenerParticipantes(a.id)},ObtenerParticipantes:function(){var a=this;this.isParticipantes_loading=!0,axios.get(this.url+"participantes/obtener/"+this.Inspeccion_id).then((function(t){a.isParticipantes_loading=!1,t.data.status?a.list_participantes=t.data.participantes:toastr.error(t.data.mensaje)}))},GuardarTrabajador:function(a){var t=this;this.$validator.validate().then((function(e){if(e){t.isGuardarparticip_loading=!0;var s=new FormData;a||s.append("id",t.trabajador_id),s.append("sip_id",t.Inspeccion_id),s.append("inspeccion_id",t.Inspeccion_id),s.append("empleado_id",t.trabajador.empleado.id),s.append("epp_overol",t.trabajador.epp_overol),s.append("epp_calzado",t.trabajador.epp_calzado),s.append("epp_casco",t.trabajador.epp_casco),s.append("epp_guantes",t.trabajador.epp_guantes),s.append("epp_ocular",t.trabajador.epp_ocular),s.append("epp_respiratoria",t.trabajador.epp_respiratoria),s.append("epp_auditiva",t.trabajador.epp_auditiva),s.append("epp_barbiquejo",t.trabajador.epp_barbiquejo),s.append("epa_respiratoria",t.trabajador.epa_respiratoria),s.append("epa_arnes",t.trabajador.epa_arnes),s.append("epa_careta",t.trabajador.epa_careta),s.append("epa_mangas",t.trabajador.epa_mangas),s.append("epa_mascarilla",t.trabajador.epa_mascarilla),axios.post(t.url+"participantes/guardar",s).then((function(a){t.isGuardarparticip_loading=!1,a.data.status?(t.participantes=[],toastr.success("Guardado correctamente"),t.ObtenerParticipantes(),t.CerrarModalTrabajador()):toastr.error(a.data.mensaje)}))}}))},AbrirModalTrabajador:function(a,t){this.ver_modal_trabajador=!0,a?(this.LimpiarTrabajador(),this.tituloModal_trabajador="Registrar empleado",this.tipoAccion_trabajador=1):(this.tipoAccion_trabajador=2,this.tituloModal_trabajador="Actualizar empleado",this.tipoAccion_trabajador=2,this.trabajador_id=t.id,this.trabajador=i(i({},t),{},{empleado:{id:t.empleado_id,nombre:t.empleado}}))},CerrarModalTrabajador:function(){this.ver_modal_trabajador=!1},LimpiarTrabajador:function(){this.trabajador={epp_overol:"OK",epp_calzado:"OK",epp_casco:"OK",epp_guantes:"OK",epp_ocular:"OK",epp_respiratoria:"OK",epp_auditiva:"OK",epp_barbiquejo:"OK",epa_respiratoria:"OK",epa_arnes:"OK",epa_careta:"OK",epa_mangas:"OK",epa_mascarilla:"OK"}},Descargar:function(a){window.open(this.url+"descargar/"+a,"_blank")}},mounted:function(){this.ObtenerInspeccion(),this.CerrarModalInspeccion(),this.ObtenerEmpleados()}};const c=(0,e(14486).A)(l,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid",staticStyle:{"min-height":"40vh"}},[1==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Inspección de EPP\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalInspeccion()}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("vue-element-loading",{attrs:{active:a.isInspeccion_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_inspecciones,data:a.list_inspecciones,options:a.options_inspecciones},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalInspeccion(!1,e.row)}}},[t("i",{staticClass:"fas fa-edit"}),a._v("  Actualizar\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.VerParticipantes(e.row)}}},[t("i",{staticClass:"fas fa-users"}),a._v("  Ver participantes\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.Descargar(e.row.id)}}},[t("i",{staticClass:"fas fa-file-pdf"}),a._v("  Descargar\n                                    ")])])])])]}}],null,!1,2740052029)})],1)]):a._e(),a._v(" "),2==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Participantes\n                "),t("button",{staticClass:"btn btn-dark float-sm-right mx-1",attrs:{type:"button"},on:{click:function(t){a.tipoCard=1}}},[t("i",{staticClass:"fas fa-arrow-left"}),a._v(" Regresar\n                ")]),a._v(" "),t("button",{staticClass:"btn btn-dark float-sm-right mx-1",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalTrabajador(!0)}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("vue-element-loading",{attrs:{active:a.isParticipantes_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_participantes,data:a.list_participantes,options:a.options_participantes},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalTrabajador(!1,e.row)}}},[t("i",{staticClass:"fas fa-edit"}),a._v("  Detalles\n                                    ")])])])])]}}],null,!1,38627062)})],1)]):a._e()]),a._v(" "),a.ver_modal_inspecciones?t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_inspecciones},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("vue-element-loading",{attrs:{active:a.isGuardarpl_loading}}),a._v(" "),t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.tituloModal)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalInspeccion()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Fecha")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.Inspeccion.fecha,expression:"Inspeccion.fecha"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha"},domProps:{value:a.Inspeccion.fecha},on:{input:function(t){t.target.composing||a.$set(a.Inspeccion,"fecha",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Ubicación")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required|max:50",expression:"'required|max:50'"},{name:"model",rawName:"v-model",value:a.Inspeccion.ubicacion,expression:"Inspeccion.ubicacion"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Ubicación",autocomplete:"off"},domProps:{value:a.Inspeccion.ubicacion},on:{input:function(t){t.target.composing||a.$set(a.Inspeccion,"ubicacion",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Ubicación")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Realizó")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.list_empleados,"data-vv-name":"Realizó",label:"nombre"},model:{value:a.Inspeccion.realiza,callback:function(t){a.$set(a.Inspeccion,"realiza",t)},expression:"Inspeccion.realiza"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Realizó")))])],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Revisó")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.list_empleados,"data-vv-name":"Revisó",label:"nombre"},model:{value:a.Inspeccion.revisa,callback:function(t){a.$set(a.Inspeccion,"revisa",t)},expression:"Inspeccion.revisa"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Revisó")))])],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Observaciones")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.Inspeccion.observaciones,expression:"Inspeccion.observaciones"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{"data-vv-name":"Observaciones"},domProps:{value:a.Inspeccion.observaciones},on:{input:function(t){t.target.composing||a.$set(a.Inspeccion,"observaciones",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Observaciones")))])])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalInspeccion()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarInspeccion(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarInspeccion(!1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])],1)])])]):a._e(),a._v(" "),a.ver_modal_trabajador?t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_trabajador},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("vue-element-loading",{attrs:{active:a.isGuardarparticip_loading}}),a._v(" "),t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.tituloModal_trabajador)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalTrabajador()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Empleado")]),a._v(" "),t("div",{staticClass:"col-md-5"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{disabled:2==a.tipoAccion_trabajador,options:a.list_empleados,"data-vv-name":"Empleado",label:"nombre"},model:{value:a.trabajador.empleado,callback:function(t){a.$set(a.trabajador,"empleado",t)},expression:"trabajador.empleado"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Empleado")))])],1)]),a._v(" "),t("br"),a._v(" "),t("hr"),a._v(" "),t("p",{staticClass:"h5 text-mutted my-2 mb-3"},[a._v("Equipo de Protección Personal")]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Overol o ropa de algodón RF")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_overol,expression:"trabajador.epp_overol"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_overol",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Calzado de Seguridad")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_calzado,expression:"trabajador.epp_calzado"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_calzado",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Casco con logo ")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_casco,expression:"trabajador.epp_casco"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_casco",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Guantes adecuados al riesgo de trabajo")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_guantes,expression:"trabajador.epp_guantes"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_guantes",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Protección ocular")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_ocular,expression:"trabajador.epp_ocular"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_ocular",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Protección respiratoria")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_respiratoria,expression:"trabajador.epp_respiratoria"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_respiratoria",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Protección Auditiva")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_auditiva,expression:"trabajador.epp_auditiva"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_auditiva",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Barbiquejo")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epp_barbiquejo,expression:"trabajador.epp_barbiquejo"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epp_barbiquejo",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("br"),a._v(" "),t("hr"),a._v(" "),t("p",{staticClass:"h5 text-mutted my-2 mb-3"},[a._v("Equipo de Protección Personal")]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Protección Respiratoria ERA")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epa_respiratoria,expression:"trabajador.epa_respiratoria"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epa_respiratoria",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Arnes de Seguridad")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epa_arnes,expression:"trabajador.epa_arnes"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epa_arnes",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Careta Facial")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epa_careta,expression:"trabajador.epa_careta"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epa_careta",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Mangas, peto, polainas,rodillera ")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epa_mangas,expression:"trabajador.epa_mangas"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epa_mangas",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-5 form-control-label font-weight-bold1"},[a._v("Mascarilla de media cara/Cara completa")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.trabajador.epa_mascarilla,expression:"trabajador.epa_mascarilla"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.trabajador,"epa_mascarilla",t.target.multiple?e:e[0])}}},a._l(a.opciones,(function(e,s){return t("option",{key:s,domProps:{value:e.clave}},[a._v(a._s(e.nombre))])})),0)])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalTrabajador()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion_trabajador?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarTrabajador(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion_trabajador?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarTrabajador(!1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])],1)])])]):a._e()])}),[],!1,null,null,null).exports},18785:(a,t,e)=>{"use strict";function s(a){return s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a},s(a)}e.d(t,{A:()=>o});const o={resetObject:function(a){for(var t in a)"string"==typeof a[t]?a[t]="":"number"==typeof a[t]?a[t]=0:void 0===s(a[t])?a[t]=null:"object"===s(a[t])&&(a[t]={})},getCRUD:function(a){var t=new FormData;t.append("ruta",a),t.append("identificador",1);var e={Create:!1,Read:!1,Update:!1,Delete:!1,Download:!1,Upload:!1};return axios.post("/CRUD",t).then((function(a){for(var t=0;t<a.data.length;t++)1==a.data[t].control_id&&(e.Create=!0),2==a.data[t].control_id&&(e.Read=!0),3==a.data[t].control_id&&(e.Update=!0),4==a.data[t].control_id&&(e.Delete=!0),5==a.data[t].control_id&&(e.Download=!0),6==a.data[t].control_id&&(e.Upload=!0)})).catch((function(a){console.log(a)})),e}}},19777:(a,t,e)=>{"use strict";e.d(t,{A:()=>i});var s=e(76798),o=e.n(s)()((function(a){return a[1]}));o.push([a.id,".modal-xlg{max-width:1200px}",""]);const i=o},30938:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>r});var s=e(18785),o=e(96225).call(void 0);const i={data:function(){return{url:"/seguridad/catalogos",tipo:0,ver_modal_analisis:0,ver_modal_residuos:0,columns_analisis:["id","secuencia","riesgo","recomendacion"],columns_residuos:["residuo.id","residuo.residuo","fuente"],list_analisis:[],list_residuos:[],options_analisis:{headings:{id:"Acciones",secuencia:"Secuencia",riesgo:"Riesgo",recomendacion:"Recomendación"},perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,sortable:["id","secuencia","riesgo","recomendacion"],filterable:["id","secuencia","riesgo","recomendacion"],filterByColumn:!0,texts:o.texts},options_residuos:{headings:{"residuo.id":"Acciones","residuo.residuo":"Residuo"},perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,filterByColumn:!0,texts:o.texts},titulo_modal_analisis:"",tipoAccion_modal_analisis:0,analisis_modal:{},titulo_modal_residuos:"",tipoAccion_modal_residuos:0,residuos_modal:{residuo:"",fuente:"",tipo:"",id:0},nuevo_analisis:!1,id_analisis:0,listRecomendaciones:[],listSecuencias:[],listRiesgos:[]}},computed:{},methods:{CargarAnalisis:function(){var a=this;axios.get(this.url+"/analisis/obtener").then((function(t){t.data.status?a.list_analisis=t.data.analisis:toastr.error(t.data.mensaje)})).catch((function(a){console.error(a)}))},CargarResiduos:function(){var a=this;axios.get("get/lista/catalogo/residuos").then((function(t){a.list_residuos=t.data})).catch((function(a){console.error(a)}))},SecuenciaInput:function(){var a=this.analisis_modal.secuencia;null!=a&&null!=a.id&&(-99==a.id?this.RegistrarTipo(1):this.CargarRiesgos())},RiesgoInput:function(){var a=this.analisis_modal.riesgo;null!=a&&null!=a.id&&(-99==a.id?this.RegistrarTipo(2,this.analisis_modal.secuencia.id):this.CargarRecomendaciones())},RecomendacionInput:function(){var a=this.analisis_modal.recomendacion;null!=a&&null!=a.id&&(-99==a.id?this.RegistrarTipo(3,this.analisis_modal.riesgo.id):this.CargarRecomendaciones())},CargarSecuencias:function(){var a=this;axios.get(this.url+"/secuencia/cargar").then((function(t){t.data.status?a.listSecuencias=t.data.secuencias:toastr.error(t.data.mensaje)}))},CargarRiesgos:function(){var a=this;axios.get(this.url+"/riesgo/cargar/").then((function(t){t.data.status?a.listRiesgos=t.data.riesgos:toastr.error(t.data.mensaje)}))},CargarRecomendaciones:function(){var a=this;axios.get(this.url+"/recomendacion/cargar/").then((function(t){t.data.status?a.listRecomendaciones=t.data.recomendaciones:toastr.error(t.data.mensaje)}))},RegistrarTipo:function(a,t){var e=this,s=1==a?"Secuencia":2==a?"Riesgo":"Recomendación",o=1==a?"secuencia":2==a?"riesgo":"recomendacion",i=2==a?"secuencia":"riesgo";Swal.fire({title:s,input:"text",inputAttributes:{autocapitalize:"off"},showCancelButton:!0,confirmButtonText:"Registrar"}).then((function(s){if(null!=s.value&&0!=s.value.length){var r=new FormData;r.append("nombre",s.value),r.append(i+"_id",t),axios.post(e.url+"/registrar"+o,r).then((function(t){t.data.status?1==a?e.CargarSecuencias():2==a?e.CargarRiesgos():e.CargarRecomendaciones():toastr.error(t.data.mensaje)}))}}))},AbrirModalAnalisis:function(a){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[];this.CargarSecuencias(),this.ver_modal_analisis=!0,this.nuevo_analisis=a,a?(this.titulo_modal_analisis="Registrar Análisis",this.tipoAccion_modal_analisis=1):(this.id_analisis=t.id,this.titulo_modal_analisis="Actualizar Análisis",this.tipoAccion_modal_analisis=2,this.analisis_modal.secuencia={id:t.secuencia_id,nombre:t.secuencia},this.analisis_modal.riesgo={id:t.riesgo_id,nombre:t.riesgo},this.analisis_modal.recomendacion={id:t.recomendacion_id,nombre:t.recomendacion},this.analisis_modal.id=t.id)},AbrirModalResiduos:function(a){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[];if(this.ver_modal_residuos=!0,a)this.titulo_modal_residuos="Registrar",this.tipoAccion_modal_residuos=1;else{var e=[];t.fuente.forEach((function(a,t){e.push(a.fuente_generacion)})),this.titulo_modal_residuos="Actualizar",this.tipoAccion_modal_residuos=2,this.residuos_modal.residuo=t.residuo.residuo,this.residuos_modal.id=t.residuo.id,this.residuos_modal.tipo=t.residuo.tipo,this.residuos_modal.fuente=e}},CerrarModalAnalisis:function(){this.ver_modal_analisis=!1,s.A.resetObject(this.analisis_modal)},CerrarModalResiduos:function(){this.ver_modal_residuos=!1,s.A.resetObject(this.residuos_modal)},GuardarAnalisis:function(a){var t=this;if(this.ValidarModal()){var e=new FormData;this.nuevo_analisis||e.append("id",this.id_analisis),e.append("riesgo_id",this.analisis_modal.riesgo.id),e.append("recomendacion_id",this.analisis_modal.recomendacion.id),e.append("secuencia_id",this.analisis_modal.secuencia.id),axios.post(this.url+"/analisis/guardar",e).then((function(a){a.data.status&&(toastr.success("Analisis registrado"),t.CerrarModalAnalisis(),t.CargarAnalisis())}))}else toastr.warning("Seleccione todos los campos")},ValidarModal:function(){return null!=this.analisis_modal.secuencia&&(null!=this.analisis_modal.secuencia.id&&(null!=this.analisis_modal.riesgo.id&&null!=this.analisis_modal.recomendacion.id))},GuardarResiduos:function(a){var t=this;axios({method:a?"POST":"PUT",url:a?"guardar/lista/catalogo/residuos":"actualizar/lista/catalogo/residuos",data:{id:a?0:this.residuos_modal.id,residuo:this.residuos_modal.residuo,tipo:this.residuos_modal.tipo,fuente:this.residuos_modal.fuente}}).then((function(a){t.CargarResiduos(),toastr.success("Correcto!!!"),t.CerrarModalResiduos()})).catch((function(a){console.error(a)}))}},mounted:function(){this.CargarAnalisis()}};const r=(0,e(14486).A)(i,(function(){var a=this,t=a._self._c;return t("div",{staticClass:"main"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fas fa-list"}),a._v(" Caltálogo de análisis\n            "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalAnalisis(!0)}}},[t("i",{staticClass:"fas fa-plus"},[a._v(" ")]),a._v("Nuevo\n            ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{ref:"tbl_analisis",attrs:{columns:a.columns_analisis,data:a.list_analisis,options:a.options_analisis},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btn_id",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                        ")]),a._v(" "),t("div",{staticClass:"dropdown-menu"},[[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalAnalisis(!1,e.row)}}},[t("i",{staticClass:"icon-pencil"}),a._v(" Actualizar\n                                ")])]],2)])]}}])})],1)]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_analisis},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.titulo_modal_analisis)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalAnalisis()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Secuencia")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("v-select",{attrs:{label:"nombre",options:a.listSecuencias},on:{input:a.SecuenciaInput},model:{value:a.analisis_modal.secuencia,callback:function(t){a.$set(a.analisis_modal,"secuencia",t)},expression:"analisis_modal.secuencia"}})],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Riesgo")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("v-select",{attrs:{label:"nombre",options:a.listRiesgos},on:{input:a.RiesgoInput},model:{value:a.analisis_modal.riesgo,callback:function(t){a.$set(a.analisis_modal,"riesgo",t)},expression:"analisis_modal.riesgo"}})],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Recomendación")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("v-select",{attrs:{label:"nombre",options:a.listRecomendaciones},on:{input:a.RecomendacionInput},model:{value:a.analisis_modal.recomendacion,callback:function(t){a.$set(a.analisis_modal,"recomendacion",t)},expression:"analisis_modal.recomendacion"}})],1)])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalAnalisis()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion_modal_analisis?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarAnalisis(1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion_modal_analisis?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarAnalisis(0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])])])])])}),[],!1,null,null,null).exports},30980:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>r});var s=e(18785),o=e(96225).call(void 0);const i={data:function(){return{data_:"",detalle:!1,id_gral:0,folio:"",responsable:"",localidad:"",modal:0,modal_gral:0,tituloModal:"",tituloModalGral:"",tipoAccion:0,tipoAccionGral:0,departamentosList:[],listaEmpleados:[],area_proceso_array:"",destino:1,id:0,uno:{fecha:"",nombre:"",tipo:"",cantidad:"",unidad:"",area_proceso:"",fecha_salida_rme:""},dos:{crebit:"",fecha:"",clave:"",no_autorizacion:"",proveedor:"",num_manifiesto:""},options:{headings:{id:"Acciones",responsable_nombre:"Responsable"},perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,filterByColumn:!0,texts:o.texts},columns:["id","fecha","tipo","residuo"],tableData:[],options_gral:{headings:{id:"Acciones",responsable_nombre:"Responsable"},perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,filterByColumn:!0,texts:o.texts},columns_gral:["id","folio","responsable_nombre","localidad","descargar"],tableDataGral:[],list_residuos_uno:[],list_residuos_dos:[]}},methods:{getEmpleado:function(){var a=this;this.listaEmpleados=[],axios.get("/vertodosempleados").then((function(t){t.data.forEach((function(t){a.listaEmpleados.push({id:t.id,name:t.nombre+" "+t.ap_paterno+" "+t.ap_materno})}))})).catch((function(a){console.log(a)})),axios.get("get/lista/catalogo/residuos").then((function(t){t.data.forEach((function(t,e){1==t.residuo.tipo?a.list_residuos_uno.push(t):2==t.residuo.tipo&&a.list_residuos_dos.push(t)}))})).catch((function(a){console.error(a)}))},getData:function(){var a=this;axios.get("seguridad/residuos/get/bitacora/gral").then((function(t){a.tableDataGral=t.data})).catch((function(a){console.error(a)}))},abrirModal:function(a,t){var e=arguments.length>2&&void 0!==arguments[2]?arguments[2]:[];if("bitacora"===a)switch(t){case"registrar":this.vaciarUno(),this.modal_gral=0,this.modal=1,this.tituloModal="Registrar",this.tipoAccion=1;break;case"actualizar":this.modal_gral=0,this.modal=1,this.tituloModal="Actualizar",this.tipoAccion=2,this.uno.fecha=e.fecha,this.uno.tipo=e.tipo,1==this.uno.tipo?this.uno.nombre=this.list_residuos_uno.find((function(a){return a.residuo.id==e.nombre})):2==this.uno.tipo&&(this.uno.nombre=this.list_residuos_dos.find((function(a){return a.residuo.id==e.nombre}))),this.uno.cantidad=e.cantidad,this.uno.unidad=e.unidad,this.destino=e.destino,this.uno.area_proceso=e.area_proceso,this.uno.fecha_salida_rme=e.fecha_salida_rme,this.dos.fecha=e.fecha_dos,this.dos.proveedor=e.proveedor,this.dos.crebit=e.crebit,this.dos.no_autorizacion=e.no_autorizacion,this.dos.clave=e.clave,this.dos.num_manifiesto=e.num_manifiesto,this.id=e.id;break;case"registrar_gral":this.modal_gral=1,this.tituloModalGral="Registrar",this.tipoAccionGral=1,this.VaciarGral();break;case"actualizar_gral":this.VaciarGral(),this.modal_gral=1,this.tituloModalGral="Actualizar",this.tipoAccionGral=2,this.responsable={id:e.responsable,name:e.responsable_nombre},this.localidad=e.localidad,this.folio=e.folio,this.id_gral=e.id}},vaciarUno:function(){this.uno.fecha="",this.uno.cantidad="",this.uno.unidad="",this.uno.fecha_salida_rme="",s.A.resetObject(this.dos)},Guardar:function(a){var t=this;this.$validator.validate().then((function(e){e&&axios({method:a?"POST":"PUT",url:a?"seguridad/residuos/guardar/bitacora":"seguridad/residuos/actualizar/bitacora",data:{id:t.id,bitacora_residuos_entrada_general_id:t.id_gral,fecha:t.uno.fecha,nombre:t.uno.nombre.residuo.id,tipo:t.uno.tipo,cantidad:t.uno.cantidad,unidad:t.uno.unidad,area_proceso:t.uno.area_proceso,fecha_salida_rme:t.uno.fecha_salida_rme,crebit:t.dos.crebit,destino:t.destino,fecha_dos:t.dos.fecha,proveedor:t.dos.proveedor,no_autorizacion:t.dos.no_autorizacion,clave:t.dos.clave,num_manifiesto:t.dos.num_manifiesto}}).then((function(a){console.log(a.data),toastr.success("Guardado correctamente !!!"),t.cerrarModal(),t.actualizarDetalle(t.data_)})).catch((function(a){console.error(a)}))}))},cerrarModal:function(){this.modal=0},cerrarModalGral:function(){this.modal_gral=0},Vaciar:function(){s.A.resetObject(this.uno),s.A.resetObject(this.dos)},VaciarGral:function(){this.localidad="",this.folio="",this.responsable=""},Asignar:function(){switch(this.uno.nombre){case"7":this.area_proceso_array=["Oficina","Almacén","Comedor","Baños"];break;case"8":this.area_proceso_array=["Comedor"];break;case"9":this.area_proceso_array=["Oficina","Comedor","Taller"];break;case"10":this.area_proceso_array=["Oficina","Comedor"];break;case"11":this.area_proceso_array=["Oficinas"];break;case"12":this.area_proceso_array=["Oficina","Almacén","Taller"];break;case"13":case"1":case"2":case"4":this.area_proceso_array=["Taller"];break;case"3":this.area_proceso_array=["Taller","Oficinas"];break;case"5":this.area_proceso_array=["Vehículos"];break;case"6":this.area_proceso_array=["Vehículos","Oficina (TI)"]}},descargar:function(a){window.open("descargar/bitacora/descargar/"+a,"_blank")},verdetalle:function(a){var t=this;this.detalle=!0,this.data_=a,this.id_gral=a.id,axios.get("seguridad/residuos/get/bitacora/"+a.id).then((function(a){t.tableData=a.data})).catch((function(a){console.error(a)}))},actualizarDetalle:function(a){var t=this;axios.get("seguridad/residuos/get/bitacora/"+a.id).then((function(a){t.tableData=a.data})).catch((function(a){console.error(a)}))},atras:function(){this.detalle=!1},GuardarGral:function(a){var t=this;axios({method:a?"POST":"PUT",url:a?"seguridad/residuos/guardar/bitacora/gral":"seguridad/residuos/actualizar/bitacora/gral",data:{id:this.id_gral,localidad:this.localidad,responsable:this.responsable.id,folio:this.folio}}).then((function(a){toastr.success("Guardado correctamente !!!"),t.VaciarGral(),t.cerrarModalGral(),t.getData()})).catch((function(a){console.error(a)}))},eliminar:function(a){var t=this;swal({title:"Esta seguro(a) eliminar",type:"warning",showCancelButton:!0,confirmButtonColor:"#4dbd74",cancelButtonColor:"#f86c6b",confirmButtonText:"Aceptar!",cancelButtonText:"Cancelar",reverseButtons:!0}).then((function(e){e.value&&axios.get("eliminar/bitacora/residuos/"+a).then((function(a){t.getData(),toastr.success("Eliminado Correctamente")})).catch((function(a){console.error(a)}))}))}},mounted:function(){this.getData(),this.getEmpleado()}};const r=(0,e(14486).A)(i,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{directives:[{name:"show",rawName:"v-show",value:0==a.detalle,expression:"detalle == false"}],staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Bitacora RP-RME\n        "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.abrirModal("bitacora","registrar_gral")}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n        ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{attrs:{data:a.tableDataGral,options:a.options_gral,columns:a.columns_gral},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group","aria-label":"Button group with nested dropdown"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btnGroupDrop1",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"})]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.abrirModal("bitacora","actualizar_gral",e.row)}}},[t("i",{staticClass:"fas fa-pencil-alt"}),a._v(" Actualizar analisis\n                  ")]),a._v(" "),t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.verdetalle(e.row)}}},[t("i",{staticClass:"fas fa-eye"}),a._v(" Detalle\n                  ")]),a._v(" "),t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.eliminar(e.row.id)}}},[t("i",{staticClass:"fas fa-trash"}),a._v(" Eliminar\n                  ")])])])])]}},{key:"descargar",fn:function(e){return[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.descargar(e.row.id)}}},[t("i",{staticClass:"fas fa-download"}),a._v(" "),t("i",{staticClass:"fas fa-file-pdf"})])]}}])})],1)]),a._v(" "),t("div",{directives:[{name:"show",rawName:"v-show",value:1==a.detalle,expression:"detalle == true"}],staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Bitacora\n        "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.abrirModal("bitacora","registrar")}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n        ")]),a._v(" "),t("button",{staticClass:"btn btn-secondary float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.atras()}}},[t("i",{staticClass:"fa fa-arrow-left"}),a._v(" Atras\n        ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{attrs:{data:a.tableData,columns:a.columns,options:a.options},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group","aria-label":"Button group with nested dropdown"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btnGroupDrop1",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"})]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return t.preventDefault(),a.abrirModal("bitacora","actualizar",e.row)}}},[t("i",{staticClass:"fas fa-pencil-alt"}),a._v(" Actualizar analisis\n                  ")])])])])]}},{key:"tipo",fn:function(t){return[1==t.row.tipo?[a._v("\n              RME\n            ")]:a._e(),a._v(" "),2==t.row.tipo?[a._v("\n              RP\n            ")]:a._e()]}}])})],1)]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v(a._s(a.tituloModal))]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.cerrarModal()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha de ingreso (AT)")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.uno.fecha,expression:"uno.fecha"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha"},domProps:{value:a.uno.fecha},on:{input:function(t){t.target.composing||a.$set(a.uno,"fecha",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha")))])]),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Tipo de Residuos")]),a._v(" "),t("select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.uno.tipo,expression:"uno.tipo"}],staticClass:"form-control",attrs:{"data-vv-name":"Tipo"},on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.uno,"tipo",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:""}}),a._v(" "),t("option",{attrs:{value:"1"}},[a._v("RME")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("RP")])]),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Tipo")))])]),a._v(" "),t("div",{staticClass:"col-md-7 mb-3"},[t("label",[a._v("Nombre del residuo")]),a._v(" "),t("select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.uno.nombre,expression:"uno.nombre"}],staticClass:"form-control",attrs:{"data-vv-name":"Nombre"},on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.uno,"nombre",t.target.multiple?e:e[0])}}},[2==a.uno.tipo?a._l(a.list_residuos_dos,(function(e,s){return t("option",{key:s,domProps:{value:e}},[a._v(a._s(e.residuo.residuo))])})):a._e(),a._v(" "),1==a.uno.tipo?a._l(a.list_residuos_uno,(function(e,s){return t("option",{key:s,domProps:{value:e}},[a._v(a._s(e.residuo.residuo))])})):a._e()],2),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Nombre")))])])]),a._v(" "),t("div",{staticClass:"form-row"},[""!=a.uno.nombre?[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Area o proceso")]),a._v(" "),t("select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.uno.area_proceso,expression:"uno.area_proceso"}],staticClass:"form-control",attrs:{"data-vv-name":"Area"},on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.uno,"area_proceso",t.target.multiple?e:e[0])}}},a._l(a.uno.nombre.fuente,(function(e,s){return t("option",{key:s,domProps:{value:e.fuente_generacion}},[a._v(a._s(e.fuente_generacion))])})),0),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Area")))])])]:a._e(),a._v(" "),t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Destino")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.destino,expression:"destino"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.destino=t.target.multiple?e:e[0]}}},[t("option",{attrs:{selected:"",value:"1"}},[a._v("Reuso")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("Recicle")])])])],2),a._v(" "),t("hr"),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Cantidad")]),a._v(" "),t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.uno.cantidad,expression:"uno.cantidad"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Cantidad"},domProps:{value:a.uno.cantidad},on:{input:function(t){t.target.composing||a.$set(a.uno,"cantidad",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Cantidad")))])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Unidad Medida")]),a._v(" "),t("select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.uno.unidad,expression:"uno.unidad"}],staticClass:"form-control",attrs:{"data-vv-name":"Unidad"},on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.uno,"unidad",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:"KG"}},[a._v("KILOGRAMO")]),a._v(" "),t("option",{attrs:{value:"LT"}},[a._v("LITRO")]),a._v(" "),t("option",{attrs:{value:"GR"}},[a._v("GRAMO")])]),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Unidad")))])]),a._v(" "),1==a.uno.tipo?[t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha salida RME")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.uno.fecha_salida_rme,expression:"uno.fecha_salida_rme"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.uno.fecha_salida_rme},on:{input:function(t){t.target.composing||a.$set(a.uno,"fecha_salida_rme",t.target.value)}}})])]:a._e()],2),a._v(" "),t("div",{staticClass:"form-row"},[2==a.uno.tipo?[t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("CRETIB")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.dos.crebit,expression:"dos.crebit"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.dos,"crebit",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:"1"}},[a._v("Corrosivo")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("Reactivo")]),a._v(" "),t("option",{attrs:{value:"3"}},[a._v("Explosivo")]),a._v(" "),t("option",{attrs:{value:"4"}},[a._v("Tóxico")]),a._v(" "),t("option",{attrs:{value:"5"}},[a._v("Tóxico Ambiental")]),a._v(" "),t("option",{attrs:{value:"6"}},[a._v("Tóxico Agudo")]),a._v(" "),t("option",{attrs:{value:"7"}},[a._v("Tóxico Crónico")]),a._v(" "),t("option",{attrs:{value:"8"}},[a._v("Inflamable")]),a._v(" "),t("option",{attrs:{value:"9"}},[a._v("Biologicamente Infeccioso")])])])]:a._e(),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha Salida")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.dos.fecha,expression:"dos.fecha"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Salida"},domProps:{value:a.dos.fecha},on:{input:function(t){t.target.composing||a.$set(a.dos,"fecha",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Salida")))])]),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Proveedor")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.dos.proveedor,expression:"dos.proveedor"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Proveedor"},domProps:{value:a.dos.proveedor},on:{input:function(t){t.target.composing||a.$set(a.dos,"proveedor",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Proveedor")))])])],2),a._v(" "),2==a.uno.tipo?[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("No. de Autorización")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.dos.no_autorizacion,expression:"dos.no_autorizacion"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.dos.no_autorizacion},on:{input:function(t){t.target.composing||a.$set(a.dos,"no_autorizacion",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Clave Generica")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.dos.clave,expression:"dos.clave"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.dos,"clave",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:"1"}},[a._v("SO1")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("O1")]),a._v(" "),t("option",{attrs:{value:"3"}},[a._v("SO5")]),a._v(" "),t("option",{attrs:{value:"4"}},[a._v("L5")]),a._v(" "),t("option",{attrs:{value:"5"}},[a._v("1")])])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Núm De Manifiesto")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.dos.num_manifiesto,expression:"dos.num_manifiesto"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.dos.num_manifiesto},on:{input:function(t){t.target.composing||a.$set(a.dos,"num_manifiesto",t.target.value)}}})])])]:a._e()],2),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.cerrarModal()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n              ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoAccion,expression:"tipoAccion == 1"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(1)}}},[a._v("\n                Guardar\n              ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:2==a.tipoAccion,expression:"tipoAccion == 2"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(0)}}},[a._v("\n                Actualizar\n              ")])])])])])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal_gral},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v(a._s(a.tituloModalGral))]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.cerrarModalGral()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Folio")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.folio,expression:"folio"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Folio"},domProps:{value:a.folio},on:{input:function(t){t.target.composing||(a.folio=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Folio")))])]),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Localidad")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.localidad,expression:"localidad"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Localidad"},domProps:{value:a.localidad},on:{input:function(t){t.target.composing||(a.localidad=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Localidad")))])]),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Responsable")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name","data-vv-name":"Responsable"},model:{value:a.responsable,callback:function(t){a.responsable=t},expression:"responsable"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Responsable")))])],1)])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.cerrarModalGral()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoAccionGral,expression:"tipoAccionGral == 1"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarGral(1)}}},[a._v("\n              Guardar\n            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:2==a.tipoAccionGral,expression:"tipoAccionGral == 2"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarGral(0)}}},[a._v("\n              Actualizar\n            ")])])])])])])])}),[],!1,null,null,null).exports},35434:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>i});e(18785);var s=e(96225).call(void 0);const o={data:function(){return{tituloModal:"",modal:0,modal_participantes:0,tipoAccion:0,isLoading:!1,id:0,ubicacion:"",permiso:"",descripcion:"",operaciones:[],shso:"",empleado:"",fecha:"",listaCatalogo:[],catalogo:"",listado_data:[],listado_id:[],listado_supervisor:[],vs_options:[],supervisor:"",tableData:[],columns:["id","fecha","numero_permiso","ubicacion","descripcion","descargar"],options:{headings:{id:"ACCIONES"},perPage:10,perPageValues:[],skin:s.skin,sortIcon:s.sortIcon,filterByColumn:!0,texts:s.texts},tableDataParticipantes:[],columnsParticipantes:["empleado_id","empleado"],optionsParticipantes:{headings:{empleado_id:"ACCIONES"},perPage:10,perPageValues:[],skin:s.skin,sortIcon:s.sortIcon,filterByColumn:!0,texts:s.texts}}},methods:{getDataInicial:function(){var a=this;axios.get("get/analisis/seguridad").then((function(t){a.tableData=t.data})).catch((function(a){console.error(a)}))},getData:function(){var a=this;this.listaCatalogo=[],axios.get("get/lista/catalogo/analisis").then((function(t){a.listaCatalogo=t.data})).catch((function(a){console.error(a)})),axios.get("vertodosempleados").then((function(t){t.data.forEach((function(t,e){a.vs_options.push({id:t.id,name:t.nombre+" "+t.ap_paterno+" "+t.ap_materno})}))})).catch((function(a){console.error(a)}))},abrirModal:function(a,t){var e=this,s=arguments.length>2&&void 0!==arguments[2]?arguments[2]:[];if("analisis"===a)switch(t){case"registrar":this.modal=1,this.tituloModal="Registrar análisis",this.tipoAccion=1,this.VaciarDos();break;case"actualizar":this.listado_data=[],this.listado_id=[],this.listado_supervisor=[],axios.get("get/lista/evaluacion/riesgo/"+s.id).then((function(a){a.data.forEach((function(a,t){e.listado_data.push({id:a.id,actividad:a.secuencia,riesgo:a.riesgo,medidas:a.recomendacion,supervisor:a.supervisor}),e.listado_supervisor.push(a.supervisor_id),e.listado_id.push(a.catalogo_analisis_seguridad_id)}))})).catch((function(a){console.error(a)})),this.operaciones={id:s.empleado_operaciones,name:s.operaciones_empleado},this.shso={id:s.empleado_shso,name:s.shso_empleado},this.id=s.id,this.ubicacion=s.ubicacion,this.permiso=s.numero_permiso,this.descripcion=s.descripcion,this.fecha=s.fecha,this.modal=1,this.tituloModal="Actualizar análisis",this.tipoAccion=2}},Cerrar:function(){this.modal=0},guardarasignacion:function(){var a=this;this.listado_data.find((function(t){return t.actividad==a.catalogo.secuencia}))?toastr.warning("Ya seleccionado"):""!=this.catalogo&&(this.listado_data.push({actividad:this.catalogo.secuencia,riesgo:this.catalogo.riesgo,medidas:this.catalogo.recomendacion,supervisor:this.supervisor.name,temp:!0}),this.listado_id.push(this.catalogo.id),this.listado_supervisor.push(this.supervisor.id),this.catalogo="",this.supervisor="")},deleteu:function(a){this.listado_data.splice(a,1),this.listado_id.splice(a,1),this.listado_supervisor.splice(a,1)},BorrarRiesgo:function(a){var t=this;axios.post("seguridad/analisis/eliminar",{id:a}).then((function(a){a.data.status?(toastr.success("Eliminado correctamente"),t.listado_data=[],t.listado_supervisor=[],t.listado_id=[],a.data.riesgos.forEach((function(a,e){t.listado_data.push({id:a.id,actividad:a.secuencia,riesgo:a.riesgo,medidas:a.recomendacion,supervisor:a.supervisor,temp:!1}),t.listado_supervisor.push(a.supervisor_id),t.listado_id.push(a.catalogo_analisis_seguridad_id)}))):toastr.error(a.data.mensaje)}))},Guardar:function(a){var t=this;this.$validator.validate().then((function(e){if(e){axios({method:a?"POST":"PUT",url:a?"/guardar/analisis/seguridad":"/actualizar/analisis/seguridad",data:{id:t.id,ubicacion:t.ubicacion,permiso:t.permiso,descripcion:t.descripcion,operaciones:t.operaciones.id,shso:t.shso.id,listado_id:t.listado_id,listado_supervisor:t.listado_supervisor,fecha:t.fecha}}).then((function(a){t.getDataInicial(),t.Vaciar()})).catch((function(a){console.error(a)}))}}))},Vaciar:function(){this.id=0,this.ubicacion="",this.permiso="",this.descripcion="",this.operaciones="",this.shso="",this.listado_data=[],this.listado_id=[],this.modal=0,this.fecha=""},VaciarDos:function(){this.id=0,this.ubicacion="",this.permiso="",this.descripcion="",this.operaciones="",this.shso="",this.fecha="",this.listado_data=[],this.listado_id=[],this.listado_supervisor=[]},participantes:function(a){this.analisis_id=a.id,this.modal_participantes=1,this.getParticipantes(a.id)},getParticipantes:function(a){var t=this;this.tableDataParticipantes=[],axios.get("get/participantes/analisis/seguridad/"+a).then((function(a){t.tableDataParticipantes=a.data})).catch((function(a){console.error(a)}))},cerrarModalP:function(){this.modal_participantes=0},agregarEmpleado:function(){var a=this;axios.post("guardar/participantes/analisis/seguridad",{id:this.analisis_id,empleado:this.empleado.id}).then((function(t){a.getParticipantes(a.analisis_id)})).catch((function(a){console.error(a)}))},eliminarParticipante:function(a){var t=this;axios.get("eliminar/participantes/analisis/seguridad/"+a+"&"+this.analisis_id).then((function(a){t.getParticipantes(t.analisis_id)})).catch((function(a){console.error(a)}))},descargar:function(a){window.open("descargar/analisis/seguridad/"+a,"_blank")},eliminar:function(a){var t=this;Swal.fire({title:"Esta seguro(a) de eliminar ?",text:"Esta opción no se podrá desahacer!",type:"warning",showCancelButton:!0,confirmButtonColor:"#3085d6",cancelButtonColor:"#d33",confirmButtonText:"Si",cancelButtonText:"No"}).then((function(e){e.value&&axios.get("eliminar/analisis/seguridad/"+a).then((function(a){toastr.success("Eliminado Correctamente !!!"),t.getDataInicial()})).catch((function(a){console.error(a)}))}))}},mounted:function(){this.getData(),this.getDataInicial()}};const i=(0,e(14486).A)(o,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" ANÁLISIS DE SEGURIDAD EN EL TRABAJO (AST)\n\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.abrirModal("analisis","registrar")}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{attrs:{data:a.tableData,columns:a.columns,options:a.options},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group","aria-label":"Button group with nested dropdown"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btnGroupDrop1",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"})]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return t.preventDefault(),a.abrirModal("analisis","actualizar",e.row)}}},[t("i",{staticClass:"fas fa-pencil-alt"}),a._v(" Actualizar analisis\n                                    ")]),a._v(" "),t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.participantes(e.row)}}},[t("i",{staticClass:"fas fa-user-friends"}),a._v(" Agregar Participantes\n                                    ")]),a._v(" "),t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.eliminar(e.row.id)}}},[t("i",{staticClass:"fas fa-trash"}),a._v(" Eliminar\n                                    ")])])])])]}},{key:"descargar",fn:function(e){return[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.descargar(e.row.id)}}},[t("i",{staticClass:"fas fa-download"}),a._v(" "),t("i",{staticClass:"fas fa-file-pdf"})])]}}])})],1)]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v(a._s(a.tituloModal))]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.Cerrar()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("vue-element-loading",{attrs:{active:a.isLoading}}),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("Ubicación de trabajo")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.ubicacion,expression:"ubicacion"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"ubicacion"},domProps:{value:a.ubicacion},on:{input:function(t){t.target.composing||(a.ubicacion=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("ubicacion")))])]),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("Número de permiso")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.permiso,expression:"permiso"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"permiso"},domProps:{value:a.permiso},on:{input:function(t){t.target.composing||(a.permiso=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("permiso")))])]),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.fecha,expression:"fecha"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"fecha"},domProps:{value:a.fecha},on:{input:function(t){t.target.composing||(a.fecha=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("fecha")))])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-8 mb-3"},[t("label",[a._v("Descripción del trabajo")]),a._v(" "),t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.descripcion,expression:"descripcion"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{"data-vv-name":"descripcion",rows:"2",cols:"40"},domProps:{value:a.descripcion},on:{input:function(t){t.target.composing||(a.descripcion=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("descripcion")))])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Seleccione")]),a._v(" "),t("v-select",{attrs:{options:a.listaCatalogo,label:"secuencia","data-vv-name":"catalogo"},model:{value:a.catalogo,callback:function(t){a.catalogo=t},expression:"catalogo"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("catalogo")))])],1),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("Supervisor")]),a._v(" "),t("v-select",{attrs:{options:a.vs_options,label:"name","data-vv-as":"operaciones"},model:{value:a.supervisor,callback:function(t){a.supervisor=t},expression:"supervisor"}})],1),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" ")]),t("br"),a._v(" "),t("button",{staticClass:"btn btn-outline-dark",attrs:{name:"button"},on:{click:function(t){return a.guardarasignacion()}}},[a._v("Crear")])])]),a._v(" "),t("hr"),a._v(" "),a._m(0),a._v(" "),a._l(a.listado_data,(function(e,s){return t("li",{staticClass:"list-group-item"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v(a._s(e.actividad))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.riesgo))])]),a._v(" "),t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v(a._s(e.medidas))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.supervisor))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[e.temp?t("a",{on:{click:function(t){return a.deleteu(s)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})]):t("a",{on:{click:function(t){return a.BorrarRiesgo(e.id)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})])])])])})),a._v(" "),t("hr"),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Responsable del Área (Operaciones)")]),a._v(" "),t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.vs_options,label:"name","data-vv-name":"operaciones"},model:{value:a.operaciones,callback:function(t){a.operaciones=t},expression:"operaciones"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("operaciones")))])],1),a._v(" "),t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Responsable del Área (SSMA)")]),a._v(" "),t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.vs_options,label:"name","data-vv-name":"shso"},model:{value:a.shso,callback:function(t){a.shso=t},expression:"shso"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("shso")))])],1)])],2),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.Cerrar()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoAccion,expression:"tipoAccion == 1"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(1)}}},[a._v("\n                                Guardar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:2==a.tipoAccion,expression:"tipoAccion == 2"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(0)}}},[a._v("\n                                Actualizar\n                            ")])])])])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal_participantes},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v("Participantes")]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.cerrarModalP()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("vue-element-loading",{attrs:{active:a.isLoading}}),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Empleado")]),a._v(" "),t("v-select",{attrs:{options:a.vs_options,label:"name","data-vv-as":"shso"},model:{value:a.empleado,callback:function(t){a.empleado=t},expression:"empleado"}})],1),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v(" ")]),t("br"),a._v(" "),t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.agregarEmpleado()}}},[a._v("Agregar")])])]),a._v(" "),t("v-client-table",{attrs:{data:a.tableDataParticipantes,options:a.optionsParticipantes,columns:a.columnsParticipantes},scopedSlots:a._u([{key:"empleado_id",fn:function(e){return[t("a",{on:{click:function(t){return a.eliminarParticipante(e.row.empleado_id)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})])]}}])})],1),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.cerrarModalP()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")])])])])])])])])}),[function(){var a=this,t=a._self._c;return t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[t("b",[a._v("Actividad")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Riesgos")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-3"},[t("label",[t("b",[a._v("Medidas")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Supervisor")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("ACCIONES")])])])])}],!1,null,null,null).exports},52810:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>p});e(89305);var s=e(18785);function o(a){return o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a},o(a)}function i(){i=function(){return t};var a,t={},e=Object.prototype,s=e.hasOwnProperty,r="function"==typeof Symbol?Symbol:{},n=r.iterator||"@@iterator",l=r.asyncIterator||"@@asyncIterator",c=r.toStringTag||"@@toStringTag";function d(a,t,e,s){return Object.defineProperty(a,t,{value:e,enumerable:!s,configurable:!s,writable:!s})}try{d({},"")}catch(a){d=function(a,t,e){return a[t]=e}}function u(t,e,s,o){var i=e&&e.prototype instanceof m?e:m,r=Object.create(i.prototype);return d(r,"_invoke",function(t,e,s){var o=1;return function(i,r){if(3===o)throw Error("Generator is already running");if(4===o){if("throw"===i)throw r;return{value:a,done:!0}}for(s.method=i,s.arg=r;;){var n=s.delegate;if(n){var l=x(n,s);if(l){if(l===p)continue;return l}}if("next"===s.method)s.sent=s._sent=s.arg;else if("throw"===s.method){if(1===o)throw o=4,s.arg;s.dispatchException(s.arg)}else"return"===s.method&&s.abrupt("return",s.arg);o=3;var c=v(t,e,s);if("normal"===c.type){if(o=s.done?4:2,c.arg===p)continue;return{value:c.arg,done:s.done}}"throw"===c.type&&(o=4,s.method="throw",s.arg=c.arg)}}}(t,s,new P(o||[])),!0),r}function v(a,t,e){try{return{type:"normal",arg:a.call(t,e)}}catch(a){return{type:"throw",arg:a}}}t.wrap=u;var p={};function m(){}function _(){}function f(){}var b={};d(b,n,(function(){return this}));var h=Object.getPrototypeOf,g=h&&h(h(N([])));g&&g!==e&&s.call(g,n)&&(b=g);var C=f.prototype=m.prototype=Object.create(b);function y(a){["next","throw","return"].forEach((function(t){d(a,t,(function(a){return this._invoke(t,a)}))}))}function w(a,t){function e(i,r,n,l){var c=v(a[i],a,r);if("throw"!==c.type){var d=c.arg,u=d.value;return u&&"object"==o(u)&&s.call(u,"__await")?t.resolve(u.__await).then((function(a){e("next",a,n,l)}),(function(a){e("throw",a,n,l)})):t.resolve(u).then((function(a){d.value=a,n(d)}),(function(a){return e("throw",a,n,l)}))}l(c.arg)}var i;d(this,"_invoke",(function(a,s){function o(){return new t((function(t,o){e(a,s,t,o)}))}return i=i?i.then(o,o):o()}),!0)}function x(t,e){var s=e.method,o=t.i[s];if(o===a)return e.delegate=null,"throw"===s&&t.i.return&&(e.method="return",e.arg=a,x(t,e),"throw"===e.method)||"return"!==s&&(e.method="throw",e.arg=new TypeError("The iterator does not provide a '"+s+"' method")),p;var i=v(o,t.i,e.arg);if("throw"===i.type)return e.method="throw",e.arg=i.arg,e.delegate=null,p;var r=i.arg;return r?r.done?(e[t.r]=r.value,e.next=t.n,"return"!==e.method&&(e.method="next",e.arg=a),e.delegate=null,p):r:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,p)}function k(a){this.tryEntries.push(a)}function A(t){var e=t[4]||{};e.type="normal",e.arg=a,t[4]=e}function P(a){this.tryEntries=[[-1]],a.forEach(k,this),this.reset(!0)}function N(t){if(null!=t){var e=t[n];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var i=-1,r=function e(){for(;++i<t.length;)if(s.call(t,i))return e.value=t[i],e.done=!1,e;return e.value=a,e.done=!0,e};return r.next=r}}throw new TypeError(o(t)+" is not iterable")}return _.prototype=f,d(C,"constructor",f),d(f,"constructor",_),_.displayName=d(f,c,"GeneratorFunction"),t.isGeneratorFunction=function(a){var t="function"==typeof a&&a.constructor;return!!t&&(t===_||"GeneratorFunction"===(t.displayName||t.name))},t.mark=function(a){return Object.setPrototypeOf?Object.setPrototypeOf(a,f):(a.__proto__=f,d(a,c,"GeneratorFunction")),a.prototype=Object.create(C),a},t.awrap=function(a){return{__await:a}},y(w.prototype),d(w.prototype,l,(function(){return this})),t.AsyncIterator=w,t.async=function(a,e,s,o,i){void 0===i&&(i=Promise);var r=new w(u(a,e,s,o),i);return t.isGeneratorFunction(e)?r:r.next().then((function(a){return a.done?a.value:r.next()}))},y(C),d(C,c,"Generator"),d(C,n,(function(){return this})),d(C,"toString",(function(){return"[object Generator]"})),t.keys=function(a){var t=Object(a),e=[];for(var s in t)e.unshift(s);return function a(){for(;e.length;)if((s=e.pop())in t)return a.value=s,a.done=!1,a;return a.done=!0,a}},t.values=N,P.prototype={constructor:P,reset:function(t){if(this.prev=this.next=0,this.sent=this._sent=a,this.done=!1,this.delegate=null,this.method="next",this.arg=a,this.tryEntries.forEach(A),!t)for(var e in this)"t"===e.charAt(0)&&s.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=a)},stop:function(){this.done=!0;var a=this.tryEntries[0][4];if("throw"===a.type)throw a.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function s(a){r.type="throw",r.arg=t,e.next=a}for(var o=e.tryEntries.length-1;o>=0;--o){var i=this.tryEntries[o],r=i[4],n=this.prev,l=i[1],c=i[2];if(-1===i[0])return s("end"),!1;if(!l&&!c)throw Error("try statement without catch or finally");if(null!=i[0]&&i[0]<=n){if(n<l)return this.method="next",this.arg=a,s(l),!0;if(n<c)return s(c),!1}}},abrupt:function(a,t){for(var e=this.tryEntries.length-1;e>=0;--e){var s=this.tryEntries[e];if(s[0]>-1&&s[0]<=this.prev&&this.prev<s[2]){var o=s;break}}o&&("break"===a||"continue"===a)&&o[0]<=t&&t<=o[2]&&(o=null);var i=o?o[4]:{};return i.type=a,i.arg=t,o?(this.method="next",this.next=o[2],p):this.complete(i)},complete:function(a,t){if("throw"===a.type)throw a.arg;return"break"===a.type||"continue"===a.type?this.next=a.arg:"return"===a.type?(this.rval=this.arg=a.arg,this.method="return",this.next="end"):"normal"===a.type&&t&&(this.next=t),p},finish:function(a){for(var t=this.tryEntries.length-1;t>=0;--t){var e=this.tryEntries[t];if(e[2]===a)return this.complete(e[4],e[3]),A(e),p}},catch:function(a){for(var t=this.tryEntries.length-1;t>=0;--t){var e=this.tryEntries[t];if(e[0]===a){var s=e[4];if("throw"===s.type){var o=s.arg;A(e)}return o}}throw Error("illegal catch attempt")},delegateYield:function(t,e,s){return this.delegate={i:N(t),r:e,n:s},"next"===this.method&&(this.arg=a),p}},t}function r(a,t,e,s,o,i,r){try{var n=a[i](r),l=n.value}catch(a){return void e(a)}n.done?t(l):Promise.resolve(l).then(s,o)}var n=e(96225).call(void 0);const l={data:function(){return{modal_autorizar:!1,tab:1,id_entrega:0,estilo_form:"",isLoading:!1,modal_actualizar:0,data_detalle:"",autorizado:!1,listaEmpleados:[],listadoArticulos:[],empleado_entrega:"",empleado_autoriza:{},motivo:1,empleado_autorizado:"",empleado_supervisor:"",articulo_epp:"",proyectoId:"",fecha:"",observaciones:"Sin observaciones",tableData:[],listaProyectos:[],columns:["empleado_id","empleado","descargar"],options:{headings:{empleado_id:"Acciones"},perPage:10,perPageValues:[],skin:n.skin,sortIcon:n.sortIcon,filterByColumn:!0,texts:n.texts},tableDataDetalle:[],columnsDetalle:["id","descripcion","cantidad","fecha","autoriza","observaciones"],optionsDetalle:{headings:{id:"Acciones"},perPage:10,perPageValues:[],skin:n.skin,sortIcon:n.sortIcon,filterByColumn:!0,texts:n.texts},tableDataArticulos:[],columnsarticulos:["descripcion","cantidad","fecha","empleador","empleadoa"],optionsarticulos:{headings:{id:"Acciones",empleador:"Recibe",empleadoa:"Autoriza"},perPage:10,perPageValues:[],skin:n.skin,sortIcon:n.sortIcon,filterByColumn:!0,texts:n.texts},modal:0,tituloModal:"",tipoAccion:0,listaCatalogo:[],catalogo:"",cantidad:"",listado_data:[],id:0,detalle:!1,partida:{id:0,articulo:"",cantidad:"",fecha:"",autoriza:""}}},methods:{getInicial:function(){var a=this;axios.get("/vale/epp/seguridad/emp").then((function(t){a.tableData=t.data})).catch((function(a){console.error(a)})),axios.get("/vale/epp/seguridad/ver/articulos").then((function(t){a.listadoArticulos=t.data,a.listadoArticulos.push({id:0,descripcion:"TODOS"})})).catch((function(a){console.error(a)}))},getData:function(){var a=this;this.listaEmpleados=[],axios.get("/vertodosempleados").then((function(t){t.data.forEach((function(t){a.listaEmpleados.push({id:t.id,name:t.nombre+" "+t.ap_paterno+" "+t.ap_materno})}))})).catch((function(a){console.log(a)}))},getProyecto:function(){this.PermisosCRUD=s.A.getCRUD(this.$route.path);var a=this;axios.get("/proyecto").then((function(t){t.data.forEach((function(t){a.listaProyectos.push({id:t.proyecto.id,name:t.proyecto.nombre_corto})})),a.listaProyectos.push({id:-1,name:"Sin proyecto"}),a.proyectoId={id:-1,name:"Sin proyecto"}})).catch((function(a){console.log(a)}))},abrirModal:function(a,t){if("vale"===a)switch(t){case"registrar":this.modal=1,this.tituloModal="Registrar",this.tipoAccion=1;break;case"actualizar":this.modal=1,this.tituloModal="Actualizar",this.tipoAccion=2}},cerrarModal:function(){this.modal=0,this.autorizado=!1},Guardar:function(a){var t=this;0!=this.listado_data.length?(this.isLoading=!0,axios({method:a?"POST":"PUT",url:a?"/vale/epp/seguridad/guardar":"/vale/epp/seguridad/actualizar",data:{id:this.id,datos:this.listado_data}}).then((function(e){t.estilo_form={"pointer-events":"auto"},t.autorizado=!1,t.getInicial(),t.listado_data=[],t.empleado_supervisor="",t.empleado_autoriza="",t.modal=0,toastr.success(a?"Guardado Correctamente":"Actualizado Correctamente"),t.isLoading=!1})).catch((function(a){t.isLoading=!1,console.error(a)}))):toastr.warning("Seleccione un artículo")},buscar:function(a,t){if(a.length>2){var e=this;setTimeout((function(){axios.post("get/articulos/descripcion/",{des:a}).then((function(a){e.listaCatalogo=a.data})).catch((function(a){console.error(a)}))}),1e3)}},guardarasignacion:function(){""!==this.fecha?""!==this.cantidad?""!==this.catalogo?""!==this.empleado_entrega?(this.listado_data.push({id:this.catalogo.id,descripcion:this.catalogo.descripcion,cantidad:this.cantidad,fecha:this.fecha,observaciones:this.observaciones,motivo:this.motivo,autoriza:this.empleado_autoriza.id,iniciales:this.GetIniciales(this.empleado_autoriza.name),empleado:this.empleado_entrega.name,empleado_id:this.empleado_entrega.id,proyecto:this.proyectoId.name,proyecto_id:this.proyectoId.id}),this.catalogo="",this.observaciones="Sin observaciones"):toastr.warning("Seleccione un empleado"):toastr.warning("Seleccione un artículo"):toastr.warning("Escriba una cantidad"):toastr.warning("Seleccione una fecha")},deleteu:function(a){this.listado_data.splice(a,1)},atras:function(){this.detalle=!1},detalles:function(a){var t=this;this.detalle=!0,this.data_detalle=a,axios.get("/vale/epp/seguridad/emp/detalle/"+a.empleado_id).then((function(a){t.tableDataDetalle=a.data})).catch((function(a){console.error(a)}))},eliminar:function(a){var t=this;axios.get("/vale/epp/seguridad/emp/eliminar/"+a).then((function(a){t.detalles(t.data_detalle),toastr.success("Correcto")})).catch((function(a){console.error(a)}))},descargar:function(a,t){window.open("/vale/epp/seguridad/emp/descargar/"+a.empleado_id+"&"+t,"_blank")},GetIniciales:function(a){var t=a.split(" "),e="";return t.forEach((function(a,t){e+=a.substring(0,1)})),e},Actualizar:function(a){this.modal_actualizar=1,this.partida.id=a.id,this.partida.articulo={id:a.articulo_id,descripcion:a.descripcion},this.partida.cantidad=a.cantidad,this.partida.fecha=a.fecha,this.partida.autoriza={id:a.autoriza_id,name:a.autoriza}},cerrarModalAct:function(){this.modal_actualizar=0},GuardarAct:function(){var a=this;axios.post("guardar/act/partida/vale/epp",{id:this.partida.id,articulo_id:this.partida.articulo.id,cantidad:this.partida.cantidad,fecha:this.partida.fecha,autoriza_id:this.partida.autoriza.id}).then((function(t){a.detalles(a.data_detalle),a.cerrarModalAct()})).catch((function(a){console.error(a)}))},setId:function(a){this.tab=a},BuscarArtEpp:function(){var a=this;axios.get("buscar/historico/art/vale/epp/"+this.articulo_epp.id).then((function(t){a.tableDataArticulos=t.data})).catch((function(a){console.error(a)}))},Autorizar:function(){this.modal_autorizar=!0},CerrarModalAutorizar:function(){this.modal_autorizar=!1,this.empleado_autorizado=""},onInit:function(a){var t,e=this;return(t=i().mark((function t(){return i().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.prev=0,t.next=3,a;case 3:t.next=8;break;case 5:t.prev=5,t.t0=t.catch(0),"NotAllowedError"===t.t0.name?e.error="ERROR: Permiso a la cámara denegado":"NotFoundError"===t.t0.name?e.error="ERROR: Ninugna cámara detectada":"NotSupportedError"===t.t0.name?e.error="ERROR: secure context required (HTTPS, localhost)":"NotReadableError"===t.t0.name?e.error="ERROR: La cámara se encuentra en uso":"OverconstrainedError"===t.t0.name?e.error="ERROR: installed cameras are not suitable":"StreamApiNotSupportedError"===t.t0.name&&(e.error="ERROR: Navegador no soportado");case 8:case"end":return t.stop()}}),t,null,[[0,5]])})),function(){var a=this,e=arguments;return new Promise((function(s,o){var i=t.apply(a,e);function n(a){r(i,s,o,n,l,"next",a)}function l(a){r(i,s,o,n,l,"throw",a)}n(void 0)}))})()},onDecodeAutorizar:function(a){var t=this,e=a.split("|");if(2==e.length){var s=e[0],o=e[1];console.error("id",s),console.error("nombre",o),console.error("empleado",this.empleado_entrega),s==this.empleado_entrega.id?(this.autorizado=!0,toastr.success("Autorizado"),this.estilo_form={"pointer-events":"none"}):toastr.error("No Autorizado"),setTimeout((function(){t.CerrarModalAutorizar()}),2e3)}else toastr.warning("Nope")},ExportarArtEpp:function(){window.open("exportar/historico/art/vale/epp/"+this.articulo_epp.id,"_blank")},reporteEpp:function(){window.open("seguridad/entregaepp/reporteconsumo")}},mounted:function(){this.getData(),this.getInicial(),this.getProyecto(),this.tab=1}};var c=e(85072),d=e.n(c),u=e(19777),v={insert:"head",singleton:!1};d()(u.A,v);u.A.locals;const p=(0,e(14486).A)(l,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-body"},[t("ul",{ref:"tabs",staticClass:"nav nav-tabs",attrs:{role:"tablist"}},[t("li",{staticClass:"nav-item"},[t("a",{staticClass:"nav-link",attrs:{"data-toggle":"tab",href:"#menu1",role:"tab"},on:{click:function(t){return a.setId(1)}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Vales EPP")])]),a._v(" "),t("li",{staticClass:"nav-item"},[t("a",{staticClass:"nav-link",attrs:{"data-toggle":"tab",href:"#menu2",role:"tab"},on:{click:function(t){return a.setId(2)}}},[t("i",{staticClass:"fas fa-book"}),a._v(" Consulta")])])])])]),a._v(" "),t("div",{staticClass:"tab-content"},[t("div",{directives:[{name:"show",rawName:"v-show",value:1==a.tab,expression:"tab == 1"}],staticClass:"tab-pane fade",attrs:{id:"menu1"}},[t("div",{directives:[{name:"show",rawName:"v-show",value:0==a.detalle,expression:"detalle == false"}],staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Vale entrega EPP\n                        "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.abrirModal("vale","registrar")}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                        ")]),a._v(" "),t("button",{staticClass:"mr-1 btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:a.reporteEpp}},[t("i",{staticClass:"fas fa-download mr-1"}),a._v("Reporte\n                        ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{attrs:{data:a.tableData,options:a.options,columns:a.columns},scopedSlots:a._u([{key:"empleado_id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group","aria-label":"Button group with nested dropdown"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btnGroupDrop1",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"})]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("button",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.detalles(e.row)}}},[t("i",{staticClass:"fas fa-eye"}),a._v(" Detalles\n                                            ")])])])])]}},{key:"descargar",fn:function(e){return[t("button",{staticClass:"btn btn-dark",attrs:{type:"button"},on:{click:function(t){return a.descargar(e.row,2)}}},[t("i",{staticClass:"fas fa-file-pdf mr-1"}),a._v(" Descargar\n                                ")])]}}])})],1)]),a._v(" "),t("div",{directives:[{name:"show",rawName:"v-show",value:1==a.detalle,expression:"detalle == true"}],staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Detalle de "+a._s(""==a.data_detalle?"":a.data_detalle.empleado)+"\n                        "),t("button",{staticClass:"btn btn-secondary float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.atras()}}},[t("i",{staticClass:"fa fa-arrow-left"}),a._v(" Atras\n                        ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{attrs:{data:a.tableDataDetalle,options:a.optionsDetalle,columns:a.columnsDetalle},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group","aria-label":"Button group with nested dropdown"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btnGroupDrop1",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"})]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[e.row.autorizado?a._e():t("button",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.eliminar(e.row.id)}}},[t("i",{staticClass:"fas fa-trash"}),a._v(" Eliminar\n                                            ")]),a._v(" "),e.row.autorizado?a._e():t("button",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.Actualizar(e.row)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar\n                                            ")])])])])]}},{key:"autorizado",fn:function(e){return[e.row.autorizado?t("button",{staticClass:"btn btn-outline-success"},[a._v("Autorizado")]):t("button",{staticClass:"btn btn-outline-danger"},[a._v("No autorizado")])]}}])})],1)])]),a._v(" "),t("div",{directives:[{name:"show",rawName:"v-show",value:2==a.tab,expression:"tab == 2"}],staticClass:"tab-pane fade",attrs:{id:"menu2"}},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-10 mb-3"},[t("v-select",{attrs:{options:a.listadoArticulos,label:"descripcion"},model:{value:a.articulo_epp,callback:function(t){a.articulo_epp=t},expression:"articulo_epp"}})],1),a._v(" "),t("div",{staticClass:"col-md-1 mb-3"},[t("button",{staticClass:"btn btn-outline-dark",on:{click:function(t){return a.BuscarArtEpp()}}},[a._v("Buscar")])]),a._v(" "),t("div",{staticClass:"col-md-1 mb-3"},[t("button",{staticClass:"btn btn-outline-success",on:{click:function(t){return a.ExportarArtEpp()}}},[a._v("Exportar")])])]),a._v(" "),t("v-client-table",{attrs:{data:a.tableDataArticulos,options:a.optionsarticulos,columns:a.columnsarticulos}})],1)])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-xlg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v(a._s(a.tituloModal))]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.cerrarModal()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("x")])])]),a._v(" "),t("div",{staticClass:"modal-body",style:a.estilo_form},[t("vue-element-loading",{attrs:{active:a.isLoading}}),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Nombre empleado")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.empleado_entrega,callback:function(t){a.empleado_entrega=t},expression:"empleado_entrega"}})],1),a._v(" "),t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Proyecto")]),a._v(" "),t("v-select",{attrs:{options:a.listaProyectos,label:"name"},model:{value:a.proyectoId,callback:function(t){a.proyectoId=t},expression:"proyectoId"}})],1)]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-12 mb-3"},[t("label",[a._v("Seleccione")]),a._v(" "),t("v-select",{attrs:{options:a.listaCatalogo,label:"descripcion","data-vv-name":"catalogo"},on:{search:a.buscar},model:{value:a.catalogo,callback:function(t){a.catalogo=t},expression:"catalogo"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("catalogo")))])],1)]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Cantidad")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.cantidad,expression:"cantidad"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.cantidad},on:{input:function(t){t.target.composing||(a.cantidad=t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.fecha,expression:"fecha"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.fecha},on:{input:function(t){t.target.composing||(a.fecha=t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-7 mb-3"},[t("label",[a._v("Autorizó")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.empleado_autoriza,callback:function(t){a.empleado_autoriza=t},expression:"empleado_autoriza"}})],1),a._v(" "),t("div",{staticClass:"col-md-1 mb-3"},[t("label",[a._v(" ")]),t("br"),a._v(" "),t("button",{staticClass:"btn btn-outline-dark",attrs:{name:"button"},on:{click:function(t){return a.guardarasignacion()}}},[a._v("Crear")])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("label",{staticClass:"col-form-label",attrs:{for:""}},[a._v("Observaciones")]),a._v(" "),t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.observaciones,expression:"observaciones"}],staticClass:"form-control",attrs:{rows:"3",type:"text"},domProps:{value:a.observaciones},on:{input:function(t){t.target.composing||(a.observaciones=t.target.value)}}})]),a._v(" "),t("div",{staticClass:"form-row mt-4"},[t("label",{staticClass:"col-md-1 col-form-label",attrs:{for:""}},[a._v("Motivo")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.motivo,expression:"motivo"}],staticClass:"form-control col-md-3",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.motivo=t.target.multiple?e:e[0]}}},[t("option",{attrs:{value:"1"}},[a._v("Cambio por desgaste")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("Cambio por extravío")]),a._v(" "),t("option",{attrs:{value:"3"}},[a._v("Personal de nuevo ingreso")])])]),a._v(" "),t("hr"),a._v(" "),a._m(0),a._v(" "),a._l(a.listado_data,(function(e,s){return t("li",{key:s,staticClass:"list-group-item"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v(a._s(e.descripcion))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.empleado))])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[a._v(a._s(e.proyecto))])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[a._v(a._s(e.cantidad))])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[a._v(a._s(e.fecha))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.observaciones))])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[a._v(a._s(e.iniciales))])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("a",{on:{click:function(t){return a.deleteu(s)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})])])])])})),a._v(" "),t("br"),a._v(" "),t("br"),a._v(" "),t("div",{staticClass:"text-center"},[t("p",{directives:[{name:"show",rawName:"v-show",value:!a.autorizado,expression:"!autorizado"}],staticClass:"h2 text-danger"},[a._v("No autorizado")]),a._v(" "),t("p",{directives:[{name:"show",rawName:"v-show",value:a.autorizado,expression:"autorizado"}],staticClass:"h2 text-success"},[a._v("Autorizado")])]),a._v(" "),t("br")],2),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.cerrarModal()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:!a.autorizado,expression:"!autorizado"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Autorizar()}}},[t("i",{staticClass:"fas fa-lock mr-1"}),a._v("Autorizar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:a.autorizado&&1==a.tipoAccion,expression:"autorizado && tipoAccion == 1"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(1)}}},[t("i",{staticClass:"fas fa-save mr-1"}),a._v("Guardar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:a.autorizado&&2==a.tipoAccion,expression:"autorizado && tipoAccion == 2"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(0)}}},[t("i",{staticClass:"fas fa-save mr-1"}),a._v("Actualizar\n                            ")])])])])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal_actualizar},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v("Actualizar")]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.cerrarModalAct()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-12 mb-3"},[t("label",[a._v("Seleccione")]),a._v(" "),t("v-select",{attrs:{options:a.listaCatalogo,label:"descripcion","data-vv-name":"catalogo"},on:{search:a.buscar},model:{value:a.partida.articulo,callback:function(t){a.$set(a.partida,"articulo",t)},expression:"partida.articulo"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("catalogo")))])],1)]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Cantidad")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.partida.cantidad,expression:"partida.cantidad"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.partida.cantidad},on:{input:function(t){t.target.composing||a.$set(a.partida,"cantidad",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.partida.fecha,expression:"partida.fecha"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.partida.fecha},on:{input:function(t){t.target.composing||a.$set(a.partida,"fecha",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Autorizó")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.partida.autoriza,callback:function(t){a.$set(a.partida,"autoriza",t)},expression:"partida.autoriza"}})],1)])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.cerrarModalAct()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")]),a._v(" "),t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarAct()}}},[a._v("\n                                Actualizar\n                            ")])])])])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal_autorizar},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v("Autorizar Entrega de EPP")]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalAutorizar()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("x")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-8"},[a.modal_autorizar?t("qrcode-stream",{on:{decode:a.onDecodeAutorizar,init:a.onInit}}):a._e()],1),a._v(" "),t("div",{staticClass:"col-md-12"},[t("br"),a._v(" "),t("h2",{staticStyle:{"font-family":"'Share Tech Mono', monospace","text-align":"center"}},[a._v("\n                                    "+a._s(a.empleado_autorizado)+"\n                                ")])])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalAutorizar()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarAutorizacion()}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e()])])])])])])}),[function(){var a=this,t=a._self._c;return t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[t("b",[a._v("Articulo")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Empleado")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[t("b",[a._v("Proyecto")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[t("b",[a._v("Cantidad")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[t("b",[a._v("Fecha")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Observaciones")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[t("b",[a._v("Aut")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-1"},[t("label",[t("b",[a._v(".")])])])])}],!1,null,null,null).exports},57540:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>i});e(18785);var s=e(96225).call(void 0);const o={data:function(){return{tituloModal:"",modal:0,modal_participantes:0,tipoAccion:0,isLoading:!1,id:0,ubicacion:"",permiso:"",descripcion:"",operaciones:[],shso:"",empleado:"",fecha:"",listaCatalogo:[],catalogo:"",isPartcipantesLoading:!1,analisis:{},list_empleados:[],listado_data:[],listado_id:[],listado_supervisor:[],vs_options:[],supervisor:"",isLoadingPartidas:!1,tableData:[],columns:["id","fecha","no_permiso","ubicacion","descripcion","descargar"],options:{headings:{id:"Acciones"},perPage:10,perPageValues:[],skin:s.skin,sortIcon:s.sortIcon,filterByColumn:!0,texts:s.texts},recomendacion:{},isLoadingRiesgos:!1,listRecomendaciones:[],tableDataParticipantes:[],columnsParticipantes:["empleado_id","empleado"],optionsParticipantes:{headings:{empleado_id:"ACCIONES"},perPage:10,perPageValues:[],skin:s.skin,sortIcon:s.sortIcon,filterByColumn:!0,texts:s.texts}}},methods:{getDataInicial:function(){var a=this;axios.get("/seguridad/nuevoanalisis/obtener").then((function(t){t.data.status?a.tableData=t.data.analisis:toastr.error(t.data.mensaje)})).catch((function(a){console.error(a)}))},ObtenerSecuencias:function(){var a=this;this.listaCatalogo=[],axios.get("/seguridad/nuevoanalisis/obtenersecuencias").then((function(t){t.data.status?a.listaCatalogo=t.data.secuencias:toastr.error(t.data.mensaje)})).catch((function(a){console.error(a)})),axios.get("vertodosempleados").then((function(t){t.data.forEach((function(t,e){a.vs_options.push({id:t.id,name:t.nombre+" "+t.ap_paterno+" "+t.ap_materno})}))})).catch((function(a){console.error(a)}))},ObtenerRiesgos:function(){var a=this;null!=this.analisis&&null!=this.analisis.id&&(this.isLoadingRiesgos=!0,axios.get("/seguridad/nuevoanalisis/obtenerrecomedaciones/"+this.analisis.id).then((function(t){t.data.status?a.listRecomendaciones=t.data.recomendaciones:toastr.error(t.data.mensaje),a.isLoadingRiesgos=!1})))},abrirModal:function(a){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[];this.ObtenerSecuencias(),a?(this.modal=1,this.tituloModal="Registrar análisis",this.tipoAccion=1,this.id=null,this.listado_data=[],this.listado_id=[],this.listado_supervisor=[]):(this.id=t.id,this.ObtenerPartidas(),this.operaciones={id:t.id_empleado_operaciones,name:t.operaciones_nombre},this.shso={id:t.id_empleado_sho,name:t.seguridad_nombre},this.ubicacion=t.ubicacion,this.permiso=t.no_permiso,this.descripcion=t.descripcion,this.fecha=t.fecha,this.modal=1,this.tituloModal="Actualizar análisis",this.tipoAccion=2)},ObtenerPartidas:function(){var a=this;this.isLoadingPartidas=!0,axios.get("/seguridad/nuevoanalisis/obtenerpartidas/"+this.id).then((function(t){if(t.data.status){var e=[];t.data.partidas.forEach((function(a){e.push({id:a.id,analisis:{id:a.secuencia_id,nombre:a.secuencia},riesgo_recomen:{riesgo_id:a.riesgo_id,riesgo:a.riesgo,recomendacion:a.recomendacion,recomendacion_id:a.recomendacion_id},supervisor:{id:a.supervisor_id,name:a.supervisor_nombre}})})),a.listado_data=e}else toastr.error(t.data.mensaje);a.isLoadingPartidas=!1}))},Cerrar:function(){this.modal=!1,this.listado_data=[],this.listado_id=[],this.listado_supervisor=[]},guardarasignacion:function(){if(null!=this.analisis&&null!=this.recomendacion&&null!=this.supervisor){this.recomendacion;this.listado_data.push({analisis:this.analisis,riesgo_recomen:this.recomendacion,supervisor:this.supervisor,temp:!0}),this.analisis={},this.recomendacion={},this.supervisor={}}},BorrarTemp:function(a){this.listado_data.splice(a,1),this.listado_id.splice(a,1),this.listado_supervisor.splice(a,1)},Borrar:function(a){var t=this;axios.post("seguridad/nuevoanalisis/eliminarpartida/",{id:a}).then((function(a){a.data.status&&(toastr.success("Eliminado correctamente"),t.ObtenerPartidas())}))},Guardar:function(a){var t=this;this.$validator.validate().then((function(e){var s=new FormData;a||s.append("id",t.id),s.append("ubicacion",t.ubicacion),s.append("no_permiso",t.permiso),s.append("descripcion",t.descripcion),s.append("id_empleado_operaciones",t.operaciones.id),s.append("id_empleado_sho",t.shso.id),s.append("fecha",t.fecha);var o=t.listado_data.filter((function(a){return a.temp})),i="";o.forEach((function(a){i+=a.analisis.id+"|"+a.riesgo_recomen.riesgo_id+"|"+a.riesgo_recomen.recomendacion_id+"|"+a.supervisor.id+"&"})),s.append("ids",i),axios.post("seguridad/nuevoanalisis/guardar",s).then((function(a){a.data.status?(t.getDataInicial(),t.Vaciar(),toastr.success("Registrado correctamente")):toastr.error(a.data.mensaje)})).catch((function(a){console.error(a)}))}))},Vaciar:function(){this.id=null,this.ubicacion="",this.permiso="",this.descripcion="",this.operaciones="",this.shso="",this.listado_data=[],this.listado_id=[],this.modal=0,this.fecha=""},VaciarDos:function(){this.id=0,this.ubicacion="",this.permiso="",this.descripcion="",this.operaciones="",this.shso="",this.fecha="",this.listado_data=[],this.listado_id=[],this.listaCatalogo=[]},participantes:function(a){this.ObtenerEmpleados(),this.analisis_id=a.id,this.modal_participantes=!0,this.getParticipantes(a.id)},ObtenerEmpleados:function(){var a=this;axios.get("vertodosempleados").then((function(t){a.list_empleados=[],t.status?t.data.forEach((function(t){a.list_empleados.push({id:t.id,name:t.nombre+" "+t.ap_paterno+" "+t.ap_materno})})):toastr.error("Error al obtener los empleados")}))},getParticipantes:function(a){var t=this;axios.get("seguridad/nuevoanalisis/participantes/obtener/"+a).then((function(a){a.data.status?t.tableDataParticipantes=a.data.participantes:toastr.error(a.data.mensaje)})).catch((function(a){console.error(a)}))},cerrarModalP:function(){this.tableDataParticipantes=[],this.modal_participantes=!1},agregarEmpleado:function(){var a=this;null!=this.empleado&&null!=this.empleado.id&&(this.isPartcipantesLoading=!0,axios.post("seguridad/nuevoanalisis/participantes/guardar",{id:this.analisis_id,empleado_id:this.empleado.id,analisis_id:this.analisis_id}).then((function(t){a.isPartcipantesLoading=!1,t.data.status?(toastr.success("Registrado correctamente"),a.getParticipantes(a.analisis_id)):toastr.error(t.data.mensaje),a.getParticipantes(a.analisis_id)})).catch((function(a){console.error(a)})))},eliminarParticipante:function(a){var t=this;this.isPartcipantesLoading=!0;var e=new FormData;e.append("empleado_id",a),e.append("analisis_id",this.analisis_id),axios.post("seguridad/nuevoanalisis/participantes/eliminar",e).then((function(a){t.isPartcipantesLoading=!1,a.data.status?t.getParticipantes(t.analisis_id):toastr.error(a.data.mensaje)})).catch((function(a){console.error(a)}))},descargar:function(a){window.open("seguridad/nuevoanalisis/descargar/"+a,"_blank")},eliminar:function(a){var t=this;Swal.fire({title:"¿Desea eliminar el análisis?",text:"Esta opción no se podrá desahacer",type:"warning",showCancelButton:!0,confirmButtonColor:"#3085d6",cancelButtonColor:"#d33",confirmButtonText:"Sí",cancelButtonText:"No"}).then((function(e){e.value&&axios.post("seguridad/nuevoanalisis/eliminar",{id:a}).then((function(a){a.data.status?(toastr.success("Eliminado correctamente"),t.getDataInicial()):toastr.error(a.data.mensaje)})).catch((function(a){console.error(a)}))}))}},mounted:function(){this.getDataInicial()}};const i=(0,e(14486).A)(o,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" ANÁLISIS DE SEGURIDAD EN EL TRABAJO (AST)\n\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.abrirModal(!0)}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{attrs:{data:a.tableData,columns:a.columns,options:a.options},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group","aria-label":"Button group with nested dropdown"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btnGroupDrop1",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"})]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return t.preventDefault(),a.abrirModal(!1,e.row)}}},[t("i",{staticClass:"fas fa-pencil-alt"}),a._v(" Actualizar analisis\n                                    ")]),a._v(" "),t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.participantes(e.row)}}},[t("i",{staticClass:"fas fa-user-friends"}),a._v(" Agregar Participantes\n                                    ")]),a._v(" "),t("a",{staticClass:"dropdown-item",attrs:{type:"button",href:"#"},on:{click:function(t){return a.eliminar(e.row.id)}}},[t("i",{staticClass:"fas fa-trash"}),a._v(" Eliminar\n                                    ")])])])])]}},{key:"descargar",fn:function(e){return[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.descargar(e.row.id)}}},[t("i",{staticClass:"fas fa-download"}),a._v(" "),t("i",{staticClass:"fas fa-file-pdf"})])]}}])})],1)]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v(a._s(a.tituloModal))]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.Cerrar()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("vue-element-loading",{attrs:{active:a.isLoading}}),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("Ubicación de trabajo")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.ubicacion,expression:"ubicacion"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"ubicacion"},domProps:{value:a.ubicacion},on:{input:function(t){t.target.composing||(a.ubicacion=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("ubicacion")))])]),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("Número de permiso")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.permiso,expression:"permiso"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"permiso"},domProps:{value:a.permiso},on:{input:function(t){t.target.composing||(a.permiso=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("permiso")))])]),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.fecha,expression:"fecha"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"fecha"},domProps:{value:a.fecha},on:{input:function(t){t.target.composing||(a.fecha=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("fecha")))])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-12 mb-3"},[t("label",[a._v("Descripción del trabajo")]),a._v(" "),t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.descripcion,expression:"descripcion"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{"data-vv-name":"descripcion",rows:"3",cols:"40"},domProps:{value:a.descripcion},on:{input:function(t){t.target.composing||(a.descripcion=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("descripcion")))])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-10 mb-3"},[t("label",[a._v("Análisis")]),a._v(" "),t("v-select",{attrs:{options:a.listaCatalogo,label:"nombre","data-vv-name":"Análisis"},on:{input:a.ObtenerRiesgos},model:{value:a.analisis,callback:function(t){a.analisis=t},expression:"analisis"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Análisis")))])],1)]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-10 mb-3"},[t("vue-element-loading",{attrs:{active:a.isLoadingRiesgos}}),a._v(" "),t("label",[a._v("Riesgo - Recomendación")]),a._v(" "),t("v-select",{attrs:{options:a.listRecomendaciones,label:"riesgo_recomen","data-vv-name":"Recomendación"},model:{value:a.recomendacion,callback:function(t){a.recomendacion=t},expression:"recomendacion"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Recomendación")))])],1)]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-7 mb-3"},[t("label",[a._v("Supervisor")]),a._v(" "),t("v-select",{attrs:{options:a.vs_options,label:"name","data-vv-as":"operaciones"},model:{value:a.supervisor,callback:function(t){a.supervisor=t},expression:"supervisor"}})],1),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" ")]),t("br"),a._v(" "),t("button",{staticClass:"btn btn-outline-dark",attrs:{name:"button"},on:{click:function(t){return a.guardarasignacion()}}},[a._v("Crear")])])]),a._v(" "),t("hr"),a._v(" "),a._m(0),a._v(" "),t("vue-element-loading",{attrs:{active:a.isLoadingPartidas}}),a._v(" "),t("div",a._l(a.listado_data,(function(e,s){return t("li",{staticClass:"list-group-item"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v(a._s(e.analisis.nombre))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.riesgo_recomen.riesgo))])]),a._v(" "),t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v(a._s(e.riesgo_recomen.recomendacion))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.supervisor.name))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[e.temp?t("a",{on:{click:function(t){return a.BorrarTemp(s)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})]):t("a",{on:{click:function(t){return a.Borrar(e.id)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})])])])])})),0),a._v(" "),t("hr"),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Responsable del Área (Operaciones)")]),a._v(" "),t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.vs_options,label:"name","data-vv-name":"operaciones"},model:{value:a.operaciones,callback:function(t){a.operaciones=t},expression:"operaciones"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("operaciones")))])],1),a._v(" "),t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Responsable del Área (SSMA)")]),a._v(" "),t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.vs_options,label:"name","data-vv-name":"shso"},model:{value:a.shso,callback:function(t){a.shso=t},expression:"shso"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("shso")))])],1)])],1),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.Cerrar()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoAccion,expression:"tipoAccion == 1"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(1)}}},[a._v("\n                                Guardar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:2==a.tipoAccion,expression:"tipoAccion == 2"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(0)}}},[a._v("\n                                Actualizar\n                            ")])])])])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal_participantes},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v("Participantes")]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.cerrarModalP()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("vue-element-loading",{attrs:{active:a.isLoading}}),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Empleado")]),a._v(" "),t("v-select",{attrs:{options:a.list_empleados,label:"name","data-vv-as":"shso"},model:{value:a.empleado,callback:function(t){a.empleado=t},expression:"empleado"}})],1),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v(" ")]),t("br"),a._v(" "),t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.agregarEmpleado()}}},[t("i",{staticClass:"fas fa-plus"})])])]),a._v(" "),t("vue-element-loading",{attrs:{active:a.isPartcipantesLoading}}),a._v(" "),t("div",[t("v-client-table",{attrs:{data:a.tableDataParticipantes,options:a.optionsParticipantes,columns:a.columnsParticipantes},scopedSlots:a._u([{key:"empleado_id",fn:function(e){return[t("a",{on:{click:function(t){return a.eliminarParticipante(e.row.empleado_id)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})])]}}])})],1)],1),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.cerrarModalP()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")])])])])])])])])}),[function(){var a=this,t=a._self._c;return t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[t("b",[a._v("Actividad")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Riesgos")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-3"},[t("label",[t("b",[a._v("Medidas")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Supervisor")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("ACCIONES")])])])])}],!1,null,null,null).exports},63078:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>o});const s={data:function(){return{date:"",reporte_estado:"",tipo:"",nave:""}},methods:{generate:function(){var a=this;this.$validator.validate().then((function(t){t?(1==a.tipo?window.open("lista/asistencia/seguridad/"+a.date+"&"+a.reporte_estado+"&"+a.tipo,"_blank"):2==a.tipo&&window.open("lista/asistencia/seguridad/"+a.date+"&"+a.nave+"&"+a.tipo,"_blank"),a.reporte_estado="",a.tipo=""):toastr.success("Complete todos los campos")}))}},mounted:function(){}};const o=(0,e(14486).A)(s,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"}),a._v(" "),t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.date,expression:"date"}],ref:"date_two",staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.date},on:{input:function(t){t.target.composing||(a.date=t.target.value)}}})]),a._v(" "),t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v("Tipo")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.tipo,expression:"tipo"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.tipo=t.target.multiple?e:e[0]}}},[t("option",{attrs:{value:"1"}},[a._v("Asistencia")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("Ubicacion")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[1==a.tipo?[t("label",[a._v("Generar Reporte")]),a._v(" "),t("br"),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.reporte_estado,expression:"reporte_estado"}],staticClass:"form-control",on:{change:[function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.reporte_estado=t.target.multiple?e:e[0]},a.generate]}},[t("option",{attrs:{value:"1"}},[a._v("Conserflow Semanal")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("Conserflow Quincenal")]),a._v(" "),t("option",{attrs:{value:"3"}},[a._v("CSCT Semanal")]),a._v(" "),t("option",{attrs:{value:"4"}},[a._v("CSCT Quincenal")])])]:a._e(),a._v(" "),2==a.tipo?[t("label",[a._v("Generar Reporte")]),a._v(" "),t("br"),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.nave,expression:"nave"}],staticClass:"form-control",on:{change:[function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.nave=t.target.multiple?e:e[0]},a.generate]}},[t("option",{attrs:{value:"Nave 1"}},[a._v("Nave 1")]),a._v(" "),t("option",{attrs:{value:"Nave 2"}},[a._v("Nave 2")]),a._v(" "),t("option",{attrs:{value:"Nave 4"}},[a._v("Nave 4")])])]:a._e()],2)])])])])])}),[],!1,null,null,null).exports},66008:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>r});var s=e(18785),o=e(96225).call(void 0);const i={data:function(){return{isPermisos_loading:!1,list_proyectos:[],list_folios:[],proyecto:{},folio_asociado:{},tableData:[],columns:["uno.id","uno.uno","uno.dos","uno.tres","descarga"],options:{headings:{"uno.id":"ACCIONES","uno.uno":"Folio","uno.dos":"Asociado","uno.tres":"Fecha Elaboración"},perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,filterByColumn:!0,texts:o.texts},modal:0,tituloModal:"",tipoAccion:0,id:0,uno:{uno:"",dos:"",tres:"",cuatro:"",cinco:"",seis:"",tipo:""},dos:{uno:"",dos:"",tres:"",cuatro:"",cinco:"",seis:""},tres:{uno:"",dos:"",tres:"",cuatro:""},cuatro:{uno:"",dos:"",tres:"",cuatro:"",cinco:"",seis:"",siete:"",ocho:"",nueve:"",diez:"",once:"",doce:"",trece:""},cinco:{uno:!1,dos:!1,tres:!1,cuatro:!1,cinco:!1,seis:""},seis:{uno:!1,dos:!1,tres:!1,cuatro:!1,cinco:!1,seis:!1,siete:!1,ocho:!1},siete:{uno:""},ocho:{uno:"",dos:"",tres:"",cuatro:"",cinco:"",seis:""},temporal:{uno:"",dos:"",tres:"",cuatro:"",cinco:"",seis:"",siete:"",ocho:"",nueve:"",diez:""},nueve:{uno:"",dos:"",tres:"",cuatro:"",cinco:""},diez:{uno:"",dos:"",tres:"",cuatro:"",cinco:"",seis:""},listaEmpleados:[],once:[]}},methods:{getLista:function(){var a=this;this.isPermisos_loading=!0,axios.get("get/permisos/seguridad").then((function(t){a.isPermisos_loading=!1,a.tableData=t.data})).catch((function(a){console.error(a)}))},getData:function(){var a=this;this.listaEmpleados=[],axios.get("/vertodosempleados").then((function(t){t.data.forEach((function(t){a.listaEmpleados.push({id:t.id,name:t.nombre+" "+t.ap_paterno+" "+t.ap_materno})}))})).catch((function(a){console.log(a)}))},ObtenerProyectos:function(){var a=this;axios.get("seguridad/permisotrabajo/obtenerproyectos").then((function(t){t.data.status?a.list_proyectos=t.data.proyectos:toastr.error(t.data.mensaje)}))},ObtenerFolios:function(){var a=this;axios.get("seguridad/permisotrabajo/obtenerfolios").then((function(t){t.data.status?(a.list_folios=t.data.folios,a.list_folios.unshift({id:0,folio:"NUEVO"})):toastr.error(t.data.mensaje)}))},abrirModal:function(a,t){var e=this,o=arguments.length>2&&void 0!==arguments[2]?arguments[2]:[];if(this.ObtenerProyectos(),this.ObtenerFolios(),"analisis"===a)switch(t){case"registrar":s.A.resetObject(this.dos),s.A.resetObject(this.tres),s.A.resetObject(this.cuatro),s.A.resetObject(this.cinco),s.A.resetObject(this.seis),s.A.resetObject(this.siete),s.A.resetObject(this.ocho),s.A.resetObject(this.nueve),s.A.resetObject(this.diez),s.A.resetObject(this.temporal),this.once=[],this.modal=1,this.tituloModal="Registrar permiso",this.tipoAccion=1;break;case"actualizar":this.once=[],this.modal=1,this.tituloModal="Actualizar permiso",this.tipoAccion=2,this.uno=o.uno,this.dos=o.dos,this.tres=o.tres,this.cuatro=o.cuatro,this.cinco=o.cinco,this.seis=o.seis,this.siete=o.siete,this.ocho=o.ocho,this.ocho={uno:{id:o.ocho.uno,name:o.ocho.residente},dos:o.ocho.dos,tres:{id:o.ocho.tres,name:o.ocho.supervisor},cuatro:this.ocho.cuatro,cinco:{id:o.ocho.cinco,name:o.ocho.shso},seis:o.ocho.seis},this.nueve=o.nueve,this.diez={uno:{id:o.diez.uno,name:o.diez.e_uno},dos:o.diez.dos,tres:o.diez.tres,cuatro:{id:o.diez.cuatro,name:o.diez.e_cuatro},cinco:o.diez.cinco,seis:o.diez.seis},o.once.forEach((function(a,t){e.once.push({uno:a.uno,dos:a.dos,tres:a.tres,cuatro:{id:a.cuatro,name:a.e_cuatro},cinco:a.cinco,seis:a.seis,siete:a.siete,ocho:{id:a.ocho,name:a.e_ocho},nueve:a.nueve,diez:a.diez})})),this.id=o.uno.id}},Validar:function(){var a="",t=!1;return null==this.ocho.uno||null==this.ocho.uno.id?a="Residente de Obra":null==this.ocho.tres||null==this.ocho.tres.id?a="Supervisor de Trabajo":null==this.ocho.cinco||null==this.ocho.cinco.id?a="Responsable de SSMA":t=!0,{status:t,mensaje:a}},Guardar:function(a){var t=this,e=this.Validar();e.status?(1==this.tipoAccion&&(this.uno.proyecto_id=this.proyecto.id),axios({method:a?"POST":"PUT",url:a?"seguridad/permiso/general/guardar":"seguridad/permiso/general/actualizar",data:{uno:this.uno,dos:this.dos,tres:this.tres,cuatro:this.cuatro,cinco:this.cinco,seis:this.seis,siete:this.siete,ocho:this.ocho,nueve:this.nueve,diez:this.diez,once:this.once,id:this.id}}).then((function(a){a.data.status?(t.modal=0,t.getLista()):toastr.error(a.data.mensaje)}))):toastr.warning("Ingrese el campo "+e.mensaje)},Cerrar:function(){this.modal=0},Crear:function(){var a=this;axios.post("abc",this.temporal).then((function(t){a.once.push({uno:t.data.uno,dos:t.data.dos,tres:t.data.tres,cuatro:t.data.cuatro,cinco:t.data.cinco,seis:t.data.seis,siete:t.data.siete,ocho:t.data.ocho,nueve:t.data.nueve,diez:t.data.diez}),a.vaciado()})).catch((function(a){console.error(a)}))},vaciado:function(){s.A.resetObject(this.temporal)},deleteu:function(a){this.once.splice(a,1)},llenarC:function(){1==this.dos.uno&&(this.cuatro.uno="1",this.cuatro.dos="1",this.cuatro.catorce="1",this.cuatro.tres="1",this.cuatro.cuatro="1",this.cuatro.cinco="2",this.cuatro.seis="3",this.cuatro.siete="1",this.cuatro.ocho="1",this.cuatro.nueve="1",this.cuatro.diez="3",this.cuatro.once="1",this.cuatro.doce="1",this.cuatro.trece="1",this.cinco.uno=!0,this.cinco.dos=!0,this.cinco.tres=!0,this.cinco.cuatro=!0,this.cinco.cinco=!0,this.seis.uno=!1,this.seis.dos=!1,this.seis.tres=!1,this.seis.cuatro=!0,this.seis.cinco=!0,this.seis.seis=!0,this.seis.siete=!0,this.seis.ocho=!0)},llenarE:function(){1==this.dos.cuatro&&(this.cuatro.uno="1",this.cuatro.dos="1",this.cuatro.catorce="1",this.cuatro.tres="1",this.cuatro.cuatro="3",this.cuatro.cinco="3",this.cuatro.seis="1",this.cuatro.siete="3",this.cuatro.ocho="1",this.cuatro.nueve="1",this.cuatro.diez="1",this.cuatro.once="3",this.cuatro.doce="3",this.cuatro.trece="3",this.cinco.uno=!0,this.cinco.dos=!0,this.cinco.tres=!0,this.cinco.cuatro=!0,this.cinco.cinco=!0,this.seis.uno=!1,this.seis.dos=!1,this.seis.tres=!1,this.seis.cuatro=!0,this.seis.cinco=!0,this.seis.seis=!0,this.seis.siete=!0,this.seis.ocho=!0)},descargar:function(a){window.open("seguridad/permiso/general/descargar/"+a,"_blank")},eliminar:function(a){var t=this;Swal.fire({title:"Esta seguro(a) de eliminar ?",text:"Esta opción no se podrá desahacer!",type:"warning",showCancelButton:!0,confirmButtonColor:"#3085d6",cancelButtonColor:"#d33",confirmButtonText:"Si",cancelButtonText:"No"}).then((function(e){e.value&&axios.get("seguridad/permiso/general/eliminar/"+a).then((function(a){toastr.success("Eliminado Correctamente !!!"),t.getLista()})).catch((function(a){console.error(a)}))}))}},mounted:function(){console.error(this.uno),this.getData(),this.getLista()}};const r=(0,e(14486).A)(i,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" PERMISO DE TRABAJO\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.abrirModal("analisis","registrar")}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("vue-element-loading",{attrs:{active:a.isPermisos_loading}}),a._v(" "),t("v-client-table",{attrs:{data:a.tableData,columns:a.columns,options:a.options},scopedSlots:a._u([{key:"uno.id",fn:function(e){return 1==e.row.uno.condicion?[t("button",{staticClass:"btn btn-outline-dark",on:{click:function(t){return t.preventDefault(),a.abrirModal("analisis","actualizar",e.row)}}},[t("i",{staticClass:"fas fa-pencil-alt"}),a._v(" \n                        ")]),a._v(" "),t("button",{staticClass:"btn btn-outline-dark",on:{click:function(t){return t.preventDefault(),a.eliminar(e.row.uno.id)}}},[t("i",{staticClass:"fas fa-trash"}),a._v(" \n                        ")])]:void 0}},{key:"descarga",fn:function(e){return[1==e.row.uno.condicion?t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.descargar(e.row.uno.id)}}},[t("i",{staticClass:"fas fa-download"}),a._v(" "),t("i",{staticClass:"fas fa-file-pdf"})]):a._e(),a._v(" "),0==e.row.uno.condicion?t("button",{staticClass:"btn btn-outline-danger",attrs:{type:"button"}},[a._v("\n                            Eliminado\n                        ")]):a._e()]}}],null,!0)})],1)]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v(a._s(a.tituloModal))]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.Cerrar()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("x")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-row"},[t("div",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoAccion,expression:"tipoAccion==1"}],staticClass:"col-md-8 mb-3"},[t("label",[a._v("Proyecto")]),a._v(" "),t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{label:"nombre_corto",options:a.list_proyectos,"data-vv-name":"Proyecto"},model:{value:a.proyecto,callback:function(t){a.proyecto=t},expression:"proyecto"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Proyecto")))])],1),a._v(" "),t("div",{directives:[{name:"show",rawName:"v-show",value:2==a.tipoAccion,expression:"tipoAccion==2"}],staticClass:"col-md-4 mb-3"},[t("label",[a._v(" Folio")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.uno.uno,expression:"uno.uno"}],staticClass:"form-control",attrs:{readonly:"",maxlength:"60",type:"text"},domProps:{value:a.uno.uno},on:{input:function(t){t.target.composing||a.$set(a.uno,"uno",t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v(" Asociado")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.uno.dos,expression:"uno.dos"}],staticClass:"form-control",attrs:{maxlength:"20",type:"text","data-vv-name":"Asociado"},domProps:{value:a.uno.dos},on:{input:function(t){t.target.composing||a.$set(a.uno,"dos",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Asociado")))])]),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v(" Fecha Elaboración")]),a._v(" "),t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.uno.tres,expression:"uno.tres"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha"},domProps:{value:a.uno.tres},on:{input:function(t){t.target.composing||a.$set(a.uno,"tres",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha")))])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v(" Instalación")]),a._v(" "),t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.uno.cuatro,expression:"uno.cuatro"}],staticClass:"form-control",attrs:{maxlength:"60",type:"text","data-vv-name":"Folio"},domProps:{value:a.uno.cuatro},on:{input:function(t){t.target.composing||a.$set(a.uno,"cuatro",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Folio")))])]),a._v(" "),t("div",{staticClass:"col-md-4 mb-3"},[t("label",[a._v(" Ubicación")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.uno.cinco,expression:"uno.cinco"}],staticClass:"form-control",attrs:{maxlength:"60",type:"text","data-vv-name":"Asociado"},domProps:{value:a.uno.cinco},on:{input:function(t){t.target.composing||a.$set(a.uno,"cinco",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Asociado")))])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" Nivel Riesgo")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.uno.seis,expression:"uno.seis"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{"data-vv-name":"Nivel Riesgo"},on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.uno,"seis",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:"0"}},[a._v("A")]),a._v(" "),t("option",{attrs:{value:"1"}},[a._v("B")])]),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Nivel Riesgo")))])])]),a._v(" "),t("hr"),a._v(" "),t("div",{attrs:{id:"accordion"}},[t("div",{staticClass:"card"},[a._m(0),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseOne","aria-labelledby":"headingOne","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-3 mb-2"},[t("label",[a._v(" Trabajo Caliente")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.dos.uno,expression:"dos.uno"}],staticClass:"form-control",on:{click:function(t){return a.llenarC()},change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.dos,"uno",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:""}}),a._v(" "),t("option",{attrs:{value:"1"}},[a._v("SI")]),a._v(" "),t("option",{attrs:{value:"0"}},[a._v("NO")])])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-2"},[t("label",[a._v(" Espacios confinados")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.dos.dos,expression:"dos.dos"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.dos,"dos",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:""}}),a._v(" "),t("option",{attrs:{value:"1"}},[a._v("SI")]),a._v(" "),t("option",{attrs:{value:"0"}},[a._v("NO")])])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-2"},[t("label",[a._v(" Altura")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.dos.tres,expression:"dos.tres"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.dos,"tres",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:""}}),a._v(" "),t("option",{attrs:{value:"1"}},[a._v("SI")]),a._v(" "),t("option",{attrs:{value:"0"}},[a._v("NO")])])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-2"},[t("label",[a._v(" Eléctricos")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.dos.cuatro,expression:"dos.cuatro"}],staticClass:"form-control",on:{click:function(t){return a.llenarE()},change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.dos,"cuatro",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:""}}),a._v(" "),t("option",{attrs:{value:"1"}},[a._v("SI")]),a._v(" "),t("option",{attrs:{value:"0"}},[a._v("NO")])])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-4"},[t("label",[a._v("Otros Trabajos")]),a._v(" "),t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.dos.cinco,expression:"dos.cinco"}],staticClass:"form-control",attrs:{name:"name",rows:"2",cols:"80"},domProps:{value:a.dos.cinco},on:{input:function(t){t.target.composing||a.$set(a.dos,"cinco",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-8"},[t("label",[a._v("Descripción de la tarea")]),a._v(" "),t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.dos.seis,expression:"dos.seis"}],staticClass:"form-control",attrs:{name:"name",rows:"2",cols:"80"},domProps:{value:a.dos.seis},on:{input:function(t){t.target.composing||a.$set(a.dos,"seis",t.target.value)}}})])]),a._v(" "),t("br")])])]),a._v(" "),t("div",{staticClass:"card"},[a._m(1),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseTwo","aria-labelledby":"headingTwo","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" Fecha inicio")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.tres.uno,expression:"tres.uno"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.tres.uno},on:{input:function(t){t.target.composing||a.$set(a.tres,"uno",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" Hora")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.tres.dos,expression:"tres.dos"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.tres.dos},on:{input:function(t){t.target.composing||a.$set(a.tres,"dos",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" Fecha termino")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.tres.tres,expression:"tres.tres"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.tres.tres},on:{input:function(t){t.target.composing||a.$set(a.tres,"tres",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" Hora")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.tres.cuatro,expression:"tres.cuatro"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.tres.cuatro},on:{input:function(t){t.target.composing||a.$set(a.tres,"cuatro",t.target.value)}}})])])])])]),a._v(" "),t("div",{staticClass:"card"},[a._m(2),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseThree","aria-labelledby":"headingThree","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[a._m(3),a._v(" "),t("div",{staticClass:"tab-content",attrs:{id:"nav-tabContent"}},[t("div",{staticClass:"tab-pane fade show active",attrs:{id:"nav-home",role:"tabpanel","aria-labelledby":"nav-home-tab"}},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Los factores meteorológicos permiten realizar el trabajo.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.uno,expression:"cuatro.uno"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.uno,"1")},on:{change:function(t){return a.$set(a.cuatro,"uno","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.uno,expression:"cuatro.uno"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.uno,"2")},on:{change:function(t){return a.$set(a.cuatro,"uno","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.uno,expression:"cuatro.uno"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.uno,"3")},on:{change:function(t){return a.$set(a.cuatro,"uno","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("La iluminación del área de trabajo es la correcta para realizar la actividad.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.dos,expression:"cuatro.dos"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.dos,"1")},on:{change:function(t){return a.$set(a.cuatro,"dos","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.dos,expression:"cuatro.dos"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.dos,"2")},on:{change:function(t){return a.$set(a.cuatro,"dos","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.dos,expression:"cuatro.dos"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.dos,"3")},on:{change:function(t){return a.$set(a.cuatro,"dos","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("El área se encuentra con accesos rapidos para su entrada y salida.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.catorce,expression:"cuatro.catorce"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.catorce,"1")},on:{change:function(t){return a.$set(a.cuatro,"catorce","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.catorce,expression:"cuatro.catorce"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.catorce,"2")},on:{change:function(t){return a.$set(a.cuatro,"catorce","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.catorce,expression:"cuatro.catorce"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.catorce,"3")},on:{change:function(t){return a.$set(a.cuatro,"catorce","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Los equipos estan puestas a tierra.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.tres,expression:"cuatro.tres"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.tres,"1")},on:{change:function(t){return a.$set(a.cuatro,"tres","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.tres,expression:"cuatro.tres"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.tres,"2")},on:{change:function(t){return a.$set(a.cuatro,"tres","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.tres,expression:"cuatro.tres"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.tres,"3")},on:{change:function(t){return a.$set(a.cuatro,"tres","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Se han instalado mamparas para proteger y aislar las personas y equipos de las áreas vecinas.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.cuatro,expression:"cuatro.cuatro"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.cuatro,"1")},on:{change:function(t){return a.$set(a.cuatro,"cuatro","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.cuatro,expression:"cuatro.cuatro"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.cuatro,"2")},on:{change:function(t){return a.$set(a.cuatro,"cuatro","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.cuatro,expression:"cuatro.cuatro"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.cuatro,"3")},on:{change:function(t){return a.$set(a.cuatro,"cuatro","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Los andamios han sido inspeccionados")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.cinco,expression:"cuatro.cinco"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.cinco,"1")},on:{change:function(t){return a.$set(a.cuatro,"cinco","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.cinco,expression:"cuatro.cinco"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.cinco,"2")},on:{change:function(t){return a.$set(a.cuatro,"cinco","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.cinco,expression:"cuatro.cinco"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.cinco,"3")},on:{change:function(t){return a.$set(a.cuatro,"cinco","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("La instalación y equipos eléctricos son antiexplosivos.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.seis,expression:"cuatro.seis"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.seis,"1")},on:{change:function(t){return a.$set(a.cuatro,"seis","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.seis,expression:"cuatro.seis"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.seis,"2")},on:{change:function(t){return a.$set(a.cuatro,"seis","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.seis,expression:"cuatro.seis"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.seis,"3")},on:{change:function(t){return a.$set(a.cuatro,"seis","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Herramientas: estan en condiciones y acordes a las tareas.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.siete,expression:"cuatro.siete"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.siete,"1")},on:{change:function(t){return a.$set(a.cuatro,"siete","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.siete,expression:"cuatro.siete"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.siete,"2")},on:{change:function(t){return a.$set(a.cuatro,"siete","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.siete,expression:"cuatro.siete"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.siete,"3")},on:{change:function(t){return a.$set(a.cuatro,"siete","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Se ha desenergizado el equipo ")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.ocho,expression:"cuatro.ocho"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.ocho,"1")},on:{change:function(t){return a.$set(a.cuatro,"ocho","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.ocho,expression:"cuatro.ocho"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.ocho,"2")},on:{change:function(t){return a.$set(a.cuatro,"ocho","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.ocho,expression:"cuatro.ocho"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.ocho,"3")},on:{change:function(t){return a.$set(a.cuatro,"ocho","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Esta limitado el acceso de personal al área de trabajo.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.nueve,expression:"cuatro.nueve"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.nueve,"1")},on:{change:function(t){return a.$set(a.cuatro,"nueve","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.nueve,expression:"cuatro.nueve"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.nueve,"2")},on:{change:function(t){return a.$set(a.cuatro,"nueve","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.nueve,expression:"cuatro.nueve"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.nueve,"3")},on:{change:function(t){return a.$set(a.cuatro,"nueve","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Los materiales combustibles se encuentren dentro de un radio de 11 metros (35 pies) del área de trabajo. ")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.diez,expression:"cuatro.diez"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.diez,"1")},on:{change:function(t){return a.$set(a.cuatro,"diez","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.diez,expression:"cuatro.diez"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.diez,"2")},on:{change:function(t){return a.$set(a.cuatro,"diez","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.diez,expression:"cuatro.diez"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.diez,"3")},on:{change:function(t){return a.$set(a.cuatro,"diez","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("El equipo de soldadura ha sido inspeccionado y se encuentra en buen estado. ")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.once,expression:"cuatro.once"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.once,"1")},on:{change:function(t){return a.$set(a.cuatro,"once","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.once,expression:"cuatro.once"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.once,"2")},on:{change:function(t){return a.$set(a.cuatro,"once","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.once,expression:"cuatro.once"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.once,"3")},on:{change:function(t){return a.$set(a.cuatro,"once","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Los cilindros se encuentran en posición vertical, bien asegurados y libres de fugas.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.doce,expression:"cuatro.doce"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.doce,"1")},on:{change:function(t){return a.$set(a.cuatro,"doce","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.doce,expression:"cuatro.doce"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.doce,"2")},on:{change:function(t){return a.$set(a.cuatro,"doce","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.doce,expression:"cuatro.doce"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.doce,"3")},on:{change:function(t){return a.$set(a.cuatro,"doce","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Los cilindros cumplen con el estándar de identificación (Nombre del producto y rotulación NFPA o UN).")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.trece,expression:"cuatro.trece"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.cuatro.trece,"1")},on:{change:function(t){return a.$set(a.cuatro,"trece","1")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("SI")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.trece,expression:"cuatro.trece"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.cuatro.trece,"2")},on:{change:function(t){return a.$set(a.cuatro,"trece","2")}}}),a._v(" "),t("label",{staticClass:"radio-inspeccion"},[a._v("NO")])]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cuatro.trece,expression:"cuatro.trece"}],attrs:{type:"radio",value:"3"},domProps:{checked:a._q(a.cuatro.trece,"3")},on:{change:function(t){return a.$set(a.cuatro,"trece","3")}}}),a._v(" "),t("label",{staticClass:"form-control-label"},[a._v("N/A")])])])]),a._v(" "),t("div",{staticClass:"tab-pane fade",attrs:{id:"nav-profile",role:"tabpanel","aria-labelledby":"nav-profile-tab"}},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Casco contraimpacto")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cinco.uno,expression:"cinco.uno"}],attrs:{type:"checkbox",value:"1"},domProps:{checked:Array.isArray(a.cinco.uno)?a._i(a.cinco.uno,"1")>-1:a.cinco.uno},on:{change:function(t){var e=a.cinco.uno,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,"1");s.checked?i<0&&a.$set(a.cinco,"uno",e.concat(["1"])):i>-1&&a.$set(a.cinco,"uno",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.cinco,"uno",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Ropa de trabajo")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cinco.dos,expression:"cinco.dos"}],attrs:{type:"checkbox",value:"1"},domProps:{checked:Array.isArray(a.cinco.dos)?a._i(a.cinco.dos,"1")>-1:a.cinco.dos},on:{change:function(t){var e=a.cinco.dos,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,"1");s.checked?i<0&&a.$set(a.cinco,"dos",e.concat(["1"])):i>-1&&a.$set(a.cinco,"dos",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.cinco,"dos",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Protección ocular")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cinco.tres,expression:"cinco.tres"}],attrs:{type:"checkbox",value:"1"},domProps:{checked:Array.isArray(a.cinco.tres)?a._i(a.cinco.tres,"1")>-1:a.cinco.tres},on:{change:function(t){var e=a.cinco.tres,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,"1");s.checked?i<0&&a.$set(a.cinco,"tres",e.concat(["1"])):i>-1&&a.$set(a.cinco,"tres",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.cinco,"tres",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Calzado de seguridad")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cinco.cuatro,expression:"cinco.cuatro"}],attrs:{type:"checkbox",value:"1"},domProps:{checked:Array.isArray(a.cinco.cuatro)?a._i(a.cinco.cuatro,"1")>-1:a.cinco.cuatro},on:{change:function(t){var e=a.cinco.cuatro,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,"1");s.checked?i<0&&a.$set(a.cinco,"cuatro",e.concat(["1"])):i>-1&&a.$set(a.cinco,"cuatro",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.cinco,"cuatro",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Protección auditiva")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cinco.cinco,expression:"cinco.cinco"}],attrs:{type:"checkbox",value:"1"},domProps:{checked:Array.isArray(a.cinco.cinco)?a._i(a.cinco.cinco,"1")>-1:a.cinco.cinco},on:{change:function(t){var e=a.cinco.cinco,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,"1");s.checked?i<0&&a.$set(a.cinco,"cinco",e.concat(["1"])):i>-1&&a.$set(a.cinco,"cinco",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.cinco,"cinco",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("OTROS")]),a._v(" "),t("div",{staticClass:"form-group col-6"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.cinco.seis,expression:"cinco.seis"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.cinco.seis},on:{input:function(t){t.target.composing||a.$set(a.cinco,"seis",t.target.value)}}})])])]),a._v(" "),t("div",{staticClass:"tab-pane fade",attrs:{id:"nav-contact",role:"tabpanel","aria-labelledby":"nav-contact-tab"}},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Ayudante contraincendio")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.uno,expression:"seis.uno"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.uno)?a._i(a.seis.uno,null)>-1:a.seis.uno},on:{change:function(t){var e=a.seis.uno,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"uno",e.concat([null])):i>-1&&a.$set(a.seis,"uno",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"uno",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Manguera Contraincendio")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.dos,expression:"seis.dos"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.dos)?a._i(a.seis.dos,null)>-1:a.seis.dos},on:{change:function(t){var e=a.seis.dos,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"dos",e.concat([null])):i>-1&&a.$set(a.seis,"dos",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"dos",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Cortina de agua")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.tres,expression:"seis.tres"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.tres)?a._i(a.seis.tres,null)>-1:a.seis.tres},on:{change:function(t){var e=a.seis.tres,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"tres",e.concat([null])):i>-1&&a.$set(a.seis,"tres",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"tres",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Barreras y letreros de seguridad ")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.cuatro,expression:"seis.cuatro"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.cuatro)?a._i(a.seis.cuatro,null)>-1:a.seis.cuatro},on:{change:function(t){var e=a.seis.cuatro,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"cuatro",e.concat([null])):i>-1&&a.$set(a.seis,"cuatro",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"cuatro",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Colocar lonas para cubrir drenajes y equipos delicados y humedecerlas ")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.cinco,expression:"seis.cinco"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.cinco)?a._i(a.seis.cinco,null)>-1:a.seis.cinco},on:{change:function(t){var e=a.seis.cinco,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"cinco",e.concat([null])):i>-1&&a.$set(a.seis,"cinco",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"cinco",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Extintor")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.seis,expression:"seis.seis"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.seis)?a._i(a.seis.seis,null)>-1:a.seis.seis},on:{change:function(t){var e=a.seis.seis,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"seis",e.concat([null])):i>-1&&a.$set(a.seis,"seis",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"seis",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Eliminar todo el material combustible")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.siete,expression:"seis.siete"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.siete)?a._i(a.seis.siete,null)>-1:a.seis.siete},on:{change:function(t){var e=a.seis.siete,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"siete",e.concat([null])):i>-1&&a.$set(a.seis,"siete",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"siete",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Proteger Instrumentación e iluminación")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.seis.ocho,expression:"seis.ocho"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.seis.ocho)?a._i(a.seis.ocho,null)>-1:a.seis.ocho},on:{change:function(t){var e=a.seis.ocho,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.seis,"ocho",e.concat([null])):i>-1&&a.$set(a.seis,"ocho",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.seis,"ocho",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])])])])])])]),a._v(" "),t("div",{staticClass:"card"},[a._m(4),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseFour","aria-labelledby":"headingFour","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-mb-8 md-3"},[t("label",[a._v("PRECAUCIONES")]),a._v(" "),t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.siete.uno,expression:"siete.uno"}],staticClass:"form-control",attrs:{name:"name",rows:"8",cols:"80"},domProps:{value:a.siete.uno},on:{input:function(t){t.target.composing||a.$set(a.siete,"uno",t.target.value)}}})])])])])]),a._v(" "),t("div",{staticClass:"card"},[a._m(5),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseFive","aria-labelledby":"headingFive","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Residente de Obra")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.ocho.uno,callback:function(t){a.$set(a.ocho,"uno",t)},expression:"ocho.uno"}})],1),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.ocho.dos,expression:"ocho.dos"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.ocho.dos},on:{input:function(t){t.target.composing||a.$set(a.ocho,"dos",t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Supervisor de Trabajo")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.ocho.tres,callback:function(t){a.$set(a.ocho,"tres",t)},expression:"ocho.tres"}})],1),a._v(" "),t("div",{staticClass:"col-md-3 md-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.ocho.cuatro,expression:"ocho.cuatro"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.ocho.cuatro},on:{input:function(t){t.target.composing||a.$set(a.ocho,"cuatro",t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Responsable de SSMA")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.ocho.cinco,callback:function(t){a.$set(a.ocho,"cinco",t)},expression:"ocho.cinco"}})],1),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.ocho.seis,expression:"ocho.seis"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.ocho.seis},on:{input:function(t){t.target.composing||a.$set(a.ocho,"seis",t.target.value)}}})])])])])]),a._v(" "),t("div",{staticClass:"card"},[a._m(6),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseSeis","aria-labelledby":"headingSeis","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[a._m(7),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.uno,expression:"temporal.uno"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.temporal.uno},on:{input:function(t){t.target.composing||a.$set(a.temporal,"uno",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Desde")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.dos,expression:"temporal.dos"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.temporal.dos},on:{input:function(t){t.target.composing||a.$set(a.temporal,"dos",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Hasta")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.tres,expression:"temporal.tres"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.temporal.tres},on:{input:function(t){t.target.composing||a.$set(a.temporal,"tres",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Nombre")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.temporal.cuatro,callback:function(t){a.$set(a.temporal,"cuatro",t)},expression:"temporal.cuatro"}})],1)]),a._v(" "),t("hr"),a._v(" "),t("div",{staticClass:"form-row"},[a._m(8),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.cinco,expression:"temporal.cinco"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.temporal.cinco},on:{input:function(t){t.target.composing||a.$set(a.temporal,"cinco",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Desde")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.seis,expression:"temporal.seis"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.temporal.seis},on:{input:function(t){t.target.composing||a.$set(a.temporal,"seis",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Hasta")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.siete,expression:"temporal.siete"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.temporal.siete},on:{input:function(t){t.target.composing||a.$set(a.temporal,"siete",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Nombre")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.temporal.ocho,callback:function(t){a.$set(a.temporal,"ocho",t)},expression:"temporal.ocho"}})],1)]),a._v(" "),t("hr"),a._v(" "),t("div",{staticClass:"form-row"},[a._m(9),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Hora")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.nueve,expression:"temporal.nueve"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.temporal.nueve},on:{input:function(t){t.target.composing||a.$set(a.temporal,"nueve",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.temporal.diez,expression:"temporal.diez"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.temporal.diez},on:{input:function(t){t.target.composing||a.$set(a.temporal,"diez",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v(" ")]),a._v(" "),t("br"),a._v(" "),t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Crear()}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Crear")])])]),a._v(" "),a._m(10),a._v(" "),a._l(a.once,(function(e,s){return t("li",{key:s,staticClass:"list-group-item"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v(a._s(null!=e.cuatro?e.cuatro.name:""))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.uno))])]),a._v(" "),t("div",{staticClass:"form-group col-md-3"},[t("label",[a._v(a._s(null!=e.ocho?e.ocho.name:""))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[a._v(a._s(e.cinco))])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("a",{on:{click:function(t){return a.deleteu(s)}}},[t("span",{staticClass:"fas fa-trash",attrs:{"arial-hidden":"true"}})])])])])}))],2)])]),a._v(" "),t("div",{staticClass:"card"},[a._m(11),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseSeven","aria-labelledby":"headingSeven","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Ha sido completado")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.nueve.uno,expression:"nueve.uno"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.nueve.uno)?a._i(a.nueve.uno,null)>-1:a.nueve.uno},on:{change:function(t){var e=a.nueve.uno,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.nueve,"uno",e.concat([null])):i>-1&&a.$set(a.nueve,"uno",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.nueve,"uno",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("No ha sido iniciado ")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.nueve.dos,expression:"nueve.dos"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.nueve.dos)?a._i(a.nueve.dos,null)>-1:a.nueve.dos},on:{change:function(t){var e=a.nueve.dos,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.nueve,"dos",e.concat([null])):i>-1&&a.$set(a.nueve,"dos",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.nueve,"dos",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Término de la jornada de trabajo.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.nueve.tres,expression:"nueve.tres"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.nueve.tres)?a._i(a.nueve.tres,null)>-1:a.nueve.tres},on:{change:function(t){var e=a.nueve.tres,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.nueve,"tres",e.concat([null])):i>-1&&a.$set(a.nueve,"tres",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.nueve,"tres",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("Suspendida o no iniciada por haberse realizado observaciones de seguridad. ")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.nueve.cuatro,expression:"nueve.cuatro"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.nueve.cuatro)?a._i(a.nueve.cuatro,null)>-1:a.nueve.cuatro},on:{change:function(t){var e=a.nueve.cuatro,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.nueve,"cuatro",e.concat([null])):i>-1&&a.$set(a.nueve,"cuatro",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.nueve,"cuatro",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"form-control-label col-md-6"},[a._v("El lugar de trabajo ha quedado en condiciones de seguridad, orden y limpieza.")]),a._v(" "),t("div",{staticClass:"form-group col-2"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.nueve.cinco,expression:"nueve.cinco"}],attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.nueve.cinco)?a._i(a.nueve.cinco,null)>-1:a.nueve.cinco},on:{change:function(t){var e=a.nueve.cinco,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.nueve,"cinco",e.concat([null])):i>-1&&a.$set(a.nueve,"cinco",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.nueve,"cinco",o)}}}),a._v(" "),t("label",{staticClass:"form-control-label"})])])])])]),a._v(" "),t("div",{staticClass:"card"},[a._m(12),a._v(" "),t("div",{staticClass:"collapse",attrs:{id:"collapseOcho","aria-labelledby":"headingOcho","data-parent":"#accordion"}},[t("div",{staticClass:"card-body"},[t("div",{staticClass:"form-row"},[a._m(13),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Nombre")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.diez.uno,callback:function(t){a.$set(a.diez,"uno",t)},expression:"diez.uno"}})],1),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Hora")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.diez.dos,expression:"diez.dos"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.diez.dos},on:{input:function(t){t.target.composing||a.$set(a.diez,"dos",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.diez.tres,expression:"diez.tres"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.diez.tres},on:{input:function(t){t.target.composing||a.$set(a.diez,"tres",t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-row"},[a._m(14),a._v(" "),t("div",{staticClass:"col-md-5 mb-3"},[t("label",[a._v("Nombre")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.diez.cuatro,callback:function(t){a.$set(a.diez,"cuatro",t)},expression:"diez.cuatro"}})],1),a._v(" "),t("div",{staticClass:"col-md-2 mb-3"},[t("label",[a._v("Hora")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.diez.cinco,expression:"diez.cinco"}],staticClass:"form-control",attrs:{type:"time"},domProps:{value:a.diez.cinco},on:{input:function(t){t.target.composing||a.$set(a.diez,"cinco",t.target.value)}}})]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.diez.seis,expression:"diez.seis"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.diez.seis},on:{input:function(t){t.target.composing||a.$set(a.diez,"seis",t.target.value)}}})])])])])])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.Cerrar()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoAccion,expression:"tipoAccion == 1"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(1)}}},[a._v("\n                                Guardar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:2==a.tipoAccion,expression:"tipoAccion == 2"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(0)}}},[a._v("\n                                Actualizar\n                            ")])])])])])])])])}),[function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingOne"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link",attrs:{"data-toggle":"collapse","data-target":"#collapseOne","aria-expanded":"true","aria-controls":"collapseOne"}},[this._v("\n                                                1. DESCRIPCIÓN DEL TRABAJO\n                                            ")])])])},function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingTwo"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link collapsed",attrs:{"data-toggle":"collapse","data-target":"#collapseTwo","aria-expanded":"false","aria-controls":"collapseTwo"}},[this._v("\n                                                2. FECHA DE INICIO Y TÉRMINO\n                                            ")])])])},function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingThree"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link collapsed",attrs:{"data-toggle":"collapse","data-target":"#collapseThree","aria-expanded":"false","aria-controls":"collapseThree"}},[this._v("\n                                                3. REQUISITOS A CUMPLIR ANTES DE LA EJECUCION DEL TRABAJO\n                                            ")])])])},function(){var a=this,t=a._self._c;return t("nav",[t("div",{staticClass:"nav nav-tabs",attrs:{id:"nav-tab",role:"tablist"}},[t("a",{staticClass:"nav-item nav-link active",attrs:{id:"nav-home-tab","data-toggle":"tab",href:"#nav-home",role:"tab","aria-controls":"nav-home","aria-selected":"true"}},[a._v("RESPONSABLES DE OPERACIÓN ")]),a._v(" "),t("a",{staticClass:"nav-item nav-link",attrs:{id:"nav-profile-ta b","data-toggle":"tab",href:"#nav-profile",role:"tab","aria-controls":"nav-profile","aria-selected":"false"}},[a._v("EQUIPO DE PROTECCIÓN PERSONAL ")]),a._v(" "),t("a",{staticClass:"nav-item nav-link",attrs:{id:"nav-contact-tab","data-toggle":"tab",href:"#nav-contact",role:"tab","aria-controls":"nav-contact","aria-selected":"false"}},[a._v("PRECAUCIONES CONTRA INCENDIO")])])])},function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingFour"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link collapsed",attrs:{"data-toggle":"collapse","data-target":"#collapseFour","aria-expanded":"false","aria-controls":"collapseFour"}},[this._v("\n                                                4. PRECAUCIONES ESPECIALES Y RIESGOS POTENCIALES\n                                            ")])])])},function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingFive"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link collapsed",attrs:{"data-toggle":"collapse","data-target":"#collapseFive","aria-expanded":"false","aria-controls":"collapseFive"}},[this._v("\n                                                5. VERIFICACION EN CAMPO DEL CUMPLIMIENTO DE LOS REQUISITOS SOLICITADOS\n                                            ")])])])},function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingSeis"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link collapsed",attrs:{"data-toggle":"collapse","data-target":"#collapseSeis","aria-expanded":"false","aria-controls":"collapseSeis"}},[this._v("\n                                                6. REVALIDACIONES\n                                            ")])])])},function(){var a=this._self._c;return a("div",{staticClass:"col-md-12"},[a("label",[this._v("VALIDACION /REVALIDACIÓN")])])},function(){var a=this._self._c;return a("div",{staticClass:"col-md-12"},[a("label",[this._v("ACEPTACIÓN DEL PERMISO")])])},function(){var a=this._self._c;return a("div",{staticClass:"col-md-12"},[a("label",[this._v("SUSPENSIÓN DEL PERMISO")])])},function(){var a=this,t=a._self._c;return t("div",{staticClass:"form-row"},[t("div",{staticClass:"form-group col-md-3"},[t("label",[t("b",[a._v("Nombre")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Fecha")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-3"},[t("label",[t("b",[a._v("Nombre")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("Fecha")])])]),a._v(" "),t("div",{staticClass:"form-group col-md-2"},[t("label",[t("b",[a._v("ACCIONES")])])])])},function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingSeven"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link collapsed",attrs:{"data-toggle":"collapse","data-target":"#collapseSeven","aria-expanded":"false","aria-controls":"collapseSeven"}},[this._v("\n                                                7.CANCELACIÓN DEL TRABAJO\n                                            ")])])])},function(){var a=this._self._c;return a("div",{staticClass:"card-header",attrs:{id:"headingOcho"}},[a("h5",{staticClass:"mb-0"},[a("button",{staticClass:"btn btn-link collapsed",attrs:{"data-toggle":"collapse","data-target":"#collapseOcho","aria-expanded":"false","aria-controls":"collapseOcho"}},[this._v("\n                                                8. TERMINACIÓN DE LOS TRABAJOS (Por el Resdidente)\n                                            ")])])])},function(){var a=this._self._c;return a("div",{staticClass:"col-md-12 mb-3"},[a("label",[this._v("CANCELACION DEL PERMISO (Trabajo completo)")])])},function(){var a=this._self._c;return a("div",{staticClass:"col-md-12 mb-3"},[a("label",[this._v("CANCELACION DEL PERMISO (Trabajo no completo)")])])}],!1,null,null,null).exports},73606:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>r});var s=e(18785),o=e(96225).call(void 0);const i={data:function(){return{url_folios_permisos:"seguridad/folios_permisos",tipoAccion_folios_permisos:1,tipoCardFolios_Permisos:1,PermisosCRUD:{},ver_modal_folios_permisos:!1,tituloModal_folios_permisos:"",folios_permisos_id:0,isGuardarfolios_permisos_loading:!1,isObtenerfolios_permisos_loading:!1,columns_folios_permisos:["proyecto","nombre"],list_proyectos:[],list_folios_permisos:[],folios_permisos:{},options_folios_permisos:{perPage:10,perPageValues:[],skin:o.skin,sortIcon:o.sortIcon,filterByColumn:!0,texts:o.texts}}},methods:{ObtenerFolios_Permisos:function(){var a=this;this.isObtenerfolios_permisos_loading=!0,axios.get(this.url_folios_permisos+"/obtener").then((function(t){a.isObtenerfolios_permisos_loading=!1,t.data.status?a.list_folios_permisos=t.data.folios_proyectos:toastr.error(t.data.mensaje)}))},ObtenerProyectos:function(){var a=this;axios.get("generales/proyectos/1").then((function(t){console.error(t.data.proyectos),t.data.status?a.list_proyectos=t.data.proyectos:toastr.error(t.data.mensaje)}))},AbrirModalFolios_Permisos:function(a){this.ver_modal_folios_permisos=!0,a&&(this.tituloModal_folios_permisos="Registrar Folio de Proyectos",this.tipoAccion_folios_permisos=1)},RegistrarFolios_Permisos:function(a){var t=this;this.$validator.validate().then((function(e){if(e){var s=new FormData;a||s.append("id",t.folios_permisos.id),s.append("proyecto_id",t.folios_permisos.proyecto.id),s.append("nombre",t.folios_permisos.nombre),t.isGuardarfolios_permisos_loading=!0,axios.post(t.url_folios_permisos+"/guardar",s).then((function(a){t.isGuardarfolios_permisos_loading=!1,a.data.status?(toastr.success("Guardado correctamente"),t.ObtenerFolios_Permisos(),t.CerrarModalFolios_Permisos()):toastr.error(a.data.mensaje)}))}}))},CerrarModalFolios_Permisos:function(){this.ver_modal_folios_permisos=!1,this.Folios_Permisos={}}},mounted:function(){this.ObtenerFolios_Permisos(),this.ObtenerProyectos(),this.PermisosCRUD=s.A.getCRUD(this.$route.path)}};const r=(0,e(14486).A)(i,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoCardFolios_Permisos,expression:"tipoCardFolios_Permisos==1"}],staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" FOLIO DE PROYECTOS\n            "),a.PermisosCRUD.Create?[t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalFolios_Permisos(!0)}}},[t("i",{staticClass:"fas fa-plus mr-1"}),a._v("Nuevo\n                ")])]:a._e()],2),a._v(" "),t("div",{staticClass:"card-body"},[t("vue-element-loading",{attrs:{active:a.isObtenerfolios_permisos_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_folios_permisos,data:a.list_folios_permisos,options:a.options_folios_permisos}})],1)]),a._v(" "),a.ver_modal_folios_permisos?t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_folios_permisos},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.tituloModal_folios_permisos)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalFolios_Permisos()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("x")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("vue-element-loading",{attrs:{active:a.isGuardarfolios_permisos_loading}}),a._v(" "),t("div",[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Proyecto")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{label:"nombre_corto",options:a.list_proyectos,"data-vv-name":"Proyecto"},model:{value:a.folios_permisos.proyecto,callback:function(t){a.$set(a.folios_permisos,"proyecto",t)},expression:"folios_permisos.proyecto"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Proyecto")))])],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Nombre")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.folios_permisos.nombre,expression:"folios_permisos.nombre"}],staticClass:"form-control",attrs:{type:"text",maxlength:"5",minlength:"1","data-vv-name":"Nombre",autocomplete:"off"},domProps:{value:a.folios_permisos.nombre},on:{input:function(t){t.target.composing||a.$set(a.folios_permisos,"nombre",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Nombre")))])])])])],1),a._v(" "),t("div",{staticClass:"modal-footer"},[t("vue-element-loading",{attrs:{active:a.isGuardarfolios_permisos_loading}}),a._v(" "),t("div",[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalFolios_Permisos()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")]),a._v(" "),1==a.tipoAccion_folios_permisos?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.RegistrarFolios_Permisos(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar\n                            ")]):a._e()])],1)])])])]):a._e()])}),[],!1,null,null,null).exports},76884:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>i});e(18785);var s=e(96225).call(void 0);const o={data:function(){return{modal:0,tituloModal:"",tipoAccion:0,anio:2023,tableData:[],columns:["id","fechas","residuo","cantidad","unidad","fecha_salida","entrega","proveedor","folio"],options:{headings:{id:"Acciones"},perPage:10,perPageValues:[],skin:s.skin,sortIcon:s.sortIcon,filterByColumn:!0,texts:s.texts},dataSelect:"",residuo:"",cantidad:"",unidad:"",fecha_salida:"",empleado_entrega:"",proveedor:"",id:0,listaEmpleados:[],folio:""}},methods:{getLista:function(){var a=this;axios.get("/residuos/urbanos/seguridad/get").then((function(t){a.tableData=t.data})).catch((function(a){console.error(a)}))},abrirModal:function(a,t){var e=arguments.length>2&&void 0!==arguments[2]?arguments[2]:[];if("bitacora"===a)switch(t){case"registrar":this.modal=1,this.tituloModal="Registrar",this.tipoAccion=1;break;case"actualizar":console.log(e);var s=e.fechas.split(",");s.pop();this.modal=1,this.tituloModal="Actualizar",this.tipoAccion=2,this.residuo=e.residuo,this.cantidad=e.cantidad,this.unidad=e.unidad,this.fecha_salida=e.fecha_salida,this.empleado_entrega={id:e.empleado_entrega_id,name:e.entrega},this.proveedor=e.proveedor,this.id=e.id,this.dataSelect=s,this.folio=e.folio}},Vaciar:function(){this.residuo="",this.cantidad="",this.unidad="",this.fecha_salida="",this.empleado_entrega="",this.proveedor="",this.id=0,this.folio="",this.dataSelect=""},cerrarModal:function(){this.modal=0},getData:function(){var a=this;this.listaEmpleados=[],axios.get("/vertodosempleados").then((function(t){t.data.forEach((function(t){a.listaEmpleados.push({id:t.id,name:t.nombre+" "+t.ap_paterno+" "+t.ap_materno})}))})).catch((function(a){console.log(a)}))},Guardar:function(a){var t=this;this.$validator.validate().then((function(e){e&&axios({method:a?"POST":"PUT",url:a?"/residuos/urbanos/seguridad/guardar":"/residuos/urbanos/seguridad/actualizar",data:{id:t.id,residuo:t.residuo,cantidad:t.cantidad,unidad:t.unidad,fecha_salida:t.fecha_salida,empleado_entrega:t.empleado_entrega.id,proveedor:t.proveedor,fechas:t.dataSelect,folio:t.folio}}).then((function(e){console.log(e),t.cerrarModal(),t.Vaciar(),t.getLista(),toastr.success(a?"Guardado Correctamente":"Actualizado Correctamente")})).catch((function(a){console.error()}))}))},Descargar:function(){window.open("residuos/urbanos/seguridad/descargar/"+this.anio)}},mounted:function(){this.getData(),this.getLista()}};const i=(0,e(14486).A)(o,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Bitacora\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.abrirModal("bitacora","registrar")}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")]),a._v(" "),a._m(0)]),a._v(" "),t("div",{staticClass:"card-body"},[t("div",{staticClass:"collapse multi-collapse",attrs:{id:"collapseDescargar"}},[t("div",{staticClass:"container row"},[t("div",{staticClass:"col-md-3"},[t("div",{},[t("label",[a._v("Año")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.anio,expression:"anio"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.anio=t.target.multiple?e:e[0]}}},[t("option",{attrs:{value:"2020"}},[a._v("2020")]),a._v(" "),t("option",{attrs:{value:"2021"}},[a._v("2021")]),a._v(" "),t("option",{attrs:{value:"2022"}},[a._v("2022")]),a._v(" "),t("option",{attrs:{value:"2023"}},[a._v("2023")])]),a._v(" "),t("button",{staticClass:"btn btn-dark mt-2",on:{click:function(t){return a.Descargar()}}},[a._v("Generar")])])])])]),a._v(" "),t("br"),a._v(" "),t("v-client-table",{attrs:{data:a.tableData,options:a.options,columns:a.columns},scopedSlots:a._u([{key:"id",fn:function(e){return[t("button",{staticClass:"btn btn-outline-dark",on:{click:function(t){return t.preventDefault(),a.abrirModal("bitacora","actualizar",e.row)}}},[t("i",{staticClass:"fas fa-pencil-alt"}),a._v(" Actualizar\n                        ")])]}}])})],1)]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.modal},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title"},[a._v(a._s(a.tituloModal))]),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.cerrarModal()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Fecha Entrada")]),a._v(" "),t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{taggable:"",multiple:"","data-vv-name":"Fecha entrada"},model:{value:a.dataSelect,callback:function(t){a.dataSelect=t},expression:"dataSelect"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha entrada")))])],1),a._v(" "),t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Residuo")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.residuo,expression:"residuo"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Residuo"},domProps:{value:a.residuo},on:{input:function(t){t.target.composing||(a.residuo=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Residuo")))])])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Cantidad")]),a._v(" "),t("input",{directives:[{name:"validate",rawName:"v-validate",value:"decimal:2",expression:"'decimal:2'"},{name:"model",rawName:"v-model",value:a.cantidad,expression:"cantidad"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Cantidad"},domProps:{value:a.cantidad},on:{input:function(t){t.target.composing||(a.cantidad=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Cantidad")))])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Unidad")]),a._v(" "),t("select",{directives:[{name:"model",rawName:"v-model",value:a.unidad,expression:"unidad"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.unidad=t.target.multiple?e:e[0]}}},[t("option",{attrs:{value:"BOLSA"}},[a._v("BOLSA")]),a._v(" "),t("option",{attrs:{value:"M3"}},[a._v("M3")]),a._v(" "),t("option",{attrs:{value:"KG"}},[a._v("KG")])])]),a._v(" "),t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Fecha Salida")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.fecha_salida,expression:"fecha_salida"}],staticClass:"form-control",attrs:{type:"date"},domProps:{value:a.fecha_salida},on:{input:function(t){t.target.composing||(a.fecha_salida=t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Nombre personal entrega")]),a._v(" "),t("v-select",{attrs:{options:a.listaEmpleados,label:"name"},model:{value:a.empleado_entrega,callback:function(t){a.empleado_entrega=t},expression:"empleado_entrega"}})],1),a._v(" "),t("div",{staticClass:"col-md-6 mb-3"},[t("label",[a._v("Proveedor que recolecto")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.proveedor,expression:"proveedor"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.proveedor},on:{input:function(t){t.target.composing||(a.proveedor=t.target.value)}}})])]),a._v(" "),t("div",{staticClass:"form-row"},[t("div",{staticClass:"col-md-3 mb-3"},[t("label",[a._v("Folio")]),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.folio,expression:"folio"}],staticClass:"form-control",attrs:{type:"text"},domProps:{value:a.folio},on:{input:function(t){t.target.composing||(a.folio=t.target.value)}}})])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.cerrarModal()}}},[t("i",{staticClass:"fas fa-window-close"}),a._v(" Cerrar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:1==a.tipoAccion,expression:"tipoAccion == 1"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(1)}}},[a._v("\n                                Guardar\n                            ")]),a._v(" "),t("button",{directives:[{name:"show",rawName:"v-show",value:2==a.tipoAccion,expression:"tipoAccion == 2"}],staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(0)}}},[a._v("\n                                Actualizar\n                            ")])])])])])])])])}),[function(){var a=this._self._c;return a("button",{staticClass:"btn btn-dark float-sm-right mr-1",attrs:{"data-toggle":"collapse",href:"#collapseDescargar",role:"button","aria-expanded":"false","aria-controls":"collapseDescargar"}},[a("i",{staticClass:"fas fa-file-pdf mr-1"}),this._v("Descargar\n                ")])}],!1,null,null,null).exports},94613:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>l});function s(a){return s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a},s(a)}function o(a,t){var e=Object.keys(a);if(Object.getOwnPropertySymbols){var s=Object.getOwnPropertySymbols(a);t&&(s=s.filter((function(t){return Object.getOwnPropertyDescriptor(a,t).enumerable}))),e.push.apply(e,s)}return e}function i(a,t,e){return(t=function(a){var t=function(a,t){if("object"!=s(a)||!a)return a;var e=a[Symbol.toPrimitive];if(void 0!==e){var o=e.call(a,t||"default");if("object"!=s(o))return o;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(a)}(a,"string");return"symbol"==s(t)?t:t+""}(t))in a?Object.defineProperty(a,t,{value:e,enumerable:!0,configurable:!0,writable:!0}):a[t]=e,a}var r=e(96225).call(void 0);const n={data:function(){return i(i({url:"seguridad/pruebasalcohol/",ver_modal_pruebas:0,tituloModal:"",prueba:{},list_empleados:[],tipoAccion:0,isPruebas_loading:!1,isGuardarpl_loading:!1,columns_pruebas:["id","fecha","ubicacion","responsable","observaciones","documento"],list_pruebas:[],options_pruebas:{headings:{id:"Acción",nombre:"Nombre"},perPage:10,perPageValues:[],skin:r.skin,sortIcon:r.sortIcon,filterByColumn:!0,texts:r.texts},participante:{},resultado:"",list_participantes:[],participantes:[],tipoCard:1,isParticipantes_loading:!1,isGuardarparticip_loading:!1,columns_participantes:["nombre","puesto","resultado"]},"list_participantes",[]),"options_participantes",{headings:{id:"Acción",nombre:"Empleado"},perPage:10,perPageValues:[],skin:r.skin,sortIcon:r.sortIcon,filterByColumn:!0,texts:r.texts})},computed:{},methods:{ObtenerPruebas:function(){var a=this;this.isPruebas_loading=!0,axios.get(this.url+"obtenerpruebas").then((function(t){t.data.status?(a.isPruebas_loading=!1,a.list_pruebas=t.data.pruebas):toastr.error(t.data.status)}))},AbrirModalPruebas:function(){var a=!(arguments.length>0&&void 0!==arguments[0])||arguments[0],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};this.ver_modal_pruebas=!0,a?(this.tipoAccion=1,this.tituloModal="Registar plática"):(this.tipoAccion=2,this.tituloModal="Actualizar plática",this.prueba=function(a){for(var t=1;t<arguments.length;t++){var e=null!=arguments[t]?arguments[t]:{};t%2?o(Object(e),!0).forEach((function(t){i(a,t,e[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(a,Object.getOwnPropertyDescriptors(e)):o(Object(e)).forEach((function(t){Object.defineProperty(a,t,Object.getOwnPropertyDescriptor(e,t))}))}return a}({},t),this.prueba.responsable={id:t.responsable_id,nombre:t.responsable})},ObtenerEmpleados:function(){var a=this;axios.get("generales/empleadoactivos").then((function(t){t.data.status?a.list_empleados=t.data.empleados:toastr.error(t.data.mensaje)}))},GuardarPrueba:function(){var a=this,t=arguments.length>0&&void 0!==arguments[0]&&arguments[0];this.$validator.validate().then((function(e){if(e){a.isGuardarpl_loading=!0;var s=new FormData;t||s.append("id",a.prueba.id),s.append("fecha",a.prueba.fecha),s.append("ubicacion",a.prueba.ubicacion),s.append("observaciones",a.prueba.observaciones),s.append("responsable_id",a.prueba.responsable.id),axios.post(a.url+"guardar",s).then((function(t){a.isGuardarpl_loading=!1,t.data.status?(toastr.success("Plática guardada correctamente"),a.CerrarModalPruebas(),a.ObtenerPruebas()):toastr.error(t.data.mensaje)}))}}))},CerrarModalPruebas:function(){this.ver_modal_pruebas=0,this.prueba={responsable:{}}},VerParticipantes:function(a){this.tipoCard=2,this.prueba_id=a.id,this.isParticipantes_loading=!0,this.ObtenerParticipantes(a.id)},ObtenerParticipantes:function(){var a=this;this.isParticipantes_loading=!0,axios.get(this.url+"participantes/obtener/"+this.prueba_id).then((function(t){a.isParticipantes_loading=!1,t.data.status?a.list_participantes=t.data.participantes:toastr.error(t.data.mensaje)}))},GuadarParticipantes:function(){var a=this;0!=this.participantes.length&&(this.isGuardarparticip_loading=!0,axios.post(this.url+"participantes/guardar",{prueba_id:this.prueba_id,participantes:this.participantes,resultado:this.resultado}).then((function(t){a.isGuardarparticip_loading=!1,t.data.status?(a.participantes=[],a.resultado="",toastr.success("Guardado correctamente"),a.ObtenerParticipantes()):toastr.error(t.data.mensaje)})))},DescargarPlantilla:function(a){window.open(this.url+"descargarplantilla/"+a,"_blank")},SubirEvidencia:function(a){var t=this;Swal.fire({title:"Cargar documento de la prueba",input:"file",confirmButtonText:"Cargar"}).then((function(e){if(console.error(e),null!=e.value)if("application/pdf"===e.value.type){var s=new FormData;s.append("prueba_id",a),s.append("evidencia",e.value),axios.post(t.url+"subirevidencia",s).then((function(a){a.data.status?(toastr.success("Documento subido correctamente"),t.ObtenerPruebas()):toastr.error(a.data.mensaje)})).catch((function(a){console.error(a),toastr.error("Error al subir el documento")}))}else toastr.warning("Seleccione un PDF")}))},DescargarEvidencia:function(a){window.open(this.url+"descargarevidencia/"+a,"_blank")}},mounted:function(){this.ObtenerPruebas(),this.ObtenerEmpleados()}};const l=(0,e(14486).A)(n,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid",staticStyle:{"min-height":"40vh"}},[1==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Pruebas de Alcoholimetría\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalPruebas()}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("vue-element-loading",{attrs:{active:a.isPruebas_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_pruebas,data:a.list_pruebas,options:a.options_pruebas},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalPruebas(!1,e.row)}}},[t("i",{staticClass:"fas fa-edit"}),a._v("  Actualizar\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.DescargarPlantilla(e.row.id)}}},[t("i",{staticClass:"fas fa-file-pdf"}),a._v("  Descargar Plantilla\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.SubirEvidencia(e.row.id)}}},[t("i",{staticClass:"fas fa-file-pdf"}),a._v("  Subir Evidencia\n                                    ")])])])])]}},{key:"documento",fn:function(e){return[null==e.row.documento?t("span",{staticClass:"btn btn-dark"},[a._v("N/D")]):t("button",{staticClass:"btn btn-dark",on:{click:function(t){return a.DescargarEvidencia(e.row.id)}}},[t("i",{staticClass:"fas fa-download"})])]}}],null,!1,3391742086)})],1)]):a._e(),a._v(" "),2==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Participantes\n                "),t("button",{staticClass:"btn btn-dark float-sm-right mx-1",attrs:{type:"button"},on:{click:function(t){a.tipoCard=1}}},[t("i",{staticClass:"fas fa-arrow-left"}),a._v(" Regresar\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("br"),a._v(" "),t("vue-element-loading",{attrs:{active:a.isGuardarparticip_loading}}),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Responsable")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{multiple:"",options:a.list_empleados,"data-vv-name":"Participantes",label:"nombre"},model:{value:a.participantes,callback:function(t){a.participantes=t},expression:"participantes"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Participantes")))])],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Resultado")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.resultado,expression:"resultado"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control col-9",attrs:{type:"text","data-vv-name":"Resultado",maxlength:"50"},domProps:{value:a.resultado},on:{input:function(t){t.target.composing||(a.resultado=t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Resultado")))])]),a._v(" "),t("button",{staticClass:"btn btn-dark",on:{click:function(t){return a.GuadarParticipantes()}}},[t("i",{staticClass:"fas fa-plus"})])]),a._v(" "),t("br"),a._v(" "),t("br"),a._v(" "),t("vue-element-loading",{attrs:{active:a.isParticipantes_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_participantes,data:a.list_participantes,options:a.options_participantes}})],1)]):a._e()]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_pruebas},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("vue-element-loading",{attrs:{active:a.isGuardarpl_loading}}),a._v(" "),t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.tituloModal)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalPruebas()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Fecha")]),a._v(" "),t("div",{staticClass:"col-md-3"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.prueba.fecha,expression:"prueba.fecha"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha"},domProps:{value:a.prueba.fecha},on:{input:function(t){t.target.composing||a.$set(a.prueba,"fecha",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Ubicación")]),a._v(" "),t("div",{staticClass:"col-md-4"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required|max:50",expression:"'required|max:50'"},{name:"model",rawName:"v-model",value:a.prueba.ubicacion,expression:"prueba.ubicacion"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Ubicación",autocomplete:"off"},domProps:{value:a.prueba.ubicacion},on:{input:function(t){t.target.composing||a.$set(a.prueba,"ubicacion",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Ubicación")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Responsable")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.list_empleados,"data-vv-name":"Responsable",label:"nombre"},model:{value:a.prueba.responsable,callback:function(t){a.$set(a.prueba,"responsable",t)},expression:"prueba.responsable"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Responsable")))])],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Observaciones")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("textarea",{directives:[{name:"validate",rawName:"v-validate",value:"required|max:100",expression:"'required|max:100'"},{name:"model",rawName:"v-model",value:a.prueba.observaciones,expression:"prueba.observaciones"}],staticClass:"form-control",attrs:{"data-vv-name":"Observaciones"},domProps:{value:a.prueba.observaciones},on:{input:function(t){t.target.composing||a.$set(a.prueba,"observaciones",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Observaciones")))])])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalPruebas()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarPrueba(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarPrueba(!1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])],1)])])])])}),[],!1,null,null,null).exports},95790:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>i});var s=e(96225).call(void 0);const o={data:function(){return{url:"/seguridad/catalogos",ver_modal:0,columns_secuencia:["id","nombre"],list_secuencia:[],list_riesgo:[],list_recomendacion:[],registro_modal:{},options_secuencia:{headings:{id:"Acciones",nombre:"Nombre"},perPage:10,perPageValues:[],skin:s.skin,sortIcon:s.sortIcon,filterByColumn:!0,texts:s.texts},titulo_modal_secuencia:"",tipoAccion_modal_secuencia:0,secuencia_modal:{}}},computed:{},methods:{AbrirModal:function(a,t){var e=arguments.length>2&&void 0!==arguments[2]?arguments[2]:[];this.ver_modal=!0;var s=1==t?"Secuencia":2==t?"Riesgo":"Recomendación";this.tipo_registro=t,a?(this.titulo_modal_secuencia="Registrar "+s,this.tipoAccion_modal_secuencia=1):(this.titulo_modal_secuencia="Actualizar "+s,this.tipoAccion_modal_secuencia=2,this.registro_modal.id=e.id,this.registro_modal.nombre=e.nombre)},Guardar:function(a){var t=this;this.$validator.validate().then((function(e){if(e){var s=1==t.tipo_registro?"/secuencia":2==t.tipo_registro?"/riesgo":"/recomendacion",o=new FormData;a||o.append("id",t.registro_modal.id),o.append("nombre",t.registro_modal.nombre),axios.post(t.url+s+"/registrar",o).then((function(a){a.data.status?(console.error(t.tipo_registro),toastr.success("Registrado correctamente"),t.CerrarModal(),1==t.tipo_registro?t.ObtenerSecuencias():2==t.tipo_registro?t.ObtenerRiesgos():t.ObtenerRecomendaciones()):toastr.danger(a.data.mensaje)}))}}))},ObtenerSecuencias:function(){var a=this;axios.get(this.url+"/secuencia/cargar").then((function(t){t.data.status?a.list_secuencia=t.data.secuencias:toastr.error(t.data.mensaje)}))},ObtenerRiesgos:function(){var a=this;axios.get(this.url+"/riesgo/cargar").then((function(t){t.data.status?a.list_riesgo=t.data.riesgos:toastr.error(t.data.mensaje)}))},ObtenerRecomendaciones:function(){var a=this;axios.get(this.url+"/recomendacion/cargar").then((function(t){t.data.status?a.list_recomendacion=t.data.recomendaciones:toastr.error(t.data.mensaje)}))},CerrarModal:function(){this.ver_modal=!1,this.registro_modal={}}},mounted:function(){this.ObtenerSecuencias(),this.ObtenerRiesgos(),this.ObtenerRecomendaciones()}};const i=(0,e(14486).A)(o,(function(){var a=this,t=a._self._c;return t("div",{staticClass:"main"},[t("div",{staticClass:"card"},[t("div",{staticClass:"card-body"},[a._m(0),a._v(" "),t("div",{staticClass:"tab-content",attrs:{id:"nav-tabContent"}},[t("div",{staticClass:"tab-pane fade show active",attrs:{id:"nav-home",role:"tabpanel","aria-labelledby":"nav-home-tab"}},[t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModal(!0,1)}}},[t("i",{staticClass:"fas fa-plus"},[a._v(" ")]),a._v("Nuevo\n                    ")]),a._v(" "),t("v-client-table",{ref:"tbl_secuencia",attrs:{columns:a.columns_secuencia,data:a.list_secuencia,options:a.options_secuencia},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btn_id",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu"},[[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModal(!1,1,e.row)}}},[t("i",{staticClass:"icon-pencil"}),a._v(" Actualizar\n                                        ")])]],2)])]}}])})],1),a._v(" "),t("div",{staticClass:"tab-pane fade",attrs:{id:"nav-profile",role:"tabpanel","aria-labelledby":"nav-profile-tab"}},[t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModal(!0,2)}}},[t("i",{staticClass:"fas fa-plus"},[a._v(" ")]),a._v("Nuevo\n                    ")]),a._v(" "),t("v-client-table",{ref:"tbl_secuencia",attrs:{columns:a.columns_secuencia,data:a.list_riesgo,options:a.options_secuencia},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btn_id",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu"},[[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModal(!1,2,e.row)}}},[t("i",{staticClass:"icon-pencil"}),a._v(" Actualizar\n                                        ")])]],2)])]}}])})],1),a._v(" "),t("div",{staticClass:"tab-pane fade",attrs:{id:"nav-contact",role:"tabpanel","aria-labelledby":"nav-contact-tab"}},[t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModal(!0,3)}}},[t("i",{staticClass:"fas fa-plus"},[a._v(" ")]),a._v("Nuevo\n                    ")]),a._v(" "),t("v-client-table",{ref:"tbl_secuencia",attrs:{columns:a.columns_secuencia,data:a.list_recomendacion,options:a.options_secuencia},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{id:"btn_id",type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu"},[[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModal(!1,3,e.row)}}},[t("i",{staticClass:"icon-pencil"}),a._v(" Actualizar\n                                        ")])]],2)])]}}])})],1)])])]),a._v(" "),t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.titulo_modal_secuencia)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModal()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("form",{staticClass:"form-horizontal",attrs:{action:"",method:"post",enctype:"multipart/form-data"}},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-3 form-control-label"},[a._v("Acciones")]),a._v(" "),t("div",{staticClass:"col-md-9"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.registro_modal.nombre,expression:"registro_modal.nombre"}],staticClass:"form-control",attrs:{type:"text",name:"nombre"},domProps:{value:a.registro_modal.nombre},on:{input:function(t){t.target.composing||a.$set(a.registro_modal,"nombre",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("nombre")))])])])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModal()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion_modal_secuencia?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion_modal_secuencia?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.Guardar(!1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])])])])])}),[function(){var a=this,t=a._self._c;return t("nav",[t("div",{staticClass:"nav nav-tabs",attrs:{id:"nav-tab",role:"tablist"}},[t("a",{staticClass:"nav-link active",attrs:{id:"nav-home-tab","data-toggle":"tab",href:"#nav-home",role:"tab","aria-controls":"nav-home","aria-selected":"true"}},[a._v("\n                        Secuencia "),t("i",{staticClass:"fas fa-walking"})]),a._v(" "),t("a",{staticClass:"nav-link",attrs:{id:"nav-profile-tab","data-toggle":"tab",href:"#nav-profile",role:"tab","aria-controls":"nav-profile","aria-selected":"false"}},[a._v("\n                        Riesgo "),t("i",{staticClass:"fas fa-exclamation-triangle"})]),a._v(" "),t("a",{staticClass:"nav-link",attrs:{id:"nav-contact-tab","data-toggle":"tab",href:"#nav-contact",role:"tab","aria-controls":"nav-contact","aria-selected":"false"}},[a._v("\n                        Recomendación "),t("i",{staticClass:"fas fa-exclamation"})])])])}],!1,null,null,null).exports},95940:(a,t,e)=>{"use strict";e.r(t),e.d(t,{default:()=>c});function s(a){return s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a},s(a)}function o(a,t){var e=Object.keys(a);if(Object.getOwnPropertySymbols){var s=Object.getOwnPropertySymbols(a);t&&(s=s.filter((function(t){return Object.getOwnPropertyDescriptor(a,t).enumerable}))),e.push.apply(e,s)}return e}function i(a){for(var t=1;t<arguments.length;t++){var e=null!=arguments[t]?arguments[t]:{};t%2?o(Object(e),!0).forEach((function(t){r(a,t,e[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(a,Object.getOwnPropertyDescriptors(e)):o(Object(e)).forEach((function(t){Object.defineProperty(a,t,Object.getOwnPropertyDescriptor(e,t))}))}return a}function r(a,t,e){return(t=function(a){var t=function(a,t){if("object"!=s(a)||!a)return a;var e=a[Symbol.toPrimitive];if(void 0!==e){var o=e.call(a,t||"default");if("object"!=s(o))return o;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(a)}(a,"string");return"symbol"==s(t)?t:t+""}(t))in a?Object.defineProperty(a,t,{value:e,enumerable:!0,configurable:!0,writable:!0}):a[t]=e,a}var n=e(96225).call(void 0);const l={data:function(){return{url:"seguridad/inspeccionbotiquin/",ver_modal_inspeccion:0,tituloModal:"",columns_botiquines:["id","material","existencia","reposicion","fecha_vencimiento","observacion"],list_botiquines:[],options_botiquines:{headings:{id:"Acción"},perPage:10,perPageValues:[],skin:n.skin,sortIcon:n.sortIcon,filterByColumn:!0,texts:n.texts,filterable:["id","material","existencia","reposicion","fecha_vencimiento","observacion"],sortable:["id","material","existencia","reposicion","fecha_vencimiento","observacion"]},inspeccion:{visible:1,buen_estado:1,tipo:1,recomendaciones:"-"},list_empleados:[],tipoAccion:0,isInspecciones_loading:!1,isGuardarInspeccion_loading:!1,columns_inspecciones:["id","fecha","area","tipo","numero","inspector","responsable"],list_inspecciones:[],options_inspeccion:{headings:{id:"Acción",area:"Área"},perPage:10,perPageValues:[],skin:n.skin,sortIcon:n.sortIcon,filterByColumn:!0,texts:n.texts},participante:{},participantes:[],tipoCard:1,isBotiquines_loading:!1,isGuardarBotiquin_loading:!1,botiquin_modal:{},tipoAccion_botiquin:1,tituloModal_Botiquin:"",area:"",ver_modal_botiquin:!1}},computed:{},methods:{ObtenerInspecciones:function(){var a=this;this.isInspecciones_loading=!0,axios.get(this.url+"obtener").then((function(t){t.data.status?(a.isInspecciones_loading=!1,a.list_inspecciones=t.data.inspecciones):toastr.error(t.data.status)}))},AbrirModalInspeccion:function(){var a=!(arguments.length>0&&void 0!==arguments[0])||arguments[0],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};this.ver_modal_inspeccion=!0,a?(this.tipoAccion=1,this.tituloModal="Registar Inspección"):(this.tipoAccion=2,this.tituloModal="Actualizar Inspección",this.inspeccion=i({},t),this.inspeccion.inspector={id:t.inspector_id,nombre:t.inspector},this.inspeccion.responsable={id:t.responsable_id,nombre:t.responsable})},ObtenerEmpleados:function(){var a=this;axios.get("generales/empleadoactivos").then((function(t){t.data.status?a.list_empleados=t.data.empleados:toastr.error(t.data.mensaje)}))},GuardarInspeccion:function(){var a=this,t=arguments.length>0&&void 0!==arguments[0]&&arguments[0];this.$validator.validate().then((function(e){if(e){a.isGuardarInspeccion_loading=!0;var s=new FormData;t||s.append("id",a.inspeccion.id),s.append("area",a.inspeccion.area),s.append("numero",a.inspeccion.numero),s.append("fecha",a.inspeccion.fecha),s.append("inspector_id",a.inspeccion.inspector.id),s.append("responsable_id",a.inspeccion.responsable.id),s.append("tipo",a.inspeccion.tipo),s.append("visible",a.inspeccion.visible),s.append("buen_estado",a.inspeccion.buen_estado),s.append("recomendaciones",a.inspeccion.recomendaciones),axios.post(a.url+"guardar",s).then((function(t){a.isGuardarInspeccion_loading=!1,t.data.status?(toastr.success("Inspección guardada correctamente"),a.CerrarModalInspeccion(),a.ObtenerInspecciones()):toastr.error(t.data.mensaje)}))}}))},CerrarModalInspeccion:function(){this.ver_modal_inspeccion=0,this.inspeccion={responsable:{},inspector:{},visible:1,buen_estado:1,tipo:1,recomendaciones:"-"}},VerBotiquines:function(a){this.tipoCard=2,this.inspeccion_id=a.id,this.isBotiquines_loading=!0,this.area=a.area,this.ObtenerBotiquines(a.id)},ObtenerBotiquines:function(){var a=this;this.isBotiquines_loading=!0,axios.get(this.url+"botiquines/obtener/"+this.inspeccion_id).then((function(t){a.isBotiquines_loading=!1,t.data.status?a.list_botiquines=t.data.botiquines:toastr.error(t.data.mensaje)}))},GuardarBotiquin:function(a){var t=this;this.$validator.validate().then((function(e){if(e){t.isGuardarBotiquin_loading=!0;var s=new FormData;a||s.append("id",t.botiquin_modal.id),s.append("sib_id",t.inspeccion_id),s.append("apoyo",t.botiquin_modal.apoyo?1:0),s.append("fecha_vencimiento",t.botiquin_modal.fecha_vencimiento),s.append("existencia",t.botiquin_modal.existencia),s.append("reposicion",t.botiquin_modal.reposicion),s.append("material",t.botiquin_modal.material),s.append("observacion",t.botiquin_modal.observacion),axios.post(t.url+"botiquines/guardar",s).then((function(a){t.isGuardarBotiquin_loading=!1,a.data.status?(toastr.success("Guardado correctamente"),t.CerrarModalBotiquin(),t.ObtenerBotiquines()):toastr.error(a.data.mensaje)}))}}))},AbrirModalBotiquin:function(a){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};this.LimpiarBotiquin(),this.ver_modal_botiquin=!0,a?(this.tituloModal_Botiquin="Registrar botiquín",this.tipoAccion_botiquin=1):(this.tituloModal_Botiquin="Actualizar botiquín",this.botiquin_modal=i({},t),this.tipoAccion_botiquin=2)},LimpiarBotiquin:function(){this.botiquin_modal={apoyo:!1,existencia:0,reposicion:0,material:"",observacion:"-"}},CerrarModalBotiquin:function(){this.ver_modal_botiquin=!1},Descargar:function(a){window.open(this.url+"descargar/"+a,"_blank")}},mounted:function(){this.ObtenerInspecciones(),this.ObtenerEmpleados()}};const c=(0,e(14486).A)(l,(function(){var a=this,t=a._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid",staticStyle:{"min-height":"40vh"}},[1==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Inspección de Botiquines\n                "),t("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalInspeccion()}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("vue-element-loading",{attrs:{active:a.isInspecciones_loading}}),a._v(" "),t("v-client-table",{attrs:{columns:a.columns_inspecciones,data:a.list_inspecciones,options:a.options_inspeccion},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalInspeccion(!1,e.row)}}},[t("i",{staticClass:"fas fa-edit"}),a._v("  Actualizar\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.VerBotiquines(e.row)}}},[t("i",{staticClass:"fas fa-eye"}),a._v("  Ver\n                                    ")]),a._v(" "),t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.Descargar(e.row.id)}}},[t("i",{staticClass:"fas fa-file-pdf"}),a._v("  Descargar\n                                    ")])])])])]}},{key:"tipo",fn:function(e){return[1==e.row.tipo?t("p",[a._v("Portátil")]):a._e(),a._v(" "),2==e.row.tipo?t("p",[a._v("Fijo")]):a._e()]}}],null,!1,1345082423)})],1)]):a._e(),a._v(" "),2==a.tipoCard?t("div",{staticClass:"card"},[t("div",{staticClass:"card-header"},[t("i",{staticClass:"fa fa-align-justify"}),a._v(" Botiquín de "+a._s(a.area)+"\n                "),t("button",{staticClass:"btn btn-dark float-sm-right mx-1",attrs:{type:"button"},on:{click:function(t){a.tipoCard=1}}},[t("i",{staticClass:"fas fa-arrow-left"}),a._v(" Regresar\n                ")]),a._v(" "),t("button",{staticClass:"btn btn-dark float-sm-right mx-1",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalBotiquin(!0)}}},[t("i",{staticClass:"fas fa-plus"}),a._v(" Nuevo\n                ")])]),a._v(" "),t("div",{staticClass:"card-body"},[t("v-client-table",{attrs:{columns:a.columns_botiquines,data:a.list_botiquines,options:a.options_botiquines},scopedSlots:a._u([{key:"id",fn:function(e){return[t("div",{staticClass:"btn-group",attrs:{role:"group"}},[t("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[t("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[t("i",{staticClass:"fas fa-grip-horizontal"}),a._v("  Acciones\n                                ")]),a._v(" "),t("div",{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"btnGroupDrop1"}},[t("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(t){return a.AbrirModalBotiquin(!1,e.row)}}},[t("i",{staticClass:"fas fa-edit"}),a._v("  Actualizar\n                                    ")])])])])]}}],null,!1,3665954911)})],1)]):a._e()]),a._v(" "),a.ver_modal_inspeccion?t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_inspeccion},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("vue-element-loading",{attrs:{active:a.isGuardarBotiquin_loading}}),a._v(" "),t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.tituloModal)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalBotiquin()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Fecha")]),a._v(" "),t("div",{staticClass:"col-md-3"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.inspeccion.fecha,expression:"inspeccion.fecha"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha"},domProps:{value:a.inspeccion.fecha},on:{input:function(t){t.target.composing||a.$set(a.inspeccion,"fecha",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Área")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required|max:50",expression:"'required|max:50'"},{name:"model",rawName:"v-model",value:a.inspeccion.area,expression:"inspeccion.area"}],staticClass:"form-control",attrs:{type:"text","data-vv-name":"Área",autocomplete:"off"},domProps:{value:a.inspeccion.area},on:{input:function(t){t.target.composing||a.$set(a.inspeccion,"area",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Área")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Tipo")]),a._v(" "),t("div",{staticClass:"col-md-3"},[t("select",{directives:[{name:"model",rawName:"v-model",value:a.inspeccion.tipo,expression:"inspeccion.tipo"}],staticClass:"form-control",on:{change:function(t){var e=Array.prototype.filter.call(t.target.options,(function(a){return a.selected})).map((function(a){return"_value"in a?a._value:a.value}));a.$set(a.inspeccion,"tipo",t.target.multiple?e:e[0])}}},[t("option",{attrs:{value:"1"}},[a._v("Portátil")]),a._v(" "),t("option",{attrs:{value:"2"}},[a._v("Fijo")])])]),a._v(" "),t("label",{staticClass:"col-md-2 form-control-label"},[a._v("No. de Botiquín")]),a._v(" "),t("div",{staticClass:"col-md-3"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.inspeccion.numero,expression:"inspeccion.numero"}],staticClass:"form-control",attrs:{type:"number",min:"1",max:"100","data-vv-name":"Número de Botiquín"},domProps:{value:a.inspeccion.numero},on:{input:function(t){t.target.composing||a.$set(a.inspeccion,"numero",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Número de Botiquín")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-4 form-control-label"},[a._v("El botiquín está en un lugar visible")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.inspeccion.visible,expression:"inspeccion.visible"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.inspeccion.visible,"1")},on:{change:function(t){return a.$set(a.inspeccion,"visible","1")}}}),a._v(" Sí\n                                "),t("span",{staticClass:"mx-5"}),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.inspeccion.visible,expression:"inspeccion.visible"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.inspeccion.visible,"2")},on:{change:function(t){return a.$set(a.inspeccion,"visible","2")}}}),a._v(" No\n                            ")])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-4 form-control-label"},[a._v("El botiquín está en buen estado")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.inspeccion.buen_estado,expression:"inspeccion.buen_estado"}],attrs:{type:"radio",value:"1"},domProps:{checked:a._q(a.inspeccion.buen_estado,"1")},on:{change:function(t){return a.$set(a.inspeccion,"buen_estado","1")}}}),a._v(" Sí\n                                "),t("span",{staticClass:"mx-5"}),a._v(" "),t("input",{directives:[{name:"model",rawName:"v-model",value:a.inspeccion.buen_estado,expression:"inspeccion.buen_estado"}],attrs:{type:"radio",value:"2"},domProps:{checked:a._q(a.inspeccion.buen_estado,"2")},on:{change:function(t){return a.$set(a.inspeccion,"buen_estado","2")}}}),a._v(" No\n                            ")])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Inspector")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.list_empleados,label:"nombre","data-vv-name":"Inspector"},model:{value:a.inspeccion.inspector,callback:function(t){a.$set(a.inspeccion,"inspector",t)},expression:"inspeccion.inspector"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Inspector")))])],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Responsable")]),a._v(" "),t("div",{staticClass:"col-md-6"},[t("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{options:a.list_empleados,label:"nombre"},model:{value:a.inspeccion.responsable,callback:function(t){a.$set(a.inspeccion,"responsable",t)},expression:"inspeccion.responsable"}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Responsable")))])],1)]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Recomendaciones")]),a._v(" "),t("div",{staticClass:"col-md-8"},[t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.inspeccion.recomendaciones,expression:"inspeccion.recomendaciones"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{rows:"4","data-vv-name":"Recomendaciones"},domProps:{value:a.inspeccion.recomendaciones},on:{input:function(t){t.target.composing||a.$set(a.inspeccion,"recomendaciones",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Recomendaciones")))])])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalInspeccion()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarInspeccion(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarInspeccion(!1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])],1)])])]):a._e(),a._v(" "),a.ver_modal_botiquin?t("div",{staticClass:"modal fade",class:{mostrar:a.ver_modal_botiquin},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[t("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[t("div",{staticClass:"modal-content"},[t("div",[t("vue-element-loading",{attrs:{active:a.isGuardarInspeccion_loading}}),a._v(" "),t("div",{staticClass:"modal-header"},[t("h4",{staticClass:"modal-title",domProps:{textContent:a._s(a.tituloModal_Botiquin)}}),a._v(" "),t("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(t){return a.CerrarModalBotiquin()}}},[t("span",{attrs:{"aria-hidden":"true"}},[a._v("×")])])]),a._v(" "),t("div",{staticClass:"modal-body"},[t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Material")]),a._v(" "),t("div",{staticClass:"col-md-5"},[t("textarea",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.botiquin_modal.material,expression:"botiquin_modal.material"}],staticClass:"form-control",attrs:{maxlength:"100","data-vv-name":"Material"},domProps:{value:a.botiquin_modal.material},on:{input:function(t){t.target.composing||a.$set(a.botiquin_modal,"material",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Material")))])]),a._v(" "),t("div",{staticClass:"form-check form-inline"},[t("label",{staticClass:"form-check-label col-md-6"},[a._v("\n                                    Elemento de apoyo\n                                ")]),a._v(" "),t("label",{staticClass:"switch switch-default switch-pill switch-dark"},[t("input",{directives:[{name:"model",rawName:"v-model",value:a.botiquin_modal.apoyo,expression:"botiquin_modal.apoyo"}],staticClass:"switch-input",attrs:{type:"checkbox"},domProps:{checked:Array.isArray(a.botiquin_modal.apoyo)?a._i(a.botiquin_modal.apoyo,null)>-1:a.botiquin_modal.apoyo},on:{change:function(t){var e=a.botiquin_modal.apoyo,s=t.target,o=!!s.checked;if(Array.isArray(e)){var i=a._i(e,null);s.checked?i<0&&a.$set(a.botiquin_modal,"apoyo",e.concat([null])):i>-1&&a.$set(a.botiquin_modal,"apoyo",e.slice(0,i).concat(e.slice(i+1)))}else a.$set(a.botiquin_modal,"apoyo",o)}}}),a._v(" "),t("span",{staticClass:"switch-label"}),a._v(" "),t("span",{staticClass:"switch-handle"})]),a._v(" "),t("span",{staticClass:"ml-3"},[a._v(a._s(a.botiquin_modal.apoyo?"Sí":"No"))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Existencia")]),a._v(" "),t("div",{staticClass:"col-md-2"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required|decimal:0",expression:"'required|decimal:0'"},{name:"model",rawName:"v-model",value:a.botiquin_modal.existencia,expression:"botiquin_modal.existencia"}],staticClass:"form-control",attrs:{type:"number",min:"1",step:"1","data-vv-name":"Existencia"},domProps:{value:a.botiquin_modal.existencia},on:{input:function(t){t.target.composing||a.$set(a.botiquin_modal,"existencia",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Existencia")))])]),a._v(" "),t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Reposición")]),a._v(" "),t("div",{staticClass:"col-md-2"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required|decimal:0",expression:"'required|decimal:0'"},{name:"model",rawName:"v-model",value:a.botiquin_modal.reposicion,expression:"botiquin_modal.reposicion"}],staticClass:"form-control",attrs:{type:"number",min:"0",step:"1","data-vv-name":"Reposición"},domProps:{value:a.botiquin_modal.reposicion},on:{input:function(t){t.target.composing||a.$set(a.botiquin_modal,"reposicion",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Reposición")))])]),a._v(" "),t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Fecha de vencimiento")]),a._v(" "),t("div",{staticClass:"col-md-2"},[t("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:a.botiquin_modal.fecha_vencimiento,expression:"botiquin_modal.fecha_vencimiento"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha de vencimiento"},domProps:{value:a.botiquin_modal.fecha_vencimiento},on:{input:function(t){t.target.composing||a.$set(a.botiquin_modal,"fecha_vencimiento",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Fecha de vencimiento")))])])]),a._v(" "),t("div",{staticClass:"form-group row"},[t("label",{staticClass:"col-md-2 form-control-label"},[a._v("Observación")]),a._v(" "),t("div",{staticClass:"col-md-8"},[t("textarea",{directives:[{name:"model",rawName:"v-model",value:a.botiquin_modal.observacion,expression:"botiquin_modal.observacion"},{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],staticClass:"form-control",attrs:{rows:"4","data-vv-name":"Recomendaciones"},domProps:{value:a.botiquin_modal.observacion},on:{input:function(t){t.target.composing||a.$set(a.botiquin_modal,"observacion",t.target.value)}}}),a._v(" "),t("span",{staticClass:"text-danger"},[a._v(a._s(a.errors.first("Recomendaciones")))])])])]),a._v(" "),t("div",{staticClass:"modal-footer"},[t("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(t){return a.CerrarModalBotiquin()}}},[t("i",{staticClass:"fas fa-times"}),a._v(" Cerrar")]),a._v(" "),1==a.tipoAccion_botiquin?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarBotiquin(!0)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Guardar")]):a._e(),a._v(" "),2==a.tipoAccion_botiquin?t("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(t){return a.GuardarBotiquin(!1)}}},[t("i",{staticClass:"fas fa-save"}),a._v(" Actualizar")]):a._e()])],1)])])]):a._e()])}),[],!1,null,null,null).exports},96225:a=>{a.exports=function(){return{dateColumns:[],listColumns:{},datepickerOptions:{locale:{cancelLabel:"Clear"}},datepickerPerColumnOptions:{},initialPage:1,perPage:10,perPageValues:[10,25,50,100],groupBy:!1,collapseGroups:!1,destroyEventBus:!1,sendEmptyFilters:!1,params:{},sortable:!0,filterable:!0,groupMeta:[],initFilters:{},customFilters:[],templates:{},debounce:250,dateFormat:"DD/MM/YYYY",dateFormatPerColumn:{},toMomentFormat:!1,skin:"table table-striped table-bordered table-hover table-sm",skinBusqueda:"table table-striped table-bordered table-hover table-sm busqueda",columnsDisplay:{},columnsDropdown:!1,texts:{count:"Mostrando del {from} al  {to} de {count} registros|{count} registros|Un registro",first:"Primero",last:"Ultimo",filter:"Buscar:",filterPlaceholder:"Buscar...",limit:"Registros:",page:"Pagina:",noResults:"No se encontraron registros",filterBy:"Filtrar por {column}",loading:"Cargando...",defaultOption:"Seleccionar {column}",columns:"Columnas"},sortIcon:{base:"fa",up:"fa-chevron-up",down:"fa-chevron-down",is:"fa-sort"},sortingAlgorithm:function(a,t){return a.sort(this.getSortFn(t))},customSorting:{},multiSorting:{},clientMultiSorting:!0,serverMultiSorting:!1,filterByColumn:!1,highlightMatches:!1,orderBy:!1,descOrderColumns:[],footerHeadings:!1,headings:{},headingsTooltips:{},pagination:{dropdown:!1,chunk:10,edge:!1,align:"center",nav:"fixed"},childRow:!1,childRowTogglerFirst:!0,uniqueKey:"id",requestFunction:!1,requestAdapter:function(a){return a},responseAdapter:function(a){var t=this.getResponseData(a);return{data:t.data,count:t.count}},requestKeys:{query:"query",limit:"limit",orderBy:"orderBy",ascending:"ascending",page:"page",byColumn:"byColumn"},rowClassCallback:!1,preserveState:!1,saveState:!1,storage:"local",columnsClasses:{},columnCondicion:[{id:1,text:"Activo"},{id:0,text:"Desactivado"}]}}}}]);
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["seg"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return _defineProperty(_defineProperty({
+      url: "seguridad/pruebasalcohol/",
+      ver_modal_pruebas: 0,
+      tituloModal: '',
+      prueba: {},
+      list_empleados: [],
+      tipoAccion: 0,
+      isPruebas_loading: false,
+      isGuardarpl_loading: false,
+      columns_pruebas: ["id", "fecha", "ubicacion", "responsable", "observaciones", "documento"],
+      list_pruebas: [],
+      options_pruebas: {
+        headings: {
+          id: 'Acción',
+          nombre: 'Nombre'
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      // Participantes
+      participante: {},
+      resultado: "",
+      list_participantes: [],
+      participantes: [],
+      tipoCard: 1,
+      isParticipantes_loading: false,
+      isGuardarparticip_loading: false,
+      columns_participantes: ["nombre", "puesto", "resultado"]
+    }, "list_participantes", []), "options_participantes", {
+      headings: {
+        id: 'Acción',
+        nombre: "Empleado"
+      },
+      perPage: 10,
+      perPageValues: [],
+      skin: config.skin,
+      sortIcon: config.sortIcon,
+      filterByColumn: true,
+      texts: config.texts
+    });
+  },
+  computed: {},
+  methods: {
+    /**
+     * Obtener todas las pruebaalcohol
+     */
+    ObtenerPruebas: function ObtenerPruebas() {
+      var _this = this;
+      this.isPruebas_loading = true;
+      axios.get(this.url + "obtenerpruebas").then(function (res) {
+        if (res.data.status) {
+          _this.isPruebas_loading = false;
+          _this.list_pruebas = res.data.pruebas;
+        } else toastr.error(res.data.status);
+      });
+    },
+    AbrirModalPruebas: function AbrirModalPruebas() {
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var prueba = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.ver_modal_pruebas = true;
+      if (nuevo) {
+        this.tipoAccion = 1;
+        this.tituloModal = "Registar plática";
+      } else {
+        this.tipoAccion = 2;
+        this.tituloModal = "Actualizar plática";
+        this.prueba = _objectSpread({}, prueba);
+        this.prueba.responsable = {
+          id: prueba.responsable_id,
+          nombre: prueba.responsable
+        };
+      }
+    },
+    /**
+     * Obtener todos los empleados
+     */
+    ObtenerEmpleados: function ObtenerEmpleados() {
+      var _this2 = this;
+      axios.get("generales/empleadoactivos").then(function (res) {
+        if (res.data.status) {
+          _this2.list_empleados = res.data.empleados;
+        } else toastr.error(res.data.mensaje);
+      });
+    },
+    /**
+     * Registrar plática
+     */
+    GuardarPrueba: function GuardarPrueba() {
+      var _this3 = this;
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        _this3.isGuardarpl_loading = true;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this3.prueba.id);
+        data.append("fecha", _this3.prueba.fecha);
+        data.append("ubicacion", _this3.prueba.ubicacion);
+        data.append("observaciones", _this3.prueba.observaciones);
+        data.append("responsable_id", _this3.prueba.responsable.id);
+        axios.post(_this3.url + "guardar", data).then(function (res) {
+          _this3.isGuardarpl_loading = false;
+          if (res.data.status) {
+            toastr.success("Plática guardada correctamente");
+            _this3.CerrarModalPruebas();
+            _this3.ObtenerPruebas();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    CerrarModalPruebas: function CerrarModalPruebas() {
+      this.ver_modal_pruebas = 0;
+      this.prueba = {
+        responsable: {}
+      };
+    },
+    VerParticipantes: function VerParticipantes(prueba) {
+      this.tipoCard = 2;
+      this.prueba_id = prueba.id;
+      this.isParticipantes_loading = true;
+      this.ObtenerParticipantes(prueba.id);
+    },
+    // Obtener los participante de la prueba selecionada
+    ObtenerParticipantes: function ObtenerParticipantes() {
+      var _this4 = this;
+      this.isParticipantes_loading = true;
+      axios.get(this.url + "participantes/obtener/" + this.prueba_id).then(function (res) {
+        _this4.isParticipantes_loading = false;
+        if (res.data.status) {
+          _this4.list_participantes = res.data.participantes;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Guardar los participantes en la prueba seleccinoada
+     */
+    GuadarParticipantes: function GuadarParticipantes() {
+      var _this5 = this;
+      if (this.participantes.length == 0) return;
+      this.isGuardarparticip_loading = true;
+      axios.post(this.url + "participantes/guardar", {
+        "prueba_id": this.prueba_id,
+        "participantes": this.participantes,
+        "resultado": this.resultado
+      }).then(function (res) {
+        _this5.isGuardarparticip_loading = false;
+        if (res.data.status) {
+          _this5.participantes = [];
+          _this5.resultado = "";
+          toastr.success("Guardado correctamente");
+          _this5.ObtenerParticipantes();
+        } else toastr.error(res.data.mensaje);
+      });
+    },
+    DescargarPlantilla: function DescargarPlantilla(p_id) {
+      window.open(this.url + 'descargarplantilla/' + p_id, '_blank');
+    },
+    /**
+     * Subir pdf de platica
+     */
+    SubirEvidencia: function SubirEvidencia(id) {
+      var _this6 = this;
+      Swal.fire({
+        title: "Cargar documento de la prueba",
+        input: "file",
+        confirmButtonText: "Cargar"
+      }).then(function (result) {
+        console.error(result);
+        if (result.value == null) return;
+        if (result.value.type === "application/pdf") {
+          var data = new FormData();
+          data.append("prueba_id", id);
+          data.append("evidencia", result.value);
+          axios.post(_this6.url + "subirevidencia", data).then(function (res) {
+            if (res.data.status) {
+              toastr.success("Documento subido correctamente");
+              _this6.ObtenerPruebas();
+            } else {
+              toastr.error(res.data.mensaje);
+            }
+          })["catch"](function (r) {
+            console.error(r);
+            toastr.error("Error al subir el documento");
+          });
+        } else {
+          toastr.warning("Seleccione un PDF");
+        }
+      });
+    },
+    DescargarEvidencia: function DescargarEvidencia(id) {
+      window.open(this.url + 'descargarevidencia/' + id, '_blank');
+    }
+  },
+  mounted: function mounted() {
+    this.ObtenerPruebas();
+    this.ObtenerEmpleados();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=script&lang=js":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=script&lang=js ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      tituloModal: '',
+      modal: 0,
+      modal_participantes: 0,
+      tipoAccion: 0,
+      isLoading: false,
+      ///
+      id: 0,
+      ubicacion: '',
+      permiso: '',
+      descripcion: '',
+      operaciones: [],
+      shso: '',
+      empleado: '',
+      fecha: '',
+      //
+      listaCatalogo: [],
+      catalogo: '',
+      listado_data: [],
+      listado_id: [],
+      listado_supervisor: [],
+      vs_options: [],
+      supervisor: '',
+      ///
+      tableData: [],
+      columns: ['id', 'fecha', 'numero_permiso', 'ubicacion', 'descripcion', 'descargar'],
+      options: {
+        headings: {
+          'id': 'ACCIONES'
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      ////
+      tableDataParticipantes: [],
+      columnsParticipantes: ['empleado_id', 'empleado'],
+      optionsParticipantes: {
+        headings: {
+          'empleado_id': 'ACCIONES'
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      }
+    };
+  },
+  methods: {
+    getDataInicial: function getDataInicial() {
+      var _this = this;
+      axios.get('get/analisis/seguridad').then(function (response) {
+        _this.tableData = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    getData: function getData() {
+      var _this2 = this;
+      this.listaCatalogo = [];
+      axios.get('get/lista/catalogo/analisis').then(function (response) {
+        _this2.listaCatalogo = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+      axios.get('vertodosempleados').then(function (response) {
+        // console.log(response);
+        response.data.forEach(function (item, i) {
+          _this2.vs_options.push({
+            id: item.id,
+            name: item.nombre + ' ' + item.ap_paterno + ' ' + item.ap_materno
+          });
+        });
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    abrirModal: function abrirModal(modelo, accion) {
+      var _this3 = this;
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      switch (modelo) {
+        case "analisis":
+          {
+            switch (accion) {
+              case 'registrar':
+                {
+                  this.modal = 1;
+                  this.tituloModal = 'Registrar análisis';
+                  this.tipoAccion = 1;
+                  this.VaciarDos();
+                  break;
+                }
+              case 'actualizar':
+                {
+                  this.listado_data = [];
+                  this.listado_id = [];
+                  this.listado_supervisor = [];
+                  // console.log(data);
+                  axios.get('get/lista/evaluacion/riesgo/' + data.id).then(function (response) {
+                    response.data.forEach(function (item, i) {
+                      _this3.listado_data.push({
+                        id: item.id,
+                        actividad: item.secuencia,
+                        riesgo: item.riesgo,
+                        medidas: item.recomendacion,
+                        supervisor: item.supervisor
+                      });
+                      _this3.listado_supervisor.push(item.supervisor_id);
+                      _this3.listado_id.push(item.catalogo_analisis_seguridad_id);
+                    });
+                  })["catch"](function (e) {
+                    console.error(e);
+                  });
+                  this.operaciones = {
+                    id: data['empleado_operaciones'],
+                    name: data['operaciones_empleado']
+                  };
+                  this.shso = {
+                    id: data['empleado_shso'],
+                    name: data['shso_empleado']
+                  };
+                  this.id = data['id'];
+                  this.ubicacion = data['ubicacion'];
+                  this.permiso = data['numero_permiso'];
+                  this.descripcion = data['descripcion'];
+                  this.fecha = data['fecha'];
+                  this.modal = 1;
+                  this.tituloModal = 'Actualizar análisis';
+                  this.tipoAccion = 2;
+                  break;
+                }
+            }
+          }
+      }
+    },
+    Cerrar: function Cerrar() {
+      this.modal = 0;
+    },
+    guardarasignacion: function guardarasignacion() {
+      var _this4 = this;
+      if (this.listado_data.find(function (info) {
+        return info.actividad == _this4.catalogo.secuencia;
+      })) {
+        toastr.warning('Ya seleccionado');
+      } else {
+        if (this.catalogo != '') {
+          this.listado_data.push({
+            actividad: this.catalogo.secuencia,
+            riesgo: this.catalogo.riesgo,
+            medidas: this.catalogo.recomendacion,
+            supervisor: this.supervisor.name,
+            temp: true
+          });
+          this.listado_id.push(this.catalogo.id);
+          this.listado_supervisor.push(this.supervisor.id);
+          this.catalogo = '';
+          this.supervisor = '';
+        }
+      }
+    },
+    /**
+     * Borrar el riesgo en temporal
+     */
+    deleteu: function deleteu(index) {
+      this.listado_data.splice(index, 1);
+      this.listado_id.splice(index, 1);
+      this.listado_supervisor.splice(index, 1);
+    },
+    /**
+     * Elimina el riesgo seleccionado en la DB
+     */
+    BorrarRiesgo: function BorrarRiesgo(id) {
+      var _this5 = this;
+      axios.post("seguridad/analisis/eliminar", {
+        id: id
+      }).then(function (res) {
+        if (res.data.status) {
+          toastr.success("Eliminado correctamente");
+          //mostrar nuevos
+          _this5.listado_data = []; // Limpiar para duplicados
+          _this5.listado_supervisor = [];
+          _this5.listado_id = [];
+          res.data.riesgos.forEach(function (item, i) {
+            _this5.listado_data.push({
+              id: item.id,
+              actividad: item.secuencia,
+              riesgo: item.riesgo,
+              medidas: item.recomendacion,
+              supervisor: item.supervisor,
+              temp: false
+            });
+            _this5.listado_supervisor.push(item.supervisor_id);
+            _this5.listado_id.push(item.catalogo_analisis_seguridad_id);
+          });
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    Guardar: function Guardar(nuevo) {
+      var _this6 = this;
+      this.$validator.validate().then(function (result) {
+        if (result) {
+          var me = _this6;
+          axios({
+            method: nuevo ? 'POST' : 'PUT',
+            url: nuevo ? '/guardar/analisis/seguridad' : '/actualizar/analisis/seguridad',
+            data: {
+              id: _this6.id,
+              ubicacion: _this6.ubicacion,
+              permiso: _this6.permiso,
+              descripcion: _this6.descripcion,
+              operaciones: _this6.operaciones.id,
+              shso: _this6.shso.id,
+              listado_id: _this6.listado_id,
+              listado_supervisor: _this6.listado_supervisor,
+              fecha: _this6.fecha
+            }
+          }).then(function (response) {
+            _this6.getDataInicial();
+            _this6.Vaciar();
+          })["catch"](function (e) {
+            console.error(e);
+          });
+        }
+      });
+    },
+    Vaciar: function Vaciar() {
+      this.id = 0;
+      this.ubicacion = '';
+      this.permiso = '';
+      this.descripcion = '';
+      this.operaciones = '';
+      this.shso = '';
+      this.listado_data = [];
+      this.listado_id = [];
+      this.modal = 0;
+      this.fecha = '';
+    },
+    VaciarDos: function VaciarDos() {
+      this.id = 0;
+      this.ubicacion = '';
+      this.permiso = '';
+      this.descripcion = '';
+      this.operaciones = '';
+      this.shso = '';
+      this.fecha = '';
+      this.listado_data = [];
+      this.listado_id = [];
+      this.listado_supervisor = [];
+    },
+    participantes: function participantes(data) {
+      this.analisis_id = data.id;
+      this.modal_participantes = 1;
+      this.getParticipantes(data.id);
+    },
+    getParticipantes: function getParticipantes(id) {
+      var _this7 = this;
+      this.tableDataParticipantes = [];
+      axios.get('get/participantes/analisis/seguridad/' + id).then(function (response) {
+        _this7.tableDataParticipantes = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    cerrarModalP: function cerrarModalP() {
+      this.modal_participantes = 0;
+    },
+    agregarEmpleado: function agregarEmpleado() {
+      var _this8 = this;
+      axios.post('guardar/participantes/analisis/seguridad', {
+        id: this.analisis_id,
+        empleado: this.empleado.id
+      }).then(function (response) {
+        // console.log(response);
+        _this8.getParticipantes(_this8.analisis_id);
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    eliminarParticipante: function eliminarParticipante(empleado_id) {
+      var _this9 = this;
+      axios.get('eliminar/participantes/analisis/seguridad/' + empleado_id + '&' + this.analisis_id).then(function (response) {
+        _this9.getParticipantes(_this9.analisis_id);
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    descargar: function descargar(data) {
+      window.open('descargar/analisis/seguridad/' + data, '_blank');
+    },
+    eliminar: function eliminar(id) {
+      var _this0 = this;
+      Swal.fire({
+        title: 'Esta seguro(a) de eliminar ?',
+        text: "Esta opción no se podrá desahacer!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then(function (result) {
+        if (result.value) {
+          axios.get('eliminar/analisis/seguridad/' + id).then(function (response) {
+            toastr.success('Eliminado Correctamente !!!');
+            _this0.getDataInicial();
+          })["catch"](function (e) {
+            console.error(e);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getData();
+    this.getDataInicial();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      data_: '',
+      detalle: false,
+      id_gral: 0,
+      folio: '',
+      responsable: '',
+      localidad: '',
+      modal: 0,
+      modal_gral: 0,
+      tituloModal: '',
+      tituloModalGral: '',
+      tipoAccion: 0,
+      tipoAccionGral: 0,
+      departamentosList: [],
+      listaEmpleados: [],
+      area_proceso_array: '',
+      destino: 1,
+      id: 0,
+      uno: {
+        fecha: '',
+        nombre: '',
+        tipo: '',
+        cantidad: '',
+        unidad: '',
+        area_proceso: '',
+        fecha_salida_rme: ''
+      },
+      dos: {
+        crebit: '',
+        fecha: '',
+        clave: '',
+        no_autorizacion: '',
+        proveedor: '',
+        num_manifiesto: ''
+      },
+      options: {
+        headings: {
+          id: 'Acciones',
+          responsable_nombre: 'Responsable'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+      columns: ['id', 'fecha', 'tipo', 'residuo'],
+      tableData: [],
+      options_gral: {
+        headings: {
+          id: 'Acciones',
+          responsable_nombre: 'Responsable'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+      columns_gral: ['id', 'folio', 'responsable_nombre', 'localidad', 'descargar'],
+      tableDataGral: [],
+      list_residuos_uno: [],
+      list_residuos_dos: []
+    };
+  },
+  methods: {
+    getEmpleado: function getEmpleado() {
+      var _this = this;
+      this.listaEmpleados = [];
+      axios.get('/vertodosempleados').then(function (response) {
+        response.data.forEach(function (data) {
+          _this.listaEmpleados.push({
+            id: data.id,
+            name: data.nombre + ' ' + data.ap_paterno + ' ' + data.ap_materno
+          });
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      axios.get('get/lista/catalogo/residuos').then(function (response) {
+        response.data.forEach(function (item, i) {
+          if (item.residuo.tipo == 1) {
+            _this.list_residuos_uno.push(item);
+          } else if (item.residuo.tipo == 2) {
+            _this.list_residuos_dos.push(item);
+          }
+        });
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    getData: function getData() {
+      var _this2 = this;
+      axios.get('seguridad/residuos/get/bitacora/gral').then(function (response) {
+        _this2.tableDataGral = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    abrirModal: function abrirModal(modelo, accion) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      switch (modelo) {
+        case "bitacora":
+          {
+            switch (accion) {
+              case 'registrar':
+                {
+                  this.vaciarUno();
+                  // Utilerias.resetObject(this.uno);
+                  // Utilerias.resetObject(this.dos);
+                  this.modal_gral = 0;
+                  this.modal = 1;
+                  this.tituloModal = 'Registrar';
+                  this.tipoAccion = 1;
+                  break;
+                }
+              case 'actualizar':
+                {
+                  // console.log(data,'dfgh');
+                  this.modal_gral = 0;
+                  this.modal = 1;
+                  this.tituloModal = 'Actualizar';
+                  this.tipoAccion = 2;
+                  this.uno.fecha = data['fecha'];
+                  this.uno.tipo = data['tipo'];
+                  if (this.uno.tipo == 1) {
+                    this.uno.nombre = this.list_residuos_uno.find(function (info) {
+                      return info.residuo.id == data['nombre'];
+                    });
+                  } else if (this.uno.tipo == 2) {
+                    this.uno.nombre = this.list_residuos_dos.find(function (info) {
+                      return info.residuo.id == data['nombre'];
+                    });
+                  }
+                  this.uno.cantidad = data['cantidad'];
+                  this.uno.unidad = data['unidad'];
+                  this.destino = data['destino'];
+                  // this.Asignar();
+                  this.uno.area_proceso = data['area_proceso'];
+                  this.uno.fecha_salida_rme = data['fecha_salida_rme'];
+                  this.dos.fecha = data['fecha_dos'];
+                  this.dos.proveedor = data['proveedor'];
+                  this.dos.crebit = data['crebit'];
+                  this.dos.no_autorizacion = data['no_autorizacion'];
+                  this.dos.clave = data['clave'];
+                  this.dos.num_manifiesto = data['num_manifiesto'];
+                  this.id = data['id'];
+                  break;
+                }
+              case 'registrar_gral':
+                {
+                  this.modal_gral = 1;
+                  this.tituloModalGral = 'Registrar';
+                  this.tipoAccionGral = 1;
+                  this.VaciarGral();
+                  break;
+                }
+              case 'actualizar_gral':
+                {
+                  // console.log(data);
+                  this.VaciarGral();
+                  this.modal_gral = 1;
+                  this.tituloModalGral = 'Actualizar';
+                  this.tipoAccionGral = 2;
+                  this.responsable = {
+                    id: data['responsable'],
+                    name: data['responsable_nombre']
+                  };
+                  this.localidad = data['localidad'];
+                  this.folio = data['folio'];
+                  this.id_gral = data['id'];
+                  break;
+                }
+            }
+          }
+      }
+    },
+    vaciarUno: function vaciarUno() {
+      this.uno.fecha = '';
+      this.uno.cantidad = '';
+      this.uno.unidad = '';
+      this.uno.fecha_salida_rme = '';
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.dos);
+    },
+    Guardar: function Guardar(nuevo) {
+      var _this3 = this;
+      this.$validator.validate().then(function (result) {
+        // console.log(result);
+        if (result) {
+          axios({
+            method: nuevo ? 'POST' : 'PUT',
+            url: nuevo ? 'seguridad/residuos/guardar/bitacora' : 'seguridad/residuos/actualizar/bitacora',
+            data: {
+              id: _this3.id,
+              bitacora_residuos_entrada_general_id: _this3.id_gral,
+              fecha: _this3.uno.fecha,
+              nombre: _this3.uno.nombre.residuo.id,
+              tipo: _this3.uno.tipo,
+              cantidad: _this3.uno.cantidad,
+              unidad: _this3.uno.unidad,
+              area_proceso: _this3.uno.area_proceso,
+              fecha_salida_rme: _this3.uno.fecha_salida_rme,
+              crebit: _this3.dos.crebit,
+              destino: _this3.destino,
+              fecha_dos: _this3.dos.fecha,
+              proveedor: _this3.dos.proveedor,
+              no_autorizacion: _this3.dos.no_autorizacion,
+              clave: _this3.dos.clave,
+              num_manifiesto: _this3.dos.num_manifiesto
+              // localidad : this.localidad,
+              // responsable : this.responsable.id,
+            }
+          }).then(function (response) {
+            console.log(response.data);
+            toastr.success('Guardado correctamente !!!');
+            _this3.cerrarModal();
+            _this3.actualizarDetalle(_this3.data_);
+            // this.Vaciar();
+          })["catch"](function (e) {
+            console.error(e);
+          });
+        }
+      });
+    },
+    cerrarModal: function cerrarModal() {
+      this.modal = 0;
+    },
+    cerrarModalGral: function cerrarModalGral() {
+      this.modal_gral = 0;
+    },
+    Vaciar: function Vaciar() {
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.uno);
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.dos);
+    },
+    VaciarGral: function VaciarGral() {
+      this.localidad = '';
+      this.folio = '';
+      this.responsable = '';
+    },
+    Asignar: function Asignar() {
+      switch (this.uno.nombre) {
+        case '7':
+          this.area_proceso_array = ['Oficina', 'Almacén', 'Comedor', 'Baños'];
+          break;
+        case '8':
+          this.area_proceso_array = ['Comedor'];
+          break;
+        case '9':
+          this.area_proceso_array = ['Oficina', 'Comedor', 'Taller'];
+          break;
+        case '10':
+          this.area_proceso_array = ['Oficina', 'Comedor'];
+          break;
+        case '11':
+          this.area_proceso_array = ['Oficinas'];
+          break;
+        case '12':
+          this.area_proceso_array = ['Oficina', 'Almacén', 'Taller'];
+          break;
+        case '13':
+          this.area_proceso_array = ['Taller'];
+          break;
+        case '1':
+          this.area_proceso_array = ['Taller'];
+          break;
+        case '2':
+          this.area_proceso_array = ['Taller'];
+          break;
+        case '3':
+          this.area_proceso_array = ['Taller', 'Oficinas'];
+          break;
+        case '4':
+          this.area_proceso_array = ['Taller'];
+          break;
+        case '5':
+          this.area_proceso_array = ['Vehículos'];
+          break;
+        case '6':
+          this.area_proceso_array = ['Vehículos', 'Oficina (TI)'];
+          break;
+      }
+    },
+    /**
+     * Descarga el formato de rp o rme
+     */
+    descargar: function descargar(data) {
+      window.open('descargar/bitacora/descargar/' + data, '_blank');
+    },
+    verdetalle: function verdetalle(data) {
+      var _this4 = this;
+      // console.log(data);
+      this.detalle = true;
+      this.data_ = data;
+      this.id_gral = data.id;
+      axios.get('seguridad/residuos/get/bitacora/' + data.id).then(function (response) {
+        _this4.tableData = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    actualizarDetalle: function actualizarDetalle(data) {
+      var _this5 = this;
+      axios.get('seguridad/residuos/get/bitacora/' + data.id).then(function (response) {
+        _this5.tableData = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    atras: function atras() {
+      this.detalle = false;
+    },
+    GuardarGral: function GuardarGral(nuevo) {
+      var _this6 = this;
+      axios({
+        method: nuevo ? 'POST' : 'PUT',
+        url: nuevo ? 'seguridad/residuos/guardar/bitacora/gral' : 'seguridad/residuos/actualizar/bitacora/gral',
+        data: {
+          id: this.id_gral,
+          localidad: this.localidad,
+          responsable: this.responsable.id,
+          folio: this.folio
+        }
+      }).then(function (response) {
+        // console.log(response.data);
+        toastr.success('Guardado correctamente !!!');
+        _this6.VaciarGral();
+        _this6.cerrarModalGral();
+        _this6.getData();
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    eliminar: function eliminar(id) {
+      var _this7 = this;
+      swal({
+        title: 'Esta seguro(a) eliminar',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#4dbd74',
+        cancelButtonColor: '#f86c6b',
+        confirmButtonText: 'Aceptar!',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.get('eliminar/bitacora/residuos/' + id).then(function (response) {
+            _this7.getData();
+            toastr.success('Eliminado Correctamente');
+          })["catch"](function (e) {
+            console.error(e);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getData();
+    this.getEmpleado();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      url: "seguridad/inspeccionbotiquin/",
+      ver_modal_inspeccion: 0,
+      tituloModal: '',
+      columns_botiquines: ["id", "material", "existencia", "reposicion", "fecha_vencimiento", "observacion"],
+      list_botiquines: [],
+      options_botiquines: {
+        headings: {
+          id: 'Acción'
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts,
+        filterable: ["id", "material", "existencia", "reposicion", "fecha_vencimiento", "observacion"],
+        sortable: ["id", "material", "existencia", "reposicion", "fecha_vencimiento", "observacion"]
+      },
+      inspeccion: {
+        visible: 1,
+        buen_estado: 1,
+        tipo: 1,
+        recomendaciones: "-"
+      },
+      list_empleados: [],
+      tipoAccion: 0,
+      isInspecciones_loading: false,
+      isGuardarInspeccion_loading: false,
+      columns_inspecciones: ["id", "fecha", "area", "tipo", "numero", "inspector", "responsable"],
+      list_inspecciones: [],
+      options_inspeccion: {
+        headings: {
+          id: 'Acción',
+          area: "Área"
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      // Participantes
+      participante: {},
+      participantes: [],
+      tipoCard: 1,
+      isBotiquines_loading: false,
+      isGuardarBotiquin_loading: false,
+      botiquin_modal: {},
+      tipoAccion_botiquin: 1,
+      tituloModal_Botiquin: "",
+      area: "",
+      ver_modal_botiquin: false
+    };
+  },
+  computed: {},
+  methods: {
+    /**
+     * Obtener todas las inspeccion
+     */
+    ObtenerInspecciones: function ObtenerInspecciones() {
+      var _this = this;
+      this.isInspecciones_loading = true;
+      axios.get(this.url + "obtener").then(function (res) {
+        if (res.data.status) {
+          _this.isInspecciones_loading = false;
+          _this.list_inspecciones = res.data.inspecciones;
+        } else toastr.error(res.data.status);
+      });
+    },
+    AbrirModalInspeccion: function AbrirModalInspeccion() {
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var inspeccion = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.ver_modal_inspeccion = true;
+      if (nuevo) {
+        this.tipoAccion = 1;
+        this.tituloModal = "Registar Inspección";
+      } else {
+        this.tipoAccion = 2;
+        this.tituloModal = "Actualizar Inspección";
+        this.inspeccion = _objectSpread({}, inspeccion);
+        this.inspeccion.inspector = {
+          id: inspeccion.inspector_id,
+          nombre: inspeccion.inspector
+        };
+        this.inspeccion.responsable = {
+          id: inspeccion.responsable_id,
+          nombre: inspeccion.responsable
+        };
+      }
+    },
+    /**
+     * Obtener todos los empleados
+     */
+    ObtenerEmpleados: function ObtenerEmpleados() {
+      var _this2 = this;
+      axios.get("generales/empleadoactivos").then(function (res) {
+        if (res.data.status) {
+          _this2.list_empleados = res.data.empleados;
+        } else toastr.error(res.data.mensaje);
+      });
+    },
+    /**
+     * Registrar inspeccion
+     */
+    GuardarInspeccion: function GuardarInspeccion() {
+      var _this3 = this;
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        _this3.isGuardarInspeccion_loading = true;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this3.inspeccion.id);
+        data.append("area", _this3.inspeccion.area);
+        data.append("numero", _this3.inspeccion.numero);
+        data.append("fecha", _this3.inspeccion.fecha);
+        data.append("inspector_id", _this3.inspeccion.inspector.id);
+        data.append("responsable_id", _this3.inspeccion.responsable.id);
+        data.append("tipo", _this3.inspeccion.tipo);
+        data.append("visible", _this3.inspeccion.visible);
+        data.append("buen_estado", _this3.inspeccion.buen_estado);
+        data.append("recomendaciones", _this3.inspeccion.recomendaciones);
+        axios.post(_this3.url + "guardar", data).then(function (res) {
+          _this3.isGuardarInspeccion_loading = false;
+          if (res.data.status) {
+            toastr.success("Inspección guardada correctamente");
+            _this3.CerrarModalInspeccion();
+            _this3.ObtenerInspecciones();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    CerrarModalInspeccion: function CerrarModalInspeccion() {
+      this.ver_modal_inspeccion = 0;
+      this.inspeccion = {
+        responsable: {},
+        inspector: {},
+        visible: 1,
+        buen_estado: 1,
+        tipo: 1,
+        recomendaciones: "-"
+      };
+    },
+    VerBotiquines: function VerBotiquines(inspeccion) {
+      this.tipoCard = 2;
+      this.inspeccion_id = inspeccion.id;
+      this.isBotiquines_loading = true;
+      this.area = inspeccion.area;
+      this.ObtenerBotiquines(inspeccion.id);
+    },
+    // Obtener los botiquines de la inspección actual
+    ObtenerBotiquines: function ObtenerBotiquines() {
+      var _this4 = this;
+      this.isBotiquines_loading = true;
+      axios.get(this.url + "botiquines/obtener/" + this.inspeccion_id).then(function (res) {
+        _this4.isBotiquines_loading = false;
+        if (res.data.status) {
+          _this4.list_botiquines = res.data.botiquines;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Guardar los botiquines
+     */
+    GuardarBotiquin: function GuardarBotiquin(nuevo) {
+      var _this5 = this;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        _this5.isGuardarBotiquin_loading = true;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this5.botiquin_modal.id);
+        data.append("sib_id", _this5.inspeccion_id);
+        data.append("apoyo", _this5.botiquin_modal.apoyo ? 1 : 0);
+        data.append("fecha_vencimiento", _this5.botiquin_modal.fecha_vencimiento);
+        data.append("existencia", _this5.botiquin_modal.existencia);
+        data.append("reposicion", _this5.botiquin_modal.reposicion);
+        data.append("material", _this5.botiquin_modal.material);
+        data.append("observacion", _this5.botiquin_modal.observacion);
+        axios.post(_this5.url + "botiquines/guardar", data).then(function (res) {
+          _this5.isGuardarBotiquin_loading = false;
+          if (res.data.status) {
+            toastr.success("Guardado correctamente");
+            _this5.CerrarModalBotiquin();
+            _this5.ObtenerBotiquines();
+          } else toastr.error(res.data.mensaje);
+        });
+      });
+    },
+    /**
+     * Abrirl modal para registro de botiquin
+     */
+    AbrirModalBotiquin: function AbrirModalBotiquin(nuevo) {
+      var botiquin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.LimpiarBotiquin();
+      this.ver_modal_botiquin = true;
+      if (nuevo) {
+        this.tituloModal_Botiquin = "Registrar botiquín";
+        this.tipoAccion_botiquin = 1;
+      } else {
+        this.tituloModal_Botiquin = "Actualizar botiquín";
+        this.botiquin_modal = _objectSpread({}, botiquin);
+        this.tipoAccion_botiquin = 2;
+      }
+    },
+    /**
+     * 
+     */
+    LimpiarBotiquin: function LimpiarBotiquin() {
+      this.botiquin_modal = {
+        apoyo: false,
+        existencia: 0,
+        reposicion: 0,
+        material: "",
+        observacion: "-"
+      };
+    },
+    /**
+     * Cerrar modal botiquin
+     */
+    CerrarModalBotiquin: function CerrarModalBotiquin() {
+      this.ver_modal_botiquin = false;
+    },
+    Descargar: function Descargar(p_id) {
+      window.open(this.url + 'descargar/' + p_id, '_blank');
+    }
+  },
+  mounted: function mounted() {
+    this.ObtenerInspecciones();
+    this.ObtenerEmpleados();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+/* CAMBIAR UBICACIÓN  */
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      // Tabla
+      tipo: 1,
+      ver_modal_analisis: 0,
+      ver_modal_residuos: 0,
+      columns_analisis: ['id', 'secuencia', 'riesgo', 'recomendacion'],
+      columns_residuos: ['residuo.id', 'residuo.residuo', 'fuente'],
+      list_analisis: [],
+      list_residuos: [],
+      options_analisis: {
+        headings: {
+          id: 'Acciones',
+          secuencia: 'Secuencia',
+          riesgo: 'Riesgo',
+          recomendacion: 'Recomendación'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        sortable: ['id', 'secuencia', 'riesgo', 'recomendacion'],
+        filterable: ['id', 'secuencia', 'riesgo', 'recomendacion'],
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+      options_residuos: {
+        headings: {
+          'residuo.id': 'Acciones',
+          'residuo.residuo': 'Residuo'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        // sortable: ['id','secuencia','riesgo','recomendacion'],
+        // filterable: ['id','secuencia','riesgo','recomendacion'],
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+      // Modal
+      titulo_modal_analisis: '',
+      tipoAccion_modal_analisis: 0,
+      analisis_modal: {},
+      titulo_modal_residuos: '',
+      tipoAccion_modal_residuos: 0,
+      residuos_modal: {
+        residuo: '',
+        fuente: '',
+        tipo: '',
+        id: 0
+      }
+    }; // return
+  },
+  //data
+  computed: {},
+  methods: {
+    getData: function getData() {
+      var _this = this;
+      axios.get('get/lista/catalogo/analisis').then(function (response) {
+        _this.list_analisis = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+      axios.get('get/lista/catalogo/residuos').then(function (response) {
+        _this.list_residuos = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    AbrirModalAnalisis: function AbrirModalAnalisis(nuevo) {
+      var model = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      this.ver_modal_analisis = true;
+      if (nuevo) {
+        // Crear nuevo
+        this.titulo_modal_analisis = 'Registrar Analisis';
+        this.tipoAccion_modal_analisis = 1;
+      } else {
+        // Actualizar
+        this.titulo_modal_analisis = 'Actualizar Analisis';
+        this.tipoAccion_modal_analisis = 2;
+        this.analisis_modal.recomendacion = model.recomendacion;
+        this.analisis_modal.riesgo = model.riesgo;
+        this.analisis_modal.secuencia = model.secuencia;
+        this.analisis_modal.id = model.id;
+      } // Fin if
+    },
+    AbrirModalResiduos: function AbrirModalResiduos(nuevo) {
+      var model = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      this.ver_modal_residuos = true;
+      if (nuevo) {
+        this.titulo_modal_residuos = 'Registrar';
+        this.tipoAccion_modal_residuos = 1;
+      } else {
+        var array = [];
+        model.fuente.forEach(function (item, i) {
+          array.push(item.fuente_generacion);
+        });
+        console.log(array);
+        this.titulo_modal_residuos = 'Actualizar';
+        this.tipoAccion_modal_residuos = 2;
+        this.residuos_modal.residuo = model.residuo.residuo;
+        this.residuos_modal.id = model.residuo.id;
+        this.residuos_modal.tipo = model.residuo.tipo;
+        this.residuos_modal.fuente = array;
+      }
+    },
+    CerrarModalAnalisis: function CerrarModalAnalisis() {
+      this.ver_modal_analisis = false;
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.analisis_modal);
+    },
+    CerrarModalResiduos: function CerrarModalResiduos() {
+      this.ver_modal_residuos = false;
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.residuos_modal);
+    },
+    GuardarAnalisis: function GuardarAnalisis(nuevo) {
+      var _this2 = this;
+      axios({
+        method: nuevo ? 'POST' : 'PUT',
+        url: nuevo ? 'guardar/lista/catalogo/analisis' : 'actualizar/lista/catalogo/analisis',
+        data: {
+          id: nuevo ? 0 : this.analisis_modal.id,
+          secuencia: this.analisis_modal.secuencia,
+          riesgo: this.analisis_modal.riesgo,
+          recomendacion: this.analisis_modal.recomendacion
+        }
+      }).then(function (response) {
+        _this2.getData();
+        toastr.success('Correcto!!!');
+        _this2.CerrarModalAnalisis();
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    GuardarResiduos: function GuardarResiduos(nuevo) {
+      var _this3 = this;
+      axios({
+        method: nuevo ? 'POST' : 'PUT',
+        url: nuevo ? 'guardar/lista/catalogo/residuos' : 'actualizar/lista/catalogo/residuos',
+        data: {
+          id: nuevo ? 0 : this.residuos_modal.id,
+          residuo: this.residuos_modal.residuo,
+          tipo: this.residuos_modal.tipo,
+          fuente: this.residuos_modal.fuente
+        }
+      }).then(function (response) {
+        _this3.getData();
+        toastr.success('Correcto!!!');
+        _this3.CerrarModalResiduos();
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    /**
+     * Eliminar la secuencia seleccionada
+     */
+    Eliminar: function Eliminar(id) {
+      var _this4 = this;
+      Swal.fire({
+        title: "Eliminar la secuencia seleccionada",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Eliminar',
+        cancellButtonText: 'Cancelar'
+      }).then(function (result) {
+        if (result.value == null) return;
+        if (result.value) {
+          axios.post("eliminar/lista/catalogo/analisis", {
+            id: id
+          }).then(function (res) {
+            if (res.data.status) {
+              toastr.success("Eliminado correctamente");
+              _this4.getData();
+            } else {
+              toastr.error(res.data.mensaje);
+            }
+          });
+        }
+      });
+    }
+  },
+  // Fin metodos
+  mounted: function mounted() {
+    this.getData();
+    //this.CargarProyectos();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=script&lang=js":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=script&lang=js ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+/* CAMBIAR UBICACIÓN  */
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      // Tabla
+      url: "/seguridad/catalogos",
+      tipo: 0,
+      ver_modal_analisis: 0,
+      ver_modal_residuos: 0,
+      columns_analisis: ['id', 'secuencia', 'riesgo', 'recomendacion'],
+      columns_residuos: ['residuo.id', 'residuo.residuo', 'fuente'],
+      list_analisis: [],
+      list_residuos: [],
+      options_analisis: {
+        headings: {
+          id: 'Acciones',
+          secuencia: 'Secuencia',
+          riesgo: 'Riesgo',
+          recomendacion: 'Recomendación'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        sortable: ['id', 'secuencia', 'riesgo', 'recomendacion'],
+        filterable: ['id', 'secuencia', 'riesgo', 'recomendacion'],
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+      options_residuos: {
+        headings: {
+          'residuo.id': 'Acciones',
+          'residuo.residuo': 'Residuo'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        // sortable: ['id','secuencia','riesgo','recomendacion'],
+        // filterable: ['id','secuencia','riesgo','recomendacion'],
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+      // Modal
+      titulo_modal_analisis: '',
+      tipoAccion_modal_analisis: 0,
+      analisis_modal: {},
+      titulo_modal_residuos: '',
+      tipoAccion_modal_residuos: 0,
+      residuos_modal: {
+        residuo: '',
+        fuente: '',
+        tipo: '',
+        id: 0
+      },
+      nuevo_analisis: false,
+      id_analisis: 0,
+      listRecomendaciones: [],
+      listSecuencias: [],
+      listRiesgos: []
+    }; // return
+  },
+  //data
+  computed: {},
+  methods: {
+    /**
+     * Obtener los analisis de seguridad
+     */
+    CargarAnalisis: function CargarAnalisis() {
+      var _this = this;
+      axios.get(this.url + "/analisis/obtener").then(function (res) {
+        if (res.data.status) {
+          _this.list_analisis = res.data.analisis;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    /**
+     * Obtiene los residuos
+     */
+    CargarResiduos: function CargarResiduos() {
+      var _this2 = this;
+      axios.get('get/lista/catalogo/residuos').then(function (response) {
+        _this2.list_residuos = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    /**
+     * Secuencia input
+     */
+    SecuenciaInput: function SecuenciaInput() {
+      var secuencia = this.analisis_modal.secuencia;
+      if (secuencia == null) return;
+      if (secuencia.id == null) return;
+      if (secuencia.id == -99) {
+        // Registrar nuevo
+        this.RegistrarTipo(1); // Secuencia
+      } else {
+        this.CargarRiesgos();
+      }
+    },
+    /**
+     * Riesgo input
+     */
+    RiesgoInput: function RiesgoInput() {
+      var riesgo = this.analisis_modal.riesgo;
+      if (riesgo == null) return;
+      if (riesgo.id == null) return;
+      if (riesgo.id == -99) {
+        // Registrar nuevo
+        this.RegistrarTipo(2, this.analisis_modal.secuencia.id); // Riesgo
+      } else {
+        this.CargarRecomendaciones();
+      }
+    },
+    /**
+     * Recomendacion input
+     */
+    RecomendacionInput: function RecomendacionInput() {
+      var recomendacion = this.analisis_modal.recomendacion;
+      if (recomendacion == null) return;
+      if (recomendacion.id == null) return;
+      if (recomendacion.id == -99) {
+        // Registrar nuevo
+        this.RegistrarTipo(3, this.analisis_modal.riesgo.id); // Recomendacion
+      } else {
+        this.CargarRecomendaciones();
+      }
+    },
+    /**
+     * Obtener las secuencias de seguridad
+     */
+    CargarSecuencias: function CargarSecuencias() {
+      var _this3 = this;
+      axios.get(this.url + "/secuencia/cargar").then(function (res) {
+        if (res.data.status) {
+          _this3.listSecuencias = res.data.secuencias;
+          // this.listSecuencias.push(
+          // {
+          //     id: -99,
+          //     nombre: "Nueva secuencia"
+          // });
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Obtener las riesgos de la secuencia ingresada
+     */
+    CargarRiesgos: function CargarRiesgos() {
+      var _this4 = this;
+      axios.get(this.url + "/riesgo/cargar/").then(function (res) {
+        if (res.data.status) {
+          _this4.listRiesgos = res.data.riesgos;
+          // this.listRiesgos.push(
+          // {
+          //     id: -99,
+          //     nombre: "Nuevo riesgo"
+          // });
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Obtener las recomendaciones del riesgo selecionado
+     */
+    CargarRecomendaciones: function CargarRecomendaciones() {
+      var _this5 = this;
+      axios.get(this.url + "/recomendacion/cargar/").then(function (res) {
+        if (res.data.status) {
+          _this5.listRecomendaciones = res.data.recomendaciones;
+          // this.listRecomendaciones.push(
+          // {
+          //     id: -99,
+          //     nombre: "Nueva recomendación"
+          // });
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Registra un nuevo tipo (secuencia,riesgo,recomenación)
+     */
+    RegistrarTipo: function RegistrarTipo(tipo, idTipo) {
+      var _this6 = this;
+      var nombre = tipo == 1 ? "Secuencia" : tipo == 2 ? "Riesgo" : "Recomendación";
+      var aux_url = tipo == 1 ? "secuencia" : tipo == 2 ? "riesgo" : "recomendacion";
+      var aux_id = tipo == 2 ? "secuencia" : "riesgo";
+      Swal.fire({
+        title: nombre,
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Registrar'
+      }).then(function (res) {
+        if (res.value == null) return;
+        if (res.value.length == 0) return;
+        var data = new FormData();
+        data.append("nombre", res.value);
+        data.append(aux_id + "_id", idTipo);
+        axios.post(_this6.url + "/registrar" + aux_url, data).then(function (res) {
+          if (res.data.status) {
+            if (tipo == 1) _this6.CargarSecuencias();else if (tipo == 2) _this6.CargarRiesgos();else _this6.CargarRecomendaciones();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    AbrirModalAnalisis: function AbrirModalAnalisis(nuevo) {
+      var model = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      // Cargar todas las Secuencias
+      this.CargarSecuencias();
+      this.ver_modal_analisis = true;
+      this.nuevo_analisis = nuevo;
+      if (nuevo) {
+        // Crear nuevo
+        this.titulo_modal_analisis = 'Registrar Análisis';
+        this.tipoAccion_modal_analisis = 1;
+      } else {
+        this.id_analisis = model.id;
+        // Actualizar
+        this.titulo_modal_analisis = 'Actualizar Análisis';
+        this.tipoAccion_modal_analisis = 2;
+        this.analisis_modal.secuencia = {
+          id: model.secuencia_id,
+          nombre: model.secuencia
+        };
+        this.analisis_modal.riesgo = {
+          id: model.riesgo_id,
+          nombre: model.riesgo
+        };
+        this.analisis_modal.recomendacion = {
+          id: model.recomendacion_id,
+          nombre: model.recomendacion
+        };
+        this.analisis_modal.id = model.id;
+      } // Fin if
+    },
+    AbrirModalResiduos: function AbrirModalResiduos(nuevo) {
+      var model = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      this.ver_modal_residuos = true;
+      if (nuevo) {
+        this.titulo_modal_residuos = 'Registrar';
+        this.tipoAccion_modal_residuos = 1;
+      } else {
+        var array = [];
+        model.fuente.forEach(function (item, i) {
+          array.push(item.fuente_generacion);
+        });
+        this.titulo_modal_residuos = 'Actualizar';
+        this.tipoAccion_modal_residuos = 2;
+        this.residuos_modal.residuo = model.residuo.residuo;
+        this.residuos_modal.id = model.residuo.id;
+        this.residuos_modal.tipo = model.residuo.tipo;
+        this.residuos_modal.fuente = array;
+      }
+    },
+    CerrarModalAnalisis: function CerrarModalAnalisis() {
+      this.ver_modal_analisis = false;
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.analisis_modal);
+    },
+    CerrarModalResiduos: function CerrarModalResiduos() {
+      this.ver_modal_residuos = false;
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.residuos_modal);
+    },
+    GuardarAnalisis: function GuardarAnalisis(nuevo) {
+      var _this7 = this;
+      if (!this.ValidarModal()) {
+        toastr.warning("Seleccione todos los campos");
+        return;
+      }
+      var data = new FormData();
+      if (!this.nuevo_analisis) data.append("id", this.id_analisis);
+      data.append("riesgo_id", this.analisis_modal.riesgo.id);
+      data.append("recomendacion_id", this.analisis_modal.recomendacion.id);
+      data.append("secuencia_id", this.analisis_modal.secuencia.id);
+      axios.post(this.url + "/analisis/guardar", data).then(function (res) {
+        if (res.data.status) {
+          toastr.success("Analisis registrado");
+          _this7.CerrarModalAnalisis();
+          _this7.CargarAnalisis();
+        }
+      });
+    },
+    ValidarModal: function ValidarModal() {
+      if (this.analisis_modal.secuencia == null) return false;
+      if (this.analisis_modal.secuencia.id == null) return false;
+      if (this.analisis_modal.riesgo.id == null) return false;
+      if (this.analisis_modal.recomendacion.id == null) return false;
+      return true;
+    },
+    GuardarResiduos: function GuardarResiduos(nuevo) {
+      var _this8 = this;
+      axios({
+        method: nuevo ? 'POST' : 'PUT',
+        url: nuevo ? 'guardar/lista/catalogo/residuos' : 'actualizar/lista/catalogo/residuos',
+        data: {
+          id: nuevo ? 0 : this.residuos_modal.id,
+          residuo: this.residuos_modal.residuo,
+          tipo: this.residuos_modal.tipo,
+          fuente: this.residuos_modal.fuente
+        }
+      }).then(function (response) {
+        _this8.CargarResiduos();
+        toastr.success('Correcto!!!');
+        _this8.CerrarModalResiduos();
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    }
+  },
+  // Fin metodos
+  mounted: function mounted() {
+    this.CargarAnalisis();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+
+var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      //// Folios_Permisos
+      url_folios_permisos: "seguridad/folios_permisos",
+      tipoAccion_folios_permisos: 1,
+      tipoCardFolios_Permisos: 1,
+      PermisosCRUD: {},
+      ver_modal_folios_permisos: false,
+      tituloModal_folios_permisos: "",
+      folios_permisos_id: 0,
+      isGuardarfolios_permisos_loading: false,
+      isObtenerfolios_permisos_loading: false,
+      columns_folios_permisos: ["proyecto", "nombre"],
+      list_proyectos: [],
+      list_folios_permisos: [],
+      folios_permisos: {},
+      options_folios_permisos: {
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      }
+    };
+  },
+  methods: {
+    // Metodos
+    /**
+     * Obtener todos los registros
+     */
+    ObtenerFolios_Permisos: function ObtenerFolios_Permisos() {
+      var _this = this;
+      this.isObtenerfolios_permisos_loading = true;
+      axios.get(this.url_folios_permisos + "/obtener").then(function (res) {
+        _this.isObtenerfolios_permisos_loading = false;
+        if (res.data.status) {
+          _this.list_folios_permisos = res.data.folios_proyectos;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Obtener todos los proyectos
+     */
+    ObtenerProyectos: function ObtenerProyectos() {
+      var _this2 = this;
+      axios.get("generales/proyectos/1").then(function (res) {
+        console.error(res.data.proyectos);
+        if (res.data.status) {
+          _this2.list_proyectos = res.data.proyectos;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Abrir modal Folios_Permisos
+     */
+    AbrirModalFolios_Permisos: function AbrirModalFolios_Permisos(nuevo) {
+      this.ver_modal_folios_permisos = true;
+      if (nuevo) {
+        this.tituloModal_folios_permisos = "Registrar Folio de Proyectos";
+        this.tipoAccion_folios_permisos = 1;
+      }
+    },
+    /**
+     * Registrar Folios_Permisos
+     */
+    RegistrarFolios_Permisos: function RegistrarFolios_Permisos(nuevo) {
+      var _this3 = this;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this3.folios_permisos.id);
+        data.append("proyecto_id", _this3.folios_permisos.proyecto.id);
+        data.append("nombre", _this3.folios_permisos.nombre);
+        _this3.isGuardarfolios_permisos_loading = true;
+        axios.post(_this3.url_folios_permisos + "/guardar", data).then(function (res) {
+          _this3.isGuardarfolios_permisos_loading = false;
+          if (res.data.status) {
+            toastr.success("Guardado correctamente");
+            _this3.ObtenerFolios_Permisos();
+            _this3.CerrarModalFolios_Permisos();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    /**
+     * Cerrar modal
+     */
+    CerrarModalFolios_Permisos: function CerrarModalFolios_Permisos() {
+      this.ver_modal_folios_permisos = false;
+      this.Folios_Permisos = {};
+    }
+  },
+  mounted: function mounted() {
+    this.ObtenerFolios_Permisos();
+    this.ObtenerProyectos();
+    this.PermisosCRUD = _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].getCRUD(this.$route.path);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return _defineProperty(_defineProperty(_defineProperty(_defineProperty({
+      url: "seguridad/inspeccionepp/",
+      ver_modal_inspecciones: 0,
+      tituloModal: '',
+      Inspeccion: {},
+      list_empleados: [],
+      tipoAccion: 0,
+      isInspeccion_loading: false,
+      isGuardarpl_loading: false,
+      columns_inspecciones: ["id", "fecha", "realiza", "revisa", "observaciones"],
+      list_inspecciones: [],
+      options_inspecciones: {
+        headings: _defineProperty({
+          id: 'Acción',
+          nombre: 'Nombre'
+        }, "nombre", "Responsable"),
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      // Participantes
+      participante: {},
+      ver_modal_trabajador: false,
+      list_participantes: [],
+      participantes: [],
+      trabajador: {},
+      tituloModal_trabajador: "",
+      tipoAccion_trabajador: 1,
+      tipoCard: 1,
+      isParticipantes_loading: false,
+      isGuardarparticip_loading: false,
+      columns_participantes: ["id", "empleado", "puesto"]
+    }, "list_participantes", []), "opciones", [{
+      clave: "OK",
+      nombre: "BUENAS CONDICIONES"
+    }, {
+      clave: "X",
+      nombre: "MALAS CONDICIONES"
+    }, {
+      clave: "CD",
+      nombre: "CAMBIO POR DESGASTE"
+    }, {
+      clave: "N/A",
+      nombre: "NO APLICA"
+    }]), "trabajador_id", 0), "options_participantes", {
+      headings: {
+        id: 'Acción'
+      },
+      pperPage: 10,
+      perPageValues: [],
+      skin: config.skin,
+      filterable: ["id", "empleado", "puesto"],
+      sortable: ["id", "empleado", "puesto"],
+      sortIcon: config.sortIcon,
+      filterByColumn: true,
+      texts: config.texts
+    });
+  },
+  computed: {},
+  methods: {
+    /**
+     * Obtener todas las inspecciones
+     */
+    ObtenerInspeccion: function ObtenerInspeccion() {
+      var _this = this;
+      this.isInspeccion_loading = true;
+      axios.get(this.url + "obtener").then(function (res) {
+        if (res.data.status) {
+          _this.isInspeccion_loading = false;
+          _this.list_inspecciones = res.data.inspecciones;
+        } else toastr.error(res.data.status);
+      });
+    },
+    AbrirModalInspeccion: function AbrirModalInspeccion() {
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var inspeccion = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.ver_modal_inspecciones = true;
+      if (nuevo) {
+        this.tipoAccion = 1;
+        this.tituloModal = "Registar Inspección";
+      } else {
+        this.tipoAccion = 2;
+        this.tituloModal = "Actualizar Inspección";
+        this.Inspeccion = _objectSpread({}, inspeccion);
+        this.Inspeccion = {
+          id: inspeccion.id,
+          fecha: inspeccion.fecha,
+          ubicacion: inspeccion.ubicacion,
+          observaciones: inspeccion.observaciones,
+          revisa: {
+            id: inspeccion.empleado_revisa_id,
+            nombre: inspeccion.revisa
+          },
+          realiza: {
+            id: inspeccion.empleado_realiza_id,
+            nombre: inspeccion.realiza
+          }
+        };
+      }
+    },
+    /**
+     * Obtener todos los empleados
+     */
+    ObtenerEmpleados: function ObtenerEmpleados() {
+      var _this2 = this;
+      axios.get("generales/empleadoactivos").then(function (res) {
+        if (res.data.status) {
+          _this2.list_empleados = res.data.empleados;
+        } else toastr.error(res.data.mensaje);
+      });
+    },
+    /**
+     * Registrar plática
+     */
+    GuardarInspeccion: function GuardarInspeccion() {
+      var _this3 = this;
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        _this3.isGuardarpl_loading = true;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this3.Inspeccion.id);
+        data.append("fecha", _this3.Inspeccion.fecha);
+        data.append("ubicacion", _this3.Inspeccion.ubicacion);
+        data.append("observaciones", _this3.Inspeccion.observaciones);
+        data.append("empleado_realiza_id", _this3.Inspeccion.realiza.id);
+        data.append("empleado_revisa_id", _this3.Inspeccion.revisa.id);
+        axios.post(_this3.url + "guardar", data).then(function (res) {
+          _this3.isGuardarpl_loading = false;
+          if (res.data.status) {
+            toastr.success("Plática guardada correctamente");
+            _this3.CerrarModalInspeccion();
+            _this3.ObtenerInspeccion();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    CerrarModalInspeccion: function CerrarModalInspeccion() {
+      this.ver_modal_inspecciones = 0;
+      this.Inspeccion = {
+        revisa: {},
+        realiza: {}
+      };
+    },
+    VerParticipantes: function VerParticipantes(Inspeccion) {
+      this.tipoCard = 2;
+      this.Inspeccion_id = Inspeccion.id;
+      this.isParticipantes_loading = true;
+      this.ObtenerParticipantes(Inspeccion.id);
+    },
+    // Obtener los participante de la Inspeccion selecionada
+    ObtenerParticipantes: function ObtenerParticipantes() {
+      var _this4 = this;
+      this.isParticipantes_loading = true;
+      axios.get(this.url + "participantes/obtener/" + this.Inspeccion_id).then(function (res) {
+        _this4.isParticipantes_loading = false;
+        if (res.data.status) {
+          _this4.list_participantes = res.data.participantes;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Guardar los participantes en la Inspeccion seleccinoada
+     */
+    GuardarTrabajador: function GuardarTrabajador(nuevo) {
+      var _this5 = this;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        _this5.isGuardarparticip_loading = true;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this5.trabajador_id);
+        data.append("sip_id", _this5.Inspeccion_id);
+        data.append("inspeccion_id", _this5.Inspeccion_id);
+        data.append("empleado_id", _this5.trabajador.empleado.id);
+        data.append("epp_overol", _this5.trabajador.epp_overol);
+        data.append("epp_calzado", _this5.trabajador.epp_calzado);
+        data.append("epp_casco", _this5.trabajador.epp_casco);
+        data.append("epp_guantes", _this5.trabajador.epp_guantes);
+        data.append("epp_ocular", _this5.trabajador.epp_ocular);
+        data.append("epp_respiratoria", _this5.trabajador.epp_respiratoria);
+        data.append("epp_auditiva", _this5.trabajador.epp_auditiva);
+        data.append("epp_barbiquejo", _this5.trabajador.epp_barbiquejo);
+        data.append("epa_respiratoria", _this5.trabajador.epa_respiratoria);
+        data.append("epa_arnes", _this5.trabajador.epa_arnes);
+        data.append("epa_careta", _this5.trabajador.epa_careta);
+        data.append("epa_mangas", _this5.trabajador.epa_mangas);
+        data.append("epa_mascarilla", _this5.trabajador.epa_mascarilla);
+        axios.post(_this5.url + "participantes/guardar", data).then(function (res) {
+          _this5.isGuardarparticip_loading = false;
+          if (res.data.status) {
+            _this5.participantes = [];
+            toastr.success("Guardado correctamente");
+            _this5.ObtenerParticipantes();
+            _this5.CerrarModalTrabajador();
+          } else toastr.error(res.data.mensaje);
+        });
+      });
+    },
+    /**
+     * Registra un nuevo empleado en la inspección
+     */
+    AbrirModalTrabajador: function AbrirModalTrabajador(nuevo, data) {
+      this.ver_modal_trabajador = true;
+      if (nuevo) {
+        this.LimpiarTrabajador();
+        this.tituloModal_trabajador = "Registrar empleado";
+        this.tipoAccion_trabajador = 1;
+      } else {
+        this.tipoAccion_trabajador = 2;
+        this.tituloModal_trabajador = "Actualizar empleado";
+        this.tipoAccion_trabajador = 2;
+        this.trabajador_id = data.id;
+        this.trabajador = _objectSpread(_objectSpread({}, data), {}, {
+          empleado: {
+            id: data.empleado_id,
+            nombre: data.empleado
+          }
+        });
+      }
+    },
+    CerrarModalTrabajador: function CerrarModalTrabajador() {
+      this.ver_modal_trabajador = false;
+    },
+    LimpiarTrabajador: function LimpiarTrabajador() {
+      this.trabajador = {
+        epp_overol: "OK",
+        epp_calzado: "OK",
+        epp_casco: "OK",
+        epp_guantes: "OK",
+        epp_ocular: "OK",
+        epp_respiratoria: "OK",
+        epp_auditiva: "OK",
+        epp_barbiquejo: "OK",
+        epa_respiratoria: "OK",
+        epa_arnes: "OK",
+        epa_careta: "OK",
+        epa_mangas: "OK",
+        epa_mascarilla: "OK"
+      };
+    },
+    /**
+     * Formato
+     */
+    Descargar: function Descargar(p_id) {
+      window.open(this.url + 'descargar/' + p_id, '_blank');
+    }
+  },
+  mounted: function mounted() {
+    this.ObtenerInspeccion();
+    this.CerrarModalInspeccion();
+    this.ObtenerEmpleados();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      date: '',
+      reporte_estado: '',
+      tipo: '',
+      nave: ''
+    };
+  },
+  methods: {
+    generate: function generate() {
+      var _this = this;
+      this.$validator.validate().then(function (result) {
+        if (result) {
+          if (_this.tipo == 1) {
+            window.open('lista/asistencia/seguridad/' + _this.date + '&' + _this.reporte_estado + '&' + _this.tipo, '_blank');
+          } else if (_this.tipo == 2) {
+            window.open('lista/asistencia/seguridad/' + _this.date + '&' + _this.nave + '&' + _this.tipo, '_blank');
+          }
+          _this.reporte_estado = '';
+          _this.tipo = '';
+        } else {
+          toastr.success('Complete todos los campos');
+        }
+      });
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      tituloModal: '',
+      modal: 0,
+      modal_participantes: 0,
+      tipoAccion: 0,
+      isLoading: false,
+      ///
+      id: 0,
+      ubicacion: '',
+      permiso: '',
+      descripcion: '',
+      operaciones: [],
+      shso: '',
+      empleado: '',
+      fecha: '',
+      //
+      listaCatalogo: [],
+      catalogo: '',
+      isPartcipantesLoading: false,
+      analisis: {},
+      list_empleados: [],
+      listado_data: [],
+      listado_id: [],
+      listado_supervisor: [],
+      vs_options: [],
+      supervisor: '',
+      ///
+      isLoadingPartidas: false,
+      tableData: [],
+      columns: ['id', 'fecha', 'no_permiso', 'ubicacion', 'descripcion', 'descargar'],
+      options: {
+        headings: {
+          id: 'Acciones'
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      recomendacion: {},
+      isLoadingRiesgos: false,
+      listRecomendaciones: [],
+      tableDataParticipantes: [],
+      columnsParticipantes: ['empleado_id', 'empleado'],
+      optionsParticipantes: {
+        headings: {
+          'empleado_id': 'ACCIONES'
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      }
+    };
+  },
+  methods: {
+    /** 
+     * Obtiene los ananlisis de seguridad registrados
+     */
+    getDataInicial: function getDataInicial() {
+      var _this = this;
+      axios.get('/seguridad/nuevoanalisis/obtener').then(function (res) {
+        if (res.data.status) {
+          _this.tableData = res.data.analisis;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    /**
+     * Obtiene todos las secuencias de seguridad registrados 
+     */
+    ObtenerSecuencias: function ObtenerSecuencias() {
+      var _this2 = this;
+      this.listaCatalogo = [];
+      axios.get('/seguridad/nuevoanalisis/obtenersecuencias').then(function (res) {
+        if (res.data.status) {
+          _this2.listaCatalogo = res.data.secuencias;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      })["catch"](function (e) {
+        console.error(e);
+      });
+      axios.get('vertodosempleados').then(function (response) {
+        response.data.forEach(function (item, i) {
+          _this2.vs_options.push({
+            id: item.id,
+            name: item.nombre + ' ' + item.ap_paterno + ' ' + item.ap_materno
+          });
+        });
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    /**
+     * Obtiene los reisgos y recomendaciones del anlisis ingresado
+     */
+    ObtenerRiesgos: function ObtenerRiesgos() {
+      var _this3 = this;
+      if (this.analisis == null) return;
+      if (this.analisis.id == null) return;
+      this.isLoadingRiesgos = true;
+      axios.get("/seguridad/nuevoanalisis/obtenerrecomedaciones/" + this.analisis.id).then(function (res) {
+        8;
+        if (res.data.status) {
+          _this3.listRecomendaciones = res.data.recomendaciones;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+        _this3.isLoadingRiesgos = false;
+      });
+    },
+    abrirModal: function abrirModal(nuevo) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      this.ObtenerSecuencias();
+      if (nuevo) {
+        this.modal = 1;
+        this.tituloModal = 'Registrar análisis';
+        this.tipoAccion = 1;
+        this.id = null;
+        this.listado_data = [];
+        this.listado_id = [];
+        this.listado_supervisor = [];
+      } else {
+        this.id = data['id'];
+        this.ObtenerPartidas(); // Carga las partidas del analisis
+        // Mostrar datos del model
+        this.operaciones = {
+          id: data['id_empleado_operaciones'],
+          name: data['operaciones_nombre']
+        };
+        this.shso = {
+          id: data['id_empleado_sho'],
+          name: data['seguridad_nombre']
+        };
+        this.ubicacion = data['ubicacion'];
+        this.permiso = data['no_permiso'];
+        this.descripcion = data['descripcion'];
+        this.fecha = data['fecha'];
+        this.modal = 1;
+        this.tituloModal = 'Actualizar análisis';
+        this.tipoAccion = 2;
+      }
+    },
+    /**
+     * Obtener partidas del analisis actual
+     */
+    ObtenerPartidas: function ObtenerPartidas() {
+      var _this4 = this;
+      this.isLoadingPartidas = true;
+      axios.get("/seguridad/nuevoanalisis/obtenerpartidas/" + this.id).then(function (res) {
+        if (res.data.status) {
+          var aux_listado_data = [];
+          res.data.partidas.forEach(function (p) {
+            aux_listado_data.push({
+              id: p.id,
+              analisis: {
+                id: p.secuencia_id,
+                nombre: p.secuencia
+              },
+              riesgo_recomen: {
+                riesgo_id: p.riesgo_id,
+                riesgo: p.riesgo,
+                recomendacion: p.recomendacion,
+                recomendacion_id: p.recomendacion_id
+              },
+              supervisor: {
+                id: p.supervisor_id,
+                name: p.supervisor_nombre
+              }
+            });
+          });
+          _this4.listado_data = aux_listado_data;
+          // Cargar partidas actuales
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+        _this4.isLoadingPartidas = false;
+      });
+    },
+    Cerrar: function Cerrar() {
+      this.modal = false; // Cerrar modal de registo de analisis
+      this.listado_data = [];
+      this.listado_id = [];
+      this.listado_supervisor = [];
+    },
+    /**
+     * Guarda de manera temporal el analisis seleccionado
+     */
+    guardarasignacion: function guardarasignacion() {
+      if (this.analisis == null) return;
+      if (this.recomendacion == null) return;
+      if (this.supervisor == null) return;
+
+      // Comprobar registro duplicado
+      var analisis_aux = this.recomendacion;
+      // if (this.listado_data.find(a => a.actividad == this.analisis.secuencia))
+      if (false) // removed by dead control flow
+{} else {
+        this.listado_data.push({
+          analisis: this.analisis,
+          riesgo_recomen: this.recomendacion,
+          supervisor: this.supervisor,
+          temp: true
+        });
+      }
+      this.analisis = {};
+      this.recomendacion = {};
+      this.supervisor = {};
+    },
+    /**
+     * Elimina el riesgo actual de la lista de temporales
+     */
+    BorrarTemp: function BorrarTemp(index) {
+      this.listado_data.splice(index, 1);
+      this.listado_id.splice(index, 1);
+      this.listado_supervisor.splice(index, 1);
+    },
+    /**
+     * Elimina el registro actual de la db
+     */
+    Borrar: function Borrar(id) {
+      var _this5 = this;
+      axios.post("seguridad/nuevoanalisis/eliminarpartida/", {
+        id: id
+      }).then(function (res) {
+        if (res.data.status) {
+          toastr.success("Eliminado correctamente");
+          _this5.ObtenerPartidas();
+        }
+      });
+    },
+    /**
+     * Registra los analisis-riesgo-recomendacion seleccionados
+     */
+    Guardar: function Guardar(nuevo) {
+      var _this6 = this;
+      this.$validator.validate().then(function (result) {
+        // if (!result) return;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this6.id);
+        // Obter riesgos temporales
+        data.append("ubicacion", _this6.ubicacion);
+        data.append("no_permiso", _this6.permiso);
+        data.append("descripcion", _this6.descripcion);
+        data.append("id_empleado_operaciones", _this6.operaciones.id);
+        data.append("id_empleado_sho", _this6.shso.id);
+        data.append("fecha", _this6.fecha);
+        var temporales = _this6.listado_data.filter(function (a) {
+          return a.temp;
+        });
+        var list_temporales = "";
+        temporales.forEach(function (t) {
+          list_temporales += t.analisis.id + "|" + t.riesgo_recomen.riesgo_id + "|" + t.riesgo_recomen.recomendacion_id + "|" + t.supervisor.id + "&";
+        });
+        data.append("ids", list_temporales);
+        axios.post('seguridad/nuevoanalisis/guardar', data).then(function (res) {
+          if (res.data.status) {
+            _this6.getDataInicial();
+            _this6.Vaciar();
+            toastr.success("Registrado correctamente");
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        })["catch"](function (e) {
+          console.error(e);
+        });
+      });
+    },
+    /**
+     * Cerrar modal  y limpiar datos del analisis
+     */
+    Vaciar: function Vaciar() {
+      this.id = null;
+      this.ubicacion = '';
+      this.permiso = '';
+      this.descripcion = '';
+      this.operaciones = '';
+      this.shso = '';
+      this.listado_data = [];
+      this.listado_id = [];
+      this.modal = 0;
+      this.fecha = '';
+    },
+    VaciarDos: function VaciarDos() {
+      this.id = 0;
+      this.ubicacion = '';
+      this.permiso = '';
+      this.descripcion = '';
+      this.operaciones = '';
+      this.shso = '';
+      this.fecha = '';
+      this.listado_data = [];
+      this.listado_id = [];
+      this.listaCatalogo = [];
+    },
+    participantes: function participantes(analisis) {
+      this.ObtenerEmpleados();
+      this.analisis_id = analisis.id;
+      this.modal_participantes = true;
+      this.getParticipantes(analisis.id);
+    },
+    /**
+     * Carga todos los empleados para asignar participantes
+     */
+    ObtenerEmpleados: function ObtenerEmpleados() {
+      var _this7 = this;
+      axios.get("vertodosempleados").then(function (res) {
+        _this7.list_empleados = [];
+        if (res.status) {
+          res.data.forEach(function (item) {
+            _this7.list_empleados.push({
+              id: item.id,
+              name: item.nombre + ' ' + item.ap_paterno + ' ' + item.ap_materno
+            });
+          });
+        } else {
+          toastr.error("Error al obtener los empleados");
+        }
+      });
+    },
+    /**
+     * Obtiene los participantes del analisis actual
+     */
+    getParticipantes: function getParticipantes(id) {
+      var _this8 = this;
+      axios.get("seguridad/nuevoanalisis/participantes/obtener/" + id).then(function (res) {
+        if (res.data.status) {
+          _this8.tableDataParticipantes = res.data.participantes;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    cerrarModalP: function cerrarModalP() {
+      this.tableDataParticipantes = [];
+      this.modal_participantes = false;
+    },
+    agregarEmpleado: function agregarEmpleado() {
+      var _this9 = this;
+      if (this.empleado == null) return;
+      if (this.empleado.id == null) return;
+      this.isPartcipantesLoading = true;
+      axios.post('seguridad/nuevoanalisis/participantes/guardar', {
+        id: this.analisis_id,
+        empleado_id: this.empleado.id,
+        analisis_id: this.analisis_id
+      }).then(function (res) {
+        _this9.isPartcipantesLoading = false;
+        if (res.data.status) {
+          toastr.success("Registrado correctamente");
+          _this9.getParticipantes(_this9.analisis_id);
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+        _this9.getParticipantes(_this9.analisis_id);
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    eliminarParticipante: function eliminarParticipante(empleado_id) {
+      var _this0 = this;
+      this.isPartcipantesLoading = true;
+      var data = new FormData();
+      data.append("empleado_id", empleado_id);
+      data.append("analisis_id", this.analisis_id);
+      axios.post("seguridad/nuevoanalisis/participantes/eliminar", data).then(function (res) {
+        _this0.isPartcipantesLoading = false;
+        if (res.data.status) {
+          _this0.getParticipantes(_this0.analisis_id);
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    descargar: function descargar(data) {
+      window.open('seguridad/nuevoanalisis/descargar/' + data, '_blank');
+    },
+    /**
+     * Elimina un analisis de seguirdad
+     */
+    eliminar: function eliminar(id) {
+      var _this1 = this;
+      Swal.fire({
+        title: '¿Desea eliminar el análisis?',
+        text: "Esta opción no se podrá desahacer",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No'
+      }).then(function (result) {
+        if (result.value) {
+          axios.post("seguridad/nuevoanalisis/eliminar", {
+            id: id
+          }).then(function (res) {
+            if (res.data.status) {
+              toastr.success('Eliminado correctamente');
+              _this1.getDataInicial();
+            } else {
+              toastr.error(res.data.mensaje);
+            }
+          })["catch"](function (e) {
+            console.error(e);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getDataInicial();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      isPermisos_loading: false,
+      list_proyectos: [],
+      list_folios: [],
+      proyecto: {},
+      folio_asociado: {},
+      tableData: [],
+      columns: ['uno.id', 'uno.uno', 'uno.dos', 'uno.tres', 'descarga'],
+      options: {
+        headings: {
+          'uno.id': 'ACCIONES',
+          'uno.uno': 'Folio',
+          'uno.dos': 'Asociado',
+          'uno.tres': 'Fecha Elaboración'
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      modal: 0,
+      tituloModal: '',
+      tipoAccion: 0,
+      id: 0,
+      uno: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: '',
+        cinco: '',
+        seis: '',
+        tipo: ""
+      },
+      dos: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: '',
+        cinco: '',
+        seis: ''
+      },
+      tres: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: ''
+      },
+      cuatro: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: '',
+        cinco: '',
+        seis: '',
+        siete: '',
+        ocho: '',
+        nueve: '',
+        diez: '',
+        once: '',
+        doce: '',
+        trece: ''
+      },
+      cinco: {
+        uno: false,
+        dos: false,
+        tres: false,
+        cuatro: false,
+        cinco: false,
+        seis: ''
+      },
+      seis: {
+        uno: false,
+        dos: false,
+        tres: false,
+        cuatro: false,
+        cinco: false,
+        seis: false,
+        siete: false,
+        ocho: false
+      },
+      siete: {
+        uno: ''
+      },
+      ocho: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: '',
+        cinco: '',
+        seis: ''
+      },
+      temporal: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: '',
+        cinco: '',
+        seis: '',
+        siete: '',
+        ocho: '',
+        nueve: '',
+        diez: ''
+      },
+      nueve: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: '',
+        cinco: ''
+      },
+      diez: {
+        uno: '',
+        dos: '',
+        tres: '',
+        cuatro: '',
+        cinco: '',
+        seis: ''
+      },
+      listaEmpleados: [],
+      once: []
+    };
+  },
+  methods: {
+    getLista: function getLista() {
+      var _this = this;
+      this.isPermisos_loading = true;
+      axios.get('get/permisos/seguridad').then(function (response) {
+        _this.isPermisos_loading = false;
+        _this.tableData = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    getData: function getData() {
+      var _this2 = this;
+      this.listaEmpleados = [];
+      axios.get('/vertodosempleados').then(function (response) {
+        response.data.forEach(function (data) {
+          _this2.listaEmpleados.push({
+            id: data.id,
+            name: data.nombre + ' ' + data.ap_paterno + ' ' + data.ap_materno
+          });
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    ObtenerProyectos: function ObtenerProyectos() {
+      var _this3 = this;
+      axios.get("seguridad/permisotrabajo/obtenerproyectos").then(function (res) {
+        if (res.data.status) {
+          _this3.list_proyectos = res.data.proyectos;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Obtener folios para asociar
+     */
+    ObtenerFolios: function ObtenerFolios() {
+      var _this4 = this;
+      axios.get("seguridad/permisotrabajo/obtenerfolios").then(function (res) {
+        if (res.data.status) {
+          _this4.list_folios = res.data.folios;
+          _this4.list_folios.unshift({
+            id: 0,
+            folio: "NUEVO"
+          });
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    abrirModal: function abrirModal(modelo, accion) {
+      var _this5 = this;
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      this.ObtenerProyectos();
+      this.ObtenerFolios();
+      switch (modelo) {
+        case "analisis":
+          {
+            switch (accion) {
+              case 'registrar':
+                {
+                  // Utilerias.resetObject(this.uno);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.dos);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.tres);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.cuatro);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.cinco);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.seis);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.siete);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.ocho);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.nueve);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.diez);
+                  _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.temporal);
+                  this.once = [];
+                  this.modal = 1;
+                  this.tituloModal = 'Registrar permiso';
+                  this.tipoAccion = 1;
+                  break;
+                }
+              case 'actualizar':
+                {
+                  // Utilerias.resetObject(this.uno);
+                  // Utilerias.resetObject(this.dos);
+                  // Utilerias.resetObject(this.tres);
+                  // Utilerias.resetObject(this.cuatro);
+                  // Utilerias.resetObject(this.cinco);
+                  // Utilerias.resetObject(this.seis);
+                  // Utilerias.resetObject(this.siete);
+                  // Utilerias.resetObject(this.ocho);
+                  // Utilerias.resetObject(this.nueve);
+                  // Utilerias.resetObject(this.diez);
+                  // Utilerias.resetObject(this.temporal);
+                  this.once = [];
+                  this.modal = 1;
+                  this.tituloModal = 'Actualizar permiso';
+                  this.tipoAccion = 2;
+                  this.uno = data.uno;
+                  this.dos = data.dos;
+                  this.tres = data.tres;
+                  this.cuatro = data.cuatro;
+                  this.cinco = data.cinco;
+                  this.seis = data.seis;
+                  this.siete = data.siete;
+                  this.ocho = data.ocho;
+                  this.ocho = {
+                    uno: {
+                      id: data.ocho.uno,
+                      name: data.ocho.residente
+                    },
+                    dos: data.ocho.dos,
+                    tres: {
+                      id: data.ocho.tres,
+                      name: data.ocho.supervisor
+                    },
+                    cuatro: this.ocho.cuatro,
+                    cinco: {
+                      id: data.ocho.cinco,
+                      name: data.ocho.shso
+                    },
+                    seis: data.ocho.seis
+                  };
+                  this.nueve = data.nueve;
+                  // this.diez = data.diez;
+                  this.diez = {
+                    uno: {
+                      id: data.diez.uno,
+                      name: data.diez.e_uno
+                    },
+                    dos: data.diez.dos,
+                    tres: data.diez.tres,
+                    cuatro: {
+                      id: data.diez.cuatro,
+                      name: data.diez.e_cuatro
+                    },
+                    cinco: data.diez.cinco,
+                    seis: data.diez.seis
+                  };
+                  // this.once = data.once;
+                  data.once.forEach(function (item, i) {
+                    _this5.once.push({
+                      uno: item.uno,
+                      dos: item.dos,
+                      tres: item.tres,
+                      cuatro: {
+                        id: item.cuatro,
+                        name: item.e_cuatro
+                      },
+                      cinco: item.cinco,
+                      seis: item.seis,
+                      siete: item.siete,
+                      ocho: {
+                        id: item.ocho,
+                        name: item.e_ocho
+                      },
+                      nueve: item.nueve,
+                      diez: item.diez
+                    });
+                  });
+
+                  // this.once =
+                  // {
+                  //   uno : data.once.uno,
+                  //   dos : data.once.dos,
+                  //   tres : data.once.tres,
+                  //   cuatro : {id : data.once.cuatro, name : data.once.e_cuatro},
+                  //   cinco : data.once.cinco,
+                  //   seis : data.once.seis,
+                  //   siete : data.once.siete,
+                  //   ocho : {id : data.once.ocho, name : data.once.e_ocho}
+                  //   nueve : data.once.nueve,
+                  //   diez : data.once.diez,
+                  // };
+
+                  this.id = data.uno.id;
+                  break;
+                }
+            }
+          }
+      }
+    },
+    /**
+     * Todos los campos necesarios fueron ingresados
+     */
+    Validar: function Validar() {
+      var mensaje = "";
+      var status = false;
+      if (this.ocho.uno == null) mensaje = "Residente de Obra";else if (this.ocho.uno.id == null) mensaje = "Residente de Obra";else if (this.ocho.tres == null) mensaje = "Supervisor de Trabajo";else if (this.ocho.tres.id == null) mensaje = "Supervisor de Trabajo";else if (this.ocho.cinco == null) mensaje = "Responsable de SSMA";else if (this.ocho.cinco.id == null) mensaje = "Responsable de SSMA";else status = true;
+      return {
+        status: status,
+        mensaje: mensaje
+      };
+    },
+    Guardar: function Guardar(nuevo) {
+      var _this6 = this;
+      var isValid = this.Validar();
+      if (!isValid.status) {
+        toastr.warning("Ingrese el campo " + isValid.mensaje);
+        return;
+      }
+      // Nuevo
+      if (this.tipoAccion == 1) this.uno.proyecto_id = this.proyecto.id;
+      axios({
+        method: nuevo ? 'POST' : 'PUT',
+        url: nuevo ? 'seguridad/permiso/general/guardar' : 'seguridad/permiso/general/actualizar',
+        data: {
+          uno: this.uno,
+          dos: this.dos,
+          tres: this.tres,
+          cuatro: this.cuatro,
+          cinco: this.cinco,
+          seis: this.seis,
+          siete: this.siete,
+          ocho: this.ocho,
+          nueve: this.nueve,
+          diez: this.diez,
+          once: this.once,
+          id: this.id
+        }
+      }).then(function (res) {
+        if (res.data.status) {
+          _this6.modal = 0;
+          _this6.getLista();
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    Cerrar: function Cerrar() {
+      this.modal = 0;
+    },
+    Crear: function Crear() {
+      var _this7 = this;
+      axios.post('abc', this.temporal).then(function (result) {
+        _this7.once.push({
+          uno: result.data.uno,
+          dos: result.data.dos,
+          tres: result.data.tres,
+          cuatro: result.data.cuatro,
+          cinco: result.data.cinco,
+          seis: result.data.seis,
+          siete: result.data.siete,
+          ocho: result.data.ocho,
+          nueve: result.data.nueve,
+          diez: result.data.diez
+        });
+        _this7.vaciado();
+      })["catch"](function (e) {
+        console.error(e);
+      });
+      // this.once.push(this.temporal);
+      // this.once.push(this.temporal);
+      // console.log(this.once);
+      // // setTimeout(() =>{
+      // //   let me = this;
+      //   this.temporal.uno = '';
+      //   console.log(this.temporal);
+
+      // // }, 1000);
+      //   me.temporal.dos = '';
+      //   me.temporal.tres = '';
+      //   me.temporal.cuatro = '';
+      //   me.temporal.cinco = '';
+      //   me.temporal.seis = '';
+      //   me.temporal.siete = '';
+      //   me.temporal.ocho = '';
+      //   me.temporal.nueve = '';
+      //   me.temporal.diez = '';
+    },
+    vaciado: function vaciado() {
+      _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.temporal);
+    },
+    deleteu: function deleteu(index) {
+      this.once.splice(index, 1);
+    },
+    llenarC: function llenarC() {
+      if (this.dos.uno == 1) {
+        this.cuatro.uno = '1';
+        this.cuatro.dos = '1';
+        this.cuatro.catorce = '1';
+        this.cuatro.tres = '1';
+        this.cuatro.cuatro = '1';
+        this.cuatro.cinco = '2';
+        this.cuatro.seis = '3';
+        this.cuatro.siete = '1';
+        this.cuatro.ocho = '1';
+        this.cuatro.nueve = '1';
+        this.cuatro.diez = '3';
+        this.cuatro.once = '1';
+        this.cuatro.doce = '1';
+        this.cuatro.trece = '1';
+        this.cinco.uno = true;
+        this.cinco.dos = true;
+        this.cinco.tres = true;
+        this.cinco.cuatro = true;
+        this.cinco.cinco = true;
+        this.seis.uno = false;
+        this.seis.dos = false;
+        this.seis.tres = false;
+        this.seis.cuatro = true;
+        this.seis.cinco = true;
+        this.seis.seis = true;
+        this.seis.siete = true;
+        this.seis.ocho = true;
+      }
+    },
+    llenarE: function llenarE() {
+      if (this.dos.cuatro == 1) {
+        this.cuatro.uno = '1';
+        this.cuatro.dos = '1';
+        this.cuatro.catorce = '1';
+        this.cuatro.tres = '1';
+        this.cuatro.cuatro = '3';
+        this.cuatro.cinco = '3';
+        this.cuatro.seis = '1';
+        this.cuatro.siete = '3';
+        this.cuatro.ocho = '1';
+        this.cuatro.nueve = '1';
+        this.cuatro.diez = '1';
+        this.cuatro.once = '3';
+        this.cuatro.doce = '3';
+        this.cuatro.trece = '3';
+        this.cinco.uno = true;
+        this.cinco.dos = true;
+        this.cinco.tres = true;
+        this.cinco.cuatro = true;
+        this.cinco.cinco = true;
+        this.seis.uno = false;
+        this.seis.dos = false;
+        this.seis.tres = false;
+        this.seis.cuatro = true;
+        this.seis.cinco = true;
+        this.seis.seis = true;
+        this.seis.siete = true;
+        this.seis.ocho = true;
+      }
+    },
+    descargar: function descargar(data) {
+      window.open('seguridad/permiso/general/descargar/' + data, '_blank');
+    },
+    eliminar: function eliminar(id) {
+      var _this8 = this;
+      Swal.fire({
+        title: 'Esta seguro(a) de eliminar ?',
+        text: "Esta opción no se podrá desahacer!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then(function (result) {
+        if (result.value) {
+          axios.get('seguridad/permiso/general/eliminar/' + id).then(function (response) {
+            toastr.success('Eliminado Correctamente !!!');
+            _this8.getLista();
+          })["catch"](function (e) {
+            console.error(e);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    console.error(this.uno);
+    this.getData();
+    this.getLista();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return _defineProperty(_defineProperty({
+      url: "seguridad/platicas/",
+      ver_modal_platicas: 0,
+      tituloModal: '',
+      platica: {},
+      list_empleados: [],
+      tipoAccion: 0,
+      isPlaticas_loading: false,
+      isGuardarpl_loading: false,
+      columns_platicas: ["id", "fecha", "tema", "nombre", "documento"],
+      list_platicas: [],
+      options_platicas: {
+        headings: _defineProperty(_defineProperty({
+          id: 'Acción',
+          nombre: 'Nombre'
+        }, "nombre", "Responsable"), "documento", "Evidencia"),
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      // Participantes
+      participante: {},
+      list_participantes: [],
+      participantes: [],
+      tipoCard: 1,
+      isParticipantes_loading: false,
+      isGuardarparticip_loading: false,
+      columns_participantes: ["nombre", "puesto"]
+    }, "list_participantes", []), "options_participantes", {
+      headings: {
+        id: 'Acción',
+        nombre: "Empleado"
+      },
+      perPage: 10,
+      perPageValues: [],
+      skin: config.skin,
+      sortIcon: config.sortIcon,
+      filterByColumn: true,
+      texts: config.texts
+    });
+  },
+  computed: {},
+  methods: {
+    /**
+     * Obtener todas las platicas
+     */
+    ObtenerPlaticas: function ObtenerPlaticas() {
+      var _this = this;
+      this.isPlaticas_loading = true;
+      axios.get(this.url + "obtenerplaticas").then(function (res) {
+        if (res.data.status) {
+          _this.isPlaticas_loading = false;
+          _this.list_platicas = res.data.platicas;
+        } else toastr.error(res.data.status);
+      });
+    },
+    AbrirModalPlaticas: function AbrirModalPlaticas() {
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var platica = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.ver_modal_platicas = true;
+      if (nuevo) {
+        this.tipoAccion = 1;
+        this.tituloModal = "Registar plática";
+      } else {
+        this.tipoAccion = 2;
+        this.tituloModal = "Actualizar plática";
+        this.platica = _objectSpread({}, platica);
+        this.platica.responsable = {
+          id: platica.responsable_id,
+          nombre: platica.nombre
+        };
+      }
+    },
+    /**
+     * Obtener todos los empleados
+     */
+    ObtenerEmpleados: function ObtenerEmpleados() {
+      var _this2 = this;
+      axios.get("generales/empleadoactivos").then(function (res) {
+        if (res.data.status) {
+          _this2.list_empleados = res.data.empleados;
+        } else toastr.error(res.data.mensaje);
+      });
+    },
+    /**
+     * Registrar plática
+     */
+    GuardarPlatica: function GuardarPlatica() {
+      var _this3 = this;
+      var nuevo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        _this3.isGuardarpl_loading = true;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this3.platica.id);
+        data.append("fecha", _this3.platica.fecha);
+        data.append("ubicacion", _this3.platica.ubicacion);
+        data.append("tema", _this3.platica.tema);
+        data.append("responsable_id", _this3.platica.responsable.id);
+        axios.post(_this3.url + "guardar", data).then(function (res) {
+          _this3.isGuardarpl_loading = false;
+          if (res.data.status) {
+            toastr.success("Plática guardada correctamente");
+            _this3.CerrarModalPlaticas();
+            _this3.ObtenerPlaticas();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    CerrarModalPlaticas: function CerrarModalPlaticas() {
+      this.ver_modal_platicas = 0;
+      this.platica = {
+        responsable: {}
+      };
+    },
+    VerParticipantes: function VerParticipantes(platica) {
+      this.tipoCard = 2;
+      this.platica_id = platica.id;
+      this.isParticipantes_loading = true;
+      this.ObtenerParticipantes(platica.id);
+    },
+    // Obtener los participante de la platica selecionada
+    ObtenerParticipantes: function ObtenerParticipantes() {
+      var _this4 = this;
+      this.isParticipantes_loading = true;
+      axios.get(this.url + "participantes/obtener/" + this.platica_id).then(function (res) {
+        _this4.isParticipantes_loading = false;
+        if (res.data.status) {
+          _this4.list_participantes = res.data.participantes;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Guardar los participantes en la platica seleccinoada
+     */
+    GuadarParticipantes: function GuadarParticipantes() {
+      var _this5 = this;
+      if (this.participantes.length == 0) return;
+      this.isGuardarparticip_loading = true;
+      axios.post(this.url + "participantes/guardar", {
+        "platica_id": this.platica_id,
+        "participantes": this.participantes
+      }).then(function (res) {
+        _this5.isGuardarparticip_loading = false;
+        if (res.data.status) {
+          _this5.participantes = [];
+          toastr.success("Guardado correctamente");
+          _this5.ObtenerParticipantes();
+        } else toastr.error(res.data.mensaje);
+      });
+    },
+    /**
+     * Genera la plantilla para las platicas
+     */
+    DescargarPlantilla: function DescargarPlantilla(id) {
+      window.open(this.url + "descargarplantilla/" + id, "_blank");
+    },
+    /**
+     * Subir pdf de platica
+     */
+    SubirEvidencia: function SubirEvidencia(id) {
+      var _this6 = this;
+      Swal.fire({
+        title: "Cargar documento de la plática",
+        input: "file",
+        confirmButtonText: "Cargar"
+      }).then(function (result) {
+        console.error(result);
+        if (result.value == null) return;
+        if (result.value.type === "application/pdf") {
+          var data = new FormData();
+          data.append("platica_id", id);
+          data.append("evidencia", result.value);
+          axios.post(_this6.url + "subirevidencia", data).then(function (res) {
+            if (res.data.status) {
+              toastr.success("Documento subido correctamente");
+              _this6.ObtenerPlaticas();
+            } else {
+              toastr.error(res.data.mensaje);
+            }
+          })["catch"](function (r) {
+            console.error(r);
+            toastr.error("Error al subir el documento");
+          });
+        } else {
+          toastr.warning("Seleccione un PDF");
+        }
+      });
+    },
+    DescargarEvidencia: function DescargarEvidencia(id) {
+      window.open(this.url + 'descargarevidencia/' + id, '_blank');
+    }
+  },
+  mounted: function mounted() {
+    this.ObtenerPlaticas();
+    this.ObtenerEmpleados();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      modal: 0,
+      tituloModal: '',
+      tipoAccion: 0,
+      anio: 2023,
+      tableData: [],
+      columns: ['id', 'fechas', 'residuo', 'cantidad', 'unidad', 'fecha_salida', 'entrega', 'proveedor', 'folio'],
+      options: {
+        headings: {
+          id: 'Acciones'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+      dataSelect: '',
+      residuo: '',
+      cantidad: '',
+      unidad: '',
+      fecha_salida: '',
+      empleado_entrega: '',
+      proveedor: '',
+      id: 0,
+      listaEmpleados: [],
+      folio: ''
+    };
+  },
+  methods: {
+    getLista: function getLista() {
+      var _this = this;
+      axios.get('/residuos/urbanos/seguridad/get').then(function (response) {
+        _this.tableData = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    abrirModal: function abrirModal(modelo, accion) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      switch (modelo) {
+        case "bitacora":
+          {
+            switch (accion) {
+              case 'registrar':
+                {
+                  this.modal = 1;
+                  this.tituloModal = 'Registrar';
+                  this.tipoAccion = 1;
+                  break;
+                }
+              case 'actualizar':
+                {
+                  console.log(data);
+                  var valores = data['fechas'].split(',');
+                  var fechas = valores.pop();
+                  this.modal = 1;
+                  this.tituloModal = 'Actualizar';
+                  this.tipoAccion = 2;
+                  this.residuo = data['residuo'];
+                  this.cantidad = data['cantidad'];
+                  this.unidad = data['unidad'];
+                  this.fecha_salida = data['fecha_salida'];
+                  this.empleado_entrega = {
+                    id: data['empleado_entrega_id'],
+                    name: data['entrega']
+                  };
+                  this.proveedor = data['proveedor'];
+                  this.id = data['id'];
+                  this.dataSelect = valores;
+                  this.folio = data['folio'];
+                  break;
+                }
+            }
+          }
+      }
+    },
+    Vaciar: function Vaciar() {
+      this.residuo = '';
+      this.cantidad = '';
+      this.unidad = '';
+      this.fecha_salida = '';
+      this.empleado_entrega = '';
+      this.proveedor = '';
+      this.id = 0;
+      this.folio = '';
+      this.dataSelect = '';
+    },
+    cerrarModal: function cerrarModal() {
+      this.modal = 0;
+    },
+    getData: function getData() {
+      var _this2 = this;
+      this.listaEmpleados = [];
+      axios.get('/vertodosempleados').then(function (response) {
+        response.data.forEach(function (data) {
+          _this2.listaEmpleados.push({
+            id: data.id,
+            name: data.nombre + ' ' + data.ap_paterno + ' ' + data.ap_materno
+          });
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    Guardar: function Guardar(nuevo) {
+      var _this3 = this;
+      this.$validator.validate().then(function (result) {
+        if (result) {
+          axios({
+            method: nuevo ? 'POST' : 'PUT',
+            url: nuevo ? '/residuos/urbanos/seguridad/guardar' : '/residuos/urbanos/seguridad/actualizar',
+            data: {
+              id: _this3.id,
+              residuo: _this3.residuo,
+              cantidad: _this3.cantidad,
+              unidad: _this3.unidad,
+              fecha_salida: _this3.fecha_salida,
+              empleado_entrega: _this3.empleado_entrega.id,
+              proveedor: _this3.proveedor,
+              fechas: _this3.dataSelect,
+              folio: _this3.folio
+            }
+          }).then(function (response) {
+            console.log(response);
+            _this3.cerrarModal();
+            _this3.Vaciar();
+            _this3.getLista();
+            toastr.success(nuevo ? 'Guardado Correctamente' : 'Actualizado Correctamente');
+          })["catch"](function (e) {
+            console.error();
+          });
+        }
+      });
+    },
+    Descargar: function Descargar() {
+      window.open('residuos/urbanos/seguridad/descargar/' + this.anio);
+    }
+  },
+  mounted: function mounted() {
+    this.getData();
+    this.getLista();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* CAMBIAR UBICACIÓN  */
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      url: "/seguridad/catalogos",
+      // Tabla 
+      ver_modal: 0,
+      columns_secuencia: ["id", "nombre"],
+      list_secuencia: [],
+      list_riesgo: [],
+      list_recomendacion: [],
+      registro_modal: {},
+      options_secuencia: {
+        headings: {
+          id: 'Acciones',
+          nombre: "Nombre"
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options 
+      // Modal
+      titulo_modal_secuencia: '',
+      tipoAccion_modal_secuencia: 0,
+      secuencia_modal: {}
+    }; // return
+  },
+  //data
+  computed: {},
+  methods: {
+    /**
+     * Abre el modal para el registro
+     */
+    AbrirModal: function AbrirModal(nuevo, tipo) {
+      var model = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      this.ver_modal = true;
+      var nombre = tipo == 1 ? "Secuencia" : tipo == 2 ? "Riesgo" : "Recomendación";
+      this.tipo_registro = tipo;
+      if (nuevo) {
+        // Crear nuevo
+        this.titulo_modal_secuencia = "Registrar " + nombre;
+        this.tipoAccion_modal_secuencia = 1;
+      } else {
+        // Actualizar
+        this.titulo_modal_secuencia = "Actualizar " + nombre;
+        this.tipoAccion_modal_secuencia = 2;
+        this.registro_modal.id = model.id;
+        this.registro_modal.nombre = model.nombre;
+      } // Fin if
+    },
+    /**
+     * Guarda un registro del tipo seleccionado
+     */
+    Guardar: function Guardar(nuevo) {
+      var _this = this;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        // Url del catalogo
+        var path = _this.tipo_registro == 1 ? "/secuencia" : _this.tipo_registro == 2 ? "/riesgo" : "/recomendacion";
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this.registro_modal.id);
+        data.append("nombre", _this.registro_modal.nombre);
+        axios.post(_this.url + path + "/registrar", data).then(function (res) {
+          if (res.data.status) {
+            console.error(_this.tipo_registro);
+            toastr.success("Registrado correctamente");
+            _this.CerrarModal();
+            if (_this.tipo_registro == 1) _this.ObtenerSecuencias();else if (_this.tipo_registro == 2) _this.ObtenerRiesgos();else _this.ObtenerRecomendaciones();
+          } else {
+            toastr.danger(res.data.mensaje);
+          }
+        });
+      });
+    },
+    /**
+     * Obtener las secuencias registradas
+     */
+    ObtenerSecuencias: function ObtenerSecuencias() {
+      var _this2 = this;
+      axios.get(this.url + "/secuencia/cargar").then(function (res) {
+        if (res.data.status) {
+          _this2.list_secuencia = res.data.secuencias;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Obtener los riesgos registradas
+     */
+    ObtenerRiesgos: function ObtenerRiesgos() {
+      var _this3 = this;
+      axios.get(this.url + "/riesgo/cargar").then(function (res) {
+        if (res.data.status) {
+          _this3.list_riesgo = res.data.riesgos;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Obtener las recomenciones registradas
+     */
+    ObtenerRecomendaciones: function ObtenerRecomendaciones() {
+      var _this4 = this;
+      axios.get(this.url + "/recomendacion/cargar").then(function (res) {
+        if (res.data.status) {
+          _this4.list_recomendacion = res.data.recomendaciones;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    CerrarModal: function CerrarModal() {
+      this.ver_modal = false;
+      this.registro_modal = {};
+    }
+  },
+  // Fin metodos
+  mounted: function mounted() {
+    this.ObtenerSecuencias();
+    this.ObtenerRiesgos();
+    this.ObtenerRecomendaciones();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue_qrcode_reader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-qrcode-reader */ "./node_modules/vue-qrcode-reader/dist/VueQrcodeReader.common.js");
+/* harmony import */ var vue_qrcode_reader__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_qrcode_reader__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+
+var config = (__webpack_require__(/*! ../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      modal_autorizar: false,
+      tab: 1,
+      id_entrega: 0,
+      estilo_form: "",
+      isLoading: false,
+      modal_actualizar: 0,
+      data_detalle: '',
+      autorizado: false,
+      listaEmpleados: [],
+      listadoArticulos: [],
+      empleado_entrega: '',
+      empleado_autoriza: {},
+      motivo: 1,
+      empleado_autorizado: '',
+      empleado_supervisor: '',
+      articulo_epp: '',
+      proyectoId: '',
+      fecha: '',
+      observaciones: "Sin observaciones",
+      tableData: [],
+      listaProyectos: [],
+      columns: ['empleado_id', 'empleado', 'descargar'],
+      options: {
+        headings: {
+          empleado_id: 'Acciones'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+
+      tableDataDetalle: [],
+      columnsDetalle: ['id', 'descripcion', 'cantidad', 'fecha', 'autoriza', "observaciones"],
+      optionsDetalle: {
+        headings: {
+          id: 'Acciones'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+
+      tableDataArticulos: [],
+      columnsarticulos: ['descripcion', 'cantidad', 'fecha', 'empleador', 'empleadoa'],
+      optionsarticulos: {
+        headings: {
+          id: 'Acciones',
+          empleador: 'Recibe',
+          empleadoa: 'Autoriza'
+        },
+        // Headings,
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //options
+
+      modal: 0,
+      tituloModal: '',
+      tipoAccion: 0,
+      listaCatalogo: [],
+      catalogo: '',
+      cantidad: '',
+      listado_data: [],
+      id: 0,
+      detalle: false,
+      partida: {
+        id: 0,
+        articulo: '',
+        cantidad: '',
+        fecha: '',
+        autoriza: ''
+      }
+    };
+  },
+  methods: {
+    getInicial: function getInicial() {
+      var _this = this;
+      axios.get('/vale/epp/seguridad/emp').then(function (response) {
+        _this.tableData = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+      axios.get('/vale/epp/seguridad/ver/articulos').then(function (response) {
+        _this.listadoArticulos = response.data;
+        _this.listadoArticulos.push({
+          id: 0,
+          descripcion: 'TODOS'
+        });
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    getData: function getData() {
+      var _this2 = this;
+      this.listaEmpleados = [];
+      axios.get('/vertodosempleados').then(function (response) {
+        response.data.forEach(function (data) {
+          _this2.listaEmpleados.push({
+            id: data.id,
+            name: data.nombre + ' ' + data.ap_paterno + ' ' + data.ap_materno
+          });
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    /**
+     * [getProyecto Obtiene todos los proyectos existentes]
+     * @return {[type]} [description]
+     */
+    getProyecto: function getProyecto() {
+      this.PermisosCRUD = _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_1__["default"].getCRUD(this.$route.path);
+      var me = this;
+      axios.get('/proyecto').then(function (response) {
+        response.data.forEach(function (value) {
+          me.listaProyectos.push({
+            id: value.proyecto.id,
+            name: value.proyecto.nombre_corto
+          });
+        });
+        me.listaProyectos.push({
+          id: -1,
+          name: "Sin proyecto"
+        });
+        me.proyectoId = {
+          id: -1,
+          name: "Sin proyecto"
+        };
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    abrirModal: function abrirModal(modelo, accion) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      switch (modelo) {
+        case "vale":
+          {
+            switch (accion) {
+              case 'registrar':
+                {
+                  this.modal = 1;
+                  this.tituloModal = 'Registrar';
+                  this.tipoAccion = 1;
+                  break;
+                }
+              case 'actualizar':
+                {
+                  this.modal = 1;
+                  this.tituloModal = 'Actualizar';
+                  this.tipoAccion = 2;
+                  break;
+                }
+            }
+          }
+      }
+    },
+    cerrarModal: function cerrarModal() {
+      this.modal = 0;
+      this.autorizado = false;
+    },
+    Guardar: function Guardar(nuevo) {
+      var _this3 = this;
+      if (this.listado_data.length == 0) {
+        toastr.warning("Seleccione un artículo");
+        return;
+      }
+      this.isLoading = true;
+      axios({
+        method: nuevo ? 'POST' : 'PUT',
+        url: nuevo ? '/vale/epp/seguridad/guardar' : '/vale/epp/seguridad/actualizar',
+        data: {
+          id: this.id,
+          datos: this.listado_data
+        }
+      }).then(function (response) {
+        _this3.estilo_form = {
+          'pointer-events': 'auto'
+        };
+        _this3.autorizado = false;
+        _this3.getInicial();
+        _this3.listado_data = [];
+        _this3.empleado_supervisor = '';
+        _this3.empleado_autoriza = '';
+        _this3.modal = 0;
+        toastr.success(nuevo ? 'Guardado Correctamente' : 'Actualizado Correctamente');
+        // console.log(response);
+        _this3.isLoading = false;
+      })["catch"](function (e) {
+        _this3.isLoading = false;
+        console.error(e);
+      });
+    },
+    buscar: function buscar(search, loading) {
+      //  ... do some asynchronous stuff!
+      // console.log(search,'doe');
+      if (search.length > 2) {
+        var me = this;
+        setTimeout(function () {
+          axios.post('get/articulos/descripcion/', {
+            des: search
+          }).then(function (response) {
+            me.listaCatalogo = response.data;
+          })["catch"](function (e) {
+            console.error(e);
+          });
+        }, 1000);
+      }
+      // console.log(loading,'see');
+    },
+    guardarasignacion: function guardarasignacion() {
+      if (this.fecha === '') {
+        toastr.warning('Seleccione una fecha');
+        return;
+      }
+      if (this.cantidad === '') {
+        toastr.warning('Escriba una cantidad');
+        return;
+      }
+      if (this.catalogo === '') {
+        toastr.warning('Seleccione un artículo');
+        return;
+      }
+      if (this.empleado_entrega === '') {
+        toastr.warning('Seleccione un empleado');
+        return;
+      }
+      this.listado_data.push({
+        id: this.catalogo.id,
+        descripcion: this.catalogo.descripcion,
+        cantidad: this.cantidad,
+        fecha: this.fecha,
+        observaciones: this.observaciones,
+        motivo: this.motivo,
+        autoriza: this.empleado_autoriza.id,
+        iniciales: this.GetIniciales(this.empleado_autoriza.name),
+        empleado: this.empleado_entrega.name,
+        empleado_id: this.empleado_entrega.id,
+        proyecto: this.proyectoId.name,
+        proyecto_id: this.proyectoId.id
+      });
+      this.catalogo = '';
+      this.observaciones = "Sin observaciones";
+    },
+    deleteu: function deleteu(index) {
+      this.listado_data.splice(index, 1);
+    },
+    atras: function atras() {
+      this.detalle = false;
+    },
+    detalles: function detalles(data) {
+      var _this4 = this;
+      // console.log(data);
+      this.detalle = true;
+      this.data_detalle = data;
+      axios.get('/vale/epp/seguridad/emp/detalle/' + data.empleado_id).then(function (response) {
+        _this4.tableDataDetalle = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    eliminar: function eliminar(id) {
+      var me = this;
+      axios.get('/vale/epp/seguridad/emp/eliminar/' + id).then(function (response) {
+        me.detalles(me.data_detalle);
+        toastr.success('Correcto');
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    descargar: function descargar(data, tipo) {
+      // 1. Antiguo. 2. Nuevo (SGI)
+      window.open('/vale/epp/seguridad/emp/descargar/' + data.empleado_id + "&" + tipo, '_blank');
+    },
+    GetIniciales: function GetIniciales(data) {
+      var porciones = data.split(' ');
+      var iniciales = '';
+      porciones.forEach(function (item, i) {
+        iniciales += item.substring(0, 1);
+      });
+      return iniciales;
+    },
+    Actualizar: function Actualizar(data) {
+      this.modal_actualizar = 1;
+      this.partida.id = data['id'];
+      this.partida.articulo = {
+        id: data['articulo_id'],
+        descripcion: data['descripcion']
+      };
+      this.partida.cantidad = data['cantidad'];
+      this.partida.fecha = data['fecha'];
+      this.partida.autoriza = {
+        id: data['autoriza_id'],
+        name: data['autoriza']
+      };
+    },
+    cerrarModalAct: function cerrarModalAct() {
+      this.modal_actualizar = 0;
+    },
+    GuardarAct: function GuardarAct() {
+      var _this5 = this;
+      axios.post('guardar/act/partida/vale/epp', {
+        id: this.partida.id,
+        articulo_id: this.partida.articulo.id,
+        cantidad: this.partida.cantidad,
+        fecha: this.partida.fecha,
+        autoriza_id: this.partida.autoriza.id
+      }).then(function (response) {
+        _this5.detalles(_this5.data_detalle);
+        _this5.cerrarModalAct();
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    setId: function setId(id) {
+      this.tab = id;
+    },
+    BuscarArtEpp: function BuscarArtEpp() {
+      var _this6 = this;
+      axios.get('buscar/historico/art/vale/epp/' + this.articulo_epp.id).then(function (response) {
+        _this6.tableDataArticulos = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    /**
+     * Autoriza la entrega con el QR
+     */
+    Autorizar: function Autorizar() {
+      this.modal_autorizar = true;
+    },
+    CerrarModalAutorizar: function CerrarModalAutorizar() {
+      this.modal_autorizar = false;
+      this.empleado_autorizado = "";
+    },
+    onInit: function onInit(promise) {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              _context.n = 1;
+              return promise;
+            case 1:
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              if (_t.name === 'NotAllowedError') {
+                _this7.error = "ERROR: Permiso a la cámara denegado";
+              } else if (_t.name === 'NotFoundError') {
+                _this7.error = "ERROR: Ninugna cámara detectada";
+              } else if (_t.name === 'NotSupportedError') {
+                _this7.error = "ERROR: secure context required (HTTPS, localhost)";
+              } else if (_t.name === 'NotReadableError') {
+                _this7.error = "ERROR: La cámara se encuentra en uso";
+              } else if (_t.name === 'OverconstrainedError') {
+                _this7.error = "ERROR: installed cameras are not suitable";
+              } else if (_t.name === 'StreamApiNotSupportedError') {
+                _this7.error = "ERROR: Navegador no soportado";
+              }
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }))();
+    },
+    onDecodeAutorizar: function onDecodeAutorizar(result) {
+      var _this8 = this;
+      var dts = result.split("|");
+      if (dts.length != 2) {
+        toastr.warning("Nope");
+        return;
+      }
+      var id = dts[0];
+      var nombre = dts[1];
+      console.error("id", id);
+      console.error("nombre", nombre);
+      console.error("empleado", this.empleado_entrega);
+      if (id == this.empleado_entrega.id) {
+        this.autorizado = true;
+        toastr.success("Autorizado");
+        this.estilo_form = {
+          'pointer-events': 'none'
+        };
+      } else {
+        toastr.error("No Autorizado");
+      }
+      setTimeout(function () {
+        _this8.CerrarModalAutorizar();
+      }, 2000);
+      return;
+      // removed by dead control flow
+
+    },
+    ExportarArtEpp: function ExportarArtEpp() {
+      window.open('exportar/historico/art/vale/epp/' + this.articulo_epp.id, '_blank');
+    },
+    reporteEpp: function reporteEpp() {
+      window.open("seguridad/entregaepp/reporteconsumo");
+    }
+  },
+  mounted: function mounted() {
+    this.getData();
+    this.getInicial();
+    this.getProyecto();
+    this.tab = 1;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=template&id=4042309f":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=template&id=4042309f ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid",
+    staticStyle: {
+      "min-height": "40vh"
+    }
+  }, [_vm.tipoCard == 1 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Pruebas de Alcoholimetría\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalPruebas();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isPruebas_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_pruebas,
+      data: _vm.list_pruebas,
+      options: _vm.options_pruebas
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalPruebas(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-edit"
+        }), _vm._v("  Actualizar\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.DescargarPlantilla(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-file-pdf"
+        }), _vm._v("  Descargar Plantilla\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.SubirEvidencia(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-file-pdf"
+        }), _vm._v("  Subir Evidencia\r\n                                    ")])])])])];
+      }
+    }, {
+      key: "documento",
+      fn: function fn(props) {
+        return [props.row.documento == null ? _c("span", {
+          staticClass: "btn btn-dark"
+        }, [_vm._v("N/D")]) : _c("button", {
+          staticClass: "btn btn-dark",
+          on: {
+            click: function click($event) {
+              return _vm.DescargarEvidencia(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-download"
+        })])];
+      }
+    }], null, false, 2313051974)
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.tipoCard == 2 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Participantes\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right mx-1",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        _vm.tipoCard = 1;
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-left"
+  }), _vm._v(" Regresar\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("br"), _vm._v(" "), _c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarparticip_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Responsable")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      multiple: "",
+      options: _vm.list_empleados,
+      "data-vv-name": "Participantes",
+      label: "nombre"
+    },
+    model: {
+      value: _vm.participantes,
+      callback: function callback($$v) {
+        _vm.participantes = $$v;
+      },
+      expression: "participantes"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Participantes")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Resultado")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.resultado,
+      expression: "resultado"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control col-9",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Resultado",
+      maxlength: "50"
+    },
+    domProps: {
+      value: _vm.resultado
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.resultado = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Resultado")))])]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark",
+    on: {
+      click: function click($event) {
+        return _vm.GuadarParticipantes();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  })])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("vue-element-loading", {
+    attrs: {
+      active: _vm.isParticipantes_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_participantes,
+      data: _vm.list_participantes,
+      options: _vm.options_participantes
+    }
+  })], 1)]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_pruebas
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarpl_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalPruebas();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Fecha")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.prueba.fecha,
+      expression: "prueba.fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha"
+    },
+    domProps: {
+      value: _vm.prueba.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.prueba, "fecha", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Ubicación")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|max:50",
+      expression: "'required|max:50'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.prueba.ubicacion,
+      expression: "prueba.ubicacion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Ubicación",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.prueba.ubicacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.prueba, "ubicacion", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Ubicación")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Responsable")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.list_empleados,
+      "data-vv-name": "Responsable",
+      label: "nombre"
+    },
+    model: {
+      value: _vm.prueba.responsable,
+      callback: function callback($$v) {
+        _vm.$set(_vm.prueba, "responsable", $$v);
+      },
+      expression: "prueba.responsable"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Responsable")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Observaciones")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("textarea", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|max:100",
+      expression: "'required|max:100'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.prueba.observaciones,
+      expression: "prueba.observaciones"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Observaciones"
+    },
+    domProps: {
+      value: _vm.prueba.observaciones
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.prueba, "observaciones", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Observaciones")))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalPruebas();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarPrueba(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarPrueba(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])], 1)])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=template&id=341fad04":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=template&id=341fad04 ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" ANÁLISIS DE SEGURIDAD EN EL TRABAJO (AST)\r\n\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.abrirModal("analisis", "registrar");
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      data: _vm.tableData,
+      columns: _vm.columns,
+      options: _vm.options
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group",
+            "aria-label": "Button group with nested dropdown"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btnGroupDrop1",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        })]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              $event.preventDefault();
+              return _vm.abrirModal("analisis", "actualizar", props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-pencil-alt"
+        }), _vm._v(" Actualizar analisis\r\n                                    ")]), _vm._v(" "), _c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.participantes(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-user-friends"
+        }), _vm._v(" Agregar Participantes\r\n                                    ")]), _vm._v(" "), _c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.eliminar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-trash"
+        }), _vm._v(" Eliminar\r\n                                    ")])])])])];
+      }
+    }, {
+      key: "descargar",
+      fn: function fn(props) {
+        return [_c("button", {
+          staticClass: "btn btn-outline-dark",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.descargar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-download"
+        }), _vm._v(" "), _c("i", {
+          staticClass: "fas fa-file-pdf"
+        })])];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v(_vm._s(_vm.tituloModal))]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Cerrar();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isLoading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("Ubicación de trabajo")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.ubicacion,
+      expression: "ubicacion"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "ubicacion"
+    },
+    domProps: {
+      value: _vm.ubicacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.ubicacion = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("ubicacion")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("Número de permiso")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.permiso,
+      expression: "permiso"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "permiso"
+    },
+    domProps: {
+      value: _vm.permiso
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.permiso = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("permiso")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.fecha,
+      expression: "fecha"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "fecha"
+    },
+    domProps: {
+      value: _vm.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.fecha = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-8 mb-3"
+  }, [_c("label", [_vm._v("Descripción del trabajo")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.descripcion,
+      expression: "descripcion"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "descripcion",
+      rows: "2",
+      cols: "40"
+    },
+    domProps: {
+      value: _vm.descripcion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.descripcion = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("descripcion")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Seleccione")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaCatalogo,
+      label: "secuencia",
+      "data-vv-name": "catalogo"
+    },
+    model: {
+      value: _vm.catalogo,
+      callback: function callback($$v) {
+        _vm.catalogo = $$v;
+      },
+      expression: "catalogo"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("catalogo")))])], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("Supervisor")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.vs_options,
+      label: "name",
+      "data-vv-as": "operaciones"
+    },
+    model: {
+      value: _vm.supervisor,
+      callback: function callback($$v) {
+        _vm.supervisor = $$v;
+      },
+      expression: "supervisor"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" ")]), _c("br"), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      name: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.guardarasignacion();
+      }
+    }
+  }, [_vm._v("Crear")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._l(_vm.listado_data, function (vi, index) {
+    return _c("li", {
+      staticClass: "list-group-item"
+    }, [_c("div", {
+      staticClass: "form-row"
+    }, [_c("div", {
+      staticClass: "form-group col-md-3"
+    }, [_c("label", [_vm._v(_vm._s(vi.actividad))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(vi.riesgo))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-3"
+    }, [_c("label", [_vm._v(_vm._s(vi.medidas))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(vi.supervisor))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [vi.temp ? _c("a", {
+      on: {
+        click: function click($event) {
+          return _vm.deleteu(index);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "fas fa-trash",
+      attrs: {
+        "arial-hidden": "true"
+      }
+    })]) : _c("a", {
+      on: {
+        click: function click($event) {
+          return _vm.BorrarRiesgo(vi.id);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "fas fa-trash",
+      attrs: {
+        "arial-hidden": "true"
+      }
+    })])])])]);
+  }), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Responsable del Área (Operaciones)")]), _vm._v(" "), _c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.vs_options,
+      label: "name",
+      "data-vv-name": "operaciones"
+    },
+    model: {
+      value: _vm.operaciones,
+      callback: function callback($$v) {
+        _vm.operaciones = $$v;
+      },
+      expression: "operaciones"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("operaciones")))])], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Responsable del Área (SSMA)")]), _vm._v(" "), _c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.vs_options,
+      label: "name",
+      "data-vv-name": "shso"
+    },
+    model: {
+      value: _vm.shso,
+      callback: function callback($$v) {
+        _vm.shso = $$v;
+      },
+      expression: "shso"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("shso")))])], 1)])], 2), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Cerrar();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 1,
+      expression: "tipoAccion == 1"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(1);
+      }
+    }
+  }, [_vm._v("\r\n                                Guardar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 2,
+      expression: "tipoAccion == 2"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(0);
+      }
+    }
+  }, [_vm._v("\r\n                                Actualizar\r\n                            ")])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal_participantes
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v("Participantes")]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalP();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isLoading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Empleado")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.vs_options,
+      label: "name",
+      "data-vv-as": "shso"
+    },
+    model: {
+      value: _vm.empleado,
+      callback: function callback($$v) {
+        _vm.empleado = $$v;
+      },
+      expression: "empleado"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v(" ")]), _c("br"), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.agregarEmpleado();
+      }
+    }
+  }, [_vm._v("Agregar")])])]), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      data: _vm.tableDataParticipantes,
+      options: _vm.optionsParticipantes,
+      columns: _vm.columnsParticipantes
+    },
+    scopedSlots: _vm._u([{
+      key: "empleado_id",
+      fn: function fn(props) {
+        return [_c("a", {
+          on: {
+            click: function click($event) {
+              return _vm.eliminarParticipante(props.row.empleado_id);
+            }
+          }
+        }, [_c("span", {
+          staticClass: "fas fa-trash",
+          attrs: {
+            "arial-hidden": "true"
+          }
+        })])];
+      }
+    }])
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalP();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")])])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_c("b", [_vm._v("Actividad")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Riesgos")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_c("b", [_vm._v("Medidas")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Supervisor")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("ACCIONES")])])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=template&id=598bffc3":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=template&id=598bffc3 ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.detalle == false,
+      expression: "detalle == false"
+    }],
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Bitacora RP-RME\n        "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.abrirModal("bitacora", "registrar_gral");
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\n        ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      data: _vm.tableDataGral,
+      options: _vm.options_gral,
+      columns: _vm.columns_gral
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group",
+            "aria-label": "Button group with nested dropdown"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btnGroupDrop1",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        })]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.abrirModal("bitacora", "actualizar_gral", props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-pencil-alt"
+        }), _vm._v(" Actualizar analisis\n                  ")]), _vm._v(" "), _c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.verdetalle(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-eye"
+        }), _vm._v(" Detalle\n                  ")]), _vm._v(" "), _c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.eliminar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-trash"
+        }), _vm._v(" Eliminar\n                  ")])])])])];
+      }
+    }, {
+      key: "descargar",
+      fn: function fn(props) {
+        return [_c("button", {
+          staticClass: "btn btn-outline-dark",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.descargar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-download"
+        }), _vm._v(" "), _c("i", {
+          staticClass: "fas fa-file-pdf"
+        })])];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.detalle == true,
+      expression: "detalle == true"
+    }],
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Bitacora\n        "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.abrirModal("bitacora", "registrar");
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.atras();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-arrow-left"
+  }), _vm._v(" Atras\n        ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      data: _vm.tableData,
+      columns: _vm.columns,
+      options: _vm.options
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group",
+            "aria-label": "Button group with nested dropdown"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btnGroupDrop1",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        })]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              $event.preventDefault();
+              return _vm.abrirModal("bitacora", "actualizar", props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-pencil-alt"
+        }), _vm._v(" Actualizar analisis\n                  ")])])])])];
+      }
+    }, {
+      key: "tipo",
+      fn: function fn(props) {
+        return [props.row.tipo == 1 ? [_vm._v("\n              RME\n            ")] : _vm._e(), _vm._v(" "), props.row.tipo == 2 ? [_vm._v("\n              RP\n            ")] : _vm._e()];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v(_vm._s(_vm.tituloModal))]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModal();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha de ingreso (AT)")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.fecha,
+      expression: "uno.fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha"
+    },
+    domProps: {
+      value: _vm.uno.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "fecha", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Tipo de Residuos")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.tipo,
+      expression: "uno.tipo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Tipo"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.uno, "tipo", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("RME")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("RP")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Tipo")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-7 mb-3"
+  }, [_c("label", [_vm._v("Nombre del residuo")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.nombre,
+      expression: "uno.nombre"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Nombre"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.uno, "nombre", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_vm.uno.tipo == 2 ? _vm._l(_vm.list_residuos_dos, function (b, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: b
+      }
+    }, [_vm._v(_vm._s(b.residuo.residuo))]);
+  }) : _vm._e(), _vm._v(" "), _vm.uno.tipo == 1 ? _vm._l(_vm.list_residuos_uno, function (a, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: a
+      }
+    }, [_vm._v(_vm._s(a.residuo.residuo))]);
+  }) : _vm._e()], 2), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Nombre")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_vm.uno.nombre != "" ? [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Area o proceso")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.area_proceso,
+      expression: "uno.area_proceso"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Area"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.uno, "area_proceso", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.uno.nombre.fuente, function (t, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: t.fuente_generacion
+      }
+    }, [_vm._v(_vm._s(t.fuente_generacion))]);
+  }), 0), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Area")))])])] : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Destino")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.destino,
+      expression: "destino"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.destino = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      selected: "",
+      value: "1"
+    }
+  }, [_vm._v("Reuso")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("Recicle")])])])], 2), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Cantidad")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.cantidad,
+      expression: "uno.cantidad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Cantidad"
+    },
+    domProps: {
+      value: _vm.uno.cantidad
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "cantidad", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Cantidad")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Unidad Medida")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.unidad,
+      expression: "uno.unidad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Unidad"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.uno, "unidad", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "KG"
+    }
+  }, [_vm._v("KILOGRAMO")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "LT"
+    }
+  }, [_vm._v("LITRO")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "GR"
+    }
+  }, [_vm._v("GRAMO")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Unidad")))])]), _vm._v(" "), _vm.uno.tipo == 1 ? [_c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha salida RME")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.fecha_salida_rme,
+      expression: "uno.fecha_salida_rme"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.uno.fecha_salida_rme
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "fecha_salida_rme", $event.target.value);
+      }
+    }
+  })])] : _vm._e()], 2), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_vm.uno.tipo == 2 ? [_c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("CRETIB")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.crebit,
+      expression: "dos.crebit"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dos, "crebit", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("Corrosivo")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("Reactivo")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "3"
+    }
+  }, [_vm._v("Explosivo")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "4"
+    }
+  }, [_vm._v("Tóxico")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "5"
+    }
+  }, [_vm._v("Tóxico Ambiental")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "6"
+    }
+  }, [_vm._v("Tóxico Agudo")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "7"
+    }
+  }, [_vm._v("Tóxico Crónico")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "8"
+    }
+  }, [_vm._v("Inflamable")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "9"
+    }
+  }, [_vm._v("Biologicamente Infeccioso")])])])] : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha Salida")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.fecha,
+      expression: "dos.fecha"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Salida"
+    },
+    domProps: {
+      value: _vm.dos.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.dos, "fecha", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Salida")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Proveedor")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.proveedor,
+      expression: "dos.proveedor"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Proveedor"
+    },
+    domProps: {
+      value: _vm.dos.proveedor
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.dos, "proveedor", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Proveedor")))])])], 2), _vm._v(" "), _vm.uno.tipo == 2 ? [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("No. de Autorización")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.no_autorizacion,
+      expression: "dos.no_autorizacion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.dos.no_autorizacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.dos, "no_autorizacion", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Clave Generica")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.clave,
+      expression: "dos.clave"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dos, "clave", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("SO1")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("O1")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "3"
+    }
+  }, [_vm._v("SO5")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "4"
+    }
+  }, [_vm._v("L5")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "5"
+    }
+  }, [_vm._v("1")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Núm De Manifiesto")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.num_manifiesto,
+      expression: "dos.num_manifiesto"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.dos.num_manifiesto
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.dos, "num_manifiesto", $event.target.value);
+      }
+    }
+  })])])] : _vm._e()], 2), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModal();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\n              ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 1,
+      expression: "tipoAccion == 1"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(1);
+      }
+    }
+  }, [_vm._v("\n                Guardar\n              ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 2,
+      expression: "tipoAccion == 2"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(0);
+      }
+    }
+  }, [_vm._v("\n                Actualizar\n              ")])])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal_gral
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v(_vm._s(_vm.tituloModalGral))]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalGral();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Folio")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.folio,
+      expression: "folio"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Folio"
+    },
+    domProps: {
+      value: _vm.folio
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.folio = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Folio")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Localidad")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.localidad,
+      expression: "localidad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Localidad"
+    },
+    domProps: {
+      value: _vm.localidad
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.localidad = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Localidad")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Responsable")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name",
+      "data-vv-name": "Responsable"
+    },
+    model: {
+      value: _vm.responsable,
+      callback: function callback($$v) {
+        _vm.responsable = $$v;
+      },
+      expression: "responsable"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Responsable")))])], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalGral();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\n            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccionGral == 1,
+      expression: "tipoAccionGral == 1"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarGral(1);
+      }
+    }
+  }, [_vm._v("\n              Guardar\n            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccionGral == 2,
+      expression: "tipoAccionGral == 2"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarGral(0);
+      }
+    }
+  }, [_vm._v("\n              Actualizar\n            ")])])])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=template&id=541239cf":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=template&id=541239cf ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid",
+    staticStyle: {
+      "min-height": "40vh"
+    }
+  }, [_vm.tipoCard == 1 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Inspección de Botiquines\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalInspeccion();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isInspecciones_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_inspecciones,
+      data: _vm.list_inspecciones,
+      options: _vm.options_inspeccion
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalInspeccion(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-edit"
+        }), _vm._v("  Actualizar\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.VerBotiquines(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-eye"
+        }), _vm._v("  Ver\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.Descargar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-file-pdf"
+        }), _vm._v("  Descargar\r\n                                    ")])])])])];
+      }
+    }, {
+      key: "tipo",
+      fn: function fn(props) {
+        return [props.row.tipo == 1 ? _c("p", [_vm._v("Portátil")]) : _vm._e(), _vm._v(" "), props.row.tipo == 2 ? _c("p", [_vm._v("Fijo")]) : _vm._e()];
+      }
+    }], null, false, 1987616759)
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.tipoCard == 2 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Botiquín de " + _vm._s(_vm.area) + "\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right mx-1",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        _vm.tipoCard = 1;
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-left"
+  }), _vm._v(" Regresar\r\n                ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right mx-1",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalBotiquin(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_botiquines,
+      data: _vm.list_botiquines,
+      options: _vm.options_botiquines
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalBotiquin(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-edit"
+        }), _vm._v("  Actualizar\r\n                                    ")])])])])];
+      }
+    }], null, false, 3937341151)
+  })], 1)]) : _vm._e()]), _vm._v(" "), _vm.ver_modal_inspeccion ? _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_inspeccion
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarBotiquin_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalBotiquin();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Fecha")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.fecha,
+      expression: "inspeccion.fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha"
+    },
+    domProps: {
+      value: _vm.inspeccion.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.inspeccion, "fecha", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Área")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|max:50",
+      expression: "'required|max:50'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.area,
+      expression: "inspeccion.area"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Área",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.inspeccion.area
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.inspeccion, "area", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Área")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Tipo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.tipo,
+      expression: "inspeccion.tipo"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.inspeccion, "tipo", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("Portátil")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("Fijo")])])]), _vm._v(" "), _c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("No. de Botiquín")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.numero,
+      expression: "inspeccion.numero"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "number",
+      min: "1",
+      max: "100",
+      "data-vv-name": "Número de Botiquín"
+    },
+    domProps: {
+      value: _vm.inspeccion.numero
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.inspeccion, "numero", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Número de Botiquín")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-4 form-control-label"
+  }, [_vm._v("El botiquín está en un lugar visible")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.visible,
+      expression: "inspeccion.visible"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.inspeccion.visible, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.inspeccion, "visible", "1");
+      }
+    }
+  }), _vm._v(" Sí\r\n                                "), _c("span", {
+    staticClass: "mx-5"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.visible,
+      expression: "inspeccion.visible"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.inspeccion.visible, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.inspeccion, "visible", "2");
+      }
+    }
+  }), _vm._v(" No\r\n                            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-4 form-control-label"
+  }, [_vm._v("El botiquín está en buen estado")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.buen_estado,
+      expression: "inspeccion.buen_estado"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.inspeccion.buen_estado, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.inspeccion, "buen_estado", "1");
+      }
+    }
+  }), _vm._v(" Sí\r\n                                "), _c("span", {
+    staticClass: "mx-5"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.buen_estado,
+      expression: "inspeccion.buen_estado"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.inspeccion.buen_estado, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.inspeccion, "buen_estado", "2");
+      }
+    }
+  }), _vm._v(" No\r\n                            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Inspector")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.list_empleados,
+      label: "nombre",
+      "data-vv-name": "Inspector"
+    },
+    model: {
+      value: _vm.inspeccion.inspector,
+      callback: function callback($$v) {
+        _vm.$set(_vm.inspeccion, "inspector", $$v);
+      },
+      expression: "inspeccion.inspector"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Inspector")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Responsable")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.list_empleados,
+      label: "nombre"
+    },
+    model: {
+      value: _vm.inspeccion.responsable,
+      callback: function callback($$v) {
+        _vm.$set(_vm.inspeccion, "responsable", $$v);
+      },
+      expression: "inspeccion.responsable"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Responsable")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Recomendaciones")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-8"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inspeccion.recomendaciones,
+      expression: "inspeccion.recomendaciones"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      rows: "4",
+      "data-vv-name": "Recomendaciones"
+    },
+    domProps: {
+      value: _vm.inspeccion.recomendaciones
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.inspeccion, "recomendaciones", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Recomendaciones")))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalInspeccion();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarInspeccion(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarInspeccion(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])], 1)])])]) : _vm._e(), _vm._v(" "), _vm.ver_modal_botiquin ? _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_botiquin
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarInspeccion_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal_Botiquin)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalBotiquin();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Material")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5"
+  }, [_c("textarea", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.botiquin_modal.material,
+      expression: "botiquin_modal.material"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      maxlength: "100",
+      "data-vv-name": "Material"
+    },
+    domProps: {
+      value: _vm.botiquin_modal.material
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.botiquin_modal, "material", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Material")))])]), _vm._v(" "), _c("div", {
+    staticClass: "form-check form-inline"
+  }, [_c("label", {
+    staticClass: "form-check-label col-md-6"
+  }, [_vm._v("\r\n                                    Elemento de apoyo\r\n                                ")]), _vm._v(" "), _c("label", {
+    staticClass: "switch switch-default switch-pill switch-dark"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.botiquin_modal.apoyo,
+      expression: "botiquin_modal.apoyo"
+    }],
+    staticClass: "switch-input",
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.botiquin_modal.apoyo) ? _vm._i(_vm.botiquin_modal.apoyo, null) > -1 : _vm.botiquin_modal.apoyo
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.botiquin_modal.apoyo,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.botiquin_modal, "apoyo", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.botiquin_modal, "apoyo", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.botiquin_modal, "apoyo", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "switch-label"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "switch-handle"
+  })]), _vm._v(" "), _c("span", {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.botiquin_modal.apoyo ? "Sí" : "No"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Existencia")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|decimal:0",
+      expression: "'required|decimal:0'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.botiquin_modal.existencia,
+      expression: "botiquin_modal.existencia"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "number",
+      min: "1",
+      step: "1",
+      "data-vv-name": "Existencia"
+    },
+    domProps: {
+      value: _vm.botiquin_modal.existencia
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.botiquin_modal, "existencia", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Existencia")))])]), _vm._v(" "), _c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Reposición")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|decimal:0",
+      expression: "'required|decimal:0'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.botiquin_modal.reposicion,
+      expression: "botiquin_modal.reposicion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "number",
+      min: "0",
+      step: "1",
+      "data-vv-name": "Reposición"
+    },
+    domProps: {
+      value: _vm.botiquin_modal.reposicion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.botiquin_modal, "reposicion", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Reposición")))])]), _vm._v(" "), _c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Fecha de vencimiento")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.botiquin_modal.fecha_vencimiento,
+      expression: "botiquin_modal.fecha_vencimiento"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha de vencimiento"
+    },
+    domProps: {
+      value: _vm.botiquin_modal.fecha_vencimiento
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.botiquin_modal, "fecha_vencimiento", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha de vencimiento")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Observación")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-8"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.botiquin_modal.observacion,
+      expression: "botiquin_modal.observacion"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      rows: "4",
+      "data-vv-name": "Recomendaciones"
+    },
+    domProps: {
+      value: _vm.botiquin_modal.observacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.botiquin_modal, "observacion", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Recomendaciones")))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalBotiquin();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion_botiquin == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarBotiquin(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_botiquin == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarBotiquin(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])], 1)])])]) : _vm._e()]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=template&id=16477ad0":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=template&id=16477ad0 ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" " + _vm._s(_vm.tipo == 1 ? "Catálogo Analisis" : _vm.tipo == 2 ? "Catálogo Residuos" : "Catálogos") + "\r\n            "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipo == 1,
+      expression: "tipo == 1"
+    }],
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalAnalisis(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipo == 2,
+      expression: "tipo == 2"
+    }],
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalResiduos(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown float-sm-right"
+  }, [_c("button", {
+    staticClass: "btn btn-secondary dropdown-toggle",
+    attrs: {
+      type: "button",
+      id: "dropmenub",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false",
+      name: "button"
+    }
+  }, [_vm._v("\r\n                    Tipo\r\n                ")]), _vm._v(" "), _c("div", {
+    staticClass: "dropdown-menu",
+    attrs: {
+      "aria-labelledby": "dropdown"
+    }
+  }, [_c("button", {
+    staticClass: "dropdown-item",
+    on: {
+      click: function click($event) {
+        _vm.tipo = 1;
+      }
+    }
+  }, [_vm._v("Analisis")]), _vm._v(" "), _c("button", {
+    staticClass: "dropdown-item",
+    on: {
+      click: function click($event) {
+        _vm.tipo = 2;
+      }
+    }
+  }, [_vm._v("Residuos")])])])]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipo == 1,
+      expression: "tipo == 1"
+    }],
+    staticClass: "card-body"
+  }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
+    ref: "tbl_analisis",
+    attrs: {
+      columns: _vm.columns_analisis,
+      data: _vm.list_analisis,
+      options: _vm.options_analisis
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btn_id",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu"
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalAnalisis(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "icon-pencil"
+        }), _vm._v(" Actualizar\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.Eliminar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-trash"
+        }), _vm._v(" Eliminar\r\n                                    ")])])])];
+      }
+    }])
+  })], 1)])]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipo == 2,
+      expression: "tipo == 2"
+    }],
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_residuos,
+      data: _vm.list_residuos,
+      options: _vm.options_residuos
+    },
+    scopedSlots: _vm._u([{
+      key: "residuo.id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btn_id",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                        ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu"
+        }, [[_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalResiduos(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "icon-pencil"
+        }), _vm._v(" Actualizar\r\n                                ")])]], 2)])];
+      }
+    }, {
+      key: "fuente",
+      fn: function fn(props) {
+        return [_vm._l(props.row.fuente, function (t) {
+          return [_vm._v("\r\n                        " + _vm._s(t.fuente_generacion) + ",\r\n                    ")];
+        })];
+      }
+    }])
+  })], 1), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipo == 0,
+      expression: "tipo == 0"
+    }],
+    staticClass: "card-body"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_analisis
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.titulo_modal_analisis)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalAnalisis();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Secuencia")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.analisis_modal.secuencia,
+      expression: "analisis_modal.secuencia"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.analisis_modal.secuencia
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.analisis_modal, "secuencia", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Riesgo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.analisis_modal.riesgo,
+      expression: "analisis_modal.riesgo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "name",
+      rows: "4",
+      cols: "80"
+    },
+    domProps: {
+      value: _vm.analisis_modal.riesgo
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.analisis_modal, "riesgo", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Recomendación")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.analisis_modal.recomendacion,
+      expression: "analisis_modal.recomendacion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "name",
+      rows: "4",
+      cols: "80"
+    },
+    domProps: {
+      value: _vm.analisis_modal.recomendacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.analisis_modal, "recomendacion", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalAnalisis();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion_modal_analisis == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarAnalisis(1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_modal_analisis == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarAnalisis(0);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_residuos
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.titulo_modal_residuos)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalResiduos();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-10 mb-3"
+  }, [_c("label", [_vm._v("Residuo")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.residuos_modal.residuo,
+      expression: "residuos_modal.residuo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.residuos_modal.residuo
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.residuos_modal, "residuo", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Tipo")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.residuos_modal.tipo,
+      expression: "residuos_modal.tipo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Tipo"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.residuos_modal, "tipo", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("RME")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("RP")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-12 mb-3"
+  }, [_c("label", [_vm._v("Fuente")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      taggable: "",
+      multiple: ""
+    },
+    model: {
+      value: _vm.residuos_modal.fuente,
+      callback: function callback($$v) {
+        _vm.$set(_vm.residuos_modal, "fuente", $$v);
+      },
+      expression: "residuos_modal.fuente"
+    }
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalResiduos();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion_modal_residuos == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarResiduos(1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_modal_residuos == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarResiduos(0);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fas fa-list"
+  }), _vm._v(" Caltálogo de análisis\r\n            "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalAnalisis(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    ref: "tbl_analisis",
+    attrs: {
+      columns: _vm.columns_analisis,
+      data: _vm.list_analisis,
+      options: _vm.options_analisis
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btn_id",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                        ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu"
+        }, [[_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalAnalisis(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "icon-pencil"
+        }), _vm._v(" Actualizar\r\n                                ")])]], 2)])];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_analisis
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.titulo_modal_analisis)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalAnalisis();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Secuencia")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("v-select", {
+    attrs: {
+      label: "nombre",
+      options: _vm.listSecuencias
+    },
+    on: {
+      input: _vm.SecuenciaInput
+    },
+    model: {
+      value: _vm.analisis_modal.secuencia,
+      callback: function callback($$v) {
+        _vm.$set(_vm.analisis_modal, "secuencia", $$v);
+      },
+      expression: "analisis_modal.secuencia"
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Riesgo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("v-select", {
+    attrs: {
+      label: "nombre",
+      options: _vm.listRiesgos
+    },
+    on: {
+      input: _vm.RiesgoInput
+    },
+    model: {
+      value: _vm.analisis_modal.riesgo,
+      callback: function callback($$v) {
+        _vm.$set(_vm.analisis_modal, "riesgo", $$v);
+      },
+      expression: "analisis_modal.riesgo"
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Recomendación")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("v-select", {
+    attrs: {
+      label: "nombre",
+      options: _vm.listRecomendaciones
+    },
+    on: {
+      input: _vm.RecomendacionInput
+    },
+    model: {
+      value: _vm.analisis_modal.recomendacion,
+      callback: function callback($$v) {
+        _vm.$set(_vm.analisis_modal, "recomendacion", $$v);
+      },
+      expression: "analisis_modal.recomendacion"
+    }
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalAnalisis();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion_modal_analisis == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarAnalisis(1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_modal_analisis == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarAnalisis(0);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=template&id=09918b9c":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=template&id=09918b9c ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoCardFolios_Permisos == 1,
+      expression: "tipoCardFolios_Permisos==1"
+    }],
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" FOLIO DE PROYECTOS\r\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalFolios_Permisos(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus mr-1"
+  }), _vm._v("Nuevo\r\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isObtenerfolios_permisos_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_folios_permisos,
+      data: _vm.list_folios_permisos,
+      options: _vm.options_folios_permisos
+    }
+  })], 1)]), _vm._v(" "), _vm.ver_modal_folios_permisos ? _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_folios_permisos
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal_folios_permisos)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalFolios_Permisos();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("x")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarfolios_permisos_loading
+    }
+  }), _vm._v(" "), _c("div", [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Proyecto")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      label: "nombre_corto",
+      options: _vm.list_proyectos,
+      "data-vv-name": "Proyecto"
+    },
+    model: {
+      value: _vm.folios_permisos.proyecto,
+      callback: function callback($$v) {
+        _vm.$set(_vm.folios_permisos, "proyecto", $$v);
+      },
+      expression: "folios_permisos.proyecto"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Proyecto")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Nombre")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.folios_permisos.nombre,
+      expression: "folios_permisos.nombre"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "5",
+      minlength: "1",
+      "data-vv-name": "Nombre",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.folios_permisos.nombre
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.folios_permisos, "nombre", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Nombre")))])])])])], 1), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarfolios_permisos_loading
+    }
+  }), _vm._v(" "), _c("div", [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalFolios_Permisos();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_folios_permisos == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.RegistrarFolios_Permisos(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=template&id=192b409a":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=template&id=192b409a ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid",
+    staticStyle: {
+      "min-height": "40vh"
+    }
+  }, [_vm.tipoCard == 1 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Inspección de EPP\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalInspeccion();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isInspeccion_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_inspecciones,
+      data: _vm.list_inspecciones,
+      options: _vm.options_inspecciones
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalInspeccion(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-edit"
+        }), _vm._v("  Actualizar\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.VerParticipantes(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-users"
+        }), _vm._v("  Ver participantes\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.Descargar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-file-pdf"
+        }), _vm._v("  Descargar\r\n                                    ")])])])])];
+      }
+    }], null, false, 1283278077)
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.tipoCard == 2 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Participantes\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right mx-1",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        _vm.tipoCard = 1;
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-left"
+  }), _vm._v(" Regresar\r\n                ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right mx-1",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalTrabajador(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isParticipantes_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_participantes,
+      data: _vm.list_participantes,
+      options: _vm.options_participantes
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalTrabajador(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-edit"
+        }), _vm._v("  Detalles\r\n                                    ")])])])])];
+      }
+    }], null, false, 1574267254)
+  })], 1)]) : _vm._e()]), _vm._v(" "), _vm.ver_modal_inspecciones ? _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_inspecciones
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarpl_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalInspeccion();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Fecha")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.Inspeccion.fecha,
+      expression: "Inspeccion.fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha"
+    },
+    domProps: {
+      value: _vm.Inspeccion.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.Inspeccion, "fecha", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Ubicación")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|max:50",
+      expression: "'required|max:50'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.Inspeccion.ubicacion,
+      expression: "Inspeccion.ubicacion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Ubicación",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.Inspeccion.ubicacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.Inspeccion, "ubicacion", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Ubicación")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Realizó")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.list_empleados,
+      "data-vv-name": "Realizó",
+      label: "nombre"
+    },
+    model: {
+      value: _vm.Inspeccion.realiza,
+      callback: function callback($$v) {
+        _vm.$set(_vm.Inspeccion, "realiza", $$v);
+      },
+      expression: "Inspeccion.realiza"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Realizó")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Revisó")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.list_empleados,
+      "data-vv-name": "Revisó",
+      label: "nombre"
+    },
+    model: {
+      value: _vm.Inspeccion.revisa,
+      callback: function callback($$v) {
+        _vm.$set(_vm.Inspeccion, "revisa", $$v);
+      },
+      expression: "Inspeccion.revisa"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Revisó")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Observaciones")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.Inspeccion.observaciones,
+      expression: "Inspeccion.observaciones"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Observaciones"
+    },
+    domProps: {
+      value: _vm.Inspeccion.observaciones
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.Inspeccion, "observaciones", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Observaciones")))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalInspeccion();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarInspeccion(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarInspeccion(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])], 1)])])]) : _vm._e(), _vm._v(" "), _vm.ver_modal_trabajador ? _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_trabajador
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarparticip_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal_trabajador)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalTrabajador();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Empleado")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      disabled: _vm.tipoAccion_trabajador == 2,
+      options: _vm.list_empleados,
+      "data-vv-name": "Empleado",
+      label: "nombre"
+    },
+    model: {
+      value: _vm.trabajador.empleado,
+      callback: function callback($$v) {
+        _vm.$set(_vm.trabajador, "empleado", $$v);
+      },
+      expression: "trabajador.empleado"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Empleado")))])], 1)]), _vm._v(" "), _c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _c("p", {
+    staticClass: "h5 text-mutted my-2 mb-3"
+  }, [_vm._v("Equipo de Protección Personal")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Overol o ropa de algodón RF")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_overol,
+      expression: "trabajador.epp_overol"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_overol", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Calzado de Seguridad")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_calzado,
+      expression: "trabajador.epp_calzado"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_calzado", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Casco con logo ")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_casco,
+      expression: "trabajador.epp_casco"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_casco", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Guantes adecuados al riesgo de trabajo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_guantes,
+      expression: "trabajador.epp_guantes"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_guantes", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Protección ocular")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_ocular,
+      expression: "trabajador.epp_ocular"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_ocular", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Protección respiratoria")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_respiratoria,
+      expression: "trabajador.epp_respiratoria"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_respiratoria", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Protección Auditiva")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_auditiva,
+      expression: "trabajador.epp_auditiva"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_auditiva", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Barbiquejo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epp_barbiquejo,
+      expression: "trabajador.epp_barbiquejo"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epp_barbiquejo", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _c("p", {
+    staticClass: "h5 text-mutted my-2 mb-3"
+  }, [_vm._v("Equipo de Protección Personal")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Protección Respiratoria ERA")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epa_respiratoria,
+      expression: "trabajador.epa_respiratoria"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epa_respiratoria", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Arnes de Seguridad")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epa_arnes,
+      expression: "trabajador.epa_arnes"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epa_arnes", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Careta Facial")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epa_careta,
+      expression: "trabajador.epa_careta"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epa_careta", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Mangas, peto, polainas,rodillera ")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epa_mangas,
+      expression: "trabajador.epa_mangas"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epa_mangas", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-5 form-control-label font-weight-bold1"
+  }, [_vm._v("Mascarilla de media cara/Cara completa")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.trabajador.epa_mascarilla,
+      expression: "trabajador.epa_mascarilla"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.trabajador, "epa_mascarilla", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.opciones, function (op, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: op.clave
+      }
+    }, [_vm._v(_vm._s(op.nombre))]);
+  }), 0)])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalTrabajador();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion_trabajador == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarTrabajador(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_trabajador == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarTrabajador(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])], 1)])])]) : _vm._e()]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=template&id=e236add2":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=template&id=e236add2 ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.date,
+      expression: "date"
+    }],
+    ref: "date_two",
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.date = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_vm._v("Tipo")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.tipo,
+      expression: "tipo"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.tipo = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("Asistencia")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("Ubicacion")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_vm.tipo == 1 ? [_c("label", [_vm._v("Generar Reporte")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.reporte_estado,
+      expression: "reporte_estado"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.reporte_estado = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.generate]
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("Conserflow Semanal")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("Conserflow Quincenal")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "3"
+    }
+  }, [_vm._v("CSCT Semanal")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "4"
+    }
+  }, [_vm._v("CSCT Quincenal")])])] : _vm._e(), _vm._v(" "), _vm.tipo == 2 ? [_c("label", [_vm._v("Generar Reporte")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.nave,
+      expression: "nave"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.nave = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.generate]
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "Nave 1"
+    }
+  }, [_vm._v("Nave 1")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Nave 2"
+    }
+  }, [_vm._v("Nave 2")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Nave 4"
+    }
+  }, [_vm._v("Nave 4")])])] : _vm._e()], 2)])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" ANÁLISIS DE SEGURIDAD EN EL TRABAJO (AST)\r\n\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.abrirModal(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      data: _vm.tableData,
+      columns: _vm.columns,
+      options: _vm.options
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group",
+            "aria-label": "Button group with nested dropdown"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btnGroupDrop1",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        })]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              $event.preventDefault();
+              return _vm.abrirModal(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-pencil-alt"
+        }), _vm._v(" Actualizar analisis\r\n                                    ")]), _vm._v(" "), _c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.participantes(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-user-friends"
+        }), _vm._v(" Agregar Participantes\r\n                                    ")]), _vm._v(" "), _c("a", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.eliminar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-trash"
+        }), _vm._v(" Eliminar\r\n                                    ")])])])])];
+      }
+    }, {
+      key: "descargar",
+      fn: function fn(props) {
+        return [_c("button", {
+          staticClass: "btn btn-outline-dark",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.descargar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-download"
+        }), _vm._v(" "), _c("i", {
+          staticClass: "fas fa-file-pdf"
+        })])];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v(_vm._s(_vm.tituloModal))]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Cerrar();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isLoading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("Ubicación de trabajo")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.ubicacion,
+      expression: "ubicacion"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "ubicacion"
+    },
+    domProps: {
+      value: _vm.ubicacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.ubicacion = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("ubicacion")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("Número de permiso")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.permiso,
+      expression: "permiso"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "permiso"
+    },
+    domProps: {
+      value: _vm.permiso
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.permiso = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("permiso")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.fecha,
+      expression: "fecha"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "fecha"
+    },
+    domProps: {
+      value: _vm.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.fecha = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-12 mb-3"
+  }, [_c("label", [_vm._v("Descripción del trabajo")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.descripcion,
+      expression: "descripcion"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "descripcion",
+      rows: "3",
+      cols: "40"
+    },
+    domProps: {
+      value: _vm.descripcion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.descripcion = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("descripcion")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-10 mb-3"
+  }, [_c("label", [_vm._v("Análisis")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaCatalogo,
+      label: "nombre",
+      "data-vv-name": "Análisis"
+    },
+    on: {
+      input: _vm.ObtenerRiesgos
+    },
+    model: {
+      value: _vm.analisis,
+      callback: function callback($$v) {
+        _vm.analisis = $$v;
+      },
+      expression: "analisis"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Análisis")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-10 mb-3"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isLoadingRiesgos
+    }
+  }), _vm._v(" "), _c("label", [_vm._v("Riesgo - Recomendación")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listRecomendaciones,
+      label: "riesgo_recomen",
+      "data-vv-name": "Recomendación"
+    },
+    model: {
+      value: _vm.recomendacion,
+      callback: function callback($$v) {
+        _vm.recomendacion = $$v;
+      },
+      expression: "recomendacion"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Recomendación")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-7 mb-3"
+  }, [_c("label", [_vm._v("Supervisor")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.vs_options,
+      label: "name",
+      "data-vv-as": "operaciones"
+    },
+    model: {
+      value: _vm.supervisor,
+      callback: function callback($$v) {
+        _vm.supervisor = $$v;
+      },
+      expression: "supervisor"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" ")]), _c("br"), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      name: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.guardarasignacion();
+      }
+    }
+  }, [_vm._v("Crear")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("vue-element-loading", {
+    attrs: {
+      active: _vm.isLoadingPartidas
+    }
+  }), _vm._v(" "), _c("div", _vm._l(_vm.listado_data, function (analisis, index) {
+    return _c("li", {
+      staticClass: "list-group-item"
+    }, [_c("div", {
+      staticClass: "form-row"
+    }, [_c("div", {
+      staticClass: "form-group col-md-3"
+    }, [_c("label", [_vm._v(_vm._s(analisis.analisis.nombre))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(analisis.riesgo_recomen.riesgo))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-3"
+    }, [_c("label", [_vm._v(_vm._s(analisis.riesgo_recomen.recomendacion))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(analisis.supervisor.name))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [analisis.temp ? _c("a", {
+      on: {
+        click: function click($event) {
+          return _vm.BorrarTemp(index);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "fas fa-trash",
+      attrs: {
+        "arial-hidden": "true"
+      }
+    })]) : _c("a", {
+      on: {
+        click: function click($event) {
+          return _vm.Borrar(analisis.id);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "fas fa-trash",
+      attrs: {
+        "arial-hidden": "true"
+      }
+    })])])])]);
+  }), 0), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Responsable del Área (Operaciones)")]), _vm._v(" "), _c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.vs_options,
+      label: "name",
+      "data-vv-name": "operaciones"
+    },
+    model: {
+      value: _vm.operaciones,
+      callback: function callback($$v) {
+        _vm.operaciones = $$v;
+      },
+      expression: "operaciones"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("operaciones")))])], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Responsable del Área (SSMA)")]), _vm._v(" "), _c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.vs_options,
+      label: "name",
+      "data-vv-name": "shso"
+    },
+    model: {
+      value: _vm.shso,
+      callback: function callback($$v) {
+        _vm.shso = $$v;
+      },
+      expression: "shso"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("shso")))])], 1)])], 1), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Cerrar();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 1,
+      expression: "tipoAccion == 1"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(1);
+      }
+    }
+  }, [_vm._v("\r\n                                Guardar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 2,
+      expression: "tipoAccion == 2"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(0);
+      }
+    }
+  }, [_vm._v("\r\n                                Actualizar\r\n                            ")])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal_participantes
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v("Participantes")]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalP();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isLoading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Empleado")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.list_empleados,
+      label: "name",
+      "data-vv-as": "shso"
+    },
+    model: {
+      value: _vm.empleado,
+      callback: function callback($$v) {
+        _vm.empleado = $$v;
+      },
+      expression: "empleado"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v(" ")]), _c("br"), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.agregarEmpleado();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  })])])]), _vm._v(" "), _c("vue-element-loading", {
+    attrs: {
+      active: _vm.isPartcipantesLoading
+    }
+  }), _vm._v(" "), _c("div", [_c("v-client-table", {
+    attrs: {
+      data: _vm.tableDataParticipantes,
+      options: _vm.optionsParticipantes,
+      columns: _vm.columnsParticipantes
+    },
+    scopedSlots: _vm._u([{
+      key: "empleado_id",
+      fn: function fn(props) {
+        return [_c("a", {
+          on: {
+            click: function click($event) {
+              return _vm.eliminarParticipante(props.row.empleado_id);
+            }
+          }
+        }, [_c("span", {
+          staticClass: "fas fa-trash",
+          attrs: {
+            "arial-hidden": "true"
+          }
+        })])];
+      }
+    }])
+  })], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalP();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")])])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_c("b", [_vm._v("Actividad")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Riesgos")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_c("b", [_vm._v("Medidas")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Supervisor")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("ACCIONES")])])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=template&id=52fc26b1":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=template&id=52fc26b1 ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" PERMISO DE TRABAJO\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.abrirModal("analisis", "registrar");
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isPermisos_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      data: _vm.tableData,
+      columns: _vm.columns,
+      options: _vm.options
+    },
+    scopedSlots: _vm._u([{
+      key: "uno.id",
+      fn: function fn(props) {
+        return props.row.uno.condicion == 1 ? [_c("button", {
+          staticClass: "btn btn-outline-dark",
+          on: {
+            click: function click($event) {
+              $event.preventDefault();
+              return _vm.abrirModal("analisis", "actualizar", props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-pencil-alt"
+        }), _vm._v(" \r\n                        ")]), _vm._v(" "), _c("button", {
+          staticClass: "btn btn-outline-dark",
+          on: {
+            click: function click($event) {
+              $event.preventDefault();
+              return _vm.eliminar(props.row.uno.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-trash"
+        }), _vm._v(" \r\n                        ")])] : undefined;
+      }
+    }, {
+      key: "descarga",
+      fn: function fn(props) {
+        return [props.row.uno.condicion == 1 ? _c("button", {
+          staticClass: "btn btn-outline-dark",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.descargar(props.row.uno.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-download"
+        }), _vm._v(" "), _c("i", {
+          staticClass: "fas fa-file-pdf"
+        })]) : _vm._e(), _vm._v(" "), props.row.uno.condicion == 0 ? _c("button", {
+          staticClass: "btn btn-outline-danger",
+          attrs: {
+            type: "button"
+          }
+        }, [_vm._v("\r\n                            Eliminado\r\n                        ")]) : _vm._e()];
+      }
+    }], null, true)
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v(_vm._s(_vm.tituloModal))]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Cerrar();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("x")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 1,
+      expression: "tipoAccion==1"
+    }],
+    staticClass: "col-md-8 mb-3"
+  }, [_c("label", [_vm._v("Proyecto")]), _vm._v(" "), _c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      label: "nombre_corto",
+      options: _vm.list_proyectos,
+      "data-vv-name": "Proyecto"
+    },
+    model: {
+      value: _vm.proyecto,
+      callback: function callback($$v) {
+        _vm.proyecto = $$v;
+      },
+      expression: "proyecto"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Proyecto")))])], 1), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 2,
+      expression: "tipoAccion==2"
+    }],
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v(" Folio")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.uno,
+      expression: "uno.uno"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      readonly: "",
+      maxlength: "60",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.uno.uno
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "uno", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v(" Asociado")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.dos,
+      expression: "uno.dos"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      maxlength: "20",
+      type: "text",
+      "data-vv-name": "Asociado"
+    },
+    domProps: {
+      value: _vm.uno.dos
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "dos", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Asociado")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v(" Fecha Elaboración")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.tres,
+      expression: "uno.tres"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha"
+    },
+    domProps: {
+      value: _vm.uno.tres
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "tres", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v(" Instalación")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.cuatro,
+      expression: "uno.cuatro"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      maxlength: "60",
+      type: "text",
+      "data-vv-name": "Folio"
+    },
+    domProps: {
+      value: _vm.uno.cuatro
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "cuatro", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Folio")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4 mb-3"
+  }, [_c("label", [_vm._v(" Ubicación")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.cinco,
+      expression: "uno.cinco"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      maxlength: "60",
+      type: "text",
+      "data-vv-name": "Asociado"
+    },
+    domProps: {
+      value: _vm.uno.cinco
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.uno, "cinco", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Asociado")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" Nivel Riesgo")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.uno.seis,
+      expression: "uno.seis"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Nivel Riesgo"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.uno, "seis", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("A")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("B")])]), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Nivel Riesgo")))])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseOne",
+      "aria-labelledby": "headingOne",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-3 mb-2"
+  }, [_c("label", [_vm._v(" Trabajo Caliente")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.uno,
+      expression: "dos.uno"
+    }],
+    staticClass: "form-control",
+    on: {
+      click: function click($event) {
+        return _vm.llenarC();
+      },
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dos, "uno", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("SI")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("NO")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-2"
+  }, [_c("label", [_vm._v(" Espacios confinados")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.dos,
+      expression: "dos.dos"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dos, "dos", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("SI")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("NO")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-2"
+  }, [_c("label", [_vm._v(" Altura")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.tres,
+      expression: "dos.tres"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dos, "tres", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("SI")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("NO")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-2"
+  }, [_c("label", [_vm._v(" Eléctricos")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.cuatro,
+      expression: "dos.cuatro"
+    }],
+    staticClass: "form-control",
+    on: {
+      click: function click($event) {
+        return _vm.llenarE();
+      },
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dos, "cuatro", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("SI")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("NO")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-4"
+  }, [_c("label", [_vm._v("Otros Trabajos")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.cinco,
+      expression: "dos.cinco"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "name",
+      rows: "2",
+      cols: "80"
+    },
+    domProps: {
+      value: _vm.dos.cinco
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.dos, "cinco", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-8"
+  }, [_c("label", [_vm._v("Descripción de la tarea")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dos.seis,
+      expression: "dos.seis"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "name",
+      rows: "2",
+      cols: "80"
+    },
+    domProps: {
+      value: _vm.dos.seis
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.dos, "seis", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("br")])])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseTwo",
+      "aria-labelledby": "headingTwo",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" Fecha inicio")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.tres.uno,
+      expression: "tres.uno"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.tres.uno
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.tres, "uno", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" Hora")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.tres.dos,
+      expression: "tres.dos"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.tres.dos
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.tres, "dos", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" Fecha termino")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.tres.tres,
+      expression: "tres.tres"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.tres.tres
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.tres, "tres", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" Hora")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.tres.cuatro,
+      expression: "tres.cuatro"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.tres.cuatro
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.tres, "cuatro", $event.target.value);
+      }
+    }
+  })])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_vm._m(2), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseThree",
+      "aria-labelledby": "headingThree",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_vm._m(3), _vm._v(" "), _c("div", {
+    staticClass: "tab-content",
+    attrs: {
+      id: "nav-tabContent"
+    }
+  }, [_c("div", {
+    staticClass: "tab-pane fade show active",
+    attrs: {
+      id: "nav-home",
+      role: "tabpanel",
+      "aria-labelledby": "nav-home-tab"
+    }
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Los factores meteorológicos permiten realizar el trabajo.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.uno,
+      expression: "cuatro.uno"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.uno, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "uno", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.uno,
+      expression: "cuatro.uno"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.uno, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "uno", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.uno,
+      expression: "cuatro.uno"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.uno, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "uno", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("La iluminación del área de trabajo es la correcta para realizar la actividad.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.dos,
+      expression: "cuatro.dos"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.dos, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "dos", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.dos,
+      expression: "cuatro.dos"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.dos, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "dos", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.dos,
+      expression: "cuatro.dos"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.dos, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "dos", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("El área se encuentra con accesos rapidos para su entrada y salida.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.catorce,
+      expression: "cuatro.catorce"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.catorce, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "catorce", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.catorce,
+      expression: "cuatro.catorce"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.catorce, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "catorce", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.catorce,
+      expression: "cuatro.catorce"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.catorce, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "catorce", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Los equipos estan puestas a tierra.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.tres,
+      expression: "cuatro.tres"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.tres, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "tres", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.tres,
+      expression: "cuatro.tres"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.tres, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "tres", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.tres,
+      expression: "cuatro.tres"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.tres, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "tres", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Se han instalado mamparas para proteger y aislar las personas y equipos de las áreas vecinas.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.cuatro,
+      expression: "cuatro.cuatro"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.cuatro, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "cuatro", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.cuatro,
+      expression: "cuatro.cuatro"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.cuatro, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "cuatro", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.cuatro,
+      expression: "cuatro.cuatro"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.cuatro, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "cuatro", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Los andamios han sido inspeccionados")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.cinco,
+      expression: "cuatro.cinco"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.cinco, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "cinco", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.cinco,
+      expression: "cuatro.cinco"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.cinco, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "cinco", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.cinco,
+      expression: "cuatro.cinco"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.cinco, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "cinco", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("La instalación y equipos eléctricos son antiexplosivos.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.seis,
+      expression: "cuatro.seis"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.seis, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "seis", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.seis,
+      expression: "cuatro.seis"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.seis, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "seis", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.seis,
+      expression: "cuatro.seis"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.seis, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "seis", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Herramientas: estan en condiciones y acordes a las tareas.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.siete,
+      expression: "cuatro.siete"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.siete, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "siete", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.siete,
+      expression: "cuatro.siete"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.siete, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "siete", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.siete,
+      expression: "cuatro.siete"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.siete, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "siete", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Se ha desenergizado el equipo ")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.ocho,
+      expression: "cuatro.ocho"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.ocho, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "ocho", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.ocho,
+      expression: "cuatro.ocho"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.ocho, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "ocho", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.ocho,
+      expression: "cuatro.ocho"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.ocho, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "ocho", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Esta limitado el acceso de personal al área de trabajo.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.nueve,
+      expression: "cuatro.nueve"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.nueve, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "nueve", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.nueve,
+      expression: "cuatro.nueve"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.nueve, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "nueve", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.nueve,
+      expression: "cuatro.nueve"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.nueve, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "nueve", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Los materiales combustibles se encuentren dentro de un radio de 11 metros (35 pies) del área de trabajo. ")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.diez,
+      expression: "cuatro.diez"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.diez, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "diez", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.diez,
+      expression: "cuatro.diez"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.diez, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "diez", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.diez,
+      expression: "cuatro.diez"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.diez, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "diez", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("El equipo de soldadura ha sido inspeccionado y se encuentra en buen estado. ")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.once,
+      expression: "cuatro.once"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.once, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "once", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.once,
+      expression: "cuatro.once"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.once, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "once", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.once,
+      expression: "cuatro.once"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.once, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "once", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Los cilindros se encuentran en posición vertical, bien asegurados y libres de fugas.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.doce,
+      expression: "cuatro.doce"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.doce, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "doce", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.doce,
+      expression: "cuatro.doce"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.doce, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "doce", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.doce,
+      expression: "cuatro.doce"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.doce, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "doce", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Los cilindros cumplen con el estándar de identificación (Nombre del producto y rotulación NFPA o UN).")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.trece,
+      expression: "cuatro.trece"
+    }],
+    attrs: {
+      type: "radio",
+      value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.trece, "1")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "trece", "1");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("SI")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.trece,
+      expression: "cuatro.trece"
+    }],
+    attrs: {
+      type: "radio",
+      value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.trece, "2")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "trece", "2");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "radio-inspeccion"
+  }, [_vm._v("NO")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cuatro.trece,
+      expression: "cuatro.trece"
+    }],
+    attrs: {
+      type: "radio",
+      value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.cuatro.trece, "3")
+    },
+    on: {
+      change: function change($event) {
+        return _vm.$set(_vm.cuatro, "trece", "3");
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  }, [_vm._v("N/A")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "tab-pane fade",
+    attrs: {
+      id: "nav-profile",
+      role: "tabpanel",
+      "aria-labelledby": "nav-profile-tab"
+    }
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Casco contraimpacto")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cinco.uno,
+      expression: "cinco.uno"
+    }],
+    attrs: {
+      type: "checkbox",
+      value: "1"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.cinco.uno) ? _vm._i(_vm.cinco.uno, "1") > -1 : _vm.cinco.uno
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.cinco.uno,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = "1",
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.cinco, "uno", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.cinco, "uno", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.cinco, "uno", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Ropa de trabajo")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cinco.dos,
+      expression: "cinco.dos"
+    }],
+    attrs: {
+      type: "checkbox",
+      value: "1"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.cinco.dos) ? _vm._i(_vm.cinco.dos, "1") > -1 : _vm.cinco.dos
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.cinco.dos,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = "1",
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.cinco, "dos", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.cinco, "dos", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.cinco, "dos", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Protección ocular")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cinco.tres,
+      expression: "cinco.tres"
+    }],
+    attrs: {
+      type: "checkbox",
+      value: "1"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.cinco.tres) ? _vm._i(_vm.cinco.tres, "1") > -1 : _vm.cinco.tres
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.cinco.tres,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = "1",
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.cinco, "tres", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.cinco, "tres", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.cinco, "tres", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Calzado de seguridad")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cinco.cuatro,
+      expression: "cinco.cuatro"
+    }],
+    attrs: {
+      type: "checkbox",
+      value: "1"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.cinco.cuatro) ? _vm._i(_vm.cinco.cuatro, "1") > -1 : _vm.cinco.cuatro
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.cinco.cuatro,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = "1",
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.cinco, "cuatro", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.cinco, "cuatro", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.cinco, "cuatro", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Protección auditiva")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cinco.cinco,
+      expression: "cinco.cinco"
+    }],
+    attrs: {
+      type: "checkbox",
+      value: "1"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.cinco.cinco) ? _vm._i(_vm.cinco.cinco, "1") > -1 : _vm.cinco.cinco
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.cinco.cinco,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = "1",
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.cinco, "cinco", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.cinco, "cinco", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.cinco, "cinco", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("OTROS")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-6"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cinco.seis,
+      expression: "cinco.seis"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.cinco.seis
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.cinco, "seis", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "tab-pane fade",
+    attrs: {
+      id: "nav-contact",
+      role: "tabpanel",
+      "aria-labelledby": "nav-contact-tab"
+    }
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Ayudante contraincendio")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.uno,
+      expression: "seis.uno"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.uno) ? _vm._i(_vm.seis.uno, null) > -1 : _vm.seis.uno
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.uno,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "uno", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "uno", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "uno", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Manguera Contraincendio")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.dos,
+      expression: "seis.dos"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.dos) ? _vm._i(_vm.seis.dos, null) > -1 : _vm.seis.dos
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.dos,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "dos", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "dos", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "dos", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Cortina de agua")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.tres,
+      expression: "seis.tres"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.tres) ? _vm._i(_vm.seis.tres, null) > -1 : _vm.seis.tres
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.tres,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "tres", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "tres", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "tres", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Barreras y letreros de seguridad ")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.cuatro,
+      expression: "seis.cuatro"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.cuatro) ? _vm._i(_vm.seis.cuatro, null) > -1 : _vm.seis.cuatro
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.cuatro,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "cuatro", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "cuatro", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "cuatro", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Colocar lonas para cubrir drenajes y equipos delicados y humedecerlas ")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.cinco,
+      expression: "seis.cinco"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.cinco) ? _vm._i(_vm.seis.cinco, null) > -1 : _vm.seis.cinco
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.cinco,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "cinco", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "cinco", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "cinco", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Extintor")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.seis,
+      expression: "seis.seis"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.seis) ? _vm._i(_vm.seis.seis, null) > -1 : _vm.seis.seis
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.seis,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "seis", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "seis", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "seis", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Eliminar todo el material combustible")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.siete,
+      expression: "seis.siete"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.siete) ? _vm._i(_vm.seis.siete, null) > -1 : _vm.seis.siete
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.siete,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "siete", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "siete", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "siete", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Proteger Instrumentación e iluminación")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.seis.ocho,
+      expression: "seis.ocho"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.seis.ocho) ? _vm._i(_vm.seis.ocho, null) > -1 : _vm.seis.ocho
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.seis.ocho,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.seis, "ocho", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.seis, "ocho", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.seis, "ocho", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_vm._m(4), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseFour",
+      "aria-labelledby": "headingFour",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-mb-8 md-3"
+  }, [_c("label", [_vm._v("PRECAUCIONES")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.siete.uno,
+      expression: "siete.uno"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "name",
+      rows: "8",
+      cols: "80"
+    },
+    domProps: {
+      value: _vm.siete.uno
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.siete, "uno", $event.target.value);
+      }
+    }
+  })])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_vm._m(5), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseFive",
+      "aria-labelledby": "headingFive",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Residente de Obra")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.ocho.uno,
+      callback: function callback($$v) {
+        _vm.$set(_vm.ocho, "uno", $$v);
+      },
+      expression: "ocho.uno"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.ocho.dos,
+      expression: "ocho.dos"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.ocho.dos
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.ocho, "dos", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Supervisor de Trabajo")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.ocho.tres,
+      callback: function callback($$v) {
+        _vm.$set(_vm.ocho, "tres", $$v);
+      },
+      expression: "ocho.tres"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 md-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.ocho.cuatro,
+      expression: "ocho.cuatro"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.ocho.cuatro
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.ocho, "cuatro", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Responsable de SSMA")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.ocho.cinco,
+      callback: function callback($$v) {
+        _vm.$set(_vm.ocho, "cinco", $$v);
+      },
+      expression: "ocho.cinco"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.ocho.seis,
+      expression: "ocho.seis"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.ocho.seis
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.ocho, "seis", $event.target.value);
+      }
+    }
+  })])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseSeis",
+      "aria-labelledby": "headingSeis",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_vm._m(7), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.uno,
+      expression: "temporal.uno"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.temporal.uno
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "uno", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Desde")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.dos,
+      expression: "temporal.dos"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.temporal.dos
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "dos", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Hasta")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.tres,
+      expression: "temporal.tres"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.temporal.tres
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "tres", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Nombre")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.temporal.cuatro,
+      callback: function callback($$v) {
+        _vm.$set(_vm.temporal, "cuatro", $$v);
+      },
+      expression: "temporal.cuatro"
+    }
+  })], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_vm._m(8), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.cinco,
+      expression: "temporal.cinco"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.temporal.cinco
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "cinco", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Desde")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.seis,
+      expression: "temporal.seis"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.temporal.seis
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "seis", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Hasta")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.siete,
+      expression: "temporal.siete"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.temporal.siete
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "siete", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Nombre")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.temporal.ocho,
+      callback: function callback($$v) {
+        _vm.$set(_vm.temporal, "ocho", $$v);
+      },
+      expression: "temporal.ocho"
+    }
+  })], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_vm._m(9), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Hora")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.nueve,
+      expression: "temporal.nueve"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.temporal.nueve
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "nueve", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.temporal.diez,
+      expression: "temporal.diez"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.temporal.diez
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.temporal, "diez", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v(" ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Crear();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Crear")])])]), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._l(_vm.once, function (vi, index) {
+    return _c("li", {
+      key: index,
+      staticClass: "list-group-item"
+    }, [_c("div", {
+      staticClass: "form-row"
+    }, [_c("div", {
+      staticClass: "form-group col-md-3"
+    }, [_c("label", [_vm._v(_vm._s(vi["cuatro"] != null ? vi["cuatro"]["name"] : ""))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(vi["uno"]))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-3"
+    }, [_c("label", [_vm._v(_vm._s(vi["ocho"] != null ? vi["ocho"]["name"] : ""))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(vi["cinco"]))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("a", {
+      on: {
+        click: function click($event) {
+          return _vm.deleteu(index);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "fas fa-trash",
+      attrs: {
+        "arial-hidden": "true"
+      }
+    })])])])]);
+  })], 2)])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_vm._m(11), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseSeven",
+      "aria-labelledby": "headingSeven",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Ha sido completado")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.nueve.uno,
+      expression: "nueve.uno"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.nueve.uno) ? _vm._i(_vm.nueve.uno, null) > -1 : _vm.nueve.uno
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.nueve.uno,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.nueve, "uno", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.nueve, "uno", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.nueve, "uno", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("No ha sido iniciado ")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.nueve.dos,
+      expression: "nueve.dos"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.nueve.dos) ? _vm._i(_vm.nueve.dos, null) > -1 : _vm.nueve.dos
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.nueve.dos,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.nueve, "dos", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.nueve, "dos", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.nueve, "dos", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Término de la jornada de trabajo.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.nueve.tres,
+      expression: "nueve.tres"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.nueve.tres) ? _vm._i(_vm.nueve.tres, null) > -1 : _vm.nueve.tres
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.nueve.tres,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.nueve, "tres", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.nueve, "tres", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.nueve, "tres", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("Suspendida o no iniciada por haberse realizado observaciones de seguridad. ")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.nueve.cuatro,
+      expression: "nueve.cuatro"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.nueve.cuatro) ? _vm._i(_vm.nueve.cuatro, null) > -1 : _vm.nueve.cuatro
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.nueve.cuatro,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.nueve, "cuatro", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.nueve, "cuatro", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.nueve, "cuatro", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "form-control-label col-md-6"
+  }, [_vm._v("El lugar de trabajo ha quedado en condiciones de seguridad, orden y limpieza.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.nueve.cinco,
+      expression: "nueve.cinco"
+    }],
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.nueve.cinco) ? _vm._i(_vm.nueve.cinco, null) > -1 : _vm.nueve.cinco
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.nueve.cinco,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.nueve, "cinco", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.nueve, "cinco", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.nueve, "cinco", $$c);
+        }
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-control-label"
+  })])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_vm._m(12), _vm._v(" "), _c("div", {
+    staticClass: "collapse",
+    attrs: {
+      id: "collapseOcho",
+      "aria-labelledby": "headingOcho",
+      "data-parent": "#accordion"
+    }
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_vm._m(13), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Nombre")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.diez.uno,
+      callback: function callback($$v) {
+        _vm.$set(_vm.diez, "uno", $$v);
+      },
+      expression: "diez.uno"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Hora")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.diez.dos,
+      expression: "diez.dos"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.diez.dos
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.diez, "dos", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.diez.tres,
+      expression: "diez.tres"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.diez.tres
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.diez, "tres", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_vm._m(14), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Nombre")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.diez.cuatro,
+      callback: function callback($$v) {
+        _vm.$set(_vm.diez, "cuatro", $$v);
+      },
+      expression: "diez.cuatro"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Hora")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.diez.cinco,
+      expression: "diez.cinco"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.diez.cinco
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.diez, "cinco", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.diez.seis,
+      expression: "diez.seis"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.diez.seis
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.diez, "seis", $event.target.value);
+      }
+    }
+  })])])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Cerrar();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 1,
+      expression: "tipoAccion == 1"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(1);
+      }
+    }
+  }, [_vm._v("\r\n                                Guardar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 2,
+      expression: "tipoAccion == 2"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(0);
+      }
+    }
+  }, [_vm._v("\r\n                                Actualizar\r\n                            ")])])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingOne"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseOne",
+      "aria-expanded": "true",
+      "aria-controls": "collapseOne"
+    }
+  }, [_vm._v("\r\n                                                1. DESCRIPCIÓN DEL TRABAJO\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingTwo"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link collapsed",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseTwo",
+      "aria-expanded": "false",
+      "aria-controls": "collapseTwo"
+    }
+  }, [_vm._v("\r\n                                                2. FECHA DE INICIO Y TÉRMINO\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingThree"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link collapsed",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseThree",
+      "aria-expanded": "false",
+      "aria-controls": "collapseThree"
+    }
+  }, [_vm._v("\r\n                                                3. REQUISITOS A CUMPLIR ANTES DE LA EJECUCION DEL TRABAJO\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("nav", [_c("div", {
+    staticClass: "nav nav-tabs",
+    attrs: {
+      id: "nav-tab",
+      role: "tablist"
+    }
+  }, [_c("a", {
+    staticClass: "nav-item nav-link active",
+    attrs: {
+      id: "nav-home-tab",
+      "data-toggle": "tab",
+      href: "#nav-home",
+      role: "tab",
+      "aria-controls": "nav-home",
+      "aria-selected": "true"
+    }
+  }, [_vm._v("RESPONSABLES DE OPERACIÓN ")]), _vm._v(" "), _c("a", {
+    staticClass: "nav-item nav-link",
+    attrs: {
+      id: "nav-profile-ta b",
+      "data-toggle": "tab",
+      href: "#nav-profile",
+      role: "tab",
+      "aria-controls": "nav-profile",
+      "aria-selected": "false"
+    }
+  }, [_vm._v("EQUIPO DE PROTECCIÓN PERSONAL ")]), _vm._v(" "), _c("a", {
+    staticClass: "nav-item nav-link",
+    attrs: {
+      id: "nav-contact-tab",
+      "data-toggle": "tab",
+      href: "#nav-contact",
+      role: "tab",
+      "aria-controls": "nav-contact",
+      "aria-selected": "false"
+    }
+  }, [_vm._v("PRECAUCIONES CONTRA INCENDIO")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingFour"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link collapsed",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseFour",
+      "aria-expanded": "false",
+      "aria-controls": "collapseFour"
+    }
+  }, [_vm._v("\r\n                                                4. PRECAUCIONES ESPECIALES Y RIESGOS POTENCIALES\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingFive"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link collapsed",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseFive",
+      "aria-expanded": "false",
+      "aria-controls": "collapseFive"
+    }
+  }, [_vm._v("\r\n                                                5. VERIFICACION EN CAMPO DEL CUMPLIMIENTO DE LOS REQUISITOS SOLICITADOS\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingSeis"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link collapsed",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseSeis",
+      "aria-expanded": "false",
+      "aria-controls": "collapseSeis"
+    }
+  }, [_vm._v("\r\n                                                6. REVALIDACIONES\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("label", [_vm._v("VALIDACION /REVALIDACIÓN")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("label", [_vm._v("ACEPTACIÓN DEL PERMISO")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("label", [_vm._v("SUSPENSIÓN DEL PERMISO")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_c("b", [_vm._v("Nombre")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Fecha")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_c("b", [_vm._v("Nombre")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Fecha")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("ACCIONES")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingSeven"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link collapsed",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseSeven",
+      "aria-expanded": "false",
+      "aria-controls": "collapseSeven"
+    }
+  }, [_vm._v("\r\n                                                7.CANCELACIÓN DEL TRABAJO\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header",
+    attrs: {
+      id: "headingOcho"
+    }
+  }, [_c("h5", {
+    staticClass: "mb-0"
+  }, [_c("button", {
+    staticClass: "btn btn-link collapsed",
+    attrs: {
+      "data-toggle": "collapse",
+      "data-target": "#collapseOcho",
+      "aria-expanded": "false",
+      "aria-controls": "collapseOcho"
+    }
+  }, [_vm._v("\r\n                                                8. TERMINACIÓN DE LOS TRABAJOS (Por el Resdidente)\r\n                                            ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-md-12 mb-3"
+  }, [_c("label", [_vm._v("CANCELACION DEL PERMISO (Trabajo completo)")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-md-12 mb-3"
+  }, [_c("label", [_vm._v("CANCELACION DEL PERMISO (Trabajo no completo)")])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=template&id=26a57411":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=template&id=26a57411 ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid",
+    staticStyle: {
+      "min-height": "40vh"
+    }
+  }, [_vm.tipoCard == 1 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Pláticas de Seguridad\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalPlaticas();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isPlaticas_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_platicas,
+      data: _vm.list_platicas,
+      options: _vm.options_platicas
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalPlaticas(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-edit"
+        }), _vm._v("  Actualizar\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.DescargarPlantilla(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-file-pdf"
+        }), _vm._v("  Descargar Plantilla\r\n                                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.SubirEvidencia(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-file-pdf"
+        }), _vm._v("  Subir Evidencia\r\n                                    ")])])])])];
+      }
+    }, {
+      key: "documento",
+      fn: function fn(props) {
+        return [props.row.documento == null ? _c("span", {
+          staticClass: "btn btn-dark"
+        }, [_vm._v("N/D")]) : _c("button", {
+          staticClass: "btn btn-dark",
+          on: {
+            click: function click($event) {
+              return _vm.DescargarEvidencia(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-download"
+        })])];
+      }
+    }], null, false, 88296469)
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.tipoCard == 2 ? _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Participantes\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right mx-1",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        _vm.tipoCard = 1;
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-arrow-left"
+  }), _vm._v(" Regresar\r\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("br"), _vm._v(" "), _c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarparticip_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Responsable")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      multiple: "",
+      options: _vm.list_empleados,
+      "data-vv-name": "Participantes",
+      label: "nombre"
+    },
+    model: {
+      value: _vm.participantes,
+      callback: function callback($$v) {
+        _vm.participantes = $$v;
+      },
+      expression: "participantes"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Participantes")))])], 1), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark",
+    on: {
+      click: function click($event) {
+        return _vm.GuadarParticipantes();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  })])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("vue-element-loading", {
+    attrs: {
+      active: _vm.isParticipantes_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_participantes,
+      data: _vm.list_participantes,
+      options: _vm.options_participantes
+    }
+  })], 1)]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_platicas
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarpl_loading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalPlaticas();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Fecha")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.platica.fecha,
+      expression: "platica.fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha"
+    },
+    domProps: {
+      value: _vm.platica.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.platica, "fecha", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Ubicación")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|max:50",
+      expression: "'required|max:50'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.platica.ubicacion,
+      expression: "platica.ubicacion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Ubicación",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.platica.ubicacion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.platica, "ubicacion", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Ubicación")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Tema")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("textarea", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required|max:100",
+      expression: "'required|max:100'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.platica.tema,
+      expression: "platica.tema"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "data-vv-name": "Tema"
+    },
+    domProps: {
+      value: _vm.platica.tema
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.platica, "tema", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Tema")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Responsable")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      options: _vm.list_empleados,
+      "data-vv-name": "Responsable",
+      label: "nombre"
+    },
+    model: {
+      value: _vm.platica.responsable,
+      callback: function callback($$v) {
+        _vm.$set(_vm.platica, "responsable", $$v);
+      },
+      expression: "platica.responsable"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Responsable")))])], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalPlaticas();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarPlatica(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarPlatica(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])], 1)])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=template&id=8aa1a4d8":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=template&id=8aa1a4d8 ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Bitacora\r\n                "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.abrirModal("bitacora", "registrar");
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "collapse multi-collapse",
+    attrs: {
+      id: "collapseDescargar"
+    }
+  }, [_c("div", {
+    staticClass: "container row"
+  }, [_c("div", {
+    staticClass: "col-md-3"
+  }, [_c("div", {}, [_c("label", [_vm._v("Año")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.anio,
+      expression: "anio"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.anio = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "2020"
+    }
+  }, [_vm._v("2020")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2021"
+    }
+  }, [_vm._v("2021")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2022"
+    }
+  }, [_vm._v("2022")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2023"
+    }
+  }, [_vm._v("2023")])]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark mt-2",
+    on: {
+      click: function click($event) {
+        return _vm.Descargar();
+      }
+    }
+  }, [_vm._v("Generar")])])])])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      data: _vm.tableData,
+      options: _vm.options,
+      columns: _vm.columns
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("button", {
+          staticClass: "btn btn-outline-dark",
+          on: {
+            click: function click($event) {
+              $event.preventDefault();
+              return _vm.abrirModal("bitacora", "actualizar", props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-pencil-alt"
+        }), _vm._v(" Actualizar\r\n                        ")])];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v(_vm._s(_vm.tituloModal))]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModal();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Fecha Entrada")]), _vm._v(" "), _c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      taggable: "",
+      multiple: "",
+      "data-vv-name": "Fecha entrada"
+    },
+    model: {
+      value: _vm.dataSelect,
+      callback: function callback($$v) {
+        _vm.dataSelect = $$v;
+      },
+      expression: "dataSelect"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha entrada")))])], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Residuo")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.residuo,
+      expression: "residuo"
+    }, {
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Residuo"
+    },
+    domProps: {
+      value: _vm.residuo
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.residuo = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Residuo")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Cantidad")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "decimal:2",
+      expression: "'decimal:2'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cantidad,
+      expression: "cantidad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      "data-vv-name": "Cantidad"
+    },
+    domProps: {
+      value: _vm.cantidad
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.cantidad = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Cantidad")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Unidad")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.unidad,
+      expression: "unidad"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.unidad = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "BOLSA"
+    }
+  }, [_vm._v("BOLSA")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "M3"
+    }
+  }, [_vm._v("M3")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "KG"
+    }
+  }, [_vm._v("KG")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha Salida")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.fecha_salida,
+      expression: "fecha_salida"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.fecha_salida
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.fecha_salida = $event.target.value;
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Nombre personal entrega")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.empleado_entrega,
+      callback: function callback($$v) {
+        _vm.empleado_entrega = $$v;
+      },
+      expression: "empleado_entrega"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Proveedor que recolecto")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.proveedor,
+      expression: "proveedor"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.proveedor
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.proveedor = $event.target.value;
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Folio")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.folio,
+      expression: "folio"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.folio
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.folio = $event.target.value;
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModal();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 1,
+      expression: "tipoAccion == 1"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(1);
+      }
+    }
+  }, [_vm._v("\r\n                                Guardar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoAccion == 2,
+      expression: "tipoAccion == 2"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(0);
+      }
+    }
+  }, [_vm._v("\r\n                                Actualizar\r\n                            ")])])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("button", {
+    staticClass: "btn btn-dark float-sm-right mr-1",
+    attrs: {
+      "data-toggle": "collapse",
+      href: "#collapseDescargar",
+      role: "button",
+      "aria-expanded": "false",
+      "aria-controls": "collapseDescargar"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-file-pdf mr-1"
+  }), _vm._v("Descargar\r\n                ")]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=template&id=7ab0d39b":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=template&id=7ab0d39b ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "tab-content",
+    attrs: {
+      id: "nav-tabContent"
+    }
+  }, [_c("div", {
+    staticClass: "tab-pane fade show active",
+    attrs: {
+      id: "nav-home",
+      role: "tabpanel",
+      "aria-labelledby": "nav-home-tab"
+    }
+  }, [_c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModal(true, 1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n                    ")]), _vm._v(" "), _c("v-client-table", {
+    ref: "tbl_secuencia",
+    attrs: {
+      columns: _vm.columns_secuencia,
+      data: _vm.list_secuencia,
+      options: _vm.options_secuencia
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btn_id",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu"
+        }, [[_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModal(false, 1, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "icon-pencil"
+        }), _vm._v(" Actualizar\r\n                                        ")])]], 2)])];
+      }
+    }])
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "tab-pane fade",
+    attrs: {
+      id: "nav-profile",
+      role: "tabpanel",
+      "aria-labelledby": "nav-profile-tab"
+    }
+  }, [_c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModal(true, 2);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n                    ")]), _vm._v(" "), _c("v-client-table", {
+    ref: "tbl_secuencia",
+    attrs: {
+      columns: _vm.columns_secuencia,
+      data: _vm.list_riesgo,
+      options: _vm.options_secuencia
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btn_id",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu"
+        }, [[_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModal(false, 2, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "icon-pencil"
+        }), _vm._v(" Actualizar\r\n                                        ")])]], 2)])];
+      }
+    }])
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "tab-pane fade",
+    attrs: {
+      id: "nav-contact",
+      role: "tabpanel",
+      "aria-labelledby": "nav-contact-tab"
+    }
+  }, [_c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModal(true, 3);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n                    ")]), _vm._v(" "), _c("v-client-table", {
+    ref: "tbl_secuencia",
+    attrs: {
+      columns: _vm.columns_secuencia,
+      data: _vm.list_recomendacion,
+      options: _vm.options_secuencia
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btn_id",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu"
+        }, [[_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModal(false, 3, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "icon-pencil"
+        }), _vm._v(" Actualizar\r\n                                        ")])]], 2)])];
+      }
+    }])
+  })], 1)])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.titulo_modal_secuencia)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModal();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("form", {
+    staticClass: "form-horizontal",
+    attrs: {
+      action: "",
+      method: "post",
+      enctype: "multipart/form-data"
+    }
+  }, [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-3 form-control-label"
+  }, [_vm._v("Acciones")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.registro_modal.nombre,
+      expression: "registro_modal.nombre"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "nombre"
+    },
+    domProps: {
+      value: _vm.registro_modal.nombre
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.registro_modal, "nombre", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("nombre")))])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModal();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion_modal_secuencia == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_modal_secuencia == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar")]) : _vm._e()])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("nav", [_c("div", {
+    staticClass: "nav nav-tabs",
+    attrs: {
+      id: "nav-tab",
+      role: "tablist"
+    }
+  }, [_c("a", {
+    staticClass: "nav-link active",
+    attrs: {
+      id: "nav-home-tab",
+      "data-toggle": "tab",
+      href: "#nav-home",
+      role: "tab",
+      "aria-controls": "nav-home",
+      "aria-selected": "true"
+    }
+  }, [_vm._v("\r\n                        Secuencia "), _c("i", {
+    staticClass: "fas fa-walking"
+  })]), _vm._v(" "), _c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      id: "nav-profile-tab",
+      "data-toggle": "tab",
+      href: "#nav-profile",
+      role: "tab",
+      "aria-controls": "nav-profile",
+      "aria-selected": "false"
+    }
+  }, [_vm._v("\r\n                        Riesgo "), _c("i", {
+    staticClass: "fas fa-exclamation-triangle"
+  })]), _vm._v(" "), _c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      id: "nav-contact-tab",
+      "data-toggle": "tab",
+      href: "#nav-contact",
+      role: "tab",
+      "aria-controls": "nav-contact",
+      "aria-selected": "false"
+    }
+  }, [_vm._v("\r\n                        Recomendación "), _c("i", {
+    staticClass: "fas fa-exclamation"
+  })])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=template&id=a263650c":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=template&id=a263650c ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("ul", {
+    ref: "tabs",
+    staticClass: "nav nav-tabs",
+    attrs: {
+      role: "tablist"
+    }
+  }, [_c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      "data-toggle": "tab",
+      href: "#menu1",
+      role: "tab"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.setId(1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Vales EPP")])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      "data-toggle": "tab",
+      href: "#menu2",
+      role: "tab"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.setId(2);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-book"
+  }), _vm._v(" Consulta")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "tab-content"
+  }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tab == 1,
+      expression: "tab == 1"
+    }],
+    staticClass: "tab-pane fade",
+    attrs: {
+      id: "menu1"
+    }
+  }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.detalle == false,
+      expression: "detalle == false"
+    }],
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Vale entrega EPP\r\n                        "), _c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.abrirModal("vale", "registrar");
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                        ")]), _vm._v(" "), _c("button", {
+    staticClass: "mr-1 btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.reporteEpp
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-download mr-1"
+  }), _vm._v("Reporte\r\n                        ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      data: _vm.tableData,
+      options: _vm.options,
+      columns: _vm.columns
+    },
+    scopedSlots: _vm._u([{
+      key: "empleado_id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group",
+            "aria-label": "Button group with nested dropdown"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btnGroupDrop1",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        })]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [_c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.detalles(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-eye"
+        }), _vm._v(" Detalles\r\n                                            ")])])])])];
+      }
+    }, {
+      key: "descargar",
+      fn: function fn(props) {
+        return [_c("button", {
+          staticClass: "btn btn-dark",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.descargar(props.row, 2);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-file-pdf mr-1"
+        }), _vm._v(" Descargar\r\n                                ")])];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.detalle == true,
+      expression: "detalle == true"
+    }],
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" Detalle de " + _vm._s(_vm.data_detalle == "" ? "" : _vm.data_detalle.empleado) + "\r\n                        "), _c("button", {
+    staticClass: "btn btn-secondary float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.atras();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-arrow-left"
+  }), _vm._v(" Atras\r\n                        ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("v-client-table", {
+    attrs: {
+      data: _vm.tableDataDetalle,
+      options: _vm.optionsDetalle,
+      columns: _vm.columnsDetalle
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group",
+            "aria-label": "Button group with nested dropdown"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            id: "btnGroupDrop1",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        })]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu",
+          attrs: {
+            "aria-labelledby": "btnGroupDrop1"
+          }
+        }, [!props.row.autorizado ? _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.eliminar(props.row.id);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-trash"
+        }), _vm._v(" Eliminar\r\n                                            ")]) : _vm._e(), _vm._v(" "), !props.row.autorizado ? _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button",
+            href: "#"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.Actualizar(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-save"
+        }), _vm._v(" Actualizar\r\n                                            ")]) : _vm._e()])])])];
+      }
+    }, {
+      key: "autorizado",
+      fn: function fn(props) {
+        return [props.row.autorizado ? _c("button", {
+          staticClass: "btn btn-outline-success"
+        }, [_vm._v("Autorizado")]) : _c("button", {
+          staticClass: "btn btn-outline-danger"
+        }, [_vm._v("No autorizado")])];
+      }
+    }])
+  })], 1)])]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tab == 2,
+      expression: "tab == 2"
+    }],
+    staticClass: "tab-pane fade",
+    attrs: {
+      id: "menu2"
+    }
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-10 mb-3"
+  }, [_c("v-select", {
+    attrs: {
+      options: _vm.listadoArticulos,
+      label: "descripcion"
+    },
+    model: {
+      value: _vm.articulo_epp,
+      callback: function callback($$v) {
+        _vm.articulo_epp = $$v;
+      },
+      expression: "articulo_epp"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-1 mb-3"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    on: {
+      click: function click($event) {
+        return _vm.BuscarArtEpp();
+      }
+    }
+  }, [_vm._v("Buscar")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-1 mb-3"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-success",
+    on: {
+      click: function click($event) {
+        return _vm.ExportarArtEpp();
+      }
+    }
+  }, [_vm._v("Exportar")])])]), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      data: _vm.tableDataArticulos,
+      options: _vm.optionsarticulos,
+      columns: _vm.columnsarticulos
+    }
+  })], 1)])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-xlg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v(_vm._s(_vm.tituloModal))]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModal();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("x")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body",
+    style: _vm.estilo_form
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isLoading
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Nombre empleado")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.empleado_entrega,
+      callback: function callback($$v) {
+        _vm.empleado_entrega = $$v;
+      },
+      expression: "empleado_entrega"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 mb-3"
+  }, [_c("label", [_vm._v("Proyecto")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaProyectos,
+      label: "name"
+    },
+    model: {
+      value: _vm.proyectoId,
+      callback: function callback($$v) {
+        _vm.proyectoId = $$v;
+      },
+      expression: "proyectoId"
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-12 mb-3"
+  }, [_c("label", [_vm._v("Seleccione")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaCatalogo,
+      label: "descripcion",
+      "data-vv-name": "catalogo"
+    },
+    on: {
+      search: _vm.buscar
+    },
+    model: {
+      value: _vm.catalogo,
+      callback: function callback($$v) {
+        _vm.catalogo = $$v;
+      },
+      expression: "catalogo"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("catalogo")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Cantidad")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.cantidad,
+      expression: "cantidad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.cantidad
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.cantidad = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.fecha,
+      expression: "fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.fecha = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-7 mb-3"
+  }, [_c("label", [_vm._v("Autorizó")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.empleado_autoriza,
+      callback: function callback($$v) {
+        _vm.empleado_autoriza = $$v;
+      },
+      expression: "empleado_autoriza"
+    }
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-1 mb-3"
+  }, [_c("label", [_vm._v(" ")]), _c("br"), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      name: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.guardarasignacion();
+      }
+    }
+  }, [_vm._v("Crear")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("label", {
+    staticClass: "col-form-label",
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Observaciones")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.observaciones,
+      expression: "observaciones"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      rows: "3",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.observaciones
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.observaciones = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-row mt-4"
+  }, [_c("label", {
+    staticClass: "col-md-1 col-form-label",
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Motivo")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.motivo,
+      expression: "motivo"
+    }],
+    staticClass: "form-control col-md-3",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.motivo = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("Cambio por desgaste")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("Cambio por extravío")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "3"
+    }
+  }, [_vm._v("Personal de nuevo ingreso")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._l(_vm.listado_data, function (vi, index) {
+    return _c("li", {
+      key: index,
+      staticClass: "list-group-item"
+    }, [_c("div", {
+      staticClass: "form-row"
+    }, [_c("div", {
+      staticClass: "form-group col-md-3"
+    }, [_c("label", [_vm._v(_vm._s(vi.descripcion))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(vi.empleado))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-1"
+    }, [_c("label", [_vm._v(_vm._s(vi.proyecto))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-1"
+    }, [_c("label", [_vm._v(_vm._s(vi.cantidad))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-1"
+    }, [_c("label", [_vm._v(_vm._s(vi.fecha))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-2"
+    }, [_c("label", [_vm._v(_vm._s(vi.observaciones))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-1"
+    }, [_c("label", [_vm._v(_vm._s(vi.iniciales))])]), _vm._v(" "), _c("div", {
+      staticClass: "form-group col-md-1"
+    }, [_c("a", {
+      on: {
+        click: function click($event) {
+          return _vm.deleteu(index);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "fas fa-trash",
+      attrs: {
+        "arial-hidden": "true"
+      }
+    })])])])]);
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
+    staticClass: "text-center"
+  }, [_c("p", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.autorizado,
+      expression: "!autorizado"
+    }],
+    staticClass: "h2 text-danger"
+  }, [_vm._v("No autorizado")]), _vm._v(" "), _c("p", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.autorizado,
+      expression: "autorizado"
+    }],
+    staticClass: "h2 text-success"
+  }, [_vm._v("Autorizado")])]), _vm._v(" "), _c("br")], 2), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModal();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.autorizado,
+      expression: "!autorizado"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Autorizar();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-lock mr-1"
+  }), _vm._v("Autorizar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.autorizado && _vm.tipoAccion == 1,
+      expression: "autorizado && tipoAccion == 1"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save mr-1"
+  }), _vm._v("Guardar\r\n                            ")]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.autorizado && _vm.tipoAccion == 2,
+      expression: "autorizado && tipoAccion == 2"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.Guardar(0);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save mr-1"
+  }), _vm._v("Actualizar\r\n                            ")])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal_actualizar
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v("Actualizar")]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalAct();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-12 mb-3"
+  }, [_c("label", [_vm._v("Seleccione")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaCatalogo,
+      label: "descripcion",
+      "data-vv-name": "catalogo"
+    },
+    on: {
+      search: _vm.buscar
+    },
+    model: {
+      value: _vm.partida.articulo,
+      callback: function callback($$v) {
+        _vm.$set(_vm.partida, "articulo", $$v);
+      },
+      expression: "partida.articulo"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("catalogo")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Cantidad")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.partida.cantidad,
+      expression: "partida.cantidad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.partida.cantidad
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.partida, "cantidad", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3 mb-3"
+  }, [_c("label", [_vm._v("Fecha")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.partida.fecha,
+      expression: "partida.fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.partida.fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.partida, "fecha", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5 mb-3"
+  }, [_c("label", [_vm._v("Autorizó")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.listaEmpleados,
+      label: "name"
+    },
+    model: {
+      value: _vm.partida.autoriza,
+      callback: function callback($$v) {
+        _vm.$set(_vm.partida, "autoriza", $$v);
+      },
+      expression: "partida.autoriza"
+    }
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.cerrarModalAct();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarAct();
+      }
+    }
+  }, [_vm._v("\r\n                                Actualizar\r\n                            ")])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.modal_autorizar
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title"
+  }, [_vm._v("Autorizar Entrega de EPP")]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalAutorizar();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("x")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "col-md-8"
+  }, [_vm.modal_autorizar ? _c("qrcode-stream", {
+    on: {
+      decode: _vm.onDecodeAutorizar,
+      init: _vm.onInit
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("br"), _vm._v(" "), _c("h2", {
+    staticStyle: {
+      "font-family": "'Share Tech Mono', monospace",
+      "text-align": "center"
+    }
+  }, [_vm._v("\r\n                                    " + _vm._s(_vm.empleado_autorizado) + "\r\n                                ")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalAutorizar();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-times"
+  }), _vm._v(" Cerrar")]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.GuardarAutorizacion();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar")]) : _vm._e()])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "form-group col-md-3"
+  }, [_c("label", [_c("b", [_vm._v("Articulo")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Empleado")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-1"
+  }, [_c("label", [_c("b", [_vm._v("Proyecto")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-1"
+  }, [_c("label", [_c("b", [_vm._v("Cantidad")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-1"
+  }, [_c("label", [_c("b", [_vm._v("Fecha")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", [_c("b", [_vm._v("Observaciones")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-1"
+  }, [_c("label", [_c("b", [_vm._v("Aut")])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-1"
+  }, [_c("label", [_c("b", [_vm._v(".")])])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-xlg {\r\n    max-width: 1200px;\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_style_index_0_id_a263650c_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Vale.vue?vue&type=style&index=0&id=a263650c&lang=css */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_style_index_0_id_a263650c_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_style_index_0_id_a263650c_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Herramientas/config-vuetables-client.js":
+/*!********************************************************************************!*\
+  !*** ./resources/assets/js/components/Herramientas/config-vuetables-client.js ***!
+  \********************************************************************************/
+/***/ ((module) => {
+
+module.exports = function () {
+  return {
+    dateColumns: [],
+    listColumns: {},
+    datepickerOptions: {
+      locale: {
+        cancelLabel: 'Clear'
+      }
+    },
+    datepickerPerColumnOptions: {},
+    initialPage: 1,
+    perPage: 10,
+    perPageValues: [10, 25, 50, 100],
+    groupBy: false,
+    collapseGroups: false,
+    destroyEventBus: false,
+    sendEmptyFilters: false,
+    params: {},
+    sortable: true,
+    filterable: true,
+    groupMeta: [],
+    initFilters: {},
+    customFilters: [],
+    templates: {},
+    debounce: 250,
+    dateFormat: "DD/MM/YYYY",
+    dateFormatPerColumn: {},
+    toMomentFormat: false,
+    skin: 'table table-striped table-bordered table-hover table-sm',
+    skinBusqueda: 'table table-striped table-bordered table-hover table-sm busqueda',
+    columnsDisplay: {},
+    columnsDropdown: false,
+    texts: {
+      count: "Mostrando del {from} al  {to} de {count} registros|{count} registros|Un registro",
+      first: 'Primero',
+      last: 'Ultimo',
+      filter: "Buscar:",
+      filterPlaceholder: "Buscar...",
+      limit: "Registros:",
+      page: "Pagina:",
+      noResults: "No se encontraron registros",
+      filterBy: "Filtrar por {column}",
+      loading: 'Cargando...',
+      defaultOption: 'Seleccionar {column}',
+      columns: 'Columnas'
+    },
+    sortIcon: {
+      base: 'fa',
+      up: 'fa-chevron-up',
+      down: 'fa-chevron-down',
+      is: 'fa-sort'
+    },
+    sortingAlgorithm: function sortingAlgorithm(data, column) {
+      return data.sort(this.getSortFn(column));
+    },
+    customSorting: {},
+    multiSorting: {},
+    clientMultiSorting: true,
+    serverMultiSorting: false,
+    filterByColumn: false,
+    highlightMatches: false,
+    orderBy: false,
+    descOrderColumns: [],
+    footerHeadings: false,
+    headings: {},
+    headingsTooltips: {},
+    pagination: {
+      dropdown: false,
+      chunk: 10,
+      edge: false,
+      align: 'center',
+      nav: 'fixed'
+    },
+    childRow: false,
+    childRowTogglerFirst: true,
+    uniqueKey: 'id',
+    requestFunction: false,
+    requestAdapter: function requestAdapter(data) {
+      return data;
+    },
+    responseAdapter: function responseAdapter(resp) {
+      var data = this.getResponseData(resp);
+      return {
+        data: data.data,
+        count: data.count
+      };
+    },
+    requestKeys: {
+      query: 'query',
+      limit: 'limit',
+      orderBy: 'orderBy',
+      ascending: 'ascending',
+      page: 'page',
+      byColumn: 'byColumn'
+    },
+    rowClassCallback: false,
+    preserveState: false,
+    saveState: false,
+    storage: 'local',
+    columnsClasses: {},
+    columnCondicion: [{
+      id: 1,
+      text: 'Activo'
+    }, {
+      id: 0,
+      text: 'Desactivado'
+    }]
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Herramientas/utilerias.js":
+/*!******************************************************************!*\
+  !*** ./resources/assets/js/components/Herramientas/utilerias.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  resetObject: function resetObject(obj) {
+    for (var key in obj) {
+      if (typeof obj[key] === 'string') obj[key] = '';else if (typeof obj[key] === 'number') obj[key] = 0;else if (_typeof(obj[key]) === undefined) obj[key] = null;else if (_typeof(obj[key]) === 'object') obj[key] = {};
+    }
+  },
+  getCRUD: function getCRUD(ruta) {
+    var formData = new FormData();
+    formData.append('ruta', ruta);
+    formData.append('identificador', 1);
+    var permisos = {
+      Create: false,
+      Read: false,
+      Update: false,
+      Delete: false,
+      Download: false,
+      Upload: false
+    };
+    axios.post('/CRUD', formData).then(function (response) {
+      for (var i = 0; i < response.data.length; i++) {
+        if (response.data[i].control_id == 1) {
+          permisos.Create = true;
+        }
+        if (response.data[i].control_id == 2) {
+          permisos.Read = true;
+        }
+        if (response.data[i].control_id == 3) {
+          permisos.Update = true;
+        }
+        if (response.data[i].control_id == 4) {
+          permisos.Delete = true;
+        }
+        if (response.data[i].control_id == 5) {
+          permisos.Download = true;
+        }
+        if (response.data[i].control_id == 6) {
+          permisos.Upload = true;
+        }
+      }
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    return permisos;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Alcoholimetria.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Alcoholimetria.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Alcoholimetria_vue_vue_type_template_id_4042309f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alcoholimetria.vue?vue&type=template&id=4042309f */ "./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=template&id=4042309f");
+/* harmony import */ var _Alcoholimetria_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alcoholimetria.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Alcoholimetria_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Alcoholimetria_vue_vue_type_template_id_4042309f__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Alcoholimetria_vue_vue_type_template_id_4042309f__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/Alcoholimetria.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Alcoholimetria_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Alcoholimetria.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Alcoholimetria_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=template&id=4042309f":
+/*!***************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=template&id=4042309f ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alcoholimetria_vue_vue_type_template_id_4042309f__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alcoholimetria_vue_vue_type_template_id_4042309f__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alcoholimetria_vue_vue_type_template_id_4042309f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Alcoholimetria.vue?vue&type=template&id=4042309f */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Alcoholimetria.vue?vue&type=template&id=4042309f");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AnalisisSeguridad_vue_vue_type_template_id_341fad04__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnalisisSeguridad.vue?vue&type=template&id=341fad04 */ "./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=template&id=341fad04");
+/* harmony import */ var _AnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AnalisisSeguridad.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AnalisisSeguridad_vue_vue_type_template_id_341fad04__WEBPACK_IMPORTED_MODULE_0__.render,
+  _AnalisisSeguridad_vue_vue_type_template_id_341fad04__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/AnalisisSeguridad.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=script&lang=js":
+/*!************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AnalisisSeguridad.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=template&id=341fad04":
+/*!******************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=template&id=341fad04 ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalisisSeguridad_vue_vue_type_template_id_341fad04__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalisisSeguridad_vue_vue_type_template_id_341fad04__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalisisSeguridad_vue_vue_type_template_id_341fad04__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AnalisisSeguridad.vue?vue&type=template&id=341fad04 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/AnalisisSeguridad.vue?vue&type=template&id=341fad04");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/BitacoraResiduos.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/BitacoraResiduos.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BitacoraResiduos_vue_vue_type_template_id_598bffc3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BitacoraResiduos.vue?vue&type=template&id=598bffc3 */ "./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=template&id=598bffc3");
+/* harmony import */ var _BitacoraResiduos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BitacoraResiduos.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BitacoraResiduos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BitacoraResiduos_vue_vue_type_template_id_598bffc3__WEBPACK_IMPORTED_MODULE_0__.render,
+  _BitacoraResiduos_vue_vue_type_template_id_598bffc3__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/BitacoraResiduos.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BitacoraResiduos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BitacoraResiduos.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BitacoraResiduos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=template&id=598bffc3":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=template&id=598bffc3 ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BitacoraResiduos_vue_vue_type_template_id_598bffc3__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BitacoraResiduos_vue_vue_type_template_id_598bffc3__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BitacoraResiduos_vue_vue_type_template_id_598bffc3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BitacoraResiduos.vue?vue&type=template&id=598bffc3 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/BitacoraResiduos.vue?vue&type=template&id=598bffc3");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Botiquines.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Botiquines.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Botiquines_vue_vue_type_template_id_541239cf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Botiquines.vue?vue&type=template&id=541239cf */ "./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=template&id=541239cf");
+/* harmony import */ var _Botiquines_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Botiquines.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Botiquines_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Botiquines_vue_vue_type_template_id_541239cf__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Botiquines_vue_vue_type_template_id_541239cf__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/Botiquines.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Botiquines_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Botiquines.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Botiquines_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=template&id=541239cf":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=template&id=541239cf ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Botiquines_vue_vue_type_template_id_541239cf__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Botiquines_vue_vue_type_template_id_541239cf__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Botiquines_vue_vue_type_template_id_541239cf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Botiquines.vue?vue&type=template&id=541239cf */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Botiquines.vue?vue&type=template&id=541239cf");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CatalogoAnalisis_vue_vue_type_template_id_16477ad0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CatalogoAnalisis.vue?vue&type=template&id=16477ad0 */ "./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=template&id=16477ad0");
+/* harmony import */ var _CatalogoAnalisis_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CatalogoAnalisis.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CatalogoAnalisis_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CatalogoAnalisis_vue_vue_type_template_id_16477ad0__WEBPACK_IMPORTED_MODULE_0__.render,
+  _CatalogoAnalisis_vue_vue_type_template_id_16477ad0__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/CatalogoAnalisis.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CatalogoAnalisis.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=template&id=16477ad0":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=template&id=16477ad0 ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis_vue_vue_type_template_id_16477ad0__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis_vue_vue_type_template_id_16477ad0__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis_vue_vue_type_template_id_16477ad0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CatalogoAnalisis.vue?vue&type=template&id=16477ad0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis.vue?vue&type=template&id=16477ad0");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CatalogoAnalisis2_vue_vue_type_template_id_b2788c6c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c */ "./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c");
+/* harmony import */ var _CatalogoAnalisis2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CatalogoAnalisis2.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CatalogoAnalisis2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CatalogoAnalisis2_vue_vue_type_template_id_b2788c6c__WEBPACK_IMPORTED_MODULE_0__.render,
+  _CatalogoAnalisis2_vue_vue_type_template_id_b2788c6c__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=script&lang=js":
+/*!************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CatalogoAnalisis2.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c":
+/*!******************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis2_vue_vue_type_template_id_b2788c6c__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis2_vue_vue_type_template_id_b2788c6c__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogoAnalisis2_vue_vue_type_template_id_b2788c6c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/CatalogoAnalisis2.vue?vue&type=template&id=b2788c6c");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Catalogos/Folios.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Catalogos/Folios.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Folios_vue_vue_type_template_id_09918b9c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Folios.vue?vue&type=template&id=09918b9c */ "./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=template&id=09918b9c");
+/* harmony import */ var _Folios_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Folios.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Folios_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Folios_vue_vue_type_template_id_09918b9c__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Folios_vue_vue_type_template_id_09918b9c__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/Catalogos/Folios.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Folios_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Folios.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Folios_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=template&id=09918b9c":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=template&id=09918b9c ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Folios_vue_vue_type_template_id_09918b9c__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Folios_vue_vue_type_template_id_09918b9c__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Folios_vue_vue_type_template_id_09918b9c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Folios.vue?vue&type=template&id=09918b9c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Catalogos/Folios.vue?vue&type=template&id=09918b9c");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/InspeccionEpp.vue":
+/*!********************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/InspeccionEpp.vue ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _InspeccionEpp_vue_vue_type_template_id_192b409a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InspeccionEpp.vue?vue&type=template&id=192b409a */ "./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=template&id=192b409a");
+/* harmony import */ var _InspeccionEpp_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InspeccionEpp.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InspeccionEpp_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InspeccionEpp_vue_vue_type_template_id_192b409a__WEBPACK_IMPORTED_MODULE_0__.render,
+  _InspeccionEpp_vue_vue_type_template_id_192b409a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/InspeccionEpp.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=script&lang=js":
+/*!********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InspeccionEpp_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./InspeccionEpp.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InspeccionEpp_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=template&id=192b409a":
+/*!**************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=template&id=192b409a ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InspeccionEpp_vue_vue_type_template_id_192b409a__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InspeccionEpp_vue_vue_type_template_id_192b409a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InspeccionEpp_vue_vue_type_template_id_192b409a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./InspeccionEpp.vue?vue&type=template&id=192b409a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/InspeccionEpp.vue?vue&type=template&id=192b409a");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/ListaAsistencia.vue":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/ListaAsistencia.vue ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ListaAsistencia_vue_vue_type_template_id_e236add2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListaAsistencia.vue?vue&type=template&id=e236add2 */ "./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=template&id=e236add2");
+/* harmony import */ var _ListaAsistencia_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListaAsistencia.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ListaAsistencia_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListaAsistencia_vue_vue_type_template_id_e236add2__WEBPACK_IMPORTED_MODULE_0__.render,
+  _ListaAsistencia_vue_vue_type_template_id_e236add2__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/ListaAsistencia.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListaAsistencia_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ListaAsistencia.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListaAsistencia_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=template&id=e236add2":
+/*!****************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=template&id=e236add2 ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListaAsistencia_vue_vue_type_template_id_e236add2__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListaAsistencia_vue_vue_type_template_id_e236add2__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListaAsistencia_vue_vue_type_template_id_e236add2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ListaAsistencia.vue?vue&type=template&id=e236add2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/ListaAsistencia.vue?vue&type=template&id=e236add2");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue":
+/*!*****************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _NuevoAnalisisSeguridad_vue_vue_type_template_id_1886a47a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a */ "./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a");
+/* harmony import */ var _NuevoAnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NuevoAnalisisSeguridad.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NuevoAnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NuevoAnalisisSeguridad_vue_vue_type_template_id_1886a47a__WEBPACK_IMPORTED_MODULE_0__.render,
+  _NuevoAnalisisSeguridad_vue_vue_type_template_id_1886a47a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NuevoAnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./NuevoAnalisisSeguridad.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NuevoAnalisisSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NuevoAnalisisSeguridad_vue_vue_type_template_id_1886a47a__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NuevoAnalisisSeguridad_vue_vue_type_template_id_1886a47a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NuevoAnalisisSeguridad_vue_vue_type_template_id_1886a47a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/NuevoAnalisisSeguridad.vue?vue&type=template&id=1886a47a");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/PermisoSeguridad.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/PermisoSeguridad.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _PermisoSeguridad_vue_vue_type_template_id_52fc26b1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PermisoSeguridad.vue?vue&type=template&id=52fc26b1 */ "./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=template&id=52fc26b1");
+/* harmony import */ var _PermisoSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PermisoSeguridad.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PermisoSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PermisoSeguridad_vue_vue_type_template_id_52fc26b1__WEBPACK_IMPORTED_MODULE_0__.render,
+  _PermisoSeguridad_vue_vue_type_template_id_52fc26b1__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/PermisoSeguridad.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PermisoSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PermisoSeguridad.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PermisoSeguridad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=template&id=52fc26b1":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=template&id=52fc26b1 ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PermisoSeguridad_vue_vue_type_template_id_52fc26b1__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PermisoSeguridad_vue_vue_type_template_id_52fc26b1__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PermisoSeguridad_vue_vue_type_template_id_52fc26b1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PermisoSeguridad.vue?vue&type=template&id=52fc26b1 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/PermisoSeguridad.vue?vue&type=template&id=52fc26b1");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Platicas.vue":
+/*!***************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Platicas.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Platicas_vue_vue_type_template_id_26a57411__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Platicas.vue?vue&type=template&id=26a57411 */ "./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=template&id=26a57411");
+/* harmony import */ var _Platicas_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Platicas.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Platicas_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Platicas_vue_vue_type_template_id_26a57411__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Platicas_vue_vue_type_template_id_26a57411__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/Platicas.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=script&lang=js":
+/*!***************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Platicas_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Platicas.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Platicas_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=template&id=26a57411":
+/*!*********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=template&id=26a57411 ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Platicas_vue_vue_type_template_id_26a57411__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Platicas_vue_vue_type_template_id_26a57411__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Platicas_vue_vue_type_template_id_26a57411__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Platicas.vue?vue&type=template&id=26a57411 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Platicas.vue?vue&type=template&id=26a57411");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Residuos.vue":
+/*!***************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Residuos.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Residuos_vue_vue_type_template_id_8aa1a4d8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Residuos.vue?vue&type=template&id=8aa1a4d8 */ "./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=template&id=8aa1a4d8");
+/* harmony import */ var _Residuos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Residuos.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Residuos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Residuos_vue_vue_type_template_id_8aa1a4d8__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Residuos_vue_vue_type_template_id_8aa1a4d8__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/Residuos.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=script&lang=js":
+/*!***************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Residuos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Residuos.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Residuos_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=template&id=8aa1a4d8":
+/*!*********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=template&id=8aa1a4d8 ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Residuos_vue_vue_type_template_id_8aa1a4d8__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Residuos_vue_vue_type_template_id_8aa1a4d8__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Residuos_vue_vue_type_template_id_8aa1a4d8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Residuos.vue?vue&type=template&id=8aa1a4d8 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Residuos.vue?vue&type=template&id=8aa1a4d8");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Secuencias.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Secuencias.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Secuencias_vue_vue_type_template_id_7ab0d39b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Secuencias.vue?vue&type=template&id=7ab0d39b */ "./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=template&id=7ab0d39b");
+/* harmony import */ var _Secuencias_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Secuencias.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Secuencias_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Secuencias_vue_vue_type_template_id_7ab0d39b__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Secuencias_vue_vue_type_template_id_7ab0d39b__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/Secuencias.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Secuencias_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Secuencias.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Secuencias_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=template&id=7ab0d39b":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=template&id=7ab0d39b ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Secuencias_vue_vue_type_template_id_7ab0d39b__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Secuencias_vue_vue_type_template_id_7ab0d39b__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Secuencias_vue_vue_type_template_id_7ab0d39b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Secuencias.vue?vue&type=template&id=7ab0d39b */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Secuencias.vue?vue&type=template&id=7ab0d39b");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Vale.vue":
+/*!***********************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Vale.vue ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Vale_vue_vue_type_template_id_a263650c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Vale.vue?vue&type=template&id=a263650c */ "./resources/assets/js/components/Seguridad/Vale.vue?vue&type=template&id=a263650c");
+/* harmony import */ var _Vale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Vale.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Seguridad/Vale.vue?vue&type=script&lang=js");
+/* harmony import */ var _Vale_vue_vue_type_style_index_0_id_a263650c_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Vale.vue?vue&type=style&index=0&id=a263650c&lang=css */ "./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Vale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Vale_vue_vue_type_template_id_a263650c__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Vale_vue_vue_type_template_id_a263650c__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Seguridad/Vale.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Vale.vue?vue&type=script&lang=js":
+/*!***********************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Vale.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Vale.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_style_index_0_id_a263650c_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Vale.vue?vue&type=style&index=0&id=a263650c&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-8.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=style&index=0&id=a263650c&lang=css");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Seguridad/Vale.vue?vue&type=template&id=a263650c":
+/*!*****************************************************************************************!*\
+  !*** ./resources/assets/js/components/Seguridad/Vale.vue?vue&type=template&id=a263650c ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_template_id_a263650c__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_template_id_a263650c__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vale_vue_vue_type_template_id_a263650c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Vale.vue?vue&type=template&id=a263650c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Seguridad/Vale.vue?vue&type=template&id=a263650c");
+
+
+/***/ })
+
+}]);

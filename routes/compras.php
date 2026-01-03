@@ -41,6 +41,7 @@ Route::group(["middleware" => "auth"], function ()
     Route::get("compras/busqueda/{id}", "Compras\ComprasController@busqueda");
     // Proveedores
     Route::resource("proveedores", "Compras\ProveedoresController");
+    Route::post('/read-excel','Compras\ProveedoresController@read');//Carga de excel 
     Route::post("compras/proveedores/activar", "Compras\ProveedoresController@Desactivar");
     Route::get("compras/proveedores/obtener/{anio}", "Compras\ProveedoresController@ObtenerProveedores");
     Route::get("compras/reportes/catalogoproveedores/{anio}", "Compras\ProveedoresController@DescargarReporte");
@@ -54,7 +55,7 @@ Route::group(["middleware" => "auth"], function ()
     Route::get("compras/proveedores/bancarios/{id}", "Compras\ProveedoresController@getDataBankProveedor");
 
     // Evaluación de proveedores
-    Route::get("compras/evlauacion/obtenerproveedores/{anio}", "Compras\EvaluacionProveedoresController@ObtenerProveedores");
+    Route::get("compras/evaluacion/obtenerproveedores/{anio}/{mes}", "Compras\EvaluacionProveedoresController@ObtenerProveedores");// modificado para ver por mese TEST
     Route::get("compras/evaluacion/obtener/{id}", "Compras\EvaluacionProveedoresController@ObtenerEvaluacion");
     Route::post("compras/evaluacion/guardar", "Compras\EvaluacionProveedoresController@GuardarEvaluacion");
     Route::get("compras/evaluacion/descargar/{id}", "Compras\EvaluacionProveedoresController@DescargarEvaluacion");

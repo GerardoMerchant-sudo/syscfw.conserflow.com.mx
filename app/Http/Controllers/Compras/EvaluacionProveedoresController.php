@@ -18,26 +18,36 @@ class EvaluacionProveedoresController extends Controller
     /**
      * Obtiene todos los proveedores activos para Catalogo de Registro y Evaluación
      */
-    public function ObtenerProveedores($anio)
+    public function ObtenerProveedores($anio,$mes)
     {
         try
         {
             // Obtener proveedores activos, que se les ha comprado
+            if($mes == 2){
+                $dateStart = ($anio -1) . "-08-01";
+                $dateEnd = $anio  . "-01-31";
+            }
+            if($mes == 8){
+                $dateStart = $anio . "-02-01";
+                $dateEnd = $anio . "-07-31";
+            }
+
             $proveedores_aux = DB::table("ordenes_compras as oc")
                 ->join("proveedores as p", "p.id", "oc.proveedore_id")
-                ->whereYear("oc.fecha_orden", "=", $anio)
-                ->where("p.condicion", 1)
+                ->whereBetween("oc.fecha_orden", [$dateStart, $dateEnd])
+                ->where("p.condicion", 1)   
                 ->select(
                     "p.id",
+                    "p.id as idControl",
                     "p.nombre",
                     "p.razon_social",
-                    "p.rfc",
+                    DB::raw("COALESCE(p.rfc, p.taxid) AS IdentificadorFiscal"),
+                    //"p.fecha",
                     "p.direccion"
                 )
                 ->orderBy("p.nombre")
                 ->distinct()
                 ->get();
-
             $proveedores = [];
             // Obtener la evaluación del proveedor en el año ingresado
             foreach ($proveedores_aux as $p)
@@ -51,7 +61,7 @@ class EvaluacionProveedoresController extends Controller
             ep.uno+ep.dos+ep.tres+ep.cuatro+ep.cinco+ep.seis+ep.siete+
             ep.ocho+ep.nueve+ep.diez+ep.once+ep.doce+ep.trece+ep.catorce+ep.quince+
             ep.diesiseis+ep.diesisiete+ep.diesiocho
-          ) as total_evaluacion")
+            ) as total_evaluacion")
                     )
                     ->first();
                 // Unir proveedor y evaluacion

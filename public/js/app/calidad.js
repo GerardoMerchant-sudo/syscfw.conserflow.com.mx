@@ -1,2 +1,1503 @@
-/*! For license information please see calidad.js.LICENSE.txt */
-(self.webpackChunk=self.webpackChunk||[]).push([[533],{18785:(t,e,a)=>{"use strict";function o(t){return o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},o(t)}a.d(e,{A:()=>r});const r={resetObject:function(t){for(var e in t)"string"==typeof t[e]?t[e]="":"number"==typeof t[e]?t[e]=0:void 0===o(t[e])?t[e]=null:"object"===o(t[e])&&(t[e]={})},getCRUD:function(t){var e=new FormData;e.append("ruta",t),e.append("identificador",1);var a={Create:!1,Read:!1,Update:!1,Delete:!1,Download:!1,Upload:!1};return axios.post("/CRUD",e).then((function(t){for(var e=0;e<t.data.length;e++)1==t.data[e].control_id&&(a.Create=!0),2==t.data[e].control_id&&(a.Read=!0),3==t.data[e].control_id&&(a.Update=!0),4==t.data[e].control_id&&(a.Delete=!0),5==t.data[e].control_id&&(a.Download=!0),6==t.data[e].control_id&&(a.Upload=!0)})).catch((function(t){console.log(t)})),a}}},48432:(t,e,a)=>{"use strict";a.r(e),a.d(e,{default:()=>r});const o={data:function(){return{isLoading:!1,listaPermisos:[]}},components:{equiposcalib:function(t){return a.e(696).then(function(){return t(a(48772))}.bind(null,a)).catch(a.oe)}},methods:{},mounted:function(){}};const r=(0,a(14486).A)(o,(function(){var t=this._self._c;return t("main",{staticClass:"main"},[t("div",{staticClass:"container-fluid"},[t("div",{staticClass:"row"},[t("div",{staticClass:"col-md-12"},[t("equiposcalib")],1)])])])}),[],!1,null,null,null).exports},72802:(t,e,a)=>{"use strict";a.r(e),a.d(e,{default:()=>p});var o=a(18785);function r(t){return r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},r(t)}function i(t,e){var a=Object.keys(t);if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(t);e&&(o=o.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),a.push.apply(a,o)}return a}function s(t){for(var e=1;e<arguments.length;e++){var a=null!=arguments[e]?arguments[e]:{};e%2?i(Object(a),!0).forEach((function(e){c(t,e,a[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(a)):i(Object(a)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(a,e))}))}return t}function n(){n=function(){return e};var t,e={},a=Object.prototype,o=a.hasOwnProperty,i="function"==typeof Symbol?Symbol:{},s=i.iterator||"@@iterator",l=i.asyncIterator||"@@asyncIterator",c=i.toStringTag||"@@toStringTag";function u(t,e,a,o){return Object.defineProperty(t,e,{value:a,enumerable:!o,configurable:!o,writable:!o})}try{u({},"")}catch(t){u=function(t,e,a){return t[e]=a}}function d(e,a,o,r){var i=a&&a.prototype instanceof m?a:m,s=Object.create(i.prototype);return u(s,"_invoke",function(e,a,o){var r=1;return function(i,s){if(3===r)throw Error("Generator is already running");if(4===r){if("throw"===i)throw s;return{value:t,done:!0}}for(o.method=i,o.arg=s;;){var n=o.delegate;if(n){var l=w(n,o);if(l){if(l===v)continue;return l}}if("next"===o.method)o.sent=o._sent=o.arg;else if("throw"===o.method){if(1===r)throw r=4,o.arg;o.dispatchException(o.arg)}else"return"===o.method&&o.abrupt("return",o.arg);r=3;var c=p(e,a,o);if("normal"===c.type){if(r=o.done?4:2,c.arg===v)continue;return{value:c.arg,done:o.done}}"throw"===c.type&&(r=4,o.method="throw",o.arg=c.arg)}}}(e,o,new O(r||[])),!0),s}function p(t,e,a){try{return{type:"normal",arg:t.call(e,a)}}catch(t){return{type:"throw",arg:t}}}e.wrap=d;var v={};function m(){}function f(){}function b(){}var _={};u(_,s,(function(){return this}));var g=Object.getPrototypeOf,h=g&&g(g(P([])));h&&h!==a&&o.call(h,s)&&(_=h);var C=b.prototype=m.prototype=Object.create(_);function y(t){["next","throw","return"].forEach((function(e){u(t,e,(function(t){return this._invoke(e,t)}))}))}function q(t,e){function a(i,s,n,l){var c=p(t[i],t,s);if("throw"!==c.type){var u=c.arg,d=u.value;return d&&"object"==r(d)&&o.call(d,"__await")?e.resolve(d.__await).then((function(t){a("next",t,n,l)}),(function(t){a("throw",t,n,l)})):e.resolve(d).then((function(t){u.value=t,n(u)}),(function(t){return a("throw",t,n,l)}))}l(c.arg)}var i;u(this,"_invoke",(function(t,o){function r(){return new e((function(e,r){a(t,o,e,r)}))}return i=i?i.then(r,r):r()}),!0)}function w(e,a){var o=a.method,r=e.i[o];if(r===t)return a.delegate=null,"throw"===o&&e.i.return&&(a.method="return",a.arg=t,w(e,a),"throw"===a.method)||"return"!==o&&(a.method="throw",a.arg=new TypeError("The iterator does not provide a '"+o+"' method")),v;var i=p(r,e.i,a.arg);if("throw"===i.type)return a.method="throw",a.arg=i.arg,a.delegate=null,v;var s=i.arg;return s?s.done?(a[e.r]=s.value,a.next=e.n,"return"!==a.method&&(a.method="next",a.arg=t),a.delegate=null,v):s:(a.method="throw",a.arg=new TypeError("iterator result is not an object"),a.delegate=null,v)}function x(t){this.tryEntries.push(t)}function E(e){var a=e[4]||{};a.type="normal",a.arg=t,e[4]=a}function O(t){this.tryEntries=[[-1]],t.forEach(x,this),this.reset(!0)}function P(e){if(null!=e){var a=e[s];if(a)return a.call(e);if("function"==typeof e.next)return e;if(!isNaN(e.length)){var i=-1,n=function a(){for(;++i<e.length;)if(o.call(e,i))return a.value=e[i],a.done=!1,a;return a.value=t,a.done=!0,a};return n.next=n}}throw new TypeError(r(e)+" is not iterable")}return f.prototype=b,u(C,"constructor",b),u(b,"constructor",f),f.displayName=u(b,c,"GeneratorFunction"),e.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===f||"GeneratorFunction"===(e.displayName||e.name))},e.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,b):(t.__proto__=b,u(t,c,"GeneratorFunction")),t.prototype=Object.create(C),t},e.awrap=function(t){return{__await:t}},y(q.prototype),u(q.prototype,l,(function(){return this})),e.AsyncIterator=q,e.async=function(t,a,o,r,i){void 0===i&&(i=Promise);var s=new q(d(t,a,o,r),i);return e.isGeneratorFunction(a)?s:s.next().then((function(t){return t.done?t.value:s.next()}))},y(C),u(C,c,"Generator"),u(C,s,(function(){return this})),u(C,"toString",(function(){return"[object Generator]"})),e.keys=function(t){var e=Object(t),a=[];for(var o in e)a.unshift(o);return function t(){for(;a.length;)if((o=a.pop())in e)return t.value=o,t.done=!1,t;return t.done=!0,t}},e.values=P,O.prototype={constructor:O,reset:function(e){if(this.prev=this.next=0,this.sent=this._sent=t,this.done=!1,this.delegate=null,this.method="next",this.arg=t,this.tryEntries.forEach(E),!e)for(var a in this)"t"===a.charAt(0)&&o.call(this,a)&&!isNaN(+a.slice(1))&&(this[a]=t)},stop:function(){this.done=!0;var t=this.tryEntries[0][4];if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(e){if(this.done)throw e;var a=this;function o(t){s.type="throw",s.arg=e,a.next=t}for(var r=a.tryEntries.length-1;r>=0;--r){var i=this.tryEntries[r],s=i[4],n=this.prev,l=i[1],c=i[2];if(-1===i[0])return o("end"),!1;if(!l&&!c)throw Error("try statement without catch or finally");if(null!=i[0]&&i[0]<=n){if(n<l)return this.method="next",this.arg=t,o(l),!0;if(n<c)return o(c),!1}}},abrupt:function(t,e){for(var a=this.tryEntries.length-1;a>=0;--a){var o=this.tryEntries[a];if(o[0]>-1&&o[0]<=this.prev&&this.prev<o[2]){var r=o;break}}r&&("break"===t||"continue"===t)&&r[0]<=e&&e<=r[2]&&(r=null);var i=r?r[4]:{};return i.type=t,i.arg=e,r?(this.method="next",this.next=r[2],v):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),v},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var a=this.tryEntries[e];if(a[2]===t)return this.complete(a[4],a[3]),E(a),v}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var a=this.tryEntries[e];if(a[0]===t){var o=a[4];if("throw"===o.type){var r=o.arg;E(a)}return r}}throw Error("illegal catch attempt")},delegateYield:function(e,a,o){return this.delegate={i:P(e),r:a,n:o},"next"===this.method&&(this.arg=t),v}},e}function l(t,e,a,o,r,i,s){try{var n=t[i](s),l=n.value}catch(t){return void a(t)}n.done?e(l):Promise.resolve(l).then(o,r)}function c(t,e,a){return(e=function(t){var e=function(t,e){if("object"!=r(t)||!t)return t;var a=t[Symbol.toPrimitive];if(void 0!==a){var o=a.call(t,e||"default");if("object"!=r(o))return o;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===e?String:Number)(t)}(t,"string");return"symbol"==r(e)?e:e+""}(e))in t?Object.defineProperty(t,e,{value:a,enumerable:!0,configurable:!0,writable:!0}):t[e]=a,t}var u=a(96225).call(void 0);const d={data:function(){var t;return c(c(c(c(c(c(c(c(c(c(t={list_empleados:[],url_equipos:"calidad/calibracion/equipos",tipoAccion_equipos:1,tipoCardEquipos:1,PermisosCRUD:{},ver_modal_equipos:!1,tituloModal_equipos:"",equipos_id:0,isGuardarequipos_loading:!1,isObtenerequipos_loading:!1,columns_equipos:["id","equipo","marca","modelo","ns","rango_medicion","resguardo","fecha_servicio","proxima_fecha","certificado","condicion"],list_equipos:[],equipos:{},options_equipos:{headings:{id:"Acciones",equipo:"Equipo",marca:"Marca",modelo:"Modelo",ns:"NS",rango_medicion:"Rango Medicion",resguardo:"Resguardo",revisa:"Revisa",observaciones:"Observaciones"},perPage:10,perPageValues:[],skin:u.skin,sortIcon:u.sortIcon,filterByColumn:!0,texts:u.texts},url_calibraciones:"calidad/calibracion",tipoAccion_calibraciones:1},"PermisosCRUD",{}),"ver_modal_calibraciones",!1),"tituloModal_calibraciones",""),"calibraciones_id",0),"isGuardarcalibraciones_loading",!1),"isObtenercalibraciones_loading",!1),"columns_calibraciones",["id","fecha_servicio","proxima_fecha","certificado"]),"list_calibraciones",[]),"calibraciones",{}),"options_calibraciones",{headings:{id:"Acciones",fecha_servicio:"Fecha Servicio",proxima_fecha:"Próxima fecha",certificado:"Certificado"},perPage:10,perPageValues:[],skin:u.skin,sortIcon:u.sortIcon,filterByColumn:!0,texts:u.texts}),c(c(t,"tipos_descargar",[]),"tipo_equipos",[{id:1,nombre:"CONFIGURADORES TREX"},{id:2,nombre:"EQUIPOS DE MEDICIÓN DE SOLDADURA "},{id:3,nombre:"EQUIPOS DE TORQUE"},{id:4,nombre:"EQUIPOS POR ASME"},{id:5,nombre:"MAQUINAS DE COMBUSTION"},{id:6,nombre:"MAQUINAS DE SOLDAR"},{id:7,nombre:"VARIABLE: PRESIÓN"},{id:8,nombre:"VARIABLE: RUGOSIDAD"},{id:9,nombre:"VARIABLE: SALES SULUBLES, POROSIDAD, ESPESORES (PINTURA)"},{id:10,nombre:"VARIABLE: TEMPERATURA"},{id:11,nombre:"VARIALE: VOLTAJE, CORRIENTE, RESISTENCIA Y ASLAMIENTO"},{id:12,nombre:"TODOS"}])},methods:{ObtenerEmpleados:function(){var t,e=this;return(t=n().mark((function t(){var a;return n().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,axios.get("generales/empleadoactivos");case 2:if((a=t.sent).data.status){t.next=6;break}return toastr.error(a.data.mensaje),t.abrupt("return");case 6:e.list_empleados=a.data.empleados;case 7:case"end":return t.stop()}}),t)})),function(){var e=this,a=arguments;return new Promise((function(o,r){var i=t.apply(e,a);function s(t){l(i,o,r,s,n,"next",t)}function n(t){l(i,o,r,s,n,"throw",t)}s(void 0)}))})()},ObtenerEquipos:function(){var t=this;this.isObtenerequipos_loading=!0,axios.get(this.url_equipos).then((function(e){t.isObtenerequipos_loading=!1,e.data.status?t.list_equipos=e.data.equipos:toastr.error(e.data.mensaje)}))},AbrirModalEquipos:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};if(this.ver_modal_equipos=!0,t)this.tituloModal_equipos="Registrar Equipos de Calibración",this.tipoAccion_equipos=1,this.equipos.observaciones="-";else{this.tituloModal_equipos="Actualizar Equipos de Calibración",this.tipoAccion_equipos=2;var a=this.tipo_equipos.find((function(t){return t.nombre==e.tipo}));this.equipos=s(s({},e),{},{revisa:{id:e.empleado_revisa_id,nombre:e.revisa},tipo:a})}},RegistrarEquipos:function(t){var e=this;this.$validator.validate().then((function(a){if(a){var o=new FormData;t||o.append("id",e.equipos.id),o.append("equipo",e.equipos.equipo),o.append("marca",e.equipos.marca),o.append("modelo",e.equipos.modelo),o.append("tipo",e.equipos.tipo.nombre),o.append("ns",e.equipos.ns),o.append("rango_medicion",e.equipos.rango_medicion),o.append("resguardo",e.equipos.resguardo),o.append("frecuencia",e.equipos.frecuencia),o.append("empleado_revisa_id",e.equipos.revisa.id),o.append("observaciones",e.equipos.observaciones),e.isGuardarequipos_loading=!0,axios.post(e.url_equipos,o).then((function(t){e.isGuardarequipos_loading=!1,t.data.status?(toastr.success("Guardado correctamente"),e.ObtenerEquipos(),e.CerrarModalEquipos()):toastr.error(t.data.mensaje)}))}}))},CerrarModalEquipos:function(){this.ver_modal_equipos=!1,this.equipos={}},AbrirModalCalibraciones:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};this.ver_modal_calibraciones=!0,this.tituloModal_calibraciones="".concat(t.marca," - ").concat(t.ns),this.tipoAccion_calibraciones=1,this.equipos_id=t.id},RegistrarCalibraciones:function(t){var e=this;this.$validator.validate().then((function(t){if(t){var a;if(e.calibraciones.fecha_servicio!=e.calibraciones.proxima_fecha)if(0!=e.$refs.file_certificado.files.length){a=e.$refs.file_certificado.files[0];var o=new FormData;o.append("equipo_id",e.equipos_id),o.append("fecha_servicio",e.calibraciones.fecha_servicio),o.append("proxima_fecha",e.calibraciones.proxima_fecha),o.append("certificado",a),o.append("aux_certificado",1),e.isGuardarcalibraciones_loading=!0,axios.post(e.url_calibraciones+"/calibracion",o).then((function(t){e.isGuardarcalibraciones_loading=!1,t.data.status?(toastr.success("Guardado correctamente"),e.ObtenerEquipos(),e.CerrarModalCalibraciones()):toastr.error(t.data.mensaje)}))}else toastr.warning("Seleccione un documento");else toastr.warning("Las fechas no pueden ser iguales")}}))},CerrarModalCalibraciones:function(){this.ver_modal_calibraciones=!1,this.Calibraciones={}},DescargarCertificado:function(t){window.open(this.url_calibraciones+"/certificado/"+t)},DescargarReporte:function(){var t=this.tipos_descargar.map((function(t){return t.id})).join(",");window.open("".concat(this.url_equipos,"/descargar/").concat(t))}},mounted:function(){this.ObtenerEmpleados(),this.ObtenerEquipos(),this.PermisosCRUD=o.A.getCRUD(this.$route.path)}};const p=(0,a(14486).A)(d,(function(){var t=this,e=t._self._c;return e("main",{staticClass:"main"},[e("div",{directives:[{name:"show",rawName:"v-show",value:1==t.tipoCardEquipos,expression:"tipoCardEquipos==1"}],staticClass:"card"},[e("div",{staticClass:"card-header"},[e("i",{staticClass:"fa fa-align-justify"}),t._v(" EQUIPOS DE CALIBRACIÓN\n            "),t.PermisosCRUD.Create?[e("button",{staticClass:"btn btn-dark float-sm-right",attrs:{type:"button"},on:{click:function(e){return t.AbrirModalEquipos(!0)}}},[e("i",{staticClass:"fas fa-plus"}),t._v(" Nuevo\n                ")]),t._v(" "),t.PermisosCRUD.Download?e("button",{staticClass:"btn btn-dark float-sm-right mr-1",attrs:{type:"button","data-toggle":"collapse",href:"#multiCollapseExample1",role:"button","aria-expanded":"false","aria-controls":"multiCollapseExample1"}},[e("i",{staticClass:"fas fa-download mr-1"}),t._v(" Descargar\n                ")]):t._e()]:t._e()],2),t._v(" "),e("div",{staticClass:"card-body"},[e("div",{staticClass:"collapse multi-collapse",attrs:{id:"multiCollapseExample1"}},[e("div",{staticClass:"container mb-4 row"},[e("div",{staticClass:"col-md-6"},[e("label",[t._v("Tipo")]),t._v(" "),e("v-select",{attrs:{multiple:"",options:t.tipo_equipos,label:"nombre"},model:{value:t.tipos_descargar,callback:function(e){t.tipos_descargar=e},expression:"tipos_descargar"}}),t._v(" "),e("button",{staticClass:"btn btn-dark mt-2",on:{click:t.DescargarReporte}},[t._v("Generar")])],1)])]),t._v(" "),e("vue-element-loading",{attrs:{active:t.isObtenerequipos_loading}}),t._v(" "),e("v-client-table",{attrs:{columns:t.columns_equipos,data:t.list_equipos,options:t.options_equipos},scopedSlots:t._u([{key:"id",fn:function(a){return[e("div",{staticClass:"btn-group",attrs:{role:"group"}},[e("div",{staticClass:"btn-group dropup",attrs:{role:"group"}},[e("button",{staticClass:"btn btn-outline-dark dropdown-toggle",attrs:{type:"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[e("i",{staticClass:"fas fa-grip-horizontal"}),t._v(" Acciones\n                            ")]),t._v(" "),e("div",{staticClass:"dropdown-menu"},[t.PermisosCRUD.Update?e("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(e){return t.AbrirModalEquipos(!1,a.row)}}},[e("i",{staticClass:"fas fa-edit"}),t._v(" Actualizar\n                                ")]):t._e(),t._v(" "),t.PermisosCRUD.Create?e("button",{staticClass:"dropdown-item",attrs:{type:"button"},on:{click:function(e){return t.AbrirModalCalibraciones(a.row)}}},[e("i",{staticClass:"fas fa-plus"}),t._v(" Registrar Calibración\n                                ")]):t._e()])])])]}},{key:"condicion",fn:function(a){return[1==a.row.condicion?[e("button",{staticClass:"btn btn-outline-success"},[t._v("Activo")])]:[e("button",{staticClass:"btn btn-outline-danger"},[t._v("Inactivo")])]]}},{key:"proxima_fecha",fn:function(a){return[0==a.row.proxima_fecha?[e("p",[t._v("N/D")])]:[e("p",[t._v(t._s(a.row.proxima_fecha))])]]}},{key:"fecha_servicio",fn:function(a){return[0==a.row.fecha_servicio?[e("p",[t._v("N/D")])]:[e("p",[t._v(t._s(a.row.fecha_servicio))])]]}},{key:"certificado",fn:function(a){return[e("div",{staticClass:"text-center"},[a.row.certificado?[e("button",{staticClass:"btn btn-outline-dark",on:{click:function(e){return t.DescargarCertificado(a.row.certificado)}}},[e("i",{staticClass:"fas fa-download"})])]:[e("button",{staticClass:"btn btn-outline-dark"},[t._v("N/D")])]],2)]}}])})],1)]),t._v(" "),t.ver_modal_equipos?e("div",{staticClass:"modal fade",class:{mostrar:t.ver_modal_equipos},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[e("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[e("div",{staticClass:"modal-content"},[e("div",[e("div",{staticClass:"modal-header"},[e("h4",{staticClass:"modal-title",domProps:{textContent:t._s(t.tituloModal_equipos)}}),t._v(" "),e("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(e){return t.CerrarModalEquipos()}}},[e("span",{attrs:{"aria-hidden":"true"}},[t._v("x")])])]),t._v(" "),e("div",{staticClass:"modal-body"},[e("vue-element-loading",{attrs:{active:t.isGuardarequipos_loading}}),t._v(" "),e("div",[e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Equipo")]),t._v(" "),e("div",{staticClass:"col-md-9"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.equipo,expression:"equipos.equipo"}],staticClass:"form-control",attrs:{type:"text",maxlength:"125",minlength:"3","data-vv-name":"Equipo",autocomplete:"off"},domProps:{value:t.equipos.equipo},on:{input:function(e){e.target.composing||t.$set(t.equipos,"equipo",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Equipo")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Marca")]),t._v(" "),e("div",{staticClass:"col-md-4"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.marca,expression:"equipos.marca"}],staticClass:"form-control",attrs:{type:"text",maxlength:"50",minlength:"3","data-vv-name":"Marca",autocomplete:"off"},domProps:{value:t.equipos.marca},on:{input:function(e){e.target.composing||t.$set(t.equipos,"marca",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Marca")))])]),t._v(" "),e("label",{staticClass:"col-md-1 form-control-label"},[t._v("Modelo")]),t._v(" "),e("div",{staticClass:"col-md-4"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.modelo,expression:"equipos.modelo"}],staticClass:"form-control",attrs:{type:"text",maxlength:"50",minlength:"3","data-vv-name":"Modelo",autocomplete:"off"},domProps:{value:t.equipos.modelo},on:{input:function(e){e.target.composing||t.$set(t.equipos,"modelo",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Modelo")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("NS")]),t._v(" "),e("div",{staticClass:"col-md-3"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.ns,expression:"equipos.ns"}],staticClass:"form-control",attrs:{type:"text",maxlength:"50",minlength:"3","data-vv-name":"NS",autocomplete:"off"},domProps:{value:t.equipos.ns},on:{input:function(e){e.target.composing||t.$set(t.equipos,"ns",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("NS")))])]),t._v(" "),e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Rango Medicion")]),t._v(" "),e("div",{staticClass:"col-md-4"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.rango_medicion,expression:"equipos.rango_medicion"}],staticClass:"form-control",attrs:{type:"text",maxlength:"80",minlength:"3","data-vv-name":"Rango Medicion",autocomplete:"off"},domProps:{value:t.equipos.rango_medicion},on:{input:function(e){e.target.composing||t.$set(t.equipos,"rango_medicion",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Rango Medicion")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Tipo")]),t._v(" "),e("div",{staticClass:"col-md-6"},[e("select",{directives:[{name:"model",rawName:"v-model",value:t.equipos.tipo,expression:"equipos.tipo"}],staticClass:"form-control",attrs:{"va-validate":"'required'","data-vv-name":"Tipo"},on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.$set(t.equipos,"tipo",e.target.multiple?a:a[0])}}},t._l(t.tipo_equipos,(function(a,o){return e("option",{key:o,domProps:{value:a}},[t._v(t._s(a.nombre))])})),0),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Tipo")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Frecuencia")]),t._v(" "),e("div",{staticClass:"col-md-6"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.frecuencia,expression:"equipos.frecuencia"}],staticClass:"form-control",attrs:{type:"text",maxlength:"5",minlength:"3","data-vv-name":"Frecuencia",autocomplete:"off"},domProps:{value:t.equipos.frecuencia},on:{input:function(e){e.target.composing||t.$set(t.equipos,"frecuencia",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Frecuencia")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Resguardo")]),t._v(" "),e("div",{staticClass:"col-md-6"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.resguardo,expression:"equipos.resguardo"}],staticClass:"form-control",attrs:{type:"text",maxlength:"50",minlength:"3","data-vv-name":"Resguardo",autocomplete:"off"},domProps:{value:t.equipos.resguardo},on:{input:function(e){e.target.composing||t.$set(t.equipos,"resguardo",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Resguardo")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Revisa")]),t._v(" "),e("div",{staticClass:"col-md-6"},[e("v-select",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"}],attrs:{label:"nombre",options:t.list_empleados,"data-vv-name":"Revisa"},model:{value:t.equipos.revisa,callback:function(e){t.$set(t.equipos,"revisa",e)},expression:"equipos.revisa"}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Revisa")))])],1)]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Observaciones")]),t._v(" "),e("div",{staticClass:"col-md-9"},[e("textarea",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.equipos.observaciones,expression:"equipos.observaciones"}],staticClass:"form-control",attrs:{cols:"4",maxlength:"50",minlength:"1","data-vv-name":"Observaciones",autocomplete:"off"},domProps:{value:t.equipos.observaciones},on:{input:function(e){e.target.composing||t.$set(t.equipos,"observaciones",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Observaciones")))])])])])],1),t._v(" "),e("div",{staticClass:"modal-footer"},[e("vue-element-loading",{attrs:{active:t.isGuardarequipos_loading}}),t._v(" "),e("div",[e("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(e){return t.CerrarModalEquipos()}}},[e("i",{staticClass:"fas fa-window-close"}),t._v(" Cerrar\n                            ")]),t._v(" "),1==t.tipoAccion_equipos?e("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(e){return t.RegistrarEquipos(!0)}}},[e("i",{staticClass:"fas fa-save"}),t._v(" Guardar\n                            ")]):t._e(),t._v(" "),2==t.tipoAccion_equipos?e("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(e){return t.RegistrarEquipos(!1)}}},[e("i",{staticClass:"fas fa-save"}),t._v(" Actualizar\n                            ")]):t._e()])],1)])])])]):t._e(),t._v(" "),t.ver_modal_calibraciones?e("div",{staticClass:"modal fade",class:{mostrar:t.ver_modal_calibraciones},staticStyle:{display:"none"},attrs:{tabindex:"-1",role:"dialog","aria-labelledby":"myModalLabel","aria-hidden":"true"}},[e("div",{staticClass:"modal-dialog modal-dark modal-lg",attrs:{role:"document"}},[e("div",{staticClass:"modal-content"},[e("div",[e("div",{staticClass:"modal-header"},[e("h4",{staticClass:"modal-title",domProps:{textContent:t._s(t.tituloModal_calibraciones)}}),t._v(" "),e("button",{staticClass:"close",attrs:{type:"button","aria-label":"Close"},on:{click:function(e){return t.CerrarModalCalibraciones()}}},[e("span",{attrs:{"aria-hidden":"true"}},[t._v("x")])])]),t._v(" "),e("div",{staticClass:"modal-body"},[e("vue-element-loading",{attrs:{active:t.isGuardarcalibraciones_loading}}),t._v(" "),e("div",[e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Fecha Servicio")]),t._v(" "),e("div",{staticClass:"col-md-4"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.calibraciones.fecha_servicio,expression:"calibraciones.fecha_servicio"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Fecha Servicio"},domProps:{value:t.calibraciones.fecha_servicio},on:{input:function(e){e.target.composing||t.$set(t.calibraciones,"fecha_servicio",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Fecha Servicio")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Próxima fecha")]),t._v(" "),e("div",{staticClass:"col-md-4"},[e("input",{directives:[{name:"validate",rawName:"v-validate",value:"required",expression:"'required'"},{name:"model",rawName:"v-model",value:t.calibraciones.proxima_fecha,expression:"calibraciones.proxima_fecha"}],staticClass:"form-control",attrs:{type:"date","data-vv-name":"Próxima fecha"},domProps:{value:t.calibraciones.proxima_fecha},on:{input:function(e){e.target.composing||t.$set(t.calibraciones,"proxima_fecha",e.target.value)}}}),t._v(" "),e("span",{staticClass:"text-danger"},[t._v(t._s(t.errors.first("Próxima fecha")))])])]),t._v(" "),e("div",{staticClass:"form-group row"},[e("label",{staticClass:"col-md-2 form-control-label"},[t._v("Certificado")]),t._v(" "),e("div",{staticClass:"col-md-6"},[e("input",{ref:"file_certificado",staticClass:"form-control",attrs:{type:"file",accept:"application/pdf"}})])])])],1),t._v(" "),e("div",{staticClass:"modal-footer"},[e("vue-element-loading",{attrs:{active:t.isGuardarcalibraciones_loading}}),t._v(" "),e("div",[e("button",{staticClass:"btn btn-outline-dark",attrs:{type:"button"},on:{click:function(e){return t.CerrarModalCalibraciones()}}},[e("i",{staticClass:"fas fa-window-close"}),t._v(" Cerrar\n                            ")]),t._v(" "),1==t.tipoAccion_calibraciones?e("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(e){return t.RegistrarCalibraciones(!0)}}},[e("i",{staticClass:"fas fa-save"}),t._v(" Guardar\n                            ")]):t._e(),t._v(" "),2==t.tipoAccion_calibraciones?e("button",{staticClass:"btn btn-secondary",attrs:{type:"button"},on:{click:function(e){return t.RegistrarCalibraciones(!1)}}},[e("i",{staticClass:"fas fa-save"}),t._v(" Actualizar\n                            ")]):t._e()])],1)])])])]):t._e()])}),[],!1,null,null,null).exports},96225:t=>{t.exports=function(){return{dateColumns:[],listColumns:{},datepickerOptions:{locale:{cancelLabel:"Clear"}},datepickerPerColumnOptions:{},initialPage:1,perPage:10,perPageValues:[10,25,50,100],groupBy:!1,collapseGroups:!1,destroyEventBus:!1,sendEmptyFilters:!1,params:{},sortable:!0,filterable:!0,groupMeta:[],initFilters:{},customFilters:[],templates:{},debounce:250,dateFormat:"DD/MM/YYYY",dateFormatPerColumn:{},toMomentFormat:!1,skin:"table table-striped table-bordered table-hover table-sm",skinBusqueda:"table table-striped table-bordered table-hover table-sm busqueda",columnsDisplay:{},columnsDropdown:!1,texts:{count:"Mostrando del {from} al  {to} de {count} registros|{count} registros|Un registro",first:"Primero",last:"Ultimo",filter:"Buscar:",filterPlaceholder:"Buscar...",limit:"Registros:",page:"Pagina:",noResults:"No se encontraron registros",filterBy:"Filtrar por {column}",loading:"Cargando...",defaultOption:"Seleccionar {column}",columns:"Columnas"},sortIcon:{base:"fa",up:"fa-chevron-up",down:"fa-chevron-down",is:"fa-sort"},sortingAlgorithm:function(t,e){return t.sort(this.getSortFn(e))},customSorting:{},multiSorting:{},clientMultiSorting:!0,serverMultiSorting:!1,filterByColumn:!1,highlightMatches:!1,orderBy:!1,descOrderColumns:[],footerHeadings:!1,headings:{},headingsTooltips:{},pagination:{dropdown:!1,chunk:10,edge:!1,align:"center",nav:"fixed"},childRow:!1,childRowTogglerFirst:!0,uniqueKey:"id",requestFunction:!1,requestAdapter:function(t){return t},responseAdapter:function(t){var e=this.getResponseData(t);return{data:e.data,count:e.count}},requestKeys:{query:"query",limit:"limit",orderBy:"orderBy",ascending:"ascending",page:"page",byColumn:"byColumn"},rowClassCallback:!1,preserveState:!1,saveState:!1,storage:"local",columnsClasses:{},columnCondicion:[{id:1,text:"Activo"},{id:0,text:"Desactivado"}]}}}}]);
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["calidad"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=script&lang=js":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=script&lang=js ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Herramientas/utilerias.js */ "./resources/assets/js/components/Herramientas/utilerias.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    var _ref;
+    return _ref = {
+      //// Equipos
+      list_empleados: [],
+      url_equipos: "calidad/calibracion/equipos",
+      tipoAccion_equipos: 1,
+      tipoCardEquipos: 1,
+      PermisosCRUD: {},
+      ver_modal_equipos: false,
+      tituloModal_equipos: "",
+      equipos_id: 0,
+      isGuardarequipos_loading: false,
+      isObtenerequipos_loading: false,
+      columns_equipos: ["id", "equipo", "marca", "modelo", "ns", "rango_medicion", "resguardo", "fecha_servicio", "proxima_fecha", "certificado", "condicion"],
+      list_equipos: [],
+      equipos: {},
+      options_equipos: {
+        headings: {
+          id: "Acciones",
+          equipo: "Equipo",
+          marca: "Marca",
+          modelo: "Modelo",
+          ns: "NS",
+          rango_medicion: "Rango Medicion",
+          resguardo: "Resguardo",
+          revisa: "Revisa",
+          observaciones: "Observaciones"
+        },
+        perPage: 10,
+        perPageValues: [],
+        skin: config.skin,
+        sortIcon: config.sortIcon,
+        filterByColumn: true,
+        texts: config.texts
+      },
+      //// Calibraciones
+      url_calibraciones: "calidad/calibracion",
+      tipoAccion_calibraciones: 1
+    }, _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_ref, "PermisosCRUD", {}), "ver_modal_calibraciones", false), "tituloModal_calibraciones", ""), "calibraciones_id", 0), "isGuardarcalibraciones_loading", false), "isObtenercalibraciones_loading", false), "columns_calibraciones", ["id", "fecha_servicio", "proxima_fecha", "certificado"]), "list_calibraciones", []), "calibraciones", {}), "options_calibraciones", {
+      headings: {
+        id: "Acciones",
+        fecha_servicio: "Fecha Servicio",
+        proxima_fecha: "Próxima fecha",
+        certificado: "Certificado"
+      },
+      perPage: 10,
+      perPageValues: [],
+      skin: config.skin,
+      sortIcon: config.sortIcon,
+      filterByColumn: true,
+      texts: config.texts
+    }), _defineProperty(_defineProperty(_ref, "tipos_descargar", []), "tipo_equipos", [{
+      id: 1,
+      nombre: "CONFIGURADORES TREX"
+    }, {
+      id: 2,
+      nombre: "EQUIPOS DE MEDICIÓN DE SOLDADURA "
+    }, {
+      id: 3,
+      nombre: "EQUIPOS DE TORQUE"
+    }, {
+      id: 4,
+      nombre: "EQUIPOS POR ASME"
+    }, {
+      id: 5,
+      nombre: "MAQUINAS DE COMBUSTION"
+    }, {
+      id: 6,
+      nombre: "MAQUINAS DE SOLDAR"
+    }, {
+      id: 7,
+      nombre: "VARIABLE: PRESIÓN"
+    }, {
+      id: 8,
+      nombre: "VARIABLE: RUGOSIDAD"
+    }, {
+      id: 9,
+      nombre: "VARIABLE: SALES SULUBLES, POROSIDAD, ESPESORES (PINTURA)"
+    }, {
+      id: 10,
+      nombre: "VARIABLE: TEMPERATURA"
+    }, {
+      id: 11,
+      nombre: "VARIALE: VOLTAJE, CORRIENTE, RESISTENCIA Y ASLAMIENTO"
+    }, {
+      id: 12,
+      nombre: "TODOS"
+    }]);
+  },
+  methods: {
+    /**
+     * Obtener los empleados activos
+     */
+    ObtenerEmpleados: function ObtenerEmpleados() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var res;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return axios.get("generales/empleadoactivos");
+            case 1:
+              res = _context.v;
+              if (res.data.status) {
+                _context.n = 2;
+                break;
+              }
+              toastr.error(res.data.mensaje);
+              return _context.a(2);
+            case 2:
+              _this.list_empleados = res.data.empleados;
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    /**
+     * Obtener todos los registros
+     */
+    ObtenerEquipos: function ObtenerEquipos() {
+      var _this2 = this;
+      this.isObtenerequipos_loading = true;
+      axios.get(this.url_equipos).then(function (res) {
+        _this2.isObtenerequipos_loading = false;
+        if (res.data.status) {
+          _this2.list_equipos = res.data.equipos;
+        } else {
+          toastr.error(res.data.mensaje);
+        }
+      });
+    },
+    /**
+     * Abrir modal Equipos
+     */
+    AbrirModalEquipos: function AbrirModalEquipos(nuevo) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.ver_modal_equipos = true;
+      if (nuevo) {
+        this.tituloModal_equipos = "Registrar Equipos de Calibración";
+        this.tipoAccion_equipos = 1;
+        this.equipos.observaciones = "-";
+      } else {
+        this.tituloModal_equipos = "Actualizar Equipos de Calibración";
+        this.tipoAccion_equipos = 2;
+        var tipo = this.tipo_equipos.find(function (t) {
+          return t.nombre == data.tipo;
+        });
+        this.equipos = _objectSpread(_objectSpread({}, data), {}, {
+          revisa: {
+            id: data.empleado_revisa_id,
+            nombre: data.revisa
+          },
+          tipo: tipo
+        });
+      }
+    },
+    /**
+     * Registrar Equipos
+     */
+    RegistrarEquipos: function RegistrarEquipos(nuevo) {
+      var _this3 = this;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        var data = new FormData();
+        if (!nuevo) data.append("id", _this3.equipos.id);
+        data.append("equipo", _this3.equipos.equipo);
+        data.append("marca", _this3.equipos.marca);
+        data.append("modelo", _this3.equipos.modelo);
+        data.append("tipo", _this3.equipos.tipo.nombre);
+        data.append("ns", _this3.equipos.ns);
+        data.append("rango_medicion", _this3.equipos.rango_medicion);
+        data.append("resguardo", _this3.equipos.resguardo);
+        data.append("frecuencia", _this3.equipos.frecuencia);
+        data.append("empleado_revisa_id", _this3.equipos.revisa.id);
+        data.append("observaciones", _this3.equipos.observaciones);
+        _this3.isGuardarequipos_loading = true;
+        axios.post(_this3.url_equipos, data).then(function (res) {
+          _this3.isGuardarequipos_loading = false;
+          if (res.data.status) {
+            toastr.success("Guardado correctamente");
+            _this3.ObtenerEquipos();
+            _this3.CerrarModalEquipos();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    /**
+     * Cerrar modal
+     */
+    CerrarModalEquipos: function CerrarModalEquipos() {
+      this.ver_modal_equipos = false;
+      this.equipos = {};
+    },
+    /**
+     * Abrir modal Calibraciones
+     */
+    AbrirModalCalibraciones: function AbrirModalCalibraciones() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      this.ver_modal_calibraciones = true;
+      this.tituloModal_calibraciones = "".concat(data.marca, " - ").concat(data.ns);
+      this.tipoAccion_calibraciones = 1;
+      this.equipos_id = data.id;
+    },
+    /**
+     * Registrar Calibraciones
+     */
+    RegistrarCalibraciones: function RegistrarCalibraciones(nuevo) {
+      var _this4 = this;
+      this.$validator.validate().then(function (isValid) {
+        if (!isValid) return;
+        var aux_certificado = 0;
+        var certificado = 0;
+        if (_this4.calibraciones.fecha_servicio == _this4.calibraciones.proxima_fecha) {
+          toastr.warning("Las fechas no pueden ser iguales");
+          return;
+        }
+        if (_this4.$refs.file_certificado.files.length == 0) {
+          toastr.warning("Seleccione un documento");
+          return;
+        }
+        aux_certificado = 1;
+        certificado = _this4.$refs.file_certificado.files[0];
+        var data = new FormData();
+        data.append("equipo_id", _this4.equipos_id);
+        data.append("fecha_servicio", _this4.calibraciones.fecha_servicio);
+        data.append("proxima_fecha", _this4.calibraciones.proxima_fecha);
+        data.append("certificado", certificado);
+        data.append("aux_certificado", aux_certificado);
+        _this4.isGuardarcalibraciones_loading = true;
+        axios.post(_this4.url_calibraciones + "/calibracion", data).then(function (res) {
+          _this4.isGuardarcalibraciones_loading = false;
+          if (res.data.status) {
+            toastr.success("Guardado correctamente");
+            _this4.ObtenerEquipos();
+            _this4.CerrarModalCalibraciones();
+          } else {
+            toastr.error(res.data.mensaje);
+          }
+        });
+      });
+    },
+    /**
+     * Cerrar modal
+     */
+    CerrarModalCalibraciones: function CerrarModalCalibraciones() {
+      this.ver_modal_calibraciones = false;
+      this.Calibraciones = {};
+    },
+    /**
+     * Descargar el certificado seleccionado
+     */
+    DescargarCertificado: function DescargarCertificado(nombre) {
+      window.open(this.url_calibraciones + "/certificado/" + nombre);
+    },
+    /**
+     * Descargar el reporte de los equipos
+     */
+    DescargarReporte: function DescargarReporte() {
+      var ids = this.tipos_descargar.map(function (t) {
+        return t.id;
+      }).join(",");
+      window.open("".concat(this.url_equipos, "/descargar/").concat(ids));
+    }
+  },
+  mounted: function mounted() {
+    this.ObtenerEmpleados();
+    this.ObtenerEquipos();
+    this.PermisosCRUD = _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].getCRUD(this.$route.path);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=script&lang=js":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=script&lang=js ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var EquiposCalibracion = function EquiposCalibracion(r) {
+  return __webpack_require__.e(/*! require.ensure | calib */ "calib").then((function () {
+    return r(__webpack_require__(/*! ./EquiposCalib.vue */ "./resources/assets/js/components/Calidad/Dashboard/EquiposCalib.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var modulo_id = 8;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      isLoading: false,
+      listaPermisos: []
+    };
+  },
+  components: {
+    'equiposcalib': EquiposCalibracion
+  },
+  methods: {},
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=template&id=a2077a66":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=template&id=a2077a66 ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.tipoCardEquipos == 1,
+      expression: "tipoCardEquipos==1"
+    }],
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("i", {
+    staticClass: "fa fa-align-justify"
+  }), _vm._v(" EQUIPOS DE CALIBRACIÓN\r\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
+    staticClass: "btn btn-dark float-sm-right",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.AbrirModalEquipos(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus"
+  }), _vm._v(" Nuevo\r\n                ")]), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
+    staticClass: "btn btn-dark float-sm-right mr-1",
+    attrs: {
+      type: "button",
+      "data-toggle": "collapse",
+      href: "#multiCollapseExample1",
+      role: "button",
+      "aria-expanded": "false",
+      "aria-controls": "multiCollapseExample1"
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-download mr-1"
+  }), _vm._v(" Descargar\r\n                ")]) : _vm._e()] : _vm._e()], 2), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "collapse multi-collapse",
+    attrs: {
+      id: "multiCollapseExample1"
+    }
+  }, [_c("div", {
+    staticClass: "container mb-4 row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("label", [_vm._v("Tipo")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      multiple: "",
+      options: _vm.tipo_equipos,
+      label: "nombre"
+    },
+    model: {
+      value: _vm.tipos_descargar,
+      callback: function callback($$v) {
+        _vm.tipos_descargar = $$v;
+      },
+      expression: "tipos_descargar"
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark mt-2",
+    on: {
+      click: _vm.DescargarReporte
+    }
+  }, [_vm._v("Generar")])], 1)])]), _vm._v(" "), _c("vue-element-loading", {
+    attrs: {
+      active: _vm.isObtenerequipos_loading
+    }
+  }), _vm._v(" "), _c("v-client-table", {
+    attrs: {
+      columns: _vm.columns_equipos,
+      data: _vm.list_equipos,
+      options: _vm.options_equipos
+    },
+    scopedSlots: _vm._u([{
+      key: "id",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "btn-group",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("div", {
+          staticClass: "btn-group dropup",
+          attrs: {
+            role: "group"
+          }
+        }, [_c("button", {
+          staticClass: "btn btn-outline-dark dropdown-toggle",
+          attrs: {
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-grip-horizontal"
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
+          staticClass: "dropdown-menu"
+        }, [_vm.PermisosCRUD.Update ? _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalEquipos(false, props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-edit"
+        }), _vm._v(" Actualizar\r\n                                ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Create ? _c("button", {
+          staticClass: "dropdown-item",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.AbrirModalCalibraciones(props.row);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-plus"
+        }), _vm._v(" Registrar Calibración\r\n                                ")]) : _vm._e()])])])];
+      }
+    }, {
+      key: "condicion",
+      fn: function fn(props) {
+        return [props.row.condicion == 1 ? [_c("button", {
+          staticClass: "btn btn-outline-success"
+        }, [_vm._v("Activo")])] : [_c("button", {
+          staticClass: "btn btn-outline-danger"
+        }, [_vm._v("Inactivo")])]];
+      }
+    }, {
+      key: "proxima_fecha",
+      fn: function fn(props) {
+        return [props.row.proxima_fecha == 0 ? [_c("p", [_vm._v("N/D")])] : [_c("p", [_vm._v(_vm._s(props.row.proxima_fecha))])]];
+      }
+    }, {
+      key: "fecha_servicio",
+      fn: function fn(props) {
+        return [props.row.fecha_servicio == 0 ? [_c("p", [_vm._v("N/D")])] : [_c("p", [_vm._v(_vm._s(props.row.fecha_servicio))])]];
+      }
+    }, {
+      key: "certificado",
+      fn: function fn(props) {
+        return [_c("div", {
+          staticClass: "text-center"
+        }, [props.row.certificado ? [_c("button", {
+          staticClass: "btn btn-outline-dark",
+          on: {
+            click: function click($event) {
+              return _vm.DescargarCertificado(props.row.certificado);
+            }
+          }
+        }, [_c("i", {
+          staticClass: "fas fa-download"
+        })])] : [_c("button", {
+          staticClass: "btn btn-outline-dark"
+        }, [_vm._v("N/D")])]], 2)];
+      }
+    }])
+  })], 1)]), _vm._v(" "), _vm.ver_modal_equipos ? _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_equipos
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal_equipos)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalEquipos();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("x")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarequipos_loading
+    }
+  }), _vm._v(" "), _c("div", [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Equipo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.equipo,
+      expression: "equipos.equipo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "125",
+      minlength: "3",
+      "data-vv-name": "Equipo",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.equipo
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "equipo", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Equipo")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Marca")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.marca,
+      expression: "equipos.marca"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "50",
+      minlength: "3",
+      "data-vv-name": "Marca",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.marca
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "marca", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Marca")))])]), _vm._v(" "), _c("label", {
+    staticClass: "col-md-1 form-control-label"
+  }, [_vm._v("Modelo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.modelo,
+      expression: "equipos.modelo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "50",
+      minlength: "3",
+      "data-vv-name": "Modelo",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.modelo
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "modelo", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Modelo")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("NS")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.ns,
+      expression: "equipos.ns"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "50",
+      minlength: "3",
+      "data-vv-name": "NS",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.ns
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "ns", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("NS")))])]), _vm._v(" "), _c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Rango Medicion")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.rango_medicion,
+      expression: "equipos.rango_medicion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "80",
+      minlength: "3",
+      "data-vv-name": "Rango Medicion",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.rango_medicion
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "rango_medicion", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Rango Medicion")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Tipo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.tipo,
+      expression: "equipos.tipo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "va-validate": "'required'",
+      "data-vv-name": "Tipo"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.equipos, "tipo", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, _vm._l(_vm.tipo_equipos, function (t, i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: t
+      }
+    }, [_vm._v(_vm._s(t.nombre))]);
+  }), 0), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Tipo")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Frecuencia")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.frecuencia,
+      expression: "equipos.frecuencia"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "5",
+      minlength: "3",
+      "data-vv-name": "Frecuencia",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.frecuencia
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "frecuencia", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Frecuencia")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Resguardo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.resguardo,
+      expression: "equipos.resguardo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "50",
+      minlength: "3",
+      "data-vv-name": "Resguardo",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.resguardo
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "resguardo", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Resguardo")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Revisa")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("v-select", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }],
+    attrs: {
+      label: "nombre",
+      options: _vm.list_empleados,
+      "data-vv-name": "Revisa"
+    },
+    model: {
+      value: _vm.equipos.revisa,
+      callback: function callback($$v) {
+        _vm.$set(_vm.equipos, "revisa", $$v);
+      },
+      expression: "equipos.revisa"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Revisa")))])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Observaciones")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-9"
+  }, [_c("textarea", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.equipos.observaciones,
+      expression: "equipos.observaciones"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      cols: "4",
+      maxlength: "50",
+      minlength: "1",
+      "data-vv-name": "Observaciones",
+      autocomplete: "off"
+    },
+    domProps: {
+      value: _vm.equipos.observaciones
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.equipos, "observaciones", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Observaciones")))])])])])], 1), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarequipos_loading
+    }
+  }), _vm._v(" "), _c("div", [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalEquipos();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_equipos == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.RegistrarEquipos(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_equipos == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.RegistrarEquipos(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.ver_modal_calibraciones ? _c("div", {
+    staticClass: "modal fade",
+    "class": {
+      mostrar: _vm.ver_modal_calibraciones
+    },
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-dark modal-lg",
+    attrs: {
+      role: "document"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_c("div", [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    domProps: {
+      textContent: _vm._s(_vm.tituloModal_calibraciones)
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "aria-label": "Close"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalCalibraciones();
+      }
+    }
+  }, [_c("span", {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("x")])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarcalibraciones_loading
+    }
+  }), _vm._v(" "), _c("div", [_c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Fecha Servicio")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.calibraciones.fecha_servicio,
+      expression: "calibraciones.fecha_servicio"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Fecha Servicio"
+    },
+    domProps: {
+      value: _vm.calibraciones.fecha_servicio
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.calibraciones, "fecha_servicio", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Fecha Servicio")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Próxima fecha")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.calibraciones.proxima_fecha,
+      expression: "calibraciones.proxima_fecha"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date",
+      "data-vv-name": "Próxima fecha"
+    },
+    domProps: {
+      value: _vm.calibraciones.proxima_fecha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.calibraciones, "proxima_fecha", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Próxima fecha")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group row"
+  }, [_c("label", {
+    staticClass: "col-md-2 form-control-label"
+  }, [_vm._v("Certificado")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("input", {
+    ref: "file_certificado",
+    staticClass: "form-control",
+    attrs: {
+      type: "file",
+      accept: "application/pdf"
+    }
+  })])])])], 1), _vm._v(" "), _c("div", {
+    staticClass: "modal-footer"
+  }, [_c("vue-element-loading", {
+    attrs: {
+      active: _vm.isGuardarcalibraciones_loading
+    }
+  }), _vm._v(" "), _c("div", [_c("button", {
+    staticClass: "btn btn-outline-dark",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.CerrarModalCalibraciones();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-window-close"
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_calibraciones == 1 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.RegistrarCalibraciones(true);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_calibraciones == 2 ? _c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.RegistrarCalibraciones(false);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-save"
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=template&id=365a80b1":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=template&id=365a80b1 ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("main", {
+    staticClass: "main"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("equiposcalib")], 1)])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue":
+/*!************************************************************************************!*\
+  !*** ./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EquiposCalibracion2_vue_vue_type_template_id_a2077a66__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquiposCalibracion2.vue?vue&type=template&id=a2077a66 */ "./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=template&id=a2077a66");
+/* harmony import */ var _EquiposCalibracion2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquiposCalibracion2.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EquiposCalibracion2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EquiposCalibracion2_vue_vue_type_template_id_a2077a66__WEBPACK_IMPORTED_MODULE_0__.render,
+  _EquiposCalibracion2_vue_vue_type_template_id_a2077a66__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposCalibracion2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EquiposCalibracion2.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposCalibracion2_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=template&id=a2077a66":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=template&id=a2077a66 ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposCalibracion2_vue_vue_type_template_id_a2077a66__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposCalibracion2_vue_vue_type_template_id_a2077a66__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposCalibracion2_vue_vue_type_template_id_a2077a66__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EquiposCalibracion2.vue?vue&type=template&id=a2077a66 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue?vue&type=template&id=a2077a66");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Dashborad_vue_vue_type_template_id_365a80b1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Dashborad.vue?vue&type=template&id=365a80b1 */ "./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=template&id=365a80b1");
+/* harmony import */ var _Dashborad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Dashborad.vue?vue&type=script&lang=js */ "./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Dashborad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Dashborad_vue_vue_type_template_id_365a80b1__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Dashborad_vue_vue_type_template_id_365a80b1__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "resources/assets/js/components/Calidad/Dashboard/Dashborad.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=script&lang=js":
+/*!************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashborad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Dashborad.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashborad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=template&id=365a80b1":
+/*!******************************************************************************************************!*\
+  !*** ./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=template&id=365a80b1 ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashborad_vue_vue_type_template_id_365a80b1__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashborad_vue_vue_type_template_id_365a80b1__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashborad_vue_vue_type_template_id_365a80b1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Dashborad.vue?vue&type=template&id=365a80b1 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Calidad/Dashboard/Dashborad.vue?vue&type=template&id=365a80b1");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Herramientas/config-vuetables-client.js":
+/*!********************************************************************************!*\
+  !*** ./resources/assets/js/components/Herramientas/config-vuetables-client.js ***!
+  \********************************************************************************/
+/***/ ((module) => {
+
+module.exports = function () {
+  return {
+    dateColumns: [],
+    listColumns: {},
+    datepickerOptions: {
+      locale: {
+        cancelLabel: 'Clear'
+      }
+    },
+    datepickerPerColumnOptions: {},
+    initialPage: 1,
+    perPage: 10,
+    perPageValues: [10, 25, 50, 100],
+    groupBy: false,
+    collapseGroups: false,
+    destroyEventBus: false,
+    sendEmptyFilters: false,
+    params: {},
+    sortable: true,
+    filterable: true,
+    groupMeta: [],
+    initFilters: {},
+    customFilters: [],
+    templates: {},
+    debounce: 250,
+    dateFormat: "DD/MM/YYYY",
+    dateFormatPerColumn: {},
+    toMomentFormat: false,
+    skin: 'table table-striped table-bordered table-hover table-sm',
+    skinBusqueda: 'table table-striped table-bordered table-hover table-sm busqueda',
+    columnsDisplay: {},
+    columnsDropdown: false,
+    texts: {
+      count: "Mostrando del {from} al  {to} de {count} registros|{count} registros|Un registro",
+      first: 'Primero',
+      last: 'Ultimo',
+      filter: "Buscar:",
+      filterPlaceholder: "Buscar...",
+      limit: "Registros:",
+      page: "Pagina:",
+      noResults: "No se encontraron registros",
+      filterBy: "Filtrar por {column}",
+      loading: 'Cargando...',
+      defaultOption: 'Seleccionar {column}',
+      columns: 'Columnas'
+    },
+    sortIcon: {
+      base: 'fa',
+      up: 'fa-chevron-up',
+      down: 'fa-chevron-down',
+      is: 'fa-sort'
+    },
+    sortingAlgorithm: function sortingAlgorithm(data, column) {
+      return data.sort(this.getSortFn(column));
+    },
+    customSorting: {},
+    multiSorting: {},
+    clientMultiSorting: true,
+    serverMultiSorting: false,
+    filterByColumn: false,
+    highlightMatches: false,
+    orderBy: false,
+    descOrderColumns: [],
+    footerHeadings: false,
+    headings: {},
+    headingsTooltips: {},
+    pagination: {
+      dropdown: false,
+      chunk: 10,
+      edge: false,
+      align: 'center',
+      nav: 'fixed'
+    },
+    childRow: false,
+    childRowTogglerFirst: true,
+    uniqueKey: 'id',
+    requestFunction: false,
+    requestAdapter: function requestAdapter(data) {
+      return data;
+    },
+    responseAdapter: function responseAdapter(resp) {
+      var data = this.getResponseData(resp);
+      return {
+        data: data.data,
+        count: data.count
+      };
+    },
+    requestKeys: {
+      query: 'query',
+      limit: 'limit',
+      orderBy: 'orderBy',
+      ascending: 'ascending',
+      page: 'page',
+      byColumn: 'byColumn'
+    },
+    rowClassCallback: false,
+    preserveState: false,
+    saveState: false,
+    storage: 'local',
+    columnsClasses: {},
+    columnCondicion: [{
+      id: 1,
+      text: 'Activo'
+    }, {
+      id: 0,
+      text: 'Desactivado'
+    }]
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Herramientas/utilerias.js":
+/*!******************************************************************!*\
+  !*** ./resources/assets/js/components/Herramientas/utilerias.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  resetObject: function resetObject(obj) {
+    for (var key in obj) {
+      if (typeof obj[key] === 'string') obj[key] = '';else if (typeof obj[key] === 'number') obj[key] = 0;else if (_typeof(obj[key]) === undefined) obj[key] = null;else if (_typeof(obj[key]) === 'object') obj[key] = {};
+    }
+  },
+  getCRUD: function getCRUD(ruta) {
+    var formData = new FormData();
+    formData.append('ruta', ruta);
+    formData.append('identificador', 1);
+    var permisos = {
+      Create: false,
+      Read: false,
+      Update: false,
+      Delete: false,
+      Download: false,
+      Upload: false
+    };
+    axios.post('/CRUD', formData).then(function (response) {
+      for (var i = 0; i < response.data.length; i++) {
+        if (response.data[i].control_id == 1) {
+          permisos.Create = true;
+        }
+        if (response.data[i].control_id == 2) {
+          permisos.Read = true;
+        }
+        if (response.data[i].control_id == 3) {
+          permisos.Update = true;
+        }
+        if (response.data[i].control_id == 4) {
+          permisos.Delete = true;
+        }
+        if (response.data[i].control_id == 5) {
+          permisos.Download = true;
+        }
+        if (response.data[i].control_id == 6) {
+          permisos.Upload = true;
+        }
+      }
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    return permisos;
+  }
+});
+
+/***/ })
+
+}]);

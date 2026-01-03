@@ -1,41 +1,45 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\Utilidades;
 
 class Status
 {
-    /**
-     * Retorna un response correcto con los datos obtenidos
-     *
-     * @param  string  $nombre Nombre del recurso a regresar
-     * @param  array   $data Array con los elementos a regresar
-     */
-    public static function Success($nombre = "", $data = [])
+    public static function success($nombre = "", $data = [])
     {
-        return response()->json(["status" => true, $nombre => $data]);
+        return response()->json([
+            'status' => true,
+            $nombre => $data
+        ], 200);
     }
 
-    /**
-     * Retorna un response con error
-     *
-     * @param  Exception  $exception Exception a mostrar
-     * @param  string   $mensaje Mensaje de error
-     */
-    public static function Error($exception, $mensaje = "obtener los datos")
+    //error con excepción 500
+    public static function Error($exception, $mensaje = "procesar la solicitud")
     {
+        //log del error
+        Log::error('[STATUS ERROR]',[
+            'Mensaje'   => $mensaje,
+            'error'     => $exception->getMessage(),
+            'line'      => $exception->getLine(),
+            'file'      => $exception->getFile()
+        ]);
+
         Utilidades::errors($exception);
-        return response()->json(["status" >= false, "mensaje" => "Error al " . $mensaje]);
+
+        return response()->json([
+            'status'    => false,
+            'message'   => 'Error al ' . $mensaje
+        ], 500);
     }
 
-    /**
-     * Retorna un response con error sin excepcion
-     *
-     * @param  string   $mensaje Mensaje de error
-     */
-    public static function Error2($mensaje)
+    //error con excepcion 400
+
+    public static function Error2($mensaje, $code = 400)
     {
-        return response()->json(["status" >= false, "mensaje" => $mensaje]);
+        return response()->json([
+            'status'    =>   false,
+            'message'   =>  $mensaje
+        ],  $code);
     }
 }

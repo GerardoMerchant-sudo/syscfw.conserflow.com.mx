@@ -3,20 +3,24 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Evaluación de Proveedores - {{anio}}
-                <button v-show="PermisosCrud.Download" class="btn btn-dark float-sm-right" @click="DescargarReporte">
+                <i class="fa fa-clipboard-check fa-2x"></i> Evaluación de Proveedores <strong>{{ mes === 2 ? 'Febrero' : 'Agosto'}} {{ anio }}</strong>
+
+                <button v-show="PermisosCrud.Download" class="btn btn-dark float-sm-right ml-2 " @click="DescargarReporte">
                     <i class="fas fa-download mr-1"></i>Reporte
                 </button>
-                <div class="dropdown float-sm-right">
+                <div class="dropdown float-sm-right ">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Año
+                    {{ mes === 2 ? 'Febrero' : 'Agosto'}} {{ anio }}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" @click="anio = 2020;ObtenerProveedores();">2020</button>
-                        <button class="dropdown-item" type="button" @click="anio = 2021;ObtenerProveedores();">2021</button>
-                        <button class="dropdown-item" type="button" @click="anio = 2022;ObtenerProveedores();">2022</button>
-                        <button class="dropdown-item" type="button" @click="anio = 2023;ObtenerProveedores();">2023</button>
-                        <button class="dropdown-item" type="button" @click="anio = 2024;ObtenerProveedores();">2024</button>
+                        <button
+                            v-for="p in periods"
+                            :key = "p.month" 
+                            class="dropdown-item" 
+                            type="button" 
+                            @click="selectPeriods(p.anio, p.mes)"
+                            >{{ p.month }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -432,7 +436,6 @@ export default
             banco_edit:
             {},
             tipo_guardar: 1,
-            anio: 1,
             ListBancos_temp: [],
             ListBancos: [],
             listaEmpleados: [],
@@ -516,10 +519,13 @@ export default
             isLoading_proveedores: false,
             columns: [
                 'id',
+                'idControl',
                 'nombre',
                 'razon_social',
-                'rfc',
+                //'rfc',
+                'IdentificadorFiscal',
                 'total_evaluacion',
+                'fecha',
                 'direccion'
             ],
             list_proveedores: [],
@@ -528,10 +534,13 @@ export default
                 headings:
                 {
                     id: 'Acciones',
+                    idControl: 'ID',
                     nombre: 'Nombre',
                     razon_social: 'Razón Social',
                     direccion: 'Dirección',
                     total_eval: 'Calificación',
+                    IdentificadorFiscal: 'Identificador Fiscal',
+                    fecha : 'Fecha'
 
                 },
                 perPage: 10,
@@ -541,17 +550,47 @@ export default
                 filterByColumn: true,
                 texts: config.texts
             },
+            periods: [],
+            yearSince: 2021,
+            yearUntil: 2025,
+            selectedPeriod: null,
+            anio: null,
+            mes: null,
+
+
         }
     },
     computed:
     {},
+    created(){
+        this.setPeriodoActual();
+    },
+    mounted()
+    {
+        this.getData();
+        this.generatePeriods();
+        this.setPeriodoActual();
+    },
     methods:
     {
+        setPeriodoActual() {
+            const today = new Date()
+            const currentMonth = today.getMonth() + 1 
+            const currentYear = today.getFullYear()
+
+            this.anio = currentYear
+
+            if (currentMonth >= 2 && currentMonth <= 7) {
+                this.mes = 8 // Agosto
+            } else {
+                this.mes = 2 // febrero 
+            }
+
+            this.ObtenerProveedores()
+        },
+
         getData()
         {
-            let d = new Date();
-            this.anio = d.getFullYear();
-            this.ObtenerProveedores();
             this.PermisosCrud = Utilerias.getCRUD(this.$route.path);
             this.listaEmpleados.push(
                 
@@ -582,26 +621,57 @@ export default
             );
         },
 
+        /*periodo de evaluación del 2021 al 2025 */
+
+        generatePeriods(){
+            this.periods = []
+
+            for( let year = this.yearSince; year <= this.yearUntil; year++){
+                this.periods.push({
+                    month : `Febrero ${year}`,
+                    anio: year,
+                    mes:2
+                })
+                this.periods.push({
+                    month : `Agosto ${year}`,
+                    anio: year,
+                    mes:8
+                })
+            }
+        },
+        selectPeriods(anio, mes){
+            this.anio = anio
+            this.mes = mes
+            this.ObtenerProveedores()
+        },
+
         /**
          * Obtiene los proveedores registrados y la evaluación del año seleccionado
          */
-        ObtenerProveedores()
-        {
-            this.isLoading_proveedores = true;
-            axios.get("compras/evlauacion/obtenerproveedores/" + this.anio).then(res =>
-            {
-                this.isLoading_proveedores = false;
-                if (res.data.status)
-                {
-                    this.list_proveedores = res.data.proveedores;
-                }
-                else
-                {
-                    toastr.error(res.data.mensaje);
-                }
-            });
-        },
+        async ObtenerProveedores() {
+            this.isLoading_proveedores = true
 
+            try {
+                const res = await axios.get(
+                    `compras/evaluacion/obtenerproveedores/${this.anio}/${this.mes}`
+                )
+
+                if (res.data.status) {
+                    this.list_proveedores = Array.isArray(res.data.proveedores)
+                        ? res.data.proveedores
+                        : []
+                } else {
+                    this.list_proveedores = []
+                    toastr.error(res.data.mensaje)
+                }
+
+            } catch (error) {
+                this.list_proveedores = []
+                toastr.error('Error al obtener proveedores')
+            } finally {
+                this.isLoading_proveedores = false
+            }
+        },
         /**
          * Registrar evaluación de proveedor
          */
@@ -759,9 +829,6 @@ export default
             window.open("compras/evaluacion/descargarreporte/" + this.anio);
         }
     },
-    mounted()
-    {
-        this.getData();
-    }
+   
 }
 </script>

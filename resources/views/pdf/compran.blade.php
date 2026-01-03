@@ -352,7 +352,7 @@
       </tr>
       <tr>
         <td class="pdb">{{$compra[0]->razonsocialp }}</td>
-        <td class="pdb">RAMON CRUZ MARTINEZ</td>
+        <td class="pdb">{{$compra[0]->nombrea}}</td>
         <td class="pdb">
           {{$compra[0]->nomnree}}  
         </td>

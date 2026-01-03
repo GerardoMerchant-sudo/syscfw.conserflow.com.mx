@@ -12,7 +12,7 @@ header('Content-Type: text/html');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema">
-    <meta name="author" content="">
+    <meta name="author" content=""> 
     <meta name="keyword" content="">
     <title>Sistema de Gestion Conserflow</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,13 +24,19 @@ header('Content-Type: text/html');
     <!--Evita ver contenido despues de cerrar sesión-->
     <meta http-equiv="Expires" content="0" />
     <meta http-equiv="Pragma" content="no-cache" />
+<!-- Bootstrap primero -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/tablesfixed.css">
-    <link href="css/plantilla.css" rel="stylesheet">
+<!-- Tu plantilla compilada -->
+<link href="{{ mix('css/plantilla.css') }}" rel="stylesheet">
+
+<!-- CSS adicional de tablas o overrides -->
+<link rel="stylesheet" href="css/tablesfixed.css">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden ">
     <div id="app">
         <header class="app-header navbar">
             <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
@@ -91,6 +97,7 @@ header('Content-Type: text/html');
             border-right: 1px solid gray;
             line-height: 2rem;
         }
+       
     </style>
 </body>
 

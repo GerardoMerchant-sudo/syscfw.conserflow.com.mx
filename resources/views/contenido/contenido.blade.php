@@ -8,11 +8,11 @@
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-modulos modal-content rounded">
                 <div class="modal-header">
-                    <p class="modulos-title modal-title col-10 text-white font-weight-bold text-center">
+                    <p class="modulos-title modal-title col-10 text-black font-weight-bold text-center">
                         Módulos Del Sistema
                     </p>
                     <button type="button" class="close" @click="cerrarModalModulos()" aria-label="Close">
-                        <span class="text-white" aria-hidden="true">x</span>
+                        <span class="text-white" aria-hidden="true">❌</span>
                     </button>
                 </div>
                 <div class="modal-body">
