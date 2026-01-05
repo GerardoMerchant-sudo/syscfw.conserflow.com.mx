@@ -741,7 +741,7 @@ var render = function render() {
         "aria-expanded": "true",
         "aria-controls": "collapse" + index
       }
-    }, [_vm._v("\r\n                                " + _vm._s(_vm.obtenerNombreArchivo(nombre)) + "\r\n                            ")])])]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                                " + _vm._s(_vm.obtenerNombreArchivo(nombre)) + "\n                            ")])])]), _vm._v(" "), _c("div", {
       staticClass: "collapse",
       attrs: {
         id: "collapse" + index,
@@ -777,7 +777,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Apoyos Visuales\r\n        ")]);
+  }), _vm._v(" Apoyos Visuales\n        ")]);
 }];
 render._withStripped = true;
 
@@ -823,7 +823,7 @@ var render = function render() {
         return _vm.openModal("img/certificaciones/Certificado-Conserflow-ISO-14001.webp", "Ambiental");
       }
     }
-  }), _vm._v(" "), _c("p", [_vm._v("\r\n                        Diseño, desarrollo, fabricación de equipos de medición, control regulación de\r\n                        líquidos y gases, ensamble de gabinetes de control, para la industria de\r\n                        hidrocarburos, desde la comercialización de materiales, componentes y refacciones,\r\n                        hasta el desarrollo de proyectos integrales\r\n                    ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("p", [_vm._v("\n                        Diseño, desarrollo, fabricación de equipos de medición, control regulación de\n                        líquidos y gases, ensamble de gabinetes de control, para la industria de\n                        hidrocarburos, desde la comercialización de materiales, componentes y refacciones,\n                        hasta el desarrollo de proyectos integrales\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "col"
   }, [_vm._m(2), _vm._v(" "), _c("img", {
     staticClass: "border rounded px-2 my-2",
@@ -837,7 +837,7 @@ var render = function render() {
         return _vm.openModal("img/certificaciones/Certificado-Conserflow-ISO-9001.webp", "Calidad");
       }
     }
-  }), _vm._v(" "), _c("p", [_vm._v("\r\n                        Diseño, desarrollo, fabricación de equipos de medición, control regulación de\r\n                        líquidos y gases, ensamble de gabinetes de control, para la industria de\r\n                        hidrocarburos, desde la comercialización de materiales, componentes y refacciones,\r\n                        hasta el desarrollo de proyectos integrales\r\n                    ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("p", [_vm._v("\n                        Diseño, desarrollo, fabricación de equipos de medición, control regulación de\n                        líquidos y gases, ensamble de gabinetes de control, para la industria de\n                        hidrocarburos, desde la comercialización de materiales, componentes y refacciones,\n                        hasta el desarrollo de proyectos integrales\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "col"
   }, [_c("p", {
     staticClass: "mb-1 mt-2 h5"
@@ -853,7 +853,7 @@ var render = function render() {
         return _vm.openModal("img/certificaciones/Certificado-ASME-2022.webp", "Calidad");
       }
     }
-  }), _vm._v(" "), _c("p", [_vm._v("\r\n                        Fabricación de recipientes a presión en la ubicación mencionada y en sitios de campo controlados por la ubicación mencionada.\r\n                    ")])])])])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("p", [_vm._v("\n                        Fabricación de recipientes a presión en la ubicación mencionada y en sitios de campo controlados por la ubicación mencionada.\n                    ")])])])])]), _vm._v(" "), _c("div", {
     ref: "myModal",
     staticClass: "modal1",
     attrs: {
@@ -885,7 +885,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v("Certificaciones\r\n        ")]);
+  }), _vm._v("Certificaciones\n        ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -945,7 +945,7 @@ var render = function render() {
           return _vm.AbrirDocumento(f);
         }
       }
-    }, [_vm._v("\r\n                                " + _vm._s(f.name.replace("." + f.type, "")) + "\r\n                            ")])]);
+    }, [_vm._v("\n                                " + _vm._s(f.name.replace("." + f.type, "")) + "\n                            ")])]);
   }), 0)], 1)])])]), _vm._v(" "), _vm.ver_modal_documento ? _c("div", {
     staticClass: "modal fade",
     "class": {
@@ -1021,7 +1021,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Contexto de la Organización y Partes Interesadas\r\n        ")]);
+  }), _vm._v(" Contexto de la Organización y Partes Interesadas\n        ")]);
 }];
 render._withStripped = true;
 
@@ -1100,7 +1100,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "true",
       "aria-controls": "collapseOne"
     }
-  }, [_vm._v("\r\n                                        INFORME DE LOGRO DE OBJETIVOS\r\n                                    ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                        INFORME DE LOGRO DE OBJETIVOS\n                                    ")])])]), _vm._v(" "), _c("div", {
     staticClass: "collapse",
     attrs: {
       id: "collapseOne",
@@ -1336,7 +1336,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Normativas\r\n        ")]);
+  }), _vm._v(" Normativas\n        ")]);
 }];
 render._withStripped = true;
 
@@ -1379,7 +1379,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "title"
-  }, [_vm._v("\r\n                            Política De Puntualidad, Asistencia y Permisos")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("li", {
+  }, [_vm._v("\n                            Política De Puntualidad, Asistencia y Permisos")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("li", {
     staticStyle: {
       "--accent-color": "#1B516C"
     },
@@ -1507,7 +1507,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Políticas\r\n        ")]);
+  }), _vm._v(" Políticas\n        ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1879,7 +1879,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Procedimientos\r\n        ")]);
+  }), _vm._v(" Procedimientos\n        ")]);
 }];
 render._withStripped = true;
 
@@ -2036,7 +2036,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Seguridad Salud y Medio Ambiente\r\n        ")]);
+  }), _vm._v(" Seguridad Salud y Medio Ambiente\n        ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -2067,7 +2067,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nimg[data-v-093ef450]\r\n{\r\n    cursor: pointer;\n}\n.modal1[data-v-093ef450] {\r\n    display: none;\r\n    position: fixed;\r\n    z-index: 3;\r\n    padding-top: 100px;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgb(0, 0, 0);\r\n    background-color: rgba(0, 0, 0, 0.9);\n}\n.modal-content1[data-v-093ef450] {\r\n    margin: auto;\r\n    display: block;\r\n    width: auto;\n}\n#caption1[data-v-093ef450] {\r\n    margin: auto;\r\n    display: block;\r\n    width: 80%;\r\n    max-width: 700px;\r\n    text-align: center;\r\n    color: #ccc;\r\n    padding: 10px 0;\r\n    height: 150px;\n}\n#animation[data-v-093ef450] {\r\n    -webkit-animation-name: zoom-093ef450;\r\n    -webkit-animation-duration: 0.6s;\r\n    animation-name: zoom-093ef450;\r\n    animation-duration: 0.6s;\n}\n#imgModal[data-v-093ef450] {\r\n    max-width: 90vw;\n}\n@keyframes zoom-093ef450 {\nfrom {\r\n        transform: scale(0)\n}\nto {\r\n        transform: scale(1)\n}\n}\n.close1[data-v-093ef450] {\r\n    position: absolute;\r\n    top: 15px;\r\n    right: 35px;\r\n    color: #f1f1f1;\r\n    font-size: 40px;\r\n    font-weight: bold;\r\n    transition: 0.3s;\n}\n.close1[data-v-093ef450]:hover,\r\n.close1[data-v-093ef450]:focus {\r\n    color: #bbb;\r\n    text-decoration: none;\r\n    cursor: pointer;\n}\n@media only screen and (max-width: 700px) {\n.modal-content[data-v-093ef450] {\r\n        width: 100%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nimg[data-v-093ef450]\n{\n    cursor: pointer;\n}\n.modal1[data-v-093ef450] {\n    display: none;\n    position: fixed;\n    z-index: 3;\n    padding-top: 100px;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    overflow: auto;\n    background-color: rgb(0, 0, 0);\n    background-color: rgba(0, 0, 0, 0.9);\n}\n.modal-content1[data-v-093ef450] {\n    margin: auto;\n    display: block;\n    width: auto;\n}\n#caption1[data-v-093ef450] {\n    margin: auto;\n    display: block;\n    width: 80%;\n    max-width: 700px;\n    text-align: center;\n    color: #ccc;\n    padding: 10px 0;\n    height: 150px;\n}\n#animation[data-v-093ef450] {\n    -webkit-animation-name: zoom-093ef450;\n    -webkit-animation-duration: 0.6s;\n    animation-name: zoom-093ef450;\n    animation-duration: 0.6s;\n}\n#imgModal[data-v-093ef450] {\n    max-width: 90vw;\n}\n@keyframes zoom-093ef450 {\nfrom {\n        transform: scale(0)\n}\nto {\n        transform: scale(1)\n}\n}\n.close1[data-v-093ef450] {\n    position: absolute;\n    top: 15px;\n    right: 35px;\n    color: #f1f1f1;\n    font-size: 40px;\n    font-weight: bold;\n    transition: 0.3s;\n}\n.close1[data-v-093ef450]:hover,\n.close1[data-v-093ef450]:focus {\n    color: #bbb;\n    text-decoration: none;\n    cursor: pointer;\n}\n@media only screen and (max-width: 700px) {\n.modal-content[data-v-093ef450] {\n        width: 100%;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2090,7 +2090,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.doc {\r\n    font-size: 16px;\r\n    text-transform: uppercase;\n}\n.doc:hover\r\n{\r\n    cursor: pointer;\r\n    text-decoration: underline;\r\n    color: blue;\n}\n.modal-dialog2 {\r\n    max-width: 90%;\n}\n.modal-body2 {\r\n    padding: 0px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.doc {\n    font-size: 16px;\n    text-transform: uppercase;\n}\n.doc:hover\n{\n    cursor: pointer;\n    text-decoration: underline;\n    color: blue;\n}\n.modal-dialog2 {\n    max-width: 90%;\n}\n.modal-body2 {\n    padding: 0px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2113,7 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.spacer[data-v-6683af70] {\r\n    height: 5rem;\n}\n.container-valores[data-v-6683af70] {\r\n    display: flex;\r\n    max-width: 100vw;\r\n    justify-content: center;\r\n    flex-wrap: wrap;\n}\n.container-valores img[data-v-6683af70] {\r\n    height: 18rem;\n}\n.img-2[data-v-6683af70] {\r\n    margin-top: 6rem;\n}\n.img-3[data-v-6683af70] {\r\n    margin-top: 12rem;\n}\n.img-sombra[data-v-6683af70] {\r\n    height: 10rem;\n}\n.calidad[data-v-6683af70] {\r\n    color: #D59300;\n}\n.seguridad[data-v-6683af70] {\r\n    color: #EA5B2A;\n}\n.ambiente[data-v-6683af70] {\r\n    color: #47AD4C;\n}\n.salud[data-v-6683af70] {\r\n    color: #36709D;\n}\n.img-conser[data-v-6683af70] {\r\n    width: 5rem;\r\n    background-image: url(\"/img/conserflow.png\");\r\n    display: inline-flex;\r\n    background-size: cover;\r\n    height: 1.5rem;\n}\n.img-politica[data-v-6683af70] {\r\n    width: 25rem;\n}\n.objetivos_titulo[data-v-6683af70] {\r\n    width: 28rem;\n}\n.objetivos[data-v-6683af70] {\r\n    width: 70%;\n}\n.img-iconos[data-v-6683af70] {\r\n    margin-top: 1rem;\r\n    height: 10rem;\n}\n.img-sombra[data-v-6683af70] {\r\n    height: 8rem;\n}\n.informe[data-v-6683af70] {\r\n    width: 100%;\r\n    min-height: 100vh;\n}\n.btn-informe[data-v-6683af70]\r\n{\r\n    font-size: 1rem;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    color: #0070c0;\n}\n@media only screen and (max-width: 910px) {\n.img-2[data-v-6683af70] {\r\n        margin-top: 0rem;\n}\n.img-3[data-v-6683af70] {\r\n        margin-top: 0rem;\n}\n.img-sombra[data-v-6683af70] {\r\n        height: 6rem;\n}\n.objetivos[data-v-6683af70] {\r\n        width: 100%;\n}\n.objetivos[data-v-6683af70] {\r\n        width: 100%;\n}\n.img-iconos[data-v-6683af70] {\r\n        height: 10rem;\n}\n.img-sombra[data-v-6683af70] {\r\n        height: 8rem;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.spacer[data-v-6683af70] {\n    height: 5rem;\n}\n.container-valores[data-v-6683af70] {\n    display: flex;\n    max-width: 100vw;\n    justify-content: center;\n    flex-wrap: wrap;\n}\n.container-valores img[data-v-6683af70] {\n    height: 18rem;\n}\n.img-2[data-v-6683af70] {\n    margin-top: 6rem;\n}\n.img-3[data-v-6683af70] {\n    margin-top: 12rem;\n}\n.img-sombra[data-v-6683af70] {\n    height: 10rem;\n}\n.calidad[data-v-6683af70] {\n    color: #D59300;\n}\n.seguridad[data-v-6683af70] {\n    color: #EA5B2A;\n}\n.ambiente[data-v-6683af70] {\n    color: #47AD4C;\n}\n.salud[data-v-6683af70] {\n    color: #36709D;\n}\n.img-conser[data-v-6683af70] {\n    width: 5rem;\n    background-image: url(\"/img/conserflow.png\");\n    display: inline-flex;\n    background-size: cover;\n    height: 1.5rem;\n}\n.img-politica[data-v-6683af70] {\n    width: 25rem;\n}\n.objetivos_titulo[data-v-6683af70] {\n    width: 28rem;\n}\n.objetivos[data-v-6683af70] {\n    width: 70%;\n}\n.img-iconos[data-v-6683af70] {\n    margin-top: 1rem;\n    height: 10rem;\n}\n.img-sombra[data-v-6683af70] {\n    height: 8rem;\n}\n.informe[data-v-6683af70] {\n    width: 100%;\n    min-height: 100vh;\n}\n.btn-informe[data-v-6683af70]\n{\n    font-size: 1rem;\n    font-weight: bold;\n    text-align: center;\n    color: #0070c0;\n}\n@media only screen and (max-width: 910px) {\n.img-2[data-v-6683af70] {\n        margin-top: 0rem;\n}\n.img-3[data-v-6683af70] {\n        margin-top: 0rem;\n}\n.img-sombra[data-v-6683af70] {\n        height: 6rem;\n}\n.objetivos[data-v-6683af70] {\n        width: 100%;\n}\n.objetivos[data-v-6683af70] {\n        width: 100%;\n}\n.img-iconos[data-v-6683af70] {\n        height: 10rem;\n}\n.img-sombra[data-v-6683af70] {\n        height: 8rem;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2136,7 +2136,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* dir */\n#directory {\r\n    list-style-type: none;\n}\n#directory li {\r\n    /* width: 250px;\r\n    float: left;\r\n    margin-right: 1rem */\n}\n.folder {\r\n    cursor: pointer;\r\n    height: 3.5rem;\r\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\r\n    font-size: 13px;\r\n    border-radius: 5px;\n}\n.icon {\r\n    position: absolute;\r\n    top: 1rem;\r\n    color: #5f6368;\r\n    left: 1rem;\r\n    font-size: 1.5rem;\n}\n.description {\r\n    position: absolute;\r\n    top: 1.3rem;\r\n    left: 3rem;\n}\r\n\r\n/* bread */\n.link-historial {\r\n    cursor: pointer;\n}\n.link-historial:hover {\r\n    text-decoration: underline !important;\n}\n.modal-dialog2 {\r\n    max-width: 90%;\n}\n.modal-body2 {\r\n    padding: 0px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* dir */\n#directory {\n    list-style-type: none;\n}\n#directory li {\n    /* width: 250px;\n    float: left;\n    margin-right: 1rem */\n}\n.folder {\n    cursor: pointer;\n    height: 3.5rem;\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\n    font-size: 13px;\n    border-radius: 5px;\n}\n.icon {\n    position: absolute;\n    top: 1rem;\n    color: #5f6368;\n    left: 1rem;\n    font-size: 1.5rem;\n}\n.description {\n    position: absolute;\n    top: 1.3rem;\n    left: 3rem;\n}\n\n/* bread */\n.link-historial {\n    cursor: pointer;\n}\n.link-historial:hover {\n    text-decoration: underline !important;\n}\n.modal-dialog2 {\n    max-width: 90%;\n}\n.modal-body2 {\n    padding: 0px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2159,7 +2159,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-dialog2[data-v-30568f98] {\r\n    max-width: 90%;\n}\n.title[data-v-30568f98] {\r\n    text-transform: uppercase;\n}\n.icon[data-v-30568f98] {\r\n    text-transform: uppercase;\n}\nul[data-v-30568f98] {\r\n    --col-gap: 1rem;\r\n    --flapH: 5rem;\r\n    margin-inline: auto;\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: var(--col-gap);\r\n    padding-inline: calc(var(--col-gap) / 2);\r\n    justify-content: center;\r\n    align-items: flex-start;\r\n    list-style: none;\n}\nul li[data-v-30568f98] {\r\n    width: 15rem;\r\n    display: grid;\r\n    grid-template:\r\n        \"role\"\r\n        \"icon\"\r\n        \"title\"\r\n        \"descr\";\r\n    cursor: pointer;\r\n    align-items: flex-start;\r\n    gap: 1rem;\r\n    padding-block-end: calc(var(--flapH) + 1rem);\r\n    text-align: center;\r\n    background: var(--accent-color);\r\n    background-image: linear-gradient(rgba(0, 0, 0, 0.6) var(--roleH),\r\n            rgba(0, 0, 0, 0.4) calc(var(--roleH) + 0.5rem),\r\n            rgba(0, 0, 0, 0) calc(var(--roleH) + 0.5rem + 5rem));\r\n    clip-path: polygon(calc(var(--col-gap) / -2 - 5px) 0,\r\n            calc(100% + var(--col-gap) / 2 + 5px) 0,\r\n            calc(100% + var(--col-gap) / 2 + 5px) calc(100% - var(--flapH)),\r\n            50% 100%,\r\n            calc(var(--col-gap) / -2 - 5px) calc(100% - var(--flapH)));\n}\nul li .icon[data-v-30568f98],\r\nul li .title[data-v-30568f98],\r\nul li .descr[data-v-30568f98] {\r\n    padding-inline: 1rem;\r\n    color: white;\r\n    text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);\n}\nul li .title[data-v-30568f98] {\r\n    font-size: 1.25rem;\r\n    font-weight: 700;\r\n    margin-top: 2rem;\n}\nul li[data-v-30568f98]:hover {\r\n    transform: scale(1.1);\r\n    transition: .5s;\n}\nul li .descr[data-v-30568f98] {\r\n    font-size: 0.9rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-dialog2[data-v-30568f98] {\n    max-width: 90%;\n}\n.title[data-v-30568f98] {\n    text-transform: uppercase;\n}\n.icon[data-v-30568f98] {\n    text-transform: uppercase;\n}\nul[data-v-30568f98] {\n    --col-gap: 1rem;\n    --flapH: 5rem;\n    margin-inline: auto;\n    display: flex;\n    flex-wrap: wrap;\n    gap: var(--col-gap);\n    padding-inline: calc(var(--col-gap) / 2);\n    justify-content: center;\n    align-items: flex-start;\n    list-style: none;\n}\nul li[data-v-30568f98] {\n    width: 15rem;\n    display: grid;\n    grid-template:\n        \"role\"\n        \"icon\"\n        \"title\"\n        \"descr\";\n    cursor: pointer;\n    align-items: flex-start;\n    gap: 1rem;\n    padding-block-end: calc(var(--flapH) + 1rem);\n    text-align: center;\n    background: var(--accent-color);\n    background-image: linear-gradient(rgba(0, 0, 0, 0.6) var(--roleH),\n            rgba(0, 0, 0, 0.4) calc(var(--roleH) + 0.5rem),\n            rgba(0, 0, 0, 0) calc(var(--roleH) + 0.5rem + 5rem));\n    clip-path: polygon(calc(var(--col-gap) / -2 - 5px) 0,\n            calc(100% + var(--col-gap) / 2 + 5px) 0,\n            calc(100% + var(--col-gap) / 2 + 5px) calc(100% - var(--flapH)),\n            50% 100%,\n            calc(var(--col-gap) / -2 - 5px) calc(100% - var(--flapH)));\n}\nul li .icon[data-v-30568f98],\nul li .title[data-v-30568f98],\nul li .descr[data-v-30568f98] {\n    padding-inline: 1rem;\n    color: white;\n    text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);\n}\nul li .title[data-v-30568f98] {\n    font-size: 1.25rem;\n    font-weight: 700;\n    margin-top: 2rem;\n}\nul li[data-v-30568f98]:hover {\n    transform: scale(1.1);\n    transition: .5s;\n}\nul li .descr[data-v-30568f98] {\n    font-size: 0.9rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2182,7 +2182,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* dir */\n#directory {\r\n    list-style-type: none;\n}\n#directory li {\r\n    width: 250px;\r\n    float: left;\r\n    margin-right: 1rem\n}\n.folder {\r\n    cursor: pointer;\r\n    height: 3.5rem;\r\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\r\n    font-size: 13px;\r\n    border-radius: 5px;\n}\n.icon {\r\n    position: absolute;\r\n    top: 1rem;\r\n    color: #5f6368;\r\n    left: 1rem;\r\n    font-size: 1.5rem;\n}\n.description {\r\n    position: absolute;\r\n    top: 1.3rem;\r\n    left: 3rem;\n}\r\n\r\n/* bread */\n.link-historial {\r\n    cursor: pointer;\n}\n.link-historial:hover {\r\n    text-decoration: underline !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* dir */\n#directory {\n    list-style-type: none;\n}\n#directory li {\n    width: 250px;\n    float: left;\n    margin-right: 1rem\n}\n.folder {\n    cursor: pointer;\n    height: 3.5rem;\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\n    font-size: 13px;\n    border-radius: 5px;\n}\n.icon {\n    position: absolute;\n    top: 1rem;\n    color: #5f6368;\n    left: 1rem;\n    font-size: 1.5rem;\n}\n.description {\n    position: absolute;\n    top: 1.3rem;\n    left: 3rem;\n}\n\n/* bread */\n.link-historial {\n    cursor: pointer;\n}\n.link-historial:hover {\n    text-decoration: underline !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2205,7 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* dir */\n#directory {\r\n    list-style-type: none;\n}\n#directory li {\r\n    /* width: 250px;\r\n    float: left;\r\n    margin-right: 1rem */\n}\n.folder {\r\n    cursor: pointer;\r\n    height: 3.5rem;\r\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\r\n    font-size: 13px;\r\n    border-radius: 5px;\n}\n.icon {\r\n    position: absolute;\r\n    top: 1rem;\r\n    color: #5f6368;\r\n    left: 1rem;\r\n    font-size: 1.5rem;\n}\n.description {\r\n    position: absolute;\r\n    top: 1.3rem;\r\n    left: 3rem;\n}\r\n\r\n/* bread */\n.link-historial {\r\n    cursor: pointer;\n}\n.link-historial:hover {\r\n    text-decoration: underline !important;\n}\n.modal-dialog2 {\r\n    max-width: 90%;\n}\n.modal-body2 {\r\n    padding: 0px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* dir */\n#directory {\n    list-style-type: none;\n}\n#directory li {\n    /* width: 250px;\n    float: left;\n    margin-right: 1rem */\n}\n.folder {\n    cursor: pointer;\n    height: 3.5rem;\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\n    font-size: 13px;\n    border-radius: 5px;\n}\n.icon {\n    position: absolute;\n    top: 1rem;\n    color: #5f6368;\n    left: 1rem;\n    font-size: 1.5rem;\n}\n.description {\n    position: absolute;\n    top: 1.3rem;\n    left: 3rem;\n}\n\n/* bread */\n.link-historial {\n    cursor: pointer;\n}\n.link-historial:hover {\n    text-decoration: underline !important;\n}\n.modal-dialog2 {\n    max-width: 90%;\n}\n.modal-body2 {\n    padding: 0px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2228,7 +2228,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* dir */\n#directory {\r\n    list-style-type: none;\n}\n.folder {\r\n    cursor: pointer;\r\n    height: 3.5rem;\r\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\r\n    font-size: 13px;\r\n    border-radius: 5px;\n}\n.icon {\r\n    position: absolute;\r\n    top: 1rem;\r\n    color: #5f6368;\r\n    left: 1rem;\r\n    font-size: 1.5rem;\n}\n.description {\r\n    position: absolute;\r\n    top: 1.3rem;\r\n    left: 3rem;\n}\r\n\r\n/* bread */\n.link-historial {\r\n    cursor: pointer;\n}\n.link-historial:hover {\r\n    text-decoration: underline !important;\n}\n.modal-dialog2 {\r\n    max-width: 90%;\n}\n.modal-body2 {\r\n    padding: 0px;\n}\n.text-blue {\r\n    color: #4270c4;\n}\n.table-dir tr {\r\n    line-height: .5rem;\n}\n.table-dir_header\r\n{\r\n    font-weight: bold;\r\n    color: white;\r\n    background-color: #0070c0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* dir */\n#directory {\n    list-style-type: none;\n}\n.folder {\n    cursor: pointer;\n    height: 3.5rem;\n    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;\n    font-size: 13px;\n    border-radius: 5px;\n}\n.icon {\n    position: absolute;\n    top: 1rem;\n    color: #5f6368;\n    left: 1rem;\n    font-size: 1.5rem;\n}\n.description {\n    position: absolute;\n    top: 1.3rem;\n    left: 3rem;\n}\n\n/* bread */\n.link-historial {\n    cursor: pointer;\n}\n.link-historial:hover {\n    text-decoration: underline !important;\n}\n.modal-dialog2 {\n    max-width: 90%;\n}\n.modal-body2 {\n    padding: 0px;\n}\n.text-blue {\n    color: #4270c4;\n}\n.table-dir tr {\n    line-height: .5rem;\n}\n.table-dir_header\n{\n    font-weight: bold;\n    color: white;\n    background-color: #0070c0;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

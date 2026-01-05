@@ -234,7 +234,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Clientes\r\n                "), _c("button", {
+  }), _vm._v(" Clientes\n                "), _c("button", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -252,7 +252,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -290,7 +290,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -313,7 +313,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v("  Actualizar cliente.\r\n                                    ")])])])])];
+        }), _vm._v("  Actualizar cliente.\n                                    ")])])])])];
       }
     }])
   })], 1)]), _vm._v(" "), _c("div", {

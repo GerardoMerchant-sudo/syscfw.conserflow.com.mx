@@ -1289,7 +1289,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Solicitudes " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : _vm.empresa == 2 ? "CSCT" : "") + "\r\n\r\n                "), _c("button", {
+  }), _vm._v(" Solicitudes " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : _vm.empresa == 2 ? "CSCT" : "") + "\n\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -1301,7 +1301,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v("Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Nuevo\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -1357,7 +1357,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v("Actualizar Solicitud\r\n                                            ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("Actualizar Solicitud\n                                            ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -1376,7 +1376,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-trash"
-        }), _vm._v("Eliminar\r\n                                            ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("Eliminar\n                                            ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -1389,7 +1389,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "far fa-paper-plane"
-        }), _vm._v("Cerrar\r\n                                            ")])] : _vm._e()] : _vm._e()], 2)])])];
+        }), _vm._v("Cerrar\n                                            ")])] : _vm._e()] : _vm._e()], 2)])])];
       }
     }, {
       key: "sv__estado",
@@ -1415,7 +1415,7 @@ var render = function render() {
     }, {
       key: "sv__tipo",
       fn: function fn(props) {
-        return [props.row.sv__tipo == 0 ? [_vm._v("\r\n                            SINDICATO\r\n                        ")] : _vm._e(), _vm._v(" "), props.row.sv__tipo == 1 ? [_vm._v("\r\n                            REEMBOLSO\r\n                        ")] : _vm._e(), _vm._v(" "), props.row.sv__tipo == 2 ? [_vm._v("\r\n                            VIATICOS\r\n                        ")] : _vm._e()];
+        return [props.row.sv__tipo == 0 ? [_vm._v("\n                            SINDICATO\n                        ")] : _vm._e(), _vm._v(" "), props.row.sv__tipo == 1 ? [_vm._v("\n                            REEMBOLSO\n                        ")] : _vm._e(), _vm._v(" "), props.row.sv__tipo == 2 ? [_vm._v("\n                            VIATICOS\n                        ")] : _vm._e()];
       }
     }, {
       key: "id2",
@@ -2196,7 +2196,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "true",
       "aria-controls": "collapseOne"
     }
-  }, [_vm._v("\r\n                                            BENEFICIARIOS\r\n                                        ")])])]);
+  }, [_vm._v("\n                                            BENEFICIARIOS\n                                        ")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -2216,7 +2216,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "true",
       "aria-controls": "collapseTwo"
     }
-  }, [_vm._v("\r\n                                            DETALLE DE VIATICOS\r\n                                        ")])])]);
+  }, [_vm._v("\n                                            DETALLE DE VIATICOS\n                                        ")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -2236,7 +2236,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "true",
       "aria-controls": "collapseThree"
     }
-  }, [_vm._v("\r\n                                                NOTAS DE ITINERIARIO Y LOGISTICA\r\n                                            ")])])]);
+  }, [_vm._v("\n                                                NOTAS DE ITINERIARIO Y LOGISTICA\n                                            ")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -2324,7 +2324,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "true",
       "aria-controls": "collapseFour"
     }
-  }, [_vm._v("\r\n                                                PERSONAL DESTINADO AL SERVICIO\r\n                                            ")])])]);
+  }, [_vm._v("\n                                                PERSONAL DESTINADO AL SERVICIO\n                                            ")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;

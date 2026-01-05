@@ -409,26 +409,44 @@ class Facturador
         $suma_impuesto = 0;
         $suma_retencion = 0;
         $total_base = 0;
+        // foreach ($partidas as $p)
+        // {
+        //     // Si es objeto de impuesto, se suman sus impuestos
+        //     if ($p->obj_imp == "02")
+        //     {
+        //         $total_base += $p->importe;
+        //         $suma_impuesto += ($p->importe * $p->impuesto_iva);
+        //         if ($p->retencion > 0)
+        //         {
+        //             $suma_retencion += ($p->importe * $p->retencion);
+        //         }
+        //     }
+        // }
         foreach ($partidas as $p)
+{
+    if ($p->obj_imp == "02")
+    {
+        $total_base += round($p->importe, 2);
+
+        // IVA POR CONCEPTO (REDONDEADO)
+        $iva_concepto = round($p->importe * $p->impuesto_iva, 2);
+        $suma_impuesto += $iva_concepto;
+
+        if ($p->retencion > 0)
         {
-            // Si es objeto de impuesto, se suman sus impuestos
-            if ($p->obj_imp == "02")
-            {
-                $total_base += $p->importe;
-                $suma_impuesto += ($p->importe * $p->impuesto_iva);
-                if ($p->retencion > 0)
-                {
-                    $suma_retencion += ($p->importe * $p->retencion);
-                }
-            }
+            $ret_concepto = round($p->importe * $p->retencion, 2);
+            $suma_retencion += $ret_concepto;
         }
+    }
+}
+
 
         // El valor reportado no coincide con el esperado
-        $suma_impuesto += $this->error_suma_impuesto;
+        //$suma_impuesto += $this->error_suma_impuesto;
         $totalimpuestos = "";//$partidas[0]->retencion == '' ? '' :
 	  //'TotalImpuestosRetenidos = ' . round($suma_retencion, 2);
 
-        $suma_impuesto += $this->correccion_impuesto;;
+        //$suma_impuesto += $this->correccion_impuesto;;
         $totalimpuestos .= PHP_EOL .
             'TotalImpuestosTrasladados = ' . round($suma_impuesto, 2) . PHP_EOL .
             ($partidas[0]->retencion == 0 ? '' :

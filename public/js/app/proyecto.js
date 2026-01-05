@@ -2789,7 +2789,7 @@ var render = function render() {
     staticClass: "card-header bg-dark text-white"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Requisiciones por revisar:\r\n        "), _vm.detalles_ver ? _c("button", {
+  }), _vm._v(" Requisiciones por revisar:\n        "), _vm.detalles_ver ? _c("button", {
     staticClass: "btn btn-secondary float-sm-right",
     attrs: {
       type: "button"
@@ -2801,7 +2801,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "icon-arrow-left"
-  }), _vm._v(" Atras\r\n        ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Atras\n        ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("v-client-table", {
     directives: [{
@@ -2841,7 +2841,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                        ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                        ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -2858,7 +2858,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v("  Ver partidas\r\n                            ")])])])])];
+        }), _vm._v("  Ver partidas\n                            ")])])])])];
       }
     }, {
       key: "condicion",
@@ -2937,7 +2937,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Proyectos\r\n                "), _vm.PermisosCrud.Create ? _c("button", {
+  }), _vm._v(" Proyectos\n                "), _vm.PermisosCrud.Create ? _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -2949,7 +2949,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\r\n                ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCrud.Download ? _c("button", {
+  }), _vm._v(" Nuevo\n                ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCrud.Download ? _c("button", {
     staticClass: "btn btn-dark float-sm-right mr-1",
     attrs: {
       type: "button"
@@ -2959,7 +2959,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download"
-  }), _vm._v(" Descargar\r\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Descargar\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -3008,7 +3008,7 @@ var render = function render() {
             "data-placement": "top",
             title: props.row
           }
-        }, [_vm._v("\r\n                                Principal\r\n                            ")])] : _vm._e(), _vm._v(" "), props.row.adicional == 1 ? [_c("button", {
+        }, [_vm._v("\n                                Principal\n                            ")])] : _vm._e(), _vm._v(" "), props.row.adicional == 1 ? [_c("button", {
           staticClass: "btn btn-greg",
           attrs: {
             type: "button",
@@ -3016,7 +3016,7 @@ var render = function render() {
             "data-placement": "top",
             title: props.row
           }
-        }, [_vm._v("\r\n                                Adicional\r\n                            ")])] : _vm._e()];
+        }, [_vm._v("\n                                Adicional\n                            ")])] : _vm._e()];
       }
     }, {
       key: "id",
@@ -3043,7 +3043,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -3063,7 +3063,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-file-upload"
-        }), _vm._v(" Subir Documento P.O.\r\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Subir Documento P.O.\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -3078,7 +3078,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v(" Visualizar Documento P.O.\r\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Visualizar Documento P.O.\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -3096,7 +3096,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v("  Actualizar\r\n                                    ")]), _vm._v(" "), props.row.condicion == 1 ? [_c("button", {
+        }), _vm._v("  Actualizar\n                                    ")]), _vm._v(" "), props.row.condicion == 1 ? [_c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -3111,7 +3111,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-flag"
-        }), _vm._v("  Terminar\r\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("  Terminar\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -3126,7 +3126,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-pause"
-        }), _vm._v("  Pausar\r\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("  Pausar\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -3141,7 +3141,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-backspace"
-        }), _vm._v("  Rechazar\r\n                                        ")])] : [_c("button", {
+        }), _vm._v("  Rechazar\n                                        ")])] : [_c("button", {
           staticClass: "dropdown-item",
           on: {
             click: function click($event) {
@@ -3150,7 +3150,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-check"
-        }), _vm._v("  Activar\r\n                                        ")])]], 2)])])];
+        }), _vm._v("  Activar\n                                        ")])]], 2)])])];
       }
     }, {
       key: "folio",
@@ -4723,7 +4723,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" REQUISICIONES POR APROBAR\r\n        ")]);
+  }), _vm._v(" REQUISICIONES POR APROBAR\n        ")]);
 }];
 render._withStripped = true;
 
@@ -4755,7 +4755,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Detalles de requisicion pertenecientes al proyecto: " + _vm._s(_vm.requisiicion == null ? "" : _vm.requisiicion.p_nombre_corto + " con folio " + _vm.requisiicion.folio) + "\r\n            "), _c("button", {
+  }), _vm._v(" Detalles de requisicion pertenecientes al proyecto: " + _vm._s(_vm.requisiicion == null ? "" : _vm.requisiicion.p_nombre_corto + " con folio " + _vm.requisiicion.folio) + "\n            "), _c("button", {
     staticClass: "btn btn-secondary float-sm-right",
     attrs: {
       type: "button"
@@ -4767,7 +4767,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-arrow-left"
-  }), _vm._v(" Atras\r\n            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Atras\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "accordion",
     attrs: {
       id: "accordion"
@@ -5425,7 +5425,7 @@ var render = function render() {
             "data-placement": "top",
             title: props.row.descal
           }
-        }, [_vm._v("\r\n                                                    " + _vm._s(props.row.calidad) + "\r\n                                                ")])] : _vm._e()];
+        }, [_vm._v("\n                                                    " + _vm._s(props.row.calidad) + "\n                                                ")])] : _vm._e()];
       }
     }, {
       key: "child_row",
@@ -5452,7 +5452,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                                                    ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                                                    ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -5469,7 +5469,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar Articulo\r\n                                                        ")])])])])];
+        }), _vm._v(" Actualizar Articulo\n                                                        ")])])])])];
       }
     }])
   })], 1), _vm._v(" "), _c("div", {
@@ -5517,7 +5517,7 @@ var render = function render() {
             "data-placement": "top",
             title: props.row.descal
           }
-        }, [_vm._v("\r\n                                                    " + _vm._s(props.row.calidad) + "\r\n                                                ")])] : _vm._e()];
+        }, [_vm._v("\n                                                    " + _vm._s(props.row.calidad) + "\n                                                ")])] : _vm._e()];
       }
     }])
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -5632,7 +5632,7 @@ var render = function render() {
       attrs: {
         "for": "doc.id"
       }
-    }, [_vm._v("\r\n                                            " + _vm._s(doc.nombre.replace("Certificado", "Cert.")) + "\r\n                                        ")])])]);
+    }, [_vm._v("\n                                            " + _vm._s(doc.nombre.replace("Certificado", "Cert.")) + "\n                                        ")])])]);
   }), 0)])]), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
@@ -6235,7 +6235,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Requisiciones\r\n                "), _c("button", {
+  }), _vm._v(" Requisiciones\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -6247,7 +6247,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("v-client-table", {
     ref: "myTable",
@@ -6306,7 +6306,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -6323,7 +6323,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v("  Ver requisiciones\r\n                                    ")])])])])];
+        }), _vm._v("  Ver requisiciones\n                                    ")])])])])];
       }
     }])
   })], 1)]), _vm._v(" "), _c("div", {
@@ -6648,7 +6648,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-greg {\r\n    color: #fff;\r\n    background-color: #2095d8;\r\n    border-color: #2095d8;\n}\n.modal-el {\r\n    max-width: 1200px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-greg {\n    color: #fff;\n    background-color: #2095d8;\n    border-color: #2095d8;\n}\n.modal-el {\n    max-width: 1200px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6672,7 +6672,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.VueTables__child-row-toggler--closed::before {\r\n    content: \"+\";\n}\n.VueTables__child-row-toggler--open::before {\r\n    content: \"-\";\n}\n.dropbtn2 {\r\n    background-color: #000000;\r\n    color: rgb(255, 255, 255);\r\n    padding: 15px;\r\n    font-size: 15px;\r\n    border: none;\n}\n.dropdown2 {\r\n    position: relative;\r\n    display: inline-block;\n}\n.dropdown-content2 {\r\n    display: none;\r\n    position: sticky;\r\n    background-color: #adb1c5;\r\n    min-width: 50px;\r\n    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n    z-index: 1;\n}\n.dropdown-content2 a {\r\n    color: black;\r\n    padding: 15px 20px;\r\n    text-decoration: none;\r\n    display: block;\n}\n.button2 {\r\n    background-color: white;\r\n    /* Green */\r\n    color: white;\r\n    padding: auto;\r\n    border: solid 1px;\r\n    padding: 1px;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 15px;\n}\n.dropdown-content2 button2:hover {\r\n    background-color: rgb(206, 36, 36);\n}\n.dropdown2:hover .dropdown-content2 {\r\n    display: block;\n}\n.dropdown2:hover .dropbtn2 {\r\n    background-color: #000000;\n}\nth,\r\ntd {\r\n    text-align: left;\n}\nth:nth-child(n+2),\r\ntd:nth-child(n+2) {\r\n    text-align: center;\n}\nthead tr:nth-child(2) th {\r\n    font-weight: normal;\n}\n.VueTables__sort-icon {\r\n    margin-left: 40px;\n}\n.VueTables__dropdown-pagination {\r\n    margin-left: 40px;\n}\n.VueTables__highlight {\r\n    background: yellow;\r\n    font-weight: normal;\n}\n.VueTables__sortable {\r\n    cursor: pointer;\n}\n.VueTables__date-filter {\r\n    border: 1px solid #ccc;\r\n    padding: 16px;\r\n    border-radius: 4px;\r\n    cursor: pointer;\n}\n.VueTables__filter-placeholder {\r\n    color: #aaa;\n}\n.VueTables__list-filter {\r\n    width: auto;\r\n    height: auto;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.VueTables__child-row-toggler--closed::before {\n    content: \"+\";\n}\n.VueTables__child-row-toggler--open::before {\n    content: \"-\";\n}\n.dropbtn2 {\n    background-color: #000000;\n    color: rgb(255, 255, 255);\n    padding: 15px;\n    font-size: 15px;\n    border: none;\n}\n.dropdown2 {\n    position: relative;\n    display: inline-block;\n}\n.dropdown-content2 {\n    display: none;\n    position: sticky;\n    background-color: #adb1c5;\n    min-width: 50px;\n    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n    z-index: 1;\n}\n.dropdown-content2 a {\n    color: black;\n    padding: 15px 20px;\n    text-decoration: none;\n    display: block;\n}\n.button2 {\n    background-color: white;\n    /* Green */\n    color: white;\n    padding: auto;\n    border: solid 1px;\n    padding: 1px;\n    text-decoration: none;\n    display: inline-block;\n    font-size: 15px;\n}\n.dropdown-content2 button2:hover {\n    background-color: rgb(206, 36, 36);\n}\n.dropdown2:hover .dropdown-content2 {\n    display: block;\n}\n.dropdown2:hover .dropbtn2 {\n    background-color: #000000;\n}\nth,\ntd {\n    text-align: left;\n}\nth:nth-child(n+2),\ntd:nth-child(n+2) {\n    text-align: center;\n}\nthead tr:nth-child(2) th {\n    font-weight: normal;\n}\n.VueTables__sort-icon {\n    margin-left: 40px;\n}\n.VueTables__dropdown-pagination {\n    margin-left: 40px;\n}\n.VueTables__highlight {\n    background: yellow;\n    font-weight: normal;\n}\n.VueTables__sortable {\n    cursor: pointer;\n}\n.VueTables__date-filter {\n    border: 1px solid #ccc;\n    padding: 16px;\n    border-radius: 4px;\n    cursor: pointer;\n}\n.VueTables__filter-placeholder {\n    color: #aaa;\n}\n.VueTables__list-filter {\n    width: auto;\n    height: auto;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6696,7 +6696,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.style-chooser .vs__search::-moz-placeholder {\r\n    background: #dfe5fb;\r\n    border: none;\r\n    color: #394066;\r\n    text-transform: lowercase;\r\n    font-variant: small-caps;\n}\n.style-chooser .vs__search::placeholder,\r\n  .style-chooser .vs__dropdown-toggle,\r\n  .style-chooser .vs__dropdown-menu {\r\n    background: #dfe5fb;\r\n    border: none;\r\n    color: #394066;\r\n    text-transform: lowercase;\r\n    font-variant: small-caps;\n}\n.style-chooser .vs__clear,\r\n  .style-chooser .vs__open-indicator {\r\n    fill: #394066;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.style-chooser .vs__search::-moz-placeholder {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__search::placeholder,\n  .style-chooser .vs__dropdown-toggle,\n  .style-chooser .vs__dropdown-menu {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__clear,\n  .style-chooser .vs__open-indicator {\n    fill: #394066;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6720,7 +6720,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-uno {\r\n  color: rgb(255, 255, 255);\r\n  background-color: #f6a152;\r\n  border-color: #f6a152;\r\n  border-radius: 2px;\n}\n.btn-dos {\r\n  color: rgb(0, 0, 0);\r\n  background-color: #e9b443;\r\n  border-color: #e9b443;\r\n  border-radius: 2px;\n}\r\n/* no */\n.btn-tres {\r\n  color: rgb(0, 0, 0);\r\n  background-color: #8bbbef;\r\n  border-color: #8bbbef;\r\n  border-radius: 2px;\n}\n.btn-cuatro {\r\n  color: rgb(255, 255, 255);\r\n  background-color: #40d0d0;\r\n  border-color: #40d0d0;\r\n  border-radius: 2px;\n}\n.btn-cinco {\r\n  color: rgb(255, 255, 255);\r\n  background-color: #0d4da3;\r\n  border-color: #0d4da3;\r\n  border-radius: 2px;\n}\r\n/* no */\n.btn-seis {\r\n  color: rgb(255, 255, 255);\r\n  background-color: #0d98a3;\r\n  border-color: #0d98a3;\r\n  border-radius: 2px;\n}\n.btn-siete {\r\n  color: rgb(255, 255, 255);\r\n  background-color: #25a30d;\r\n  border-color: #25a30d;\r\n  border-radius: 2px;\n}\n.btn-ocho {\r\n  color: rgb(255, 255, 255);\r\n  background-color: #d04040;\r\n  border-color: #d04040;\r\n  border-radius: 2px;\n}\n.btn-nueve {\r\n  color: rgb(0, 0, 0);\r\n  background-color: #40d088;\r\n  border-color: #40d088;\r\n  border-radius: 2px;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-uno {\n  color: rgb(255, 255, 255);\n  background-color: #f6a152;\n  border-color: #f6a152;\n  border-radius: 2px;\n}\n.btn-dos {\n  color: rgb(0, 0, 0);\n  background-color: #e9b443;\n  border-color: #e9b443;\n  border-radius: 2px;\n}\n/* no */\n.btn-tres {\n  color: rgb(0, 0, 0);\n  background-color: #8bbbef;\n  border-color: #8bbbef;\n  border-radius: 2px;\n}\n.btn-cuatro {\n  color: rgb(255, 255, 255);\n  background-color: #40d0d0;\n  border-color: #40d0d0;\n  border-radius: 2px;\n}\n.btn-cinco {\n  color: rgb(255, 255, 255);\n  background-color: #0d4da3;\n  border-color: #0d4da3;\n  border-radius: 2px;\n}\n/* no */\n.btn-seis {\n  color: rgb(255, 255, 255);\n  background-color: #0d98a3;\n  border-color: #0d98a3;\n  border-radius: 2px;\n}\n.btn-siete {\n  color: rgb(255, 255, 255);\n  background-color: #25a30d;\n  border-color: #25a30d;\n  border-radius: 2px;\n}\n.btn-ocho {\n  color: rgb(255, 255, 255);\n  background-color: #d04040;\n  border-color: #d04040;\n  border-radius: 2px;\n}\n.btn-nueve {\n  color: rgb(0, 0, 0);\n  background-color: #40d088;\n  border-color: #40d088;\n  border-radius: 2px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

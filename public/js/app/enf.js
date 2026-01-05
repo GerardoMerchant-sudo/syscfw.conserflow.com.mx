@@ -968,7 +968,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" ATENCIÓN MÉDICA\r\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
+  }), _vm._v(" ATENCIÓN MÉDICA\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -980,7 +980,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\r\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -1303,7 +1303,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_atencionmedica == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_atencionmedica == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -1315,7 +1315,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_atencionmedica == 2 ? _c("button", {
+  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_atencionmedica == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -1327,7 +1327,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -1559,7 +1559,7 @@ var render = function render() {
       domProps: {
         value: d.id
       }
-    }, [_vm._v("\r\n                                    " + _vm._s(d.nombre) + "\r\n                                ")]);
+    }, [_vm._v("\n                                    " + _vm._s(d.nombre) + "\n                                ")]);
   }), 0)]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-dark",
     on: {
@@ -1596,7 +1596,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" ATENCIÓN MÉDICA - REPORTES\r\n        ")]);
+  }), _vm._v(" ATENCIÓN MÉDICA - REPORTES\n        ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1612,7 +1612,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "fas fa-calendar mr-1"
-  }), _vm._v("Periodo\r\n                    ")])]);
+  }), _vm._v("Periodo\n                    ")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1627,7 +1627,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "fas fa-map-marker-alt mr-1"
-  }), _vm._v("Áreas\r\n                    ")])]);
+  }), _vm._v("Áreas\n                    ")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1703,7 +1703,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Motivos De Atención\r\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
+  }), _vm._v(" Motivos De Atención\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -1715,7 +1715,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\r\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -1750,7 +1750,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -1764,7 +1764,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\r\n                                ")])])])])];
+        }), _vm._v(" Actualizar\n                                ")])])])])];
       }
     }, {
       key: "tipo",
@@ -1917,7 +1917,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_motivoatencion == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_motivoatencion == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -1929,7 +1929,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_motivoatencion == 2 ? _c("button", {
+  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_motivoatencion == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -1941,7 +1941,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -1978,7 +1978,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Registros Covid\r\n            "), _vm.PermisosCRUD.Create ? _c("button", {
+  }), _vm._v(" Registros Covid\n            "), _vm.PermisosCRUD.Create ? _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -1990,7 +1990,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\r\n            ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
+  }), _vm._v(" Nuevo\n            ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
     staticClass: "btn btn-dark float-sm-right mr-1",
     attrs: {
       type: "button"
@@ -2002,7 +2002,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download mr-1"
-  }), _vm._v(" Descargar\r\n            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Descargar\n            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -2037,7 +2037,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -2051,7 +2051,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\r\n                                ")])])])])];
+        }), _vm._v(" Actualizar\n                                ")])])])])];
       }
     }, {
       key: "inicio_sintomas",
@@ -2388,7 +2388,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_registrocovid == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_registrocovid == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -2400,7 +2400,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_registrocovid == 2 ? _c("button", {
+  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_registrocovid == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -2412,7 +2412,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2462,7 +2462,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Datos de empleados\r\n            ")]);
+  }), _vm._v(" Datos de empleados\n            ")]);
 }];
 render._withStripped = true;
 
@@ -2498,7 +2498,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Incapacidad\r\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
+  }), _vm._v(" Incapacidad\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -2510,7 +2510,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\r\n                ")])] : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? [_c("button", {
+  }), _vm._v(" Nuevo\n                ")])] : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? [_c("button", {
     staticClass: "btn btn-dark float-sm-right mr-1",
     attrs: {
       type: "button"
@@ -2522,7 +2522,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download"
-  }), _vm._v(" Descargar\r\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
+  }), _vm._v(" Descargar\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -2557,7 +2557,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_vm.PermisosCRUD.Update ? _c("button", {
           staticClass: "dropdown-item",
@@ -2571,7 +2571,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\r\n                                ")]) : _vm._e()])])])];
+        }), _vm._v(" Actualizar\n                                ")]) : _vm._e()])])])];
       }
     }, {
       key: "subsecuente",
@@ -3074,7 +3074,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_incapacidad == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_incapacidad == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -3086,7 +3086,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_incapacidad == 2 ? _c("button", {
+  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_incapacidad == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -3098,7 +3098,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -19335,7 +19335,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.chart-sm {\r\n    max-height: 10rem\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.chart-sm {\n    max-height: 10rem\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

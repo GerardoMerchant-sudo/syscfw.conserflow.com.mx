@@ -952,7 +952,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Elementos Menu y Submenu\r\n                "), _c("button", {
+  }), _vm._v(" Elementos Menu y Submenu\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button",
@@ -965,7 +965,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Submenu\r\n                ")]), _vm._v(" "), _c("button", {
+  }), _vm._v(" Submenu\n                ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button",
@@ -978,7 +978,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Menu\r\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Menu\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -1074,7 +1074,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -1091,7 +1091,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\r\n                                        ")])], _vm._v(" "), [_c("button", {
+        }), _vm._v(" Actualizar\n                                        ")])], _vm._v(" "), [_c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -1103,7 +1103,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-trash"
-        }), _vm._v(" Eliminar\r\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Eliminar\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -1115,7 +1115,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-ban"
-        }), _vm._v(" Desactivar\r\n                                        ")])]], 2)])])];
+        }), _vm._v(" Desactivar\n                                        ")])]], 2)])])];
       }
     }, {
       key: "clase",
@@ -2051,7 +2051,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal mr-1"
-        }), _vm._v("Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("Acciones\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -2068,7 +2068,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v("Actualizar Permisos\r\n                                        ")])]], 2)])])];
+        }), _vm._v("Actualizar Permisos\n                                        ")])]], 2)])])];
       }
     }])
   })], 1)])]), _vm._v(" "), _c("div", {
@@ -2143,7 +2143,7 @@ var render = function render() {
       staticClass: "a"
     }, [_c("div", {
       staticClass: "text-center1 item"
-    }, [_vm._v("\r\n                                                    " + _vm._s(item.nombre) + "\r\n                                                ")])])];
+    }, [_vm._v("\n                                                    " + _vm._s(item.nombre) + "\n                                                ")])])];
   })], 2), _vm._v(" "), _c("tr", _vm._l(_vm.tableModulos, function (item) {
     return _c("td", {
       key: item.id
@@ -2195,7 +2195,7 @@ var render = function render() {
         attrs: {
           "for": "smn_" + itemM.m.id
         }
-      }, [_vm._v("\r\n                                                            " + _vm._s(itemM.m.name) + "\r\n                                                        ")])] : _vm._e(), _vm._v(" "), itemM.m.page == null ? [_c("a", {
+      }, [_vm._v("\n                                                            " + _vm._s(itemM.m.name) + "\n                                                        ")])] : _vm._e(), _vm._v(" "), itemM.m.page == null ? [_c("a", {
         staticClass: "nav-link",
         attrs: {
           href: "#",
@@ -2244,7 +2244,7 @@ var render = function render() {
           attrs: {
             "for": "mn_" + itemMS.id
           }
-        }, [_vm._v("\r\n                                                                " + _vm._s(itemMS.submenu) + "\r\n                                                            ")])]);
+        }, [_vm._v("\n                                                                " + _vm._s(itemMS.submenu) + "\n                                                            ")])]);
       })] : _vm._e()], 2) : _vm._e()]);
     }), 0);
   }), 0)])])])]), _vm._v(" "), _c("div", {
@@ -2270,7 +2270,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Asignar permisos\r\n            ")]);
+  }), _vm._v(" Asignar permisos\n            ")]);
 }];
 render._withStripped = true;
 
@@ -2300,7 +2300,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Usuarios\r\n                "), _c("button", {
+  }), _vm._v(" Usuarios\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -2312,7 +2312,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus mr-1"
-  }), _vm._v("Nuevo\r\n                ")]), _vm._v(" "), _c("button", {
+  }), _vm._v("Nuevo\n                ")]), _vm._v(" "), _c("button", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -2330,7 +2330,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-list mr-1"
-  }), _vm._v("Yolo\r\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Yolo\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", [_c("vue-element-loading", {
     attrs: {
@@ -2368,7 +2368,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                                    ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                                    ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -2385,7 +2385,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit mr-1"
-        }), _vm._v("Actualizar\r\n                                            ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("Actualizar\n                                            ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -2403,7 +2403,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit mr-1"
-        }), _vm._v("Ver\r\n                                            ")])], _vm._v(" "), props.row.condicion ? [_c("button", {
+        }), _vm._v("Ver\n                                            ")])], _vm._v(" "), props.row.condicion ? [_c("button", {
           staticClass: "dropdown-item",
           on: {
             click: function click($event) {
@@ -2412,7 +2412,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-ban mr-1"
-        }), _vm._v("Desactivar\r\n                                            ")])] : _vm._e()], 2)])])];
+        }), _vm._v("Desactivar\n                                            ")])] : _vm._e()], 2)])])];
       }
     }, {
       key: "condicion",
@@ -2740,7 +2740,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.table-scroll {\r\n    overflow-x: scroll;\r\n    overflow-y: visible;\r\n    padding-bottom: 5px;\r\n    scroll-behavior: smooth;\r\n    scroll-snap-type: x mandatory;\n}\n.item {\r\n    scroll-snap-align: start;\r\n    width: 12rem;\n}\n.header-modulo {\r\n    font-weight: bold;\r\n    text-align: center;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.table-scroll {\n    overflow-x: scroll;\n    overflow-y: visible;\n    padding-bottom: 5px;\n    scroll-behavior: smooth;\n    scroll-snap-type: x mandatory;\n}\n.item {\n    scroll-snap-align: start;\n    width: 12rem;\n}\n.header-modulo {\n    font-weight: bold;\n    text-align: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
