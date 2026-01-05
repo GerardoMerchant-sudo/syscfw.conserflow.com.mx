@@ -837,23 +837,7 @@ var render = function render() {
         return _vm.openModal("img/certificaciones/Certificado-Conserflow-ISO-9001.webp", "Calidad");
       }
     }
-  }), _vm._v(" "), _c("p", [_vm._v("\n                        Diseño, desarrollo, fabricación de equipos de medición, control regulación de\n                        líquidos y gases, ensamble de gabinetes de control, para la industria de\n                        hidrocarburos, desde la comercialización de materiales, componentes y refacciones,\n                        hasta el desarrollo de proyectos integrales\n                    ")])]), _vm._v(" "), _c("div", {
-    staticClass: "col"
-  }, [_c("p", {
-    staticClass: "mb-1 mt-2 h5"
-  }, [_vm._v("Sociedad Americana de Ingenieros Mecánicos (ASME)")]), _vm._v(" "), _c("img", {
-    staticClass: "border rounded px-2 my-2",
-    attrs: {
-      src: "img/certificaciones/Certificado-ASME-2022.webp",
-      alt: "Certificado-Conserflow-ISO-14001",
-      height: "400"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.openModal("img/certificaciones/Certificado-ASME-2022.webp", "Calidad");
-      }
-    }
-  }), _vm._v(" "), _c("p", [_vm._v("\n                        Fabricación de recipientes a presión en la ubicación mencionada y en sitios de campo controlados por la ubicación mencionada.\n                    ")])])])])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("p", [_vm._v("\n                        Diseño, desarrollo, fabricación de equipos de medición, control regulación de\n                        líquidos y gases, ensamble de gabinetes de control, para la industria de\n                        hidrocarburos, desde la comercialización de materiales, componentes y refacciones,\n                        hasta el desarrollo de proyectos integrales\n                    ")])])])])]), _vm._v(" "), _c("div", {
     ref: "myModal",
     staticClass: "modal1",
     attrs: {
