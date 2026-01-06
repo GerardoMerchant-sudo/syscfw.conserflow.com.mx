@@ -4717,15 +4717,7 @@ var render = function render() {
     attrs: {
       value: "2"
     }
-  }, [_vm._v("Conserflow Quincenal")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "3"
-    }
-  }, [_vm._v("CSCT Semanal")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "4"
-    }
-  }, [_vm._v("CSCT Quincenal")])])]], 2)])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Conserflow Quincenal")])])]], 2)])])]), _vm._v(" "), _c("div", {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body"
