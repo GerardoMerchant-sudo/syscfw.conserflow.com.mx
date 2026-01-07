@@ -534,7 +534,7 @@ class Facturador
 
             if ($p->obj_imp == "02")
             {
-                $base_dr = round($monto / 1.16, 2); // Obtener base
+                $base_dr = round($p->importe_pagado / 1.16, 2); // Obtener base
                 $importe_dr = round($base_dr * .16, 2); // iva
                 $complemento_pagos .=
                     "[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago/pago20:" .
