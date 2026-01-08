@@ -234,7 +234,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="form-floating">
-                                            <input type="text" maxlength="10" v-validate="'required'"
+                                            <input type="text" maxlength="20" v-validate="'required'"
                                                 v-model="proveedor.no_exterior" class="form-control"
                                                 data-vv-name="No. Exterior" autocomplete="off" id="no.Exterior" placeholder="N° Exterior" />
                                                 <label for="no.Exterior">N° Exterior</label>
@@ -244,7 +244,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-floating">
-                                            <input type="text" maxlength="10" v-validate="'required'"
+                                            <input type="text" v-validate="'required'"
                                                 v-model="proveedor.no_interior" class="form-control"
                                                 data-vv-name="No.  Interior" autocomplete="off" placeholder="n.Interior" />
                                                 <label for="n.Interior">N° Interior</label>

@@ -365,7 +365,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" EQUIPOS DE CALIBRACIÓN\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
+  }), _vm._v(" EQUIPOS DE CALIBRACIÓN\r\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -377,7 +377,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n                ")]), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
+  }), _vm._v(" Nuevo\r\n                ")]), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
     staticClass: "btn btn-dark float-sm-right mr-1",
     attrs: {
       type: "button",
@@ -389,7 +389,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download mr-1"
-  }), _vm._v(" Descargar\n                ")]) : _vm._e()] : _vm._e()], 2), _vm._v(" "), _c("div", {
+  }), _vm._v(" Descargar\r\n                ")]) : _vm._e()] : _vm._e()], 2), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "collapse multi-collapse",
@@ -451,7 +451,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_vm.PermisosCRUD.Update ? _c("button", {
           staticClass: "dropdown-item",
@@ -465,7 +465,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\n                                ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Create ? _c("button", {
+        }), _vm._v(" Actualizar\r\n                                ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Create ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -477,7 +477,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-plus"
-        }), _vm._v(" Registrar Calibración\n                                ")]) : _vm._e()])])])];
+        }), _vm._v(" Registrar Calibración\r\n                                ")]) : _vm._e()])])])];
       }
     }, {
       key: "condicion",
@@ -941,7 +941,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_equipos == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_equipos == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -953,7 +953,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_equipos == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_equipos == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -965,7 +965,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.ver_modal_calibraciones ? _c("div", {
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.ver_modal_calibraciones ? _c("div", {
     staticClass: "modal fade",
     "class": {
       mostrar: _vm.ver_modal_calibraciones
@@ -1113,7 +1113,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_calibraciones == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_calibraciones == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -1125,7 +1125,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_calibraciones == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_calibraciones == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -1137,7 +1137,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

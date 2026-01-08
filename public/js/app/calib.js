@@ -142,7 +142,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -156,7 +156,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Detalles\n                                        ")])]], 2)])];
+        }), _vm._v(" Detalles\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "estado",
@@ -170,15 +170,15 @@ var render = function render() {
           staticClass: "btn btn-danger"
         }, [_c("i", {
           staticClass: "fas fa-exclamation-triangle mr-1"
-        }), _vm._v("Sin Servicio\n                                ")]) : _vm._e(), _vm._v(" "), props.row.estado == 2 ? _c("button", {
+        }), _vm._v("Sin Servicio\r\n                                ")]) : _vm._e(), _vm._v(" "), props.row.estado == 2 ? _c("button", {
           staticClass: "btn btn-danger"
         }, [_c("i", {
           staticClass: "fas fa-info-circle mr-1"
-        }), _vm._v("Vencido\n                                ")]) : _vm._e(), _vm._v(" "), props.row.estado == 3 ? _c("button", {
+        }), _vm._v("Vencido\r\n                                ")]) : _vm._e(), _vm._v(" "), props.row.estado == 3 ? _c("button", {
           staticClass: "btn btn-warning"
         }, [_c("i", {
           staticClass: "fas fa-info-circle mr-1"
-        }), _vm._v("Próximo\n                                ")]) : _vm._e()])];
+        }), _vm._v("Próximo\r\n                                ")]) : _vm._e()])];
       }
     }])
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -548,7 +548,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Equipos por calibrar\n        ")]);
+  }), _vm._v(" Equipos por calibrar\r\n        ")]);
 }];
 render._withStripped = true;
 

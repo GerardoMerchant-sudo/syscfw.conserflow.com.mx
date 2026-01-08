@@ -3958,7 +3958,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Conductores\n                "), _c("button", {
+  }), _vm._v(" Conductores\r\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -3970,7 +3970,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus mr-1"
-  }), _vm._v("Nuevo\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -4001,7 +4001,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -4015,7 +4015,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v("Actualizar\n                                ")])])])];
+        }), _vm._v("Actualizar\r\n                                ")])])])];
       }
     }, {
       key: "licencia_doc",
@@ -8702,7 +8702,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Mantenimiento Vehicular " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\n            "), _c("div", {
+  }), _vm._v(" Mantenimiento Vehicular " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\r\n            "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -8713,7 +8713,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                    Empresa\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                    Empresa\r\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"
@@ -8778,7 +8778,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     ref: "tbl_mantenimiento",
@@ -8806,7 +8806,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -8820,7 +8820,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Actualizar\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -8832,7 +8832,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -8844,7 +8844,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-trash"
-        }), _vm._v(" Eliminar\n                                        ")])]], 2)])];
+        }), _vm._v(" Eliminar\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "tipo",
@@ -8854,12 +8854,12 @@ var render = function render() {
           attrs: {
             type: "button"
           }
-        }, [_vm._v("\n                                Preventivo\n                            ")]) : _c("button", {
+        }, [_vm._v("\r\n                                Preventivo\r\n                            ")]) : _c("button", {
           staticClass: "btn btn-outline-warning",
           attrs: {
             type: "button"
           }
-        }, [_vm._v("\n                                Correctivo\n                            ")])];
+        }, [_vm._v("\r\n                                Correctivo\r\n                            ")])];
       }
     }])
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -9319,7 +9319,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" PROVEEDORES\n            "), _c("button", {
+  }), _vm._v(" PROVEEDORES\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -9331,7 +9331,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -9366,7 +9366,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -9380,7 +9380,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\n                                ")])])])])];
+        }), _vm._v(" Actualizar\r\n                                ")])])])])];
       }
     }])
   })], 1)]), _vm._v(" "), _vm.ver_modal_proveedor ? _c("div", {
@@ -9569,7 +9569,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_proveedor == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_proveedor == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -9581,7 +9581,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_proveedor == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_proveedor == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -9593,7 +9593,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9626,7 +9626,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Combustible\n                "), _vm._v(" "), _c("button", {
+  }), _vm._v(" Combustible\r\n                "), _vm._v(" "), _c("button", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -9644,7 +9644,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus mr-1"
-  }), _vm._v("Nuevo\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "row"
@@ -9774,7 +9774,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v("Actualizar\n                                    ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
+        }), _vm._v("Actualizar\r\n                                    ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -9786,7 +9786,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-trash"
-        }), _vm._v("Cancelar\n                                    ")]) : _vm._e()]], 2)])];
+        }), _vm._v("Cancelar\r\n                                    ")]) : _vm._e()]], 2)])];
       }
     }, {
       key: "condicion",
@@ -10090,7 +10090,7 @@ var render = function render() {
     staticClass: "form-check form-inline"
   }, [_c("label", {
     staticClass: "form-check-label"
-  }, [_vm._v("\n                                        ¿Cancelado?\n                                    ")]), _vm._v(" "), _c("label", {
+  }, [_vm._v("\r\n                                        ¿Cancelado?\r\n                                    ")]), _vm._v(" "), _c("label", {
     staticClass: "switch switch-default switch-pill switch-dark"
   }, [_c("input", {
     directives: [{
@@ -10730,7 +10730,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "false",
       "aria-controls": "multiCollapseExample1"
     }
-  }, [_vm._v("\n                        Generar reporte\n                    ")])]);
+  }, [_vm._v("\r\n                        Generar reporte\r\n                    ")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -10778,7 +10778,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v("\n            " + _vm._s(_vm.folio) + "\n            "), _c("button", {
+  }), _vm._v("\r\n            " + _vm._s(_vm.folio) + "\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right mr-1",
     attrs: {
       type: "button"
@@ -10790,7 +10790,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-arrow-left"
-  }, [_vm._v(" ")]), _vm._v("Regresar\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Regresar\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     ref: "tbl_anual",
@@ -10818,7 +10818,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -10832,7 +10832,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\n                                        ")])]], 2)])];
+        }), _vm._v(" Actualizar\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "mes",
@@ -10852,7 +10852,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v("\n            Programación de Servicios Vehículares - " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\n            "), _c("div", {
+  }), _vm._v("\r\n            Programación de Servicios Vehículares - " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\r\n            "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -10863,7 +10863,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                    Empresa\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                    Empresa\r\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu"
   }, [_c("button", {
     staticClass: "dropdown-item",
@@ -10899,7 +10899,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     attrs: {
@@ -10926,7 +10926,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -10940,7 +10940,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v(" Ver Detalles\n                                        ")])]], 2)])];
+        }), _vm._v(" Ver Detalles\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "descripcion",
@@ -11297,7 +11297,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Solicitud de vehiculos - " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\n\n            "), _c("div", {
+  }), _vm._v(" Solicitud de vehiculos - " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\r\n\r\n            "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -11308,7 +11308,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                    Empresa\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                    Empresa\r\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu"
   }, [_c("button", {
     staticClass: "dropdown-item",
@@ -11344,7 +11344,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     ref: "tbl_solicitud",
@@ -11372,7 +11372,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -11386,7 +11386,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Actualizar\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -11398,7 +11398,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-file-pdf"
-        }), _vm._v(" Descargar\n                                        ")])]], 2)])];
+        }), _vm._v(" Descargar\r\n                                        ")])]], 2)])];
       }
     }])
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -13544,7 +13544,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-file-download"
-  }), _vm._v(" Descargar\n                            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Descargar\r\n                            ")])]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-2"
   }, [_c("label", [_vm._v(" ")]), _vm._v(" "), _c("button", {
     staticClass: "form-control",
@@ -13558,7 +13558,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-file"
-  }), _vm._v(" Actualizar Archivo\n                            ")])])] : _vm._e(), _vm._v(" "), _vm.poliza.comprobante == "" ? [_c("div", {
+  }), _vm._v(" Actualizar Archivo\r\n                            ")])])] : _vm._e(), _vm._v(" "), _vm.poliza.comprobante == "" ? [_c("div", {
     staticClass: "form-group col-md-4"
   }, [_c("label", [_vm._v("Comprobante")]), _vm._v(" "), _c("input", {
     staticClass: "form-control",
@@ -13641,7 +13641,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -13658,7 +13658,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v("  Actualizar\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("  Actualizar\r\n                                    ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -13670,7 +13670,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v("  Eliminar\n                                    ")])])])])];
+        }), _vm._v("  Eliminar\r\n                                    ")])])])])];
       }
     }])
   })]], 2)])]);
@@ -13909,7 +13909,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-file-download"
-  }), _vm._v(" Descargar\n                            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Descargar\r\n                            ")])]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-2"
   }, [_c("label", [_vm._v(" ")]), _vm._v(" "), _c("button", {
     staticClass: "form-control",
@@ -13923,7 +13923,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-file"
-  }), _vm._v(" Actualizar Archivo\n                            ")])])] : _vm._e(), _vm._v(" "), _vm.tenencia.comprobante == "" ? [_c("div", {
+  }), _vm._v(" Actualizar Archivo\r\n                            ")])])] : _vm._e(), _vm._v(" "), _vm.tenencia.comprobante == "" ? [_c("div", {
     staticClass: "form-group col-md-4"
   }, [_c("label", [_vm._v("Comprobante")]), _vm._v(" "), _c("input", {
     staticClass: "form-control",
@@ -14010,7 +14010,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -14027,14 +14027,14 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v("  Actualizar\n                                    ")])])])])];
+        }), _vm._v("  Actualizar\r\n                                    ")])])])])];
       }
     }, {
       key: "comprobante",
       fn: function fn(props) {
         return [props.row.comprobante == null ? [_c("button", {
           staticClass: "btn btn-dark"
-        }, [_vm._v("\n                                N/D\n                            ")])] : [_c("button", {
+        }, [_vm._v("\r\n                                N/D\r\n                            ")])] : [_c("button", {
           staticClass: "btn btn-dark",
           on: {
             click: function click($event) {
@@ -14085,7 +14085,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Unidades " + _vm._s(_vm.empresa_nombre) + "\n                "), _c("div", {
+  }), _vm._v(" Unidades " + _vm._s(_vm.empresa_nombre) + "\r\n                "), _c("div", {
     staticClass: "dropdown",
     staticStyle: {
       "margin-top": "-1rem"
@@ -14099,7 +14099,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                        Empresa\n                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                        Empresa\r\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"
@@ -14160,7 +14160,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus mr-1"
-  }), _vm._v("Nuevo\n                ")]), _vm._v(" "), _c("button", {
+  }), _vm._v("Nuevo\r\n                ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -14172,7 +14172,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download mr-1"
-  }), _vm._v("Descargar\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Descargar\r\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -14212,7 +14212,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -14229,7 +14229,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v("Detalles\n                                    ")]), _vm._v(" "), props.row.condicion == 1 ? [_c("button", {
+        }), _vm._v("Detalles\r\n                                    ")]), _vm._v(" "), props.row.condicion == 1 ? [_c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -14241,7 +14241,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v("Eliminar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("Eliminar\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -14253,7 +14253,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-exchange-alt"
-        }), _vm._v(" Préstamo\n                                        ")])] : [_c("button", {
+        }), _vm._v(" Préstamo\r\n                                        ")])] : [_c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -14265,7 +14265,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-exchange-alt"
-        }), _vm._v(" Regresar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Regresar\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -14328,7 +14328,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-grip-horizontal"
-  }), _vm._v(" Acciones\n                                ")])])])]), _vm._v(" "), _c("template", {
+  }), _vm._v(" Acciones\r\n                                ")])])])]), _vm._v(" "), _c("template", {
     slot: "condicion"
   }, [_c("button", {
     staticClass: "btn btn-outline-danger"
@@ -15093,7 +15093,7 @@ var render = function render() {
     staticClass: "text-danger"
   }, [_vm._v(_vm._s(_vm.errors.first("Factura")))])])]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_vm._v("\n                                Propio\n                                "), _c("label", {
+  }, [_vm._v("\r\n                                Propio\r\n                                "), _c("label", {
     staticClass: "switch switch-default switch-pill switch-dark"
   }, [_c("input", {
     directives: [{
@@ -15127,7 +15127,7 @@ var render = function render() {
     staticClass: "switch-label"
   }), _vm._v(" "), _c("span", {
     staticClass: "switch-handle"
-  })]), _vm._v("\n                                Rentado\n                                "), _c("label", {
+  })]), _vm._v("\r\n                                Rentado\r\n                                "), _c("label", {
     staticClass: "switch switch-default switch-pill switch-dark"
   }, [_c("input", {
     directives: [{
@@ -15357,7 +15357,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Vales de Resguardo - " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\n            "), _c("div", {
+  }), _vm._v(" Vales de Resguardo - " + _vm._s(_vm.empresa == 1 ? "CONSERFLOW" : "CSCT") + "\r\n            "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -15368,7 +15368,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                    Empresa\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                    Empresa\r\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu"
   }, [_c("button", {
     staticClass: "dropdown-item",
@@ -15404,7 +15404,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     ref: "tbl_resguardo",
@@ -15432,7 +15432,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -15446,7 +15446,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v("Actualizar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("Actualizar\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -15458,7 +15458,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v("Descargar\n                                        ")])]], 2)])];
+        }), _vm._v("Descargar\r\n                                        ")])]], 2)])];
       }
     }])
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -16390,7 +16390,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-file-download"
-  }), _vm._v(" Descargar\n                            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Descargar\r\n                            ")])]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-2"
   }, [_c("label", [_vm._v(" ")]), _vm._v(" "), _c("button", {
     staticClass: "form-control",
@@ -16404,7 +16404,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-file"
-  }), _vm._v(" Actualizar Archivo\n                            ")])])] : _vm._e(), _vm._v(" "), _vm.verificar.comprobante == "" ? [_c("div", {
+  }), _vm._v(" Actualizar Archivo\r\n                            ")])])] : _vm._e(), _vm._v(" "), _vm.verificar.comprobante == "" ? [_c("div", {
     staticClass: "form-group col-md-4"
   }, [_c("label", [_vm._v("Comprobante")]), _vm._v(" "), _c("input", {
     staticClass: "form-control",
@@ -16491,7 +16491,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -16508,14 +16508,14 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v("  Actualizar\n                                    ")])])])])];
+        }), _vm._v("  Actualizar\r\n                                    ")])])])])];
       }
     }, {
       key: "comprobante",
       fn: function fn(props) {
         return [props.row.comprobante == null ? [_c("button", {
           staticClass: "btn btn-dark"
-        }, [_vm._v("\n                                N/D\n                            ")])] : [_c("button", {
+        }, [_vm._v("\r\n                                N/D\r\n                            ")])] : [_c("button", {
           staticClass: "btn btn-dark",
           on: {
             click: function click($event) {
@@ -16552,7 +16552,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.lol {\n    margin: 1rem;\n    padding: 1rem;\n    border: black 10px solid;\n    background-color: #9fd5d1;\n    color: white\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.lol {\r\n    margin: 1rem;\r\n    padding: 1rem;\r\n    border: black 10px solid;\r\n    background-color: #9fd5d1;\r\n    color: white\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

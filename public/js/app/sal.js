@@ -233,7 +233,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" SALIDAS NO CONFORMES - " + _vm._s(_vm.anio) + "\n            "), _vm.PermisosCRUD.Download ? _c("button", {
+  }), _vm._v(" SALIDAS NO CONFORMES - " + _vm._s(_vm.anio) + "\r\n            "), _vm.PermisosCRUD.Download ? _c("button", {
     staticClass: "btn btn-secondary float-sm-right mr-1",
     attrs: {
       type: "button"
@@ -243,7 +243,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download"
-  }), _vm._v(" Bitácora\n            ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }), _vm._v(" Bitácora\r\n            ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "dropdown float-sm-right mx-1"
   }, [_c("button", {
     staticClass: "btn btn-outline-dark dropdown-toggle",
@@ -254,7 +254,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                    Año\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                    Año\r\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"
@@ -282,7 +282,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -317,7 +317,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_vm.PermisosCRUD.Update ? _c("button", {
           staticClass: "dropdown-item",
@@ -331,7 +331,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\n                                ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
+        }), _vm._v(" Actualizar\r\n                                ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -343,7 +343,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar\n                                ")]) : _vm._e()])])])];
+        }), _vm._v(" Descargar\r\n                                ")]) : _vm._e()])])])];
       }
     }])
   })], 1)]), _vm._v(" "), _c("div", {
@@ -358,7 +358,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" SALIDA NO CONFORME\n            "), _c("button", {
+  }), _vm._v(" SALIDA NO CONFORME\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -368,7 +368,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-arrow-left"
-  }), _vm._v(" Regresar\n            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Regresar\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -1282,7 +1282,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_salidanc == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_salidanc == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -1294,7 +1294,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])])])])], 1)])]);
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])])])])], 1)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -1315,7 +1315,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "true",
       "aria-controls": "collapseIdentificacion"
     }
-  }, [_vm._v("\n                                1. IDENTIFICACIÓN\n                            ")])])]);
+  }, [_vm._v("\r\n                                1. IDENTIFICACIÓN\r\n                            ")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1335,7 +1335,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "false",
       "aria-controls": "collapseTratamiento"
     }
-  }, [_vm._v("\n                                2. TRATAMIENTO\n                            ")])])]);
+  }, [_vm._v("\r\n                                2. TRATAMIENTO\r\n                            ")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1379,7 +1379,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "false",
       "aria-controls": "collapseVerificacion"
     }
-  }, [_vm._v("\n                                3. VERIFICACIÓN\n                            ")])])]);
+  }, [_vm._v("\r\n                                3. VERIFICACIÓN\r\n                            ")])])]);
 }];
 render._withStripped = true;
 
@@ -1403,7 +1403,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form-check-input-label[data-v-21ebb608] {\n    margin-left: 0;\n    margin-right: 1.5rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form-check-input-label[data-v-21ebb608] {\r\n    margin-left: 0;\r\n    margin-right: 1.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
