@@ -7,11 +7,12 @@ use App\Exports\Compras\EvaluacionProveedoresExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Status;
 use App\Http\Helpers\Utilidades;
-use Barryvdh\DomPDF\Facade;
+use PDF;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use ZipArchive;
 
 class EvaluacionProveedoresController extends Controller
 {
@@ -76,6 +77,71 @@ class EvaluacionProveedoresController extends Controller
             return Status::Error($e, "obtener los proveedores");
         }
     }
+
+     /**
+     * Descargar ZIP con cartas
+     */
+    public function DownloadCards($anio, $mes)
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+
+        try {
+            $response = $this->ObtenerProveedores($anio, $mes);
+            $proveedores = $response->original['proveedores'] ?? [];
+
+            if (empty($proveedores)) {
+                return response()->json(['message' => 'No hay proveedores'], 404);
+            }
+
+            $zipName = "Cartas_{$mes}_{$anio}.zip";
+            $zipPath = storage_path("app/{$zipName}");
+
+            $zip = new ZipArchive();
+            $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+            foreach ($proveedores as $proveedor) {
+
+                // PDF EN MEMORIA
+                $pdfBinary = $this->generateCardsSupplier($proveedor);
+
+                // Meter directo al ZIP
+                $zip->addFromString(
+                    "carta_proveedor_{$proveedor['nombre']}.pdf",
+                    $pdfBinary
+                );
+            }
+
+            $zip->close();
+
+            return response()->download($zipPath)->deleteFileAfterSend(true);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Genera PDF
+     */
+        private function generateCardsSupplier($proveedor)
+        {
+            $pdf = PDF::loadView(
+                'cartas.carta_evaluacion_proveedor',
+                ['proveedor' => $proveedor]
+            )
+            ->setPaper('a4')
+            ->setOptions([
+                'isRemoteEnabled' => true,
+                'isHtml5ParserEnabled' => true,
+                'chroot' => public_path(), // linea para que se vizualicen  las img de los pdf
+            ]);
+
+            return $pdf->output();
+        }
+
+
+
 
     /**
      * Obtiene la evaluación ingresada
