@@ -16,19 +16,10 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 class GeneralComprasExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $ids;
-    protected $startDate;
-    protected $endDate;
-    protected $dateStartP;
-    protected $dateEndP;
 
-    public function __construct(array $ids, $startDate = null, $endDate = null, $dateStartP = null, $dateEndP = null)
+    public function __construct(array $ids)
     {
         $this->ids = $ids;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
-        $this->dateStartP = $dateStartP;
-        $this->dateEndP = $dateEndP;
-
     }
 
     /**
@@ -73,25 +64,10 @@ class GeneralComprasExport implements FromView, ShouldAutoSize, WithEvents
         ];
     }
 
- 
-
-
     public function view(): View
     {
         try
         {
-            //Para rango de fechas
-            $filterDate = '';
-            if($this->startDate && $this->endDate){
-                $filterDate = " AND oc.fecha_orden BETWEEN '{$this->startDate}' AND '{$this->endDate}' ";
-            }
-
-            //para periodos de evaluacion
-            $filterDateP = '';
-            if($this->dateStartP && $this->dateEndP ){
-                $filterDateP = " AND oc.fecha_orden BETWEEN '{$this->dateStartP}' AND '{$this->dateEndP}' ";
-            };
-
             $ids = $this->ids;
             $ids_str=implode(",", $ids);
             $ids_str="$ids_str";
@@ -122,10 +98,7 @@ class GeneralComprasExport implements FromView, ShouldAutoSize, WithEvents
             join articulos a on a.id=rho.articulo_id
             join grupos g on g.id=a.grupo_id
             left join unidades_medida um on um.id=a.um_id
-            where oc.proyecto_id in ($ids_str) and oc.folio not like 'EP-OC%'
-            $filterDate   
-            $filterDateP"
-        );
+            where oc.proyecto_id in ($ids_str) and oc.folio not like 'EP-OC%'");
 
             // Obtener las ocs y los servicios
             $servicios = DB::select("SELECT
@@ -153,10 +126,7 @@ class GeneralComprasExport implements FromView, ShouldAutoSize, WithEvents
             join proyectos p2 on p2.id=oc.proyecto_id
             join servicios s on s.id=rho.servicio_id
             left join condicion_pago cp on cp.id=oc.condicion_pago_id
-            where oc.proyecto_id in ($ids_str) and oc.folio not like 'EP-OC%'
-            $filterDate
-            $filterDateP
-            ");
+            where oc.proyecto_id in ($ids_str) and oc.folio not like 'EP-OC%';");
 
             $servicios_vehiculos = in_array(60,$ids) ? $this->servicios_vehiculos() : [];
             $ocs = array_merge($articulos, $servicios, $servicios_vehiculos); // unir articulos y servicios
@@ -181,17 +151,6 @@ class GeneralComprasExport implements FromView, ShouldAutoSize, WithEvents
     private function servicios_vehiculos()
     {
         $ids = 60;
-         $filterDate = '';
-            if($this->startDate && $this->endDate){
-                $filterDate = " AND oc.fecha_orden BETWEEN '{$this->startDate}' AND '{$this->endDate}' ";
-            }
-
-              //para periodos de evaluacion
-            $filterDateP = '';
-            if($this->dateStartP && $this->dateEndP ){
-                $filterDateP = " AND oc.fecha_orden BETWEEN '{$this->dateStartP}' AND '{$this->dateEndP}' ";
-            };
-
         // Obtener las ocs y los servicios
         $servicios = DB::select("SELECT
         oc.id as oc_id,
@@ -218,11 +177,7 @@ class GeneralComprasExport implements FromView, ShouldAutoSize, WithEvents
         join proyectos p2 on p2.id=oc.proyecto_id
         join cat_mantenimiento_vehiculos cmv on cmv.id=rho.vehiculo_id
         left join condicion_pago cp on cp.id=oc.condicion_pago_id
-        where oc.proyecto_id =$ids
-        $filterDate
-        $filterDateP
-        ");
-
+        where oc.proyecto_id =$ids");
         return $servicios;
     }
 }

@@ -8,16 +8,8 @@
                 <button v-show="PermisosCrud.Download" class="btn btn-dark float-sm-right ml-2 " @click="DescargarReporte">
                     <i class="fas fa-download mr-1"></i>Reporte
                 </button>
-                <button 
-                    type="button" class="btn btn-primary float-sm-right ml-2" @click="DescargarCartas"
-                        :disabled="isLoading_proveedores">
-                        <i class="fas fa-file-archive-o mr-1"></i>
-                        {{ isLoading_proveedores ? 'Descargando...' : 'Descargar Cartas' }}
-                    </button>
-
-                    
                 <div class="dropdown float-sm-right ">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ mes === 2 ? 'Febrero' : 'Agosto'}} {{ anio }}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -835,43 +827,8 @@ export default
         DescargarReporte()
         {
             window.open("compras/evaluacion/descargarreporte/" + this.anio);
-        },
-        
-        async DescargarCartas() {
-    if (!this.anio || !this.mes) return;
-
-    try {
-        this.isLoading_proveedores = true;
-
-        const response = await axios({
-            url: `compras/evaluacion/download-cards/${this.anio}/${this.mes}`,
-            method: 'GET',
-            responseType: 'blob', 
-        });
-
-
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', `Cartas_${this.mes}_${this.anio}.zip`);
-                document.body.appendChild(link);
-                link.click();
-
-
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
-
-            } catch (error) {
-                console.error('Error al descargar las cartas:', error);
-                toastr.error(
-                    error.response?.data?.message || 'No se pudo descargar el ZIP. Intenta de nuevo.'
-                );
-            } finally {
-                this.isLoading_proveedores = false;
-            }
         }
-
     },
-
+   
 }
 </script>

@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Registro de Proveedores - {{anio}}
-                 <template v-if="true">
+                <template v-if="true">
                         <div class="dropdown float-sm-right mx-1">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -74,7 +74,8 @@
                     <template slot="total_evaluacion" slot-scope="props">
                         <span v-if="props.row.total_evaluacion == null">0</span>
                         <span v-else>{{props.row.total_evaluacion}}</span>
-                    </template>
+                       </template>
+
 
                 </v-client-table>
             </div>
@@ -82,51 +83,55 @@
         <!-- Fin ejemplo de tabla Listado -->
     </div>
 
-     <!--Inicio del modal agregar/actualizar-->
-        <div class="modal fade" tabindex="-1" :class="{ 'mostrar': modal }" role="dialog" aria-labelledby="myModalLabel"
-            style="display: none;" aria-hidden="true">
-            <div class="modal-dialog  modal-lg" role="document">
-                <div class="modal-content">
-                    <div>
-                        <vue-element-loading :active="isLoading" />
-                        <div class="modal-header">
-                        <h5 class="modal-title mb-0">
-                            {{ tituloModal }}
-                        </h5>
-                        <button type="button" class="close ml-auto" @click="cerrarModal()">
-                            <span>&times;</span>
-                        </button>
+    <!--Inicio del modal agregar/actualizar-->
+    <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div>
+                    <vue-element-loading :active="isLoading" />
+                        <div class="modal-header">  
+                            <h5 class="modal-title mb-1 font-weight-bold">
+                                {{ tituloModal }}
+                            </h5>
+                            <div>
+                                <small class="text-muted">
+                                    Completa la información requerida
+                                </small>
+                            </div>
+                            <button type="button" class="close ml-auto" aria-label="Close" @click="cerrarModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-
                         <div class="modal-body">
-
-                            <div class="row mb-3">
-                                <div class="col-md-8 offset-md-2">
-                                    <div class="form-floating">
-                                        <input type="text" id="razon_social" name="razon_social" class="form-control"
-                                            v-model="proveedor.razon_social" placeholder="Razón Social"
-                                            autocomplete="off" data-vv-name="Razon Social" v-validate="'required'" >
-                                        <label for="razon_social">Razón Social</label>
-                                    </div>
-                                    <span class="text-danger">
-                                        {{ errors.first('razon_social') }}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-8 offset-md-2">
-                                    <div class="form-floating">
-                                        <input type="text" name="nombre" v-model="proveedor.nombre" class="form-control"
-                                            placeholder="Nombre" autocomplete="off" id="nombre" data-vv-name="Nombre"
-                                            v-validate="'required'">
-                                        <label for="nombre">Nombre comercial</label>
-                                    </div>
-                                    <span class="text-danger">{{ errors.first('nombre') }}</span>
-                                </div>
-                            </div>
-                            
                             <div class="container">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" id="razon_social" name="razon_social"
+                                                class="form-control" v-model="proveedor.razon_social"
+                                                placeholder="Razón Social" autocomplete="off"
+                                                data-vv-name="Razon Social" v-validate="'required'">
+                                            <label for="razon_social">Razón Social</label>
+                                        </div>
+                                        <span class="text-danger">
+                                            {{ errors.first('razon_social') }}
+                                        </span>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" name="nombre" v-model="proveedor.nombre"
+                                                class="form-control" placeholder="Nombre" autocomplete="off" id="nombre"
+                                                data-vv-name="Nombre" v-validate="'required'">
+                                            <label for="nombre">Nombre comercial</label>
+                                        </div>
+                                        <span class="text-danger">{{ errors.first('nombre') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                       
+
+                        <div class="container">
                                 <div class="row mb-3">
                                     <!-- COLUMNA 1 · ORIGEN -->
                                     <div class="col">
@@ -145,7 +150,7 @@
                                         <div v-if="tipo_proveedor == 1">
                                             <div class="form-floating mb-1">
                                                 <input type="text" id="rfc" class="form-control" v-model="proveedor.rfc"
-                                                    placeholder="RFC" maxlength="13" autocomplete="off"
+                                                    placeholder="RFC" maxlength="13" autocomplete="off" :disabled = "rfcDisabled"
                                                     :class="{ 'is-invalid': rfcTouched && !proveedor.rfc }">
                                                 <label for="rfc">RFC</label>
                                             </div>
@@ -159,7 +164,7 @@
                                             <small class="text-muted d-block">
                                                 {{ proveedor.rfc ? proveedor.rfc.length : 0 }}/13
                                             </small>
-                                            <!-- <div v-if="typePeople">
+                                           <!-- <div v-if="typePeople">
                                                 <strong v-if="typePeople === 'moral'">Persona Moral</strong>
                                                 <strong v-if="typePeople === 'fisica'">Persona Física</strong>
                                             </div> -->
@@ -169,7 +174,7 @@
                                             <div class="form-floating mb-1">
                                                 <input type="text" id="taxid" class="form-control"
                                                     v-model="proveedor.taxid" placeholder="TAX ID" maxlength="10"
-                                                    autocomplete="off"
+                                                    autocomplete="off" :disabled="taxidDisabled"
                                                     :class="{ 'is-valid': taxidTouched && proveedor.taxid }">
                                                 <label for="taxid">TAX ID</label>
                                             </div>
@@ -234,7 +239,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="form-floating">
-                                            <input type="text" maxlength="20" v-validate="'required'"
+                                            <input type="text" maxlength="10" v-validate="'required'"
                                                 v-model="proveedor.no_exterior" class="form-control"
                                                 data-vv-name="No. Exterior" autocomplete="off" id="no.Exterior" placeholder="N° Exterior" />
                                                 <label for="no.Exterior">N° Exterior</label>
@@ -244,7 +249,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-floating">
-                                            <input type="text" v-validate="'required'"
+                                            <input type="text" maxlength="10" v-validate="'required'"
                                                 v-model="proveedor.no_interior" class="form-control"
                                                 data-vv-name="No.  Interior" autocomplete="off" placeholder="n.Interior" />
                                                 <label for="n.Interior">N° Interior</label>
@@ -534,7 +539,7 @@
                             </button> 
 
                             <button type="button" v-if="tipoAccion == 1" class="btn btn-secondary"
-                                @click="GuardarProveedor(true)"><i class="fas fa-save mr-1"></i>Guardar</button>
+                                @click="GuardarProveedor(true)"><i class="fas fa-save mr-1"></i>Crear</button>
                             <button type="button" v-if="tipoAccion == 2" class="btn btn-secondary"
                                 @click="GuardarProveedor(false)"><i class="fas fa-save mr-1"></i>Actualizar</button>
                         </div>
@@ -545,6 +550,7 @@
             <!-- /.modal-dialog -->
         </div>
         <!--Fin del modal-->
+
     <!-- Modal registro de bancos -->
     <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalProveedor}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dark modal-lg" role="document">
@@ -669,8 +675,9 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
-<!--modal import exce-->
+    </div>  
+
+    <!--modal import exce-->
      <modal-component 
         :showModal="showModalExcel"
         :loading="loading"
@@ -678,6 +685,7 @@
         @close="showModalExcel = false"
         @file-upload="loadExcel">
         </modal-component> 
+
 </main>
 </template>
 
@@ -800,7 +808,34 @@ export default
             taxidValido: false
         }
     },
-    watch: {
+        computed:
+        {
+            typePeople() {
+                if (!this.proveedor.rfc) return null
+                if (this.proveedor.rfc.length === 12) return 'moral'
+                if (this.proveedor.rfc.length === 13) return 'fisica'
+                return null
+            },
+
+            rfcDisabled(){
+                !!this.proveedor.rfc 
+                return
+            },
+            taxidDisabled(){
+                !!this.proveedor.taxid
+                return
+            }
+
+
+        },
+         mounted() {
+            this.PermisosCrud = Utilerias.getCRUD(this.$route.path)
+            this.ObtenerProveedores()
+            this.generateYears()
+            this.setperiodCurrentYear()
+
+        },
+        watch: {
             //Observar cambios para el RFC
             'proveedor.rfc'(newVal) {
                 //si viene vacio 
@@ -839,29 +874,12 @@ export default
                 this.taxidValido = this.validarTaxIdUSA(this.proveedor.taxid);
             }
         },
-         created() {
+        created() {
             this.setperiodCurrentYear()
         },
-    computed:
-    { typePeople() {
-                if (!this.proveedor.rfc) return null
-                if (this.proveedor.rfc.length === 12) return 'moral'
-                if (this.proveedor.rfc.length === 13) return 'fisica'
-                return null
-            },
-
-            rfcDisabled(){
-                !!this.proveedor.rfc 
-                return
-            },
-            taxidDisabled(){
-                !!this.proveedor.taxid
-                return
-            }},
     methods:
     {
-
-         setperiodCurrentYear() {
+          setperiodCurrentYear() {
             this.anio = new Date().getFullYear()
         },
         /** Periodo de proveedores 2020 a  fecha actual */
@@ -880,14 +898,11 @@ export default
         /**
          * Obtener todos los proveedores
          */
-        ObtenerProveedores()
-        {
+        ObtenerProveedores() {
             this.isLoading_proveedores = true;
-            axios.get("/compras/proveedores/obtener/" + this.anio).then(res =>
-            {
+            axios.get("/compras/proveedores/obtener/" + this.anio).then(res => {
                 this.isLoading_proveedores = false;
-                if (res.data.status)
-                {
+                if (res.data.status) {
                     this.list_proveedores = res.data.proveedores;
                 }
                 else
@@ -895,7 +910,8 @@ export default
             });
         },
 
-       /**
+
+        /**
          * Registra o actualiza el proveedore actual
          */
         async GuardarProveedor(nuevo) {
@@ -971,7 +987,7 @@ export default
             data.append("nacionalidad", this.proveedor.nacionalidad);
             data.append("colonia", this.proveedor.colonia);
             data.append("municipio", this.proveedor.municipio);
-            data.append("ventas_contacto", this.proveedor.ventas_contacto); 
+            data.append("ventas_contacto", this.proveedor.ventas_contacto);
             data.append("ventas_telefono", this.proveedor.ventas_telefono);
             data.append("ventas_celular", this.proveedor.ventas_celular);
             data.append("ventas_correo", this.proveedor.ventas_correo);
@@ -989,30 +1005,29 @@ export default
             data.append("temp2_proveedor_condiciones", this.temp2_proveedor_condiciones);
             data.append("temp2_proveedor_moneda", this.temp2_proveedor_moneda);
             data.append("temp2_proveedor_banco", this.temp2_proveedor_banco);
-                const res = await axios.post(this.url, data);
-
+           const res =  await axios.post(this.url, data).then(res => {
                 if (res.data.status) {
                     this.cerrarModal();
                     this.ObtenerProveedores();
-
                     if (nuevo) {
                         toastr.success('Proveedor Registrado Correctamente');
-                    } else {
+                    }
+                    else {
                         toastr.success('Proveedor Actualizado Correctamente');
                     }
-                } else {
-                    toastr.error(res.data.message);
                 }
+            });
             } catch (error) {
-                toastr.error(
-                    error.response?.data?.message || 'Ocurrió un error inesperado'
-                );
+                toastr.error(error.response.data.message);
+
+
             }
             finally {
                 this.isLoading = false;
             }
-
+            
         },
+
         /**
          * Activar o desactivar el proveedor seleccionado
          */
@@ -1060,46 +1075,46 @@ export default
         {
             this.proveedor = {
                 razon_social: "",
-                nombre: "N/D",
-                giro: "N/D",
+                nombre: "",
+                giro: "",
                 // rfc: "XAXX010101000",
                 rfc: "",
-                regimen_fiscal: "N/D",
-                nacionalidad: "N/D",
-                regimen: "N/D",
-                calle: "N/D",
-                colonia: "N/D",
-                no_exterior: "N/D",
-                no_interior: "N/D",
-                cp: "00000",
-                municipio: "N/D",
+                regimen_fiscal: "",
+                nacionalidad: "",
+                regimen: "",
+                calle: "",
+                colonia: "",
+                no_exterior: "",
+                no_interior: "",
+                cp: "",
+                municipio: "",
                 limite_credito: 0,
-                estado: "N/D",
-                pagina: "N/D",
-                ventas_contacto: "N/D",
-                ventas_telefono: "N/D",
-                ventas_correo: "N/D",
-                ventas_celular: "-",
-                facturacion_contacto: "N/D",
-                facturacion_telefono: "-",
-                facturacion_correo: "-",
-                facturacion_celular: "-",
-                modificacion: "-",
-                anexos: "-",
+                estado: "",
+                pagina: "",
+                ventas_contacto: "",
+                ventas_telefono: "",
+                ventas_correo: "",
+                ventas_celular: "",
+                facturacion_contacto: "",
+                facturacion_telefono: "",
+                facturacion_correo: "",
+                facturacion_celular: "",
+                modificacion: "",
+                anexos: "",
                 tiposdocumentos:"",
                 tipos_modificacion:"",
                 tipos_documentos: "",
             };
-            this.temp2_proveedor_cuenta = '000000';
-            this.temp2_proveedor_clabe = '000000';
-            this.temp2_proveedor_condiciones = "N/D";
-            this.temp2_proveedor_moneda = "MXN";
-            this.temp2_proveedor_banco = 'N/D';
-            this.temp_proveedor_cuenta = 'N/D';
-            this.temp_proveedor_clabe = 'N/D';
-            this.temp_proveedor_condiciones = "N/D";
-            this.temp_proveedor_moneda = "MXN";
-            this.temp_proveedor_banco = 'N/D';
+            this.temp2_proveedor_cuenta = '';
+            this.temp2_proveedor_clabe = '';
+            this.temp2_proveedor_condiciones = "";
+            this.temp2_proveedor_moneda = "";
+            this.temp2_proveedor_banco = '';
+            this.temp_proveedor_cuenta = '';
+            this.temp_proveedor_clabe = '';
+            this.temp_proveedor_condiciones = "";
+            this.temp_proveedor_moneda = "";
+            this.temp_proveedor_banco = '';
             this.list_giro_suministro = [];
             this.list_modificaciones = [];
             this.list_tipos_documentos= [];
@@ -1269,7 +1284,10 @@ export default
             window.open("compras/reportes/catalogoproveedores/" + this.anio, '_blank');
         },
 
-           ValidarRFC()
+        /**
+         * Indica di el RC es valido o no
+         */
+        ValidarRFC()
         {
             let rfc = this.proveedor.rfc;
             this.rfc_valido = this.AuxValidarRFC(rfc, false);
@@ -1415,7 +1433,8 @@ export default
             this.list_tipos_documentos = tiposDocumentos
 
         },
-         openModalExcel() {
+        
+            openModalExcel() {
                 this.showModalExcel = false
 
                 this.$nextTick(()=>{
@@ -1513,12 +1532,5 @@ export default
                 }
             } 
     },
-    mounted()
-    {
-        this.PermisosCrud = Utilerias.getCRUD(this.$route.path)
-            this.ObtenerProveedores()
-            this.generateYears()
-            this.setperiodCurrentYear()
-    }
 }
 </script>

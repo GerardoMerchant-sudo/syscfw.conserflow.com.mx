@@ -1097,55 +1097,22 @@ class ComprasController extends Controller
   /**
    * Descarga el reporte general de las compra del proeycto ingresado
    */
-  public function ReportGeneral(Request $request, $ids)
+  public function ReportGeneral($ids)
   {
-      try {
-
-          $ids = explode("&", $ids);
-          array_pop($ids);
-
-          // rango libre (NO SE TOCA)
-          $startDate = $request->query('inicio');
-          $endDate   = $request->query('fin');
-
-          // 👇 ESTO FALTABA
-          $anio = $request->query('anio');
-          $mes  = $request->query('mes');
-
-          // periodo (nuevo)
-          $dateStartP = null;
-          $dateEndP   = null;
-
-          if ($anio && $mes) {
-
-              if ($mes == 2) {
-                  $dateStartP = ($anio - 1) . "-08-01";
-                  $dateEndP   = $anio . "-01-31";
-              }
-
-              if ($mes == 8) {
-                  $dateStartP = $anio . "-02-01";
-                  $dateEndP   = $anio . "-07-31";
-              }
-          }
-
-          // prioridad: periodo > rango
-          if ($dateStartP && $dateEndP) {
-              $startDate = $dateStartP;
-              $endDate   = $dateEndP;
-          }
-
-          return Excel::download(
-              new GeneralComprasExport($ids, $startDate, $endDate, $dateStartP, $dateEndP),
-              'Historico de Compras.xlsx'
-          );
-
-      } catch (Exception $e) {
-          Utilidades::errors($e);
-          return view("errors.500");
-      }
+    try
+    {
+      $ids = explode("&", $ids);
+      array_pop($ids);
+      ob_end_clean();
+      ob_start();
+      return Excel::download(new GeneralComprasExport($ids), 'Historico de Compras.xlsx');
+    }
+    catch (Exception $e)
+    {
+      Utilidades::errors($e);
+      return view("errors.500");
+    }
   }
-
 
   /**
    * Obtener las OC cerradas para correción de almacén
