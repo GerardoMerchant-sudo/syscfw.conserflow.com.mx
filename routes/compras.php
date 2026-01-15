@@ -34,6 +34,9 @@ Route::group(["middleware" => "auth"], function ()
 
     // Reportes
     Route::get("compras/reporte/generalcompras/{id}", "Compras\ComprasController@ReportGeneral");
+    // Cartas 
+    Route::get('compras/evaluacion/download-cards/{anio}/{mes}', 'Compras\EvaluacionProveedoresController@DownloadCards');
+
 
     // FIXME: 
     Route::resource("compras/{id}/compras", "Compras\ComprasController");

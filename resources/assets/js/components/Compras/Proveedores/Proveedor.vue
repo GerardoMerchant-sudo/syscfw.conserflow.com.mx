@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <button v-show="PermisosCrud.Create" type="button" @click="abrirModal()"
-                            class="btn btn-dark float-sm-right mx-1">
+                            class="btn btn-primary float-sm-right mx-1">
                             <i class="fas fa-plus mr-1"></i> Nuevo
                         </button>
                         <button v-show="PermisosCrud.Download" type="button" @click="DescargarReporte()"
