@@ -1,17 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-Route::get('prueba/carta', function() {
-    $proveedor = [
-        'nombre' => 'Proveedor Ejemplo',
-        'razon_social' => 'Razon Social Ejemplo',
-        'IdentificadorFiscal' => 'RFC123456',
-        'direccion' => 'Calle Ejemplo 123'
-    ];
-    return view('cartas.carta_evaluacion_proveedor', compact('proveedor'));
-});
-
-
+Route::get('/pdf', 'PDFController@getPDF')->name('getPDF');
 
 
 Route::get('borrarentrada/{id}', "PartidaEntradaController@EliminarEntrada");

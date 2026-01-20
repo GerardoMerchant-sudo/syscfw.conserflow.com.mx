@@ -825,7 +825,6 @@ var Partidas = function Partidas(r) {
                 }
               case 'actualizar':
                 {
-                  console.log(data);
                   this.selected = [];
                   this.upload = true;
                   _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.compra);
@@ -2383,6 +2382,9 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
           console.error(error);
         });
       }
+    },
+    formatPrecio: function formatPrecio(valor) {
+      return parseFloat(valor);
     }
   },
   mounted: function mounted() {}
@@ -3877,7 +3879,35 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
       yearUntil: new Date().getFullYear(),
       showModalExcel: false,
       loading: false,
-      taxidValido: false
+      isDownloading: false,
+      taxidValido: false,
+      form: {
+        razon_social: '',
+        nombre: '',
+        giro: '',
+        nacionalidad: '',
+        calle: '',
+        no_exterior: '',
+        no_interior: '',
+        cp: '',
+        colonia: '',
+        municipio: '',
+        ciudad: '',
+        estado: '',
+        temp2_proveedor_banco: '',
+        temp2_proveedor_cuenta: '',
+        temp2_proveedor_clabe: '',
+        temp2_proveedor_moneda: '',
+        limite_credito: '',
+        ventas_contacto: '',
+        ventas_telefono: '',
+        ventas_celular: '',
+        ventas_correo: '',
+        facturacion_contacto: '',
+        facturacion_telefono: '',
+        facturacion_celular: '',
+        facturacion_correo: ''
+      }
     };
   },
   watch: {
@@ -3971,7 +4001,7 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
     GuardarProveedor: function GuardarProveedor(nuevo) {
       var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var isValid, tieneRFC, tieneTaxID, data, res, _error$response, _t;
+        var isValid, tieneRFC, tieneTaxID, data, res, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
@@ -4053,6 +4083,7 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
               data.append("no_exterior", _this2.proveedor.no_exterior);
               data.append("no_interior", _this2.proveedor.no_interior);
               data.append("estado", _this2.proveedor.estado);
+              data.append("ciudad", _this2.proveedor.ciudad);
               data.append("cp", _this2.proveedor.cp);
               data.append("nacionalidad", _this2.proveedor.nacionalidad);
               data.append("colonia", _this2.proveedor.colonia);
@@ -4076,26 +4107,25 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
               data.append("temp2_proveedor_moneda", _this2.temp2_proveedor_moneda);
               data.append("temp2_proveedor_banco", _this2.temp2_proveedor_banco);
               _context.n = 7;
-              return axios.post(_this2.url, data);
+              return axios.post(_this2.url, data).then(function (res) {
+                if (res.data.status) {
+                  _this2.cerrarModal();
+                  _this2.ObtenerProveedores();
+                  if (nuevo) {
+                    toastr.success('Proveedor Registrado Correctamente');
+                  } else {
+                    toastr.success('Proveedor Actualizado Correctamente');
+                  }
+                }
+              });
             case 7:
               res = _context.v;
-              if (res.data.status) {
-                _this2.cerrarModal();
-                _this2.ObtenerProveedores();
-                if (nuevo) {
-                  toastr.success('Proveedor Registrado Correctamente');
-                } else {
-                  toastr.success('Proveedor Actualizado Correctamente');
-                }
-              } else {
-                toastr.error(res.data.message);
-              }
               _context.n = 9;
               break;
             case 8:
               _context.p = 8;
               _t = _context.v;
-              toastr.error(((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || 'Ocurrió un error inesperado');
+              toastr.error(_t.response.data.message);
             case 9:
               _context.p = 9;
               _this2.isLoading = false;
@@ -4154,6 +4184,7 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
         regimen: "N/D",
         calle: "N/D",
         colonia: "N/D",
+        ciudad: "N/D",
         no_exterior: "N/D",
         no_interior: "N/D",
         cp: "00000",
@@ -4549,6 +4580,70 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
           }
         }, _callee2, null, [[2, 4, 5, 6]]);
       }))();
+    },
+    descargarExcel: function descargarExcel() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, url, link, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _this8.isDownloading = true;
+              _context3.p = 1;
+              _this8.form = {
+                razon_social: _this8.proveedor.razon_social,
+                nombre: _this8.proveedor.nombre,
+                rfc: _this8.proveedor.rfc,
+                taxid: _this8.proveedor.taxid,
+                giro: _this8.proveedor.giro,
+                nacionalidad: _this8.proveedor.nacionalidad,
+                calle: _this8.proveedor.calle,
+                no_exterior: _this8.proveedor.no_exterior,
+                no_interior: _this8.proveedor.no_interior,
+                cp: _this8.proveedor.cp,
+                colonia: _this8.proveedor.colonia,
+                municipio: _this8.proveedor.municipio,
+                ciudad: _this8.proveedor.ciudad,
+                estado: _this8.proveedor.estado,
+                temp2_proveedor_banco: _this8.temp2_proveedor_banco,
+                temp2_proveedor_clabe: _this8.temp2_proveedor_clabe,
+                temp2_proveedor_moneda: _this8.temp_proveedor_moneda,
+                limite_credito: _this8.proveedor.limite_credito,
+                ventas_contacto: _this8.proveedor.ventas_contacto,
+                ventas_telefono: _this8.proveedor.ventas_telefono,
+                ventas_celular: _this8.proveedor.ventas_celular,
+                ventas_correo: _this8.proveedor.ventas_correo,
+                facturacion_contacto: _this8.proveedor.facturacion_contacto,
+                facturacion_telefono: _this8.proveedor.facturacion_telefono,
+                facturacion_celular: _this8.proveedor.facturacion_celular,
+                facturacion_correo: _this8.proveedor.facturacion_correo
+              };
+              _context3.n = 2;
+              return axios.post('/proveedor/export', _this8.form, {
+                responseType: 'blob'
+              });
+            case 2:
+              response = _context3.v;
+              url = window.URL.createObjectURL(response.data);
+              link = document.createElement('a');
+              link.href = url;
+              link.download = 'PCO-02_F-01 Alta y Modificacion de Proveedores NR02.xlsx';
+              link.click();
+              _context3.n = 4;
+              break;
+            case 3:
+              _context3.p = 3;
+              _t3 = _context3.v;
+              toastr.error("Error al descargar el archivo");
+            case 4:
+              _context3.p = 4;
+              _this8.isDownloading = false;
+              return _context3.f(4);
+            case 5:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[1, 3, 4, 5]]);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -4584,16 +4679,16 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
       mostrarTodos: false,
       proyectos: [],
       dateStart: null,
-      dateEnd: null,
-      periods: [],
-      selectedPeriod: null,
-      anio: null,
-      mes: null,
-      yearSince: null,
-      yearUntil: null,
-      periodSelected: false,
-      periodEnd: null,
-      periodStart: null
+      dateEnd: null
+      // periods: [],
+      // selectedPeriod: null,
+      // anio: null,
+      // mes: null,
+      // yearSince: null,
+      // yearUntil: null,
+      // periodSelected: false, 
+      // periodEnd:null,
+      // periodStart:null
     };
   },
   mounted: function mounted() {
@@ -4687,48 +4782,48 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
       }))();
     },
     //Obtener los proyectos por periodos
-    setPeriodoActual: function setPeriodoActual() {
-      var today = new Date();
-      var currentMonth = today.getMonth() + 1;
-      var currentYear = today.getFullYear();
-      this.anio = currentYear;
-      if (currentMonth >= 2 && currentMonth <= 7) {
-        this.mes = 8; // agosto
-      } else {
-        this.mes = 2; // febrero
-      }
-      this.ObtenrProyectos();
-    },
-    generatePeriods: function generatePeriods() {
-      this.periods = [];
-      for (var year = this.yearSince; year <= this.yearUntil; year++) {
-        this.periods.push({
-          month: "Febrero ".concat(year),
-          anio: year,
-          mes: 2
-        });
-        this.periods.push({
-          month: "Agosto ".concat(year),
-          anio: year,
-          mes: 8
-        });
-      }
-    },
-    seleccionarPeriodo: function seleccionarPeriodo(mes, anio) {
-      this.mes = mes;
-      this.anio = anio;
-      this.periodSelected = true;
-      this.dateStart = null;
-      this.dateEnd = null;
-      if (mes === 2) {
-        this.periodStart = "".concat(anio - 1, "-08-01");
-        this.periodEnd = "".concat(anio, "-01-31");
-      }
-      if (mes === 8) {
-        this.periodStart = "".concat(anio, "-02-01");
-        this.periodEnd = "".concat(anio, "-07-31");
-      }
-    },
+    //     setPeriodoActual(){
+    //         const today = new Date()
+    //         const currentMonth = today.getMonth() + 1
+    //         const currentYear = today.getFullYear()
+    //         this.anio = currentYear
+    //         if(currentMonth >= 2 && currentMonth <= 7){
+    //             this.mes = 8 // agosto
+    //         }else {
+    //             this.mes = 2 // febrero
+    //         }
+    //         this.ObtenrProyectos()
+    //     },
+    //     generatePeriods(){
+    //         this.periods = []
+    //         for(let year = this.yearSince; year <= this.yearUntil; year ++){
+    //             this.periods.push({
+    //                 month : `Febrero ${year}`,
+    //                 anio: year,
+    //                 mes:2
+    //             })
+    //             this.periods.push({
+    //                 month: `Agosto ${year}`,
+    //                 anio: year,
+    //                 mes: 8
+    //             })
+    //         } 
+    //     },
+    // seleccionarPeriodo(mes, anio) {
+    //     this.mes = mes
+    //     this.anio = anio
+    //     this.periodSelected = true
+    //     this.dateStart = null
+    //     this.dateEnd = null
+    //     if (mes === 2) {
+    //         this.periodStart = `${anio - 1}-08-01`
+    //         this.periodEnd = `${anio}-01-31`
+    //     }
+    //     if (mes === 8) {
+    //         this.periodStart = `${anio}-02-01`
+    //         this.periodEnd = `${anio}-07-31`
+    //     }
+    // },
     DescargarReporte: function DescargarReporte() {
       if (!this.proyectos || this.proyectos.length === 0) {
         toastr.warning('Seleccione un proyecto');
@@ -4753,9 +4848,9 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
       // reset
       this.dateStart = null;
       this.dateEnd = null;
-      this.periodStart = null;
-      this.periodEnd = null;
-      this.periodSelected = false;
+      // this.periodStart = null
+      // this.periodEnd = null
+      // this.periodSelected = false
       this.proyectos = [];
     }
   }
@@ -7669,7 +7764,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Detalles de la compra con folio: " + _vm._s(_vm.empleado == null ? "" : _vm.empleado.folio) + "\r\n        "), _c("button", {
+  }), _vm._v(" Detalles de la compra con folio: " + _vm._s(_vm.empleado == null ? "" : _vm.empleado.folio) + "\n        "), _c("button", {
     staticClass: "btn btn-secondary float-sm-right",
     attrs: {
       type: "button"
@@ -7681,7 +7776,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-arrow-left"
-  }), _vm._v(" Atras\r\n        ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Atras\n        ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("v-client-table", {
     ref: "myTabledescuento",
@@ -7732,7 +7827,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-trash"
-        }), _vm._v(" Eliminar.\r\n                            ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Eliminar.\n                            ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7744,14 +7839,29 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-trash"
-        }), _vm._v(" Actualizar Partida.\r\n                            ")])])])])];
+        }), _vm._v(" Actualizar Partida.\n                            ")])])])])];
       }
     }, {
       key: "ad",
       fn: function fn(props) {
-        return [_vm._v("\r\n                " + _vm._s(props.row.ad) + " " + _vm._s(props.row.comentario == null ? "" : props.row.comentario) + "\r\n            ")];
+        return [_vm._v("\n                " + _vm._s(props.row.ad) + " " + _vm._s(props.row.comentario == null ? "" : props.row.comentario) + "\n            ")];
       }
-    }], null, false, 429929280)
+    }, {
+      key: "precio_unitario",
+      fn: function fn(props) {
+        return [_vm._v("\n                " + _vm._s(_vm.formatPrecio(props.row.precio_unitario)) + "\n            ")];
+      }
+    }, {
+      key: "cantidad",
+      fn: function fn(props) {
+        return [_vm._v("\n                " + _vm._s(_vm.formatPrecio(props.row.cantidad)) + "\n            ")];
+      }
+    }, {
+      key: "total",
+      fn: function fn(props) {
+        return [_vm._v("\n                " + _vm._s(_vm.formatPrecio(props.row.total)) + "\n            ")];
+      }
+    }], null, false, 2742202463)
   })], 1), _vm._v(" "), _c("div", {
     ref: "formLote",
     staticClass: "card"
@@ -8061,8 +8171,8 @@ var render = function render() {
     directives: [{
       name: "validate",
       rawName: "v-validate",
-      value: "decimal:2",
-      expression: "'decimal:2'"
+      value: "decimal:3",
+      expression: "'decimal:3'"
     }, {
       name: "model",
       rawName: "v-model",
@@ -8205,9 +8315,9 @@ var render = function render() {
             "data-placement": "top",
             title: props.row.descal
           }
-        }, [_vm._v("\r\n                                            " + _vm._s(props.row.calidad) + "\r\n                                        ")])] : _vm._e()];
+        }, [_vm._v("\n                                            " + _vm._s(props.row.calidad) + "\n                                        ")])] : _vm._e()];
       }
-    }], null, false, 1710625463)
+    }], null, false, 3148927351)
   })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
@@ -8339,7 +8449,7 @@ var render = function render() {
             "data-placement": "top",
             title: props.row.descal
           }
-        }, [_vm._v("\r\n                                                        " + _vm._s(props.row.calidad) + "\r\n                                                    ")])] : _vm._e()];
+        }, [_vm._v("\n                                                        " + _vm._s(props.row.calidad) + "\n                                                    ")])] : _vm._e()];
       }
     }, {
       key: "child_row",
@@ -8366,7 +8476,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\r\n                                                        ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\n                                                        ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -8383,9 +8493,9 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar Articulo\r\n                                                            ")])])])])];
+        }), _vm._v(" Actualizar Articulo\n                                                            ")])])])])];
       }
-    }], null, false, 2488657088)
+    }], null, false, 2361371968)
   })], 1), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
@@ -10941,7 +11051,7 @@ var render = function render() {
   }), _vm._v(" Registro de Proveedores - " + _vm._s(_vm.anio) + "\r\n                 "),  true ? [_c("div", {
     staticClass: "dropdown float-sm-right mx-1"
   }, [_c("button", {
-    staticClass: "btn btn-secondary dropdown-toggle",
+    staticClass: "btn btn-primary dropdown-toggle",
     attrs: {
       type: "button",
       id: "dropdownMenu2",
@@ -11557,7 +11667,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      maxlength: "20",
+      maxlength: "10",
       "data-vv-name": "No. Exterior",
       autocomplete: "off",
       id: "no.Exterior",
@@ -11702,6 +11812,47 @@ var render = function render() {
   }, [_vm._v("Municipio")]), _vm._v(" "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v(_vm._s(_vm.errors.first("Municipio")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "col"
+  }, [_c("div", {
+    staticClass: "form-floating"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.proveedor.ciudad,
+      expression: "proveedor.ciudad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "75",
+      minlength: "3",
+      "data-vv-name": "ciudad",
+      autocomplete: "off",
+      placeholder: "Ciudad",
+      id: "ciudad"
+    },
+    domProps: {
+      value: _vm.proveedor.ciudad
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.proveedor, "ciudad", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      "for": "ciudad"
+    }
+  }, [_vm._v("Ciudad")]), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Ciudad")))])])]), _vm._v(" "), _c("div", {
     staticClass: "col"
   }, [_c("div", {
     staticClass: "form-floating"
@@ -12536,26 +12687,30 @@ var render = function render() {
   })], 1)])], 2), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
-    staticClass: "btn btn-outline-dark",
-    attrs: {
-      type: "button"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.cerrarModal();
-      }
-    }
-  }, [_c("i", {
-    staticClass: "fas fa-window-close mr-1"
-  }), _vm._v("Cerrar")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     on: {
       click: function click($event) {
         return _vm.openModalExcel();
       }
     }
-  }, [_vm._v("\r\n                                Carga Excel\r\n                            ")]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
-    staticClass: "btn btn-secondary",
+  }, [_c("i", {
+    staticClass: "fas fa-upload mr-1"
+  }), _vm._v("Carga Excel\r\n                            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-success",
+    attrs: {
+      disabled: _vm.isDownloading
+    },
+    on: {
+      click: function click($event) {
+        return _vm.descargarExcel();
+      }
+    }
+  }, [_vm.isDownloading ? _c("span", [_c("i", {
+    staticClass: "fas fa-spinner fa-spin mr-1"
+  }), _vm._v("\r\n                                    Generando...\r\n                                ")]) : _c("span", [_c("i", {
+    staticClass: "fas fa-download mr-1"
+  }), _vm._v("\r\n                                    Descargar Excel\r\n                                ")])]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
+    staticClass: "btn btn-primary",
     attrs: {
       type: "button"
     },
@@ -12566,8 +12721,8 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save mr-1"
-  }), _vm._v("Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
-    staticClass: "btn btn-secondary",
+  }), _vm._v("Crear")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
+    staticClass: "btn btn-primary",
     attrs: {
       type: "button"
     },
@@ -13074,34 +13229,6 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "card-body"
-  }, [_c("i", {
-    staticClass: "fa fa-calendar mr-2 text-primary"
-  }), _vm._v(" "), _c("strong", [_vm._v("Generar Reporte por Periodos")]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown float-sm mt-4"
-  }, [_c("button", {
-    staticClass: "btn btn-secondary dropdown-toggle",
-    attrs: {
-      type: "button",
-      "data-toggle": "dropdown"
-    }
-  }, [_vm._v("\r\n                            " + _vm._s(_vm.periodSelected ? _vm.nombrePeriodo : "Seleccione periodo") + "\r\n                        ")]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, [_c("button", {
-    staticClass: "dropdown-item",
-    on: {
-      click: function click($event) {
-        return _vm.seleccionarPeriodo(2, 2025);
-      }
-    }
-  }, [_vm._v("\r\n                                Febrero 2025\r\n                            ")]), _vm._v(" "), _c("button", {
-    staticClass: "dropdown-item",
-    on: {
-      click: function click($event) {
-        return _vm.seleccionarPeriodo(8, 2025);
-      }
-    }
-  }, [_vm._v("\r\n                                Agosto 2025\r\n                            ")])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
   }, [_c("label", {
     staticClass: "text-muted small"
@@ -13230,7 +13357,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.VueTables__child-row-toggler--closed::before {\r\n    content: \"+\";\n}\n.VueTables__child-row-toggler--open::before {\r\n    content: \"-\";\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.VueTables__child-row-toggler--closed::before {\n    content: \"+\";\n}\n.VueTables__child-row-toggler--open::before {\n    content: \"-\";\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

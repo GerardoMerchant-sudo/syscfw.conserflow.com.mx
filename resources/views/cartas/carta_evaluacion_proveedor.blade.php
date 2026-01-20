@@ -1,145 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Evaluación de Proveedores</title>
+
     <style>
         @page {
-            margin: 0; /* Quita márgenes de la página */
+            margin: 0;
         }
+
         body {
             margin: 0;
             padding: 0;
-            font:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;    
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            color: #000;
         }
+
+        /* ===== MEMBRETE SUPERIOR ===== */
         .membrete-top {
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 4.7cm;       
+            height: 4.5cm;
         }
+
         .membrete-top img {
             width: 100%;
-            height: 100%
-        }
-
-        .logo{
-            position: absolute;
-            top: 1.4cm;
-            left: 1.27cm;
-        }
-        .logo img{
-            width: 200px;
-        }
-
-        .leyenda{
-            position:absolute;
-            top: 1cm;
-            right: 1.27cm;
-            font-size: 14px;
-            text-align: right;
-        }
-        
-        .membrete-bottom {
-            position: absolute;
-            width: 100%;
-            bottom: -2cm;
-            height: 5cm;
-        }
-
-        .membrete-bottom img {
-        width: 100%;
             height: 100%;
         }
 
-        .content {
-            position: relative;
-            padding-top: 5.1cm;
-            padding-left: 1.27cm;
-            padding-right: 1.27cm;
-            padding-bottom: 4.5cm;
+        .logo {
+            position: fixed;
+            top: 1.4cm;
+            left: 1.27cm;
         }
 
-        
+        .logo img {
+            width: 180px;
+        }
+
+        .leyenda {
+            position: fixed;
+            top: 1.3cm;
+            right: 1.27cm;
+            text-align: right;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        /* ===== MEMBRETE INFERIOR ===== */
+        .membrete-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3.8cm;
+        }
+
+        .membrete-bottom img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ===== CONTENIDO ===== */
+        .content {
+            padding-top: 5.3cm;
+            padding-left: 1.27cm;
+            padding-right: 1.27cm;
+            padding-bottom: 4.2cm;
+        }
+
+        p {
+            text-align: justify;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+        }
+
+        /* ===== TABLA ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0 15px 0;
+        }
+
+        td {
+            padding: 6px;
+            vertical-align: top;
+        }
+
+        .col-puntos {
+            width: 20%;
+        }
+
+        .col-estado {
+            width: 20%;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .col-descripcion {
+            width: 60%;
+        }
+
+        .azul {
+            color: #0070C0;
+            font-weight: bold;
+        }
+
+        ul {
+            margin: 5px 0 0 0;
+            padding-left: 15px;
+        }
     </style>
 </head>
 <body>
+
+    <!-- MEMBRETE SUPERIOR -->
     <div class="membrete-top">
-        <img src="{{ public_path('img/menbrete_cfw.png') }}" alt="membrete">
+        <img src="{{ public_path('img/menbrete_cfw.png') }}">
     </div>
 
     <div class="logo">
-        <img src="{{ public_path('img/conserflow.png') }}" alt="logo">
+        <img src="{{ public_path('img/conserflow.png') }}">
     </div>
 
     <div class="leyenda">
-        <strong>Conserflow S.A de C.V.</strong><br>
-        calle Mezquite 5, col. Santa Clara<br>
-        Santiago Miahuatlán,<br> Puebla CP 75820
+        <strong>Conserflow S.A. de C.V.</strong><br>
+        Calle Mezquite 5, Col. Santa Clara<br>
+        Santiago Miahuatlán, Puebla<br>
+        C.P. 75820
     </div>
 
+    <!-- MEMBRETE INFERIOR -->
     <div class="membrete-bottom">
         <img src="{{ public_path('img/menbrete_cfw.png') }}">
     </div>
 
+    <!-- CONTENIDO -->
     <div class="content">
-         <p><strong>{{ $proveedor['nombre'] }}</strong></p>
+
+        <p><strong>{{ $proveedor['nombre'] }}</strong></p>
 
         <p>Estimado proveedor,</p>
 
         <p>
-            Le informamos que, de acuerdo con nuestros lineamientos internos, se realizó la Evaluación y/
+            Le informamos que, de acuerdo con nuestros lineamientos internos, se realizó la Evaluación y
             Reevaluación de Proveedores. Las categorías que fueron evaluadas, son las siguientes:
         </p>
 
-          <p>
+        <p>
             a) Atención telefónica / correo electrónico<br>
             b) Atención comercial<br>
             c) Servicio de Administración y Facturación<br>
             d) Producto y servicio
         </p>
 
-        <p>Los resultados se clasifican de acuerdo los siguientes parámetros:</p>
+        <p>Los resultados se clasifican de acuerdo con los siguientes parámetros:</p>
 
         <table>
             <tr>
-                <td width="20%">54 a 72</td>
-                <td width="20%" style="text-aling:center"><strong>APROBADO</strong></td>
-                <td width="60%">Figurará como primera opción para asignar órdenes
-                    de compra</td>
+                <td class="col-puntos">54 a 72 puntos</td>
+                <td class="col-estado">APROBADO</td>
+                <td class="col-descripcion">
+                    Figurará como primera opción para asignar órdenes de compra
+                </td>
             </tr>
             <tr>
-                <td>36 a 53</td>
-                <td><strong>CONDICIONADO</strong></td>
-                <td>No figurará como primera opción para asignar
-                    órdenes de compra</td>
+                <td>36 a 53 puntos</td>
+                <td class="col-estado">CONDICIONADO</td>
+                <td>
+                    No figurará como primera opción para asignar órdenes de compra
+                </td>
             </tr>
             <tr>
-                <td>18 a 35</td>
-                <td><strong>NO APTO</strong></td>
-                <td>No figurará como opción para asignar órdenes de
-                compra.</td>
+                <td>18 a 35 puntos</td>
+                <td class="col-estado">NO APTO</td>
+                <td>
+                    No figurará como opción para asignar órdenes de compra
+                </td>
             </tr>
         </table>
-         <p>
-            <strong style="color:#0070C0">Empresa Evaluada</strong> ha obtenido un valor de
-            <strong style="color:#0070C0">94 puntos (APROBADO)</strong>por lo cual <strong style="color:#0070C0">figurando como
-            primera opción para asignar órdenes de compra.</strong>
+
+        <p>
+            <span class="azul">Empresa Evaluada</span> ha obtenido un valor de
+            <span class="azul">94 puntos (APROBADO)</span>, por lo cual
+            <span class="azul">figurará como primera opción para asignar órdenes de compra.</span>
         </p>
 
-        <p>De acuerdo con los resultados obtenidos, se identificaron algunas las siguientes <strong style="color:#0070C0"> oportunidades<br>de mejora:</strong>
-            <ul style="list-style-type: none;">
-                <li>
-                    1.
-                </li>
-            </ul>
+        <p>
+            De acuerdo con los resultados obtenidos, se identificaron las siguientes
+            <span class="azul">oportunidades de mejora:</span>
         </p>
+
+        <ul>
+            <li>1.</li>
+        </ul>
 
         <p>
             Atentamente,<br>
             <strong>(Autor)</strong><br>
             <strong>Equipo de Compras</strong>
         </p>
+
     </div>
 
 </body>

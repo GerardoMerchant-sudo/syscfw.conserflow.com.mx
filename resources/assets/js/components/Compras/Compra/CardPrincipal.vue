@@ -577,7 +577,6 @@ export default
             }
             case 'actualizar':
             {
-              console.log(data);
               this.selected = [];
               this.upload = true;
               Utilerias.resetObject(this.compra);

@@ -34,7 +34,7 @@
                     @change="dateRange"
                 />
                 </div>
-                <div class="card-body">
+                <!-- <div class="card-body">
                         <i class="fa fa-calendar  mr-2 text-primary"></i>
                         <strong>Generar Reporte por Periodos</strong>
                         <div class="dropdown float-sm mt-4">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
 
-                    </div>
+                    </div> -->
 
                 <div class="col-md-6">
                 <label class="text-muted small">Proyectos</label>
@@ -121,15 +121,15 @@ export default
             proyectos:[],
             dateStart: null,
             dateEnd: null,
-            periods: [],
-            selectedPeriod: null,
-            anio: null,
-            mes: null,
-            yearSince: null,
-            yearUntil: null,
-            periodSelected: false, 
-            periodEnd:null,
-            periodStart:null
+            // periods: [],
+            // selectedPeriod: null,
+            // anio: null,
+            // mes: null,
+            // yearSince: null,
+            // yearUntil: null,
+            // periodSelected: false, 
+            // periodEnd:null,
+            // periodStart:null
         }
     },
 
@@ -193,56 +193,56 @@ export default
 
             //Obtener los proyectos por periodos
             
-            setPeriodoActual(){
-                const today = new Date()
-                const currentMonth = today.getMonth() + 1
-                const currentYear = today.getFullYear()
+        //     setPeriodoActual(){
+        //         const today = new Date()
+        //         const currentMonth = today.getMonth() + 1
+        //         const currentYear = today.getFullYear()
 
-                this.anio = currentYear
+        //         this.anio = currentYear
 
-                if(currentMonth >= 2 && currentMonth <= 7){
-                    this.mes = 8 // agosto
-                }else {
-                    this.mes = 2 // febrero
-                }
+        //         if(currentMonth >= 2 && currentMonth <= 7){
+        //             this.mes = 8 // agosto
+        //         }else {
+        //             this.mes = 2 // febrero
+        //         }
 
-                this.ObtenrProyectos()
-            },
+        //         this.ObtenrProyectos()
+        //     },
             
-            generatePeriods(){
-                this.periods = []
+        //     generatePeriods(){
+        //         this.periods = []
 
-                for(let year = this.yearSince; year <= this.yearUntil; year ++){
-                    this.periods.push({
-                        month : `Febrero ${year}`,
-                        anio: year,
-                        mes:2
-                    })
-                    this.periods.push({
-                        month: `Agosto ${year}`,
-                        anio: year,
-                        mes: 8
-                    })
-                } 
-            },
-        seleccionarPeriodo(mes, anio) {
-            this.mes = mes
-            this.anio = anio
-            this.periodSelected = true
+        //         for(let year = this.yearSince; year <= this.yearUntil; year ++){
+        //             this.periods.push({
+        //                 month : `Febrero ${year}`,
+        //                 anio: year,
+        //                 mes:2
+        //             })
+        //             this.periods.push({
+        //                 month: `Agosto ${year}`,
+        //                 anio: year,
+        //                 mes: 8
+        //             })
+        //         } 
+        //     },
+        // seleccionarPeriodo(mes, anio) {
+        //     this.mes = mes
+        //     this.anio = anio
+        //     this.periodSelected = true
 
-            this.dateStart = null
-            this.dateEnd = null
+        //     this.dateStart = null
+        //     this.dateEnd = null
  
-            if (mes === 2) {
-                this.periodStart = `${anio - 1}-08-01`
-                this.periodEnd = `${anio}-01-31`
-            }
+        //     if (mes === 2) {
+        //         this.periodStart = `${anio - 1}-08-01`
+        //         this.periodEnd = `${anio}-01-31`
+        //     }
 
-            if (mes === 8) {
-                this.periodStart = `${anio}-02-01`
-                this.periodEnd = `${anio}-07-31`
-            }
-        },
+        //     if (mes === 8) {
+        //         this.periodStart = `${anio}-02-01`
+        //         this.periodEnd = `${anio}-07-31`
+        //     }
+        // },
 
 
         DescargarReporte() {
@@ -270,9 +270,9 @@ export default
             // reset
             this.dateStart = null
             this.dateEnd = null
-            this.periodStart = null
-            this.periodEnd = null
-            this.periodSelected = false
+            // this.periodStart = null
+            // this.periodEnd = null
+            // this.periodSelected = false
             this.proyectos = []
         }
 

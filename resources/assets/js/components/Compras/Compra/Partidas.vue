@@ -27,10 +27,19 @@
                     </div>
                 </div>
             </template>
-
             <template slot="ad" slot-scope="props">
                 {{props.row.ad}} {{props.row.comentario == null ? '' : props.row.comentario}}
             </template>
+            <template slot="precio_unitario" slot-scope="props">
+                {{ formatPrecio(props.row.precio_unitario) }}
+            </template>
+            <template slot="cantidad" slot-scope="props">
+                {{ formatPrecio(props.row.cantidad) }}
+            </template>
+            <template slot="total" slot-scope="props">
+                {{ formatPrecio(props.row.total) }}
+            </template>
+
 
         </v-client-table>
     </div>
@@ -97,7 +106,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="validationDefaultUsername">Cantidad real comprada</label>
-                        <input type="text" v-bind:disabled="desabilitar_precios" v-validate="'decimal:2'" min="0" pattern="^[0-9]+" v-model="partidascompras.cantidad" v-bind:class="'form-control'+clases.cantidad" placeholder="Cantidad real a comprar" autocomplete="off" id="cantidad" data-vv-name="cantidad">
+                        <input type="text" v-bind:disabled="desabilitar_precios" v-validate="'decimal:3'" min="0" pattern="^[0-9]+" v-model="partidascompras.cantidad" v-bind:class="'form-control'+clases.cantidad" placeholder="Cantidad real a comprar" autocomplete="off" id="cantidad" data-vv-name="cantidad">
                         <span class="text-danger">{{ errors.first('cantidad') }}</span>
                     </div>
                 </div>
@@ -993,6 +1002,9 @@ export default
                 });
             }
         },
+        formatPrecio(valor) {
+            return parseFloat(valor)
+            },
     },
     mounted()
     {}
