@@ -2382,10 +2382,9 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
           console.error(error);
         });
       }
-    },
-    formatPrecio: function formatPrecio(valor) {
-      return parseFloat(valor);
-    }
+    } //formatPrecio(valor) {
+    //  return parseFloat(valor)
+    //},
   },
   mounted: function mounted() {}
 });
@@ -7846,22 +7845,7 @@ var render = function render() {
       fn: function fn(props) {
         return [_vm._v("\n                " + _vm._s(props.row.ad) + " " + _vm._s(props.row.comentario == null ? "" : props.row.comentario) + "\n            ")];
       }
-    }, {
-      key: "precio_unitario",
-      fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm.formatPrecio(props.row.precio_unitario)) + "\n            ")];
-      }
-    }, {
-      key: "cantidad",
-      fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm.formatPrecio(props.row.cantidad)) + "\n            ")];
-      }
-    }, {
-      key: "total",
-      fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm.formatPrecio(props.row.total)) + "\n            ")];
-      }
-    }], null, false, 2742202463)
+    }], null, false, 1709948992)
   })], 1), _vm._v(" "), _c("div", {
     ref: "formLote",
     staticClass: "card"
