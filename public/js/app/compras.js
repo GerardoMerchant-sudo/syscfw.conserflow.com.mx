@@ -2382,9 +2382,10 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
           console.error(error);
         });
       }
-    } //formatPrecio(valor) {
-    //  return parseFloat(valor)
-    //},
+    },
+    formatPrecio: function formatPrecio(valor) {
+      return parseFloat(valor);
+    }
   },
   mounted: function mounted() {}
 });
@@ -7763,7 +7764,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Detalles de la compra con folio: " + _vm._s(_vm.empleado == null ? "" : _vm.empleado.folio) + "\n        "), _c("button", {
+  }), _vm._v(" Detalles de la compra con folio: " + _vm._s(_vm.empleado == null ? "" : _vm.empleado.folio) + "\r\n        "), _c("button", {
     staticClass: "btn btn-secondary float-sm-right",
     attrs: {
       type: "button"
@@ -7775,7 +7776,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-arrow-left"
-  }), _vm._v(" Atras\n        ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Atras\r\n        ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("v-client-table", {
     ref: "myTabledescuento",
@@ -7826,7 +7827,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-trash"
-        }), _vm._v(" Eliminar.\n                            ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Eliminar.\r\n                            ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7838,14 +7839,29 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-trash"
-        }), _vm._v(" Actualizar Partida.\n                            ")])])])])];
+        }), _vm._v(" Actualizar Partida.\r\n                            ")])])])])];
       }
     }, {
       key: "ad",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(props.row.ad) + " " + _vm._s(props.row.comentario == null ? "" : props.row.comentario) + "\n            ")];
+        return [_vm._v("\r\n                " + _vm._s(props.row.ad) + " " + _vm._s(props.row.comentario == null ? "" : props.row.comentario) + "\r\n            ")];
       }
-    }], null, false, 1709948992)
+    }, {
+      key: "precio_unitario",
+      fn: function fn(props) {
+        return [_vm._v("\r\n                " + _vm._s(_vm.formatPrecio(props.row.precio_unitario)) + "\r\n            ")];
+      }
+    }, {
+      key: "cantidad",
+      fn: function fn(props) {
+        return [_vm._v("\r\n                " + _vm._s(_vm.formatPrecio(props.row.cantidad)) + "\r\n            ")];
+      }
+    }, {
+      key: "total",
+      fn: function fn(props) {
+        return [_vm._v("\r\n                " + _vm._s(_vm.formatPrecio(props.row.total)) + "\r\n            ")];
+      }
+    }], null, false, 2233513375)
   })], 1), _vm._v(" "), _c("div", {
     ref: "formLote",
     staticClass: "card"
@@ -8299,9 +8315,9 @@ var render = function render() {
             "data-placement": "top",
             title: props.row.descal
           }
-        }, [_vm._v("\n                                            " + _vm._s(props.row.calidad) + "\n                                        ")])] : _vm._e()];
+        }, [_vm._v("\r\n                                            " + _vm._s(props.row.calidad) + "\r\n                                        ")])] : _vm._e()];
       }
-    }], null, false, 3148927351)
+    }], null, false, 1710625463)
   })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
@@ -8433,7 +8449,7 @@ var render = function render() {
             "data-placement": "top",
             title: props.row.descal
           }
-        }, [_vm._v("\n                                                        " + _vm._s(props.row.calidad) + "\n                                                    ")])] : _vm._e()];
+        }, [_vm._v("\r\n                                                        " + _vm._s(props.row.calidad) + "\r\n                                                    ")])] : _vm._e()];
       }
     }, {
       key: "child_row",
@@ -8460,7 +8476,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                                        ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                                        ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -8477,9 +8493,9 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar Articulo\n                                                            ")])])])])];
+        }), _vm._v(" Actualizar Articulo\r\n                                                            ")])])])])];
       }
-    }], null, false, 2361371968)
+    }], null, false, 2488657088)
   })], 1), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
@@ -13341,7 +13357,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.VueTables__child-row-toggler--closed::before {\n    content: \"+\";\n}\n.VueTables__child-row-toggler--open::before {\n    content: \"-\";\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.VueTables__child-row-toggler--closed::before {\r\n    content: \"+\";\n}\n.VueTables__child-row-toggler--open::before {\r\n    content: \"-\";\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

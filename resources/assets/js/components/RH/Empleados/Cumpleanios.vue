@@ -20,7 +20,6 @@
                         <template v-if="props.row.fech_nac">
                             <button type="button" class="btn btn-outline-success">{{props.row.fech_nac}}</button>
                         </template>
-
                     </template>
                 </v-client-table>
             </div>
