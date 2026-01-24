@@ -93397,7 +93397,7 @@ var DiasFestivos = function DiasFestivos(r) {
 // compotencias
 var competencias = function competencias(r) {
   return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
-    return r(__webpack_require__(/*! ./Empleados/Competencia.vue */ "./resources/assets/js/components/RH/Empleados/Competencia.vue"));
+    return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Empleados/Competencia.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var routes = [
