@@ -142,4 +142,7 @@ Route::group(["middleware" => "auth"], function ()
 
     // Empleados/
     Route::resource("rh/empleados", "RH\EmpleadoController");
+
+    // Competencias
+    Route::resource("rh/competencias", "RH\CompetenceController");
 });

@@ -3224,7 +3224,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Bitácora de resguardo\n                "), _c("button", {
+  }), _vm._v(" Bitácora de resguardo\r\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -3236,7 +3236,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n                ")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n                ")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "collapse multi-collapse",
@@ -3314,7 +3314,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" \n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" \r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -3328,7 +3328,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-pencil"
-        }), _vm._v(" Actualizar\n                                    ")])]], 2)])];
+        }), _vm._v(" Actualizar\r\n                                    ")])]], 2)])];
       }
     }])
   })], 1)]), _vm._v(" "), _c("div", {
@@ -3626,7 +3626,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "fas fa-file-pdf mr-1"
-  }), _vm._v("Descargar\n                ")]);
+  }), _vm._v("Descargar\r\n                ")]);
 }];
 render._withStripped = true;
 
@@ -3656,7 +3656,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Accesorio\n            "), _c("button", {
+  }), _vm._v(" Accesorio\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -3668,7 +3668,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     ref: "tbl_accesorio",
@@ -3696,7 +3696,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -3710,7 +3710,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\n                                        ")]), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
+        }), _vm._v(" Actualizar\r\n                                        ")]), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -3722,7 +3722,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-check"
-        }), _vm._v(" Activar\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
+        }), _vm._v(" Activar\r\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -3734,7 +3734,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-check"
-        }), _vm._v(" Desactivar\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
+        }), _vm._v(" Desactivar\r\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -3746,7 +3746,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Eliminar\n                                        ")])]], 2)])];
+        }), _vm._v(" Eliminar\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "condicion",
@@ -4051,7 +4051,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Equipo de Cómputo " + _vm._s(_vm.company == 1 ? "Conserflow" : "CSCT") + "\n            "), _c("div", {
+  }), _vm._v(" Equipo de Cómputo " + _vm._s(_vm.company == 1 ? "Conserflow" : "CSCT") + "\r\n            "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -4062,7 +4062,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                    Empresa\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                    Empresa\r\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"
@@ -4101,7 +4101,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("vue-element-loading", {
     attrs: {
@@ -4133,7 +4133,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" \n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" \r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -4147,7 +4147,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\n                                        ")]), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
+        }), _vm._v(" Actualizar\r\n                                        ")]), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -4159,7 +4159,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-check"
-        }), _vm._v(" Activar\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
+        }), _vm._v(" Activar\r\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -4171,7 +4171,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Desactivar\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
+        }), _vm._v(" Desactivar\r\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -4183,7 +4183,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Eliminar\n                                        ")])]], 2)])];
+        }), _vm._v(" Eliminar\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "condicion",
@@ -4748,7 +4748,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Impresora\n            "), _c("button", {
+  }), _vm._v(" Impresora\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -4760,7 +4760,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -4792,7 +4792,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -4806,7 +4806,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\n                                        ")]), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
+        }), _vm._v(" Actualizar\r\n                                        ")]), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -4818,7 +4818,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Desactivar\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
+        }), _vm._v(" Desactivar\r\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -4830,7 +4830,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-check"
-        }), _vm._v(" Activar\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
+        }), _vm._v(" Activar\r\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -4842,7 +4842,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Eliminar\n                                        ")])]], 2)])];
+        }), _vm._v(" Eliminar\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "condicion",
@@ -5187,7 +5187,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Equipo de red\n            "), _c("button", {
+  }), _vm._v(" Equipo de red\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -5199,7 +5199,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     ref: "tbl_equipo_red",
@@ -5227,7 +5227,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -5241,7 +5241,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\n                                        ")]), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
+        }), _vm._v(" Actualizar\r\n                                        ")]), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -5253,7 +5253,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-check"
-        }), _vm._v(" Activar\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
+        }), _vm._v(" Activar\r\n                                        ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 1 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -5265,7 +5265,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Desactivar\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
+        }), _vm._v(" Desactivar\r\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -5277,7 +5277,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Eliminar\n                                        ")])]], 2)])];
+        }), _vm._v(" Eliminar\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "condicion",
@@ -5652,7 +5652,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Equipo de vídeo\n            "), _vm.PermisosCRUD.Create ? _c("button", {
+  }), _vm._v(" Equipo de vídeo\r\n            "), _vm.PermisosCRUD.Create ? _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -5664,7 +5664,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -5696,7 +5696,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -5710,7 +5710,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar\n                                        ")]), _vm._v(" "), _vm.PermisosCRUD.Delete ? [props.row.condicion == 1 ? _c("button", {
+        }), _vm._v(" Actualizar\r\n                                        ")]), _vm._v(" "), _vm.PermisosCRUD.Delete ? [props.row.condicion == 1 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -5722,7 +5722,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Desactivar\n                                            ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
+        }), _vm._v(" Desactivar\r\n                                            ")]) : _vm._e(), _vm._v(" "), props.row.condicion == 0 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -5734,7 +5734,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-check"
-        }), _vm._v(" Activar\n                                            ")]) : _vm._e(), _vm._v(" "), _c("button", {
+        }), _vm._v(" Activar\r\n                                            ")]) : _vm._e(), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -5746,7 +5746,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times"
-        }), _vm._v(" Eliminar\n                                            ")])] : _vm._e()]], 2)])];
+        }), _vm._v(" Eliminar\r\n                                            ")])] : _vm._e()]], 2)])];
       }
     }, {
       key: "condicion",
@@ -6017,7 +6017,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[props.row.condicion == 1 ? _c("button", {
           staticClass: "dropdown-item",
@@ -6031,7 +6031,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-plus mr-1"
-        }), _vm._v("Registrar\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
+        }), _vm._v("Registrar\r\n                                        ")]) : _vm._e(), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -6043,7 +6043,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list mr-1"
-        }), _vm._v("Historial\n                                        ")])]], 2)])];
+        }), _vm._v("Historial\r\n                                        ")])]], 2)])];
       }
     }, {
       key: "condicion",
@@ -6467,7 +6467,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-times mr-1"
-  }), _vm._v("Cerrar\n                        ")])])])])])])]);
+  }), _vm._v("Cerrar\r\n                        ")])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -6476,7 +6476,7 @@ var staticRenderFns = [function () {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Mantenimiento - Impresoras\n        ")]);
+  }), _vm._v(" Mantenimiento - Impresoras\r\n        ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -6518,7 +6518,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Programa anual de mantenimiento preventivo " + _vm._s(_vm.company == 1 ? "CONSERFLOW" : "CSCT") + "\n                "), _c("div", {
+  }), _vm._v(" Programa anual de mantenimiento preventivo " + _vm._s(_vm.company == 1 ? "CONSERFLOW" : "CSCT") + "\r\n                "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -6529,7 +6529,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                        Empresa\n                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                        Empresa\r\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"
@@ -6568,7 +6568,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n                ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("v-client-table", {
     attrs: {
@@ -6595,7 +6595,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" \n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" \r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -6609,7 +6609,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v(" Ver detalles\n                                    ")])]], 2)])];
+        }), _vm._v(" Ver detalles\r\n                                    ")])]], 2)])];
       }
     }, {
       key: "descargar",
@@ -6626,7 +6626,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" \n                        ")])];
+        }), _vm._v(" \r\n                        ")])];
       }
     }, {
       key: "descripcion",
@@ -6646,7 +6646,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Programa anual de mantenimiento preventivo\n                "), _c("button", {
+  }), _vm._v(" Programa anual de mantenimiento preventivo\r\n                "), _c("button", {
     staticClass: "btn btn-secondary float-sm-right",
     attrs: {
       type: "button"
@@ -6658,7 +6658,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-arrow-left"
-  }, [_vm._v(" ")]), _vm._v("Atras\n                ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Atras\r\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("v-client-table", {
     attrs: {
@@ -6685,7 +6685,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" \n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" \r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -6699,7 +6699,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v(" Actualizar\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Actualizar\r\n                                    ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -6711,7 +6711,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-trash"
-        }), _vm._v(" Eliminar\n                                    ")])]], 2)])];
+        }), _vm._v(" Eliminar\r\n                                    ")])]], 2)])];
       }
     }, {
       key: "data.mes",
@@ -7093,7 +7093,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Reporte de Mantenimiento Preventivo\n            "), _c("button", {
+  }), _vm._v(" Reporte de Mantenimiento Preventivo\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -7105,7 +7105,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {}, [_c("div", {}, [_c("v-client-table", {
     ref: "tbl_mtto",
@@ -7138,7 +7138,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -7152,7 +7152,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Detalles\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Detalles\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7164,7 +7164,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-file-pdf"
-        }), _vm._v(" Descargar\n                                        ")])]], 2)])];
+        }), _vm._v(" Descargar\r\n                                        ")])]], 2)])];
       }
     }])
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -7259,7 +7259,7 @@ var render = function render() {
         return _vm.AbrirModalEquipos();
       }
     }
-  }, [_vm._v(" Buscar\n                            "), _c("i", {
+  }, [_vm._v(" Buscar\r\n                            "), _c("i", {
     staticClass: "fas fa-button"
   })])]), _vm._v(" "), _c("div", {
     staticClass: "form-group row"
@@ -7660,7 +7660,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n                                    ")])])])])], 1), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\r\n                                    ")])])])])], 1), _vm._v(" "), _c("div", {
     staticClass: "form-group row"
   }, [_c("div", {
     staticClass: "col-md-6"
@@ -7840,7 +7840,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" MATRIZ DE REQUISITOS POR PUESTO\n            "), _vm.PermisosCRUD.Create ? _c("button", {
+  }), _vm._v(" MATRIZ DE REQUISITOS POR PUESTO\r\n            "), _vm.PermisosCRUD.Create ? _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -7852,7 +7852,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus mr-1"
-  }), _vm._v("Nuevo\n            ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
+  }), _vm._v("Nuevo\r\n            ")]) : _vm._e(), _vm._v(" "), _vm.PermisosCRUD.Download ? _c("button", {
     staticClass: "btn btn-dark mr-1 float-sm-right",
     attrs: {
       type: "button"
@@ -7862,7 +7862,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-file-pdf mr-1"
-  }), _vm._v("Descargar\n            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v("Descargar\r\n            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -7897,7 +7897,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -7911,7 +7911,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\n                                ")])])])])];
+        }), _vm._v(" Actualizar\r\n                                ")])])])])];
       }
     }])
   })], 1)]), _vm._v(" "), _vm.ver_modal_matrizrequisitos ? _c("div", {
@@ -8264,7 +8264,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_matrizrequisitos == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_matrizrequisitos == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -8276,7 +8276,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_matrizrequisitos == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_matrizrequisitos == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -8288,7 +8288,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -8325,7 +8325,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" PROPUESTA DE EQUIPO\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
+  }), _vm._v(" PROPUESTA DE EQUIPO\r\n            "), _vm.PermisosCRUD.Create ? [_c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -8337,7 +8337,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\r\n                ")])] : _vm._e()], 2), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -8372,7 +8372,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -8386,7 +8386,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Detalles\n                                ")])])])])];
+        }), _vm._v(" Detalles\r\n                                ")])])])])];
       }
     }, {
       key: "tipo",
@@ -8889,7 +8889,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n                                    ")])] : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("vue-element-loading", {
+  }), _vm._v(" Nuevo\r\n                                    ")])] : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("vue-element-loading", {
     attrs: {
       active: _vm.isObtenercotizacion_loading
     }
@@ -8922,7 +8922,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -8936,9 +8936,9 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\n                                                    ")])])])])];
+        }), _vm._v(" Actualizar\r\n                                                    ")])])])])];
       }
-    }], null, false, 3872088222)
+    }], null, false, 3113165342)
   })], 2)])], 1), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("vue-element-loading", {
@@ -8957,7 +8957,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_propuesta == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_propuesta == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -8969,7 +8969,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_propuesta == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_propuesta == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -8981,7 +8981,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.ver_modal_cotizacion ? _c("div", {
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.ver_modal_cotizacion ? _c("div", {
     staticClass: "modal fade",
     "class": {
       mostrar: _vm.ver_modal_cotizacion
@@ -9195,7 +9195,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_cotizacion == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_cotizacion == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -9207,7 +9207,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_cotizacion == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_cotizacion == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -9219,7 +9219,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9250,7 +9250,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Histórico Servicios\n\n                "), _c("button", {
+  }), _vm._v(" Histórico Servicios\r\n\r\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -9262,7 +9262,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n                ")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n                ")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "collapse multi-collapse",
@@ -9351,7 +9351,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit mr-1"
-        }), _vm._v("Actualizar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("Actualizar\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -9363,7 +9363,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-times mr-1"
-        }), _vm._v("Eliminar\n                                        ")])]], 2)])];
+        }), _vm._v("Eliminar\r\n                                        ")])]], 2)])];
       }
     }])
   })], 1)], 1)]), _vm._v(" "), _c("div", {
@@ -9724,7 +9724,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "fas fa-file-pdf mr-1"
-  }), _vm._v("Descargar\n                ")]);
+  }), _vm._v("Descargar\r\n                ")]);
 }];
 render._withStripped = true;
 
@@ -9789,7 +9789,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit mr-1"
-        }), _vm._v("Actualizar\n                                ")]) : _vm._e(), _vm._v(" "), props.row.estado <= 1 ? _c("button", {
+        }), _vm._v("Actualizar\r\n                                ")]) : _vm._e(), _vm._v(" "), props.row.estado <= 1 ? _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -9801,7 +9801,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-undo mr-1"
-        }), _vm._v("Retorno\n                                ")]) : _vm._e()]], 2)])];
+        }), _vm._v("Retorno\r\n                                ")]) : _vm._e()]], 2)])];
       }
     }, {
       key: "autorizado",
@@ -10490,7 +10490,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" \n                        ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" \r\n                        ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [[_c("button", {
           staticClass: "dropdown-item",
@@ -10504,7 +10504,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-pencil"
-        }), _vm._v(" Actualizar\n                                ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Actualizar\r\n                                ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -10516,7 +10516,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-trash"
-        }), _vm._v(" Retornar\n                                ")])]], 2)])];
+        }), _vm._v(" Retornar\r\n                                ")])]], 2)])];
       }
     }, {
       key: "descargar",
@@ -10533,7 +10533,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" \n                    ")])];
+        }), _vm._v(" \r\n                    ")])];
       }
     }, {
       key: "condicion",
@@ -11021,7 +11021,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Vales De Equipo\n                "), _vm.PermisosCRUD.Download ? _c("button", {
+  }), _vm._v(" Vales De Equipo\r\n                "), _vm.PermisosCRUD.Download ? _c("button", {
     staticClass: "btn btn-dark float-sm-right btn btn-sm",
     attrs: {
       type: "button"
@@ -11033,7 +11033,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download mr-1"
-  }), _vm._v("Descargar\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v("Descargar\r\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body1"
   }, [_c("ul", {
     ref: "tabs",
@@ -11104,7 +11104,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n                                ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\r\n                                ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -11115,7 +11115,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                                        Empresa\n                                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                        Empresa\r\n                                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"
@@ -11171,7 +11171,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n                                ")]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\r\n                                ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle float-sm-right",
@@ -11182,7 +11182,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                                        Empresa\n                                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                        Empresa\r\n                                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"

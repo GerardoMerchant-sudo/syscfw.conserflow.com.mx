@@ -20,6 +20,8 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ProveedoresController extends Controller
 {
@@ -359,6 +361,7 @@ class ProveedoresController extends Controller
           return Status::Error2("Error al guardar el historial del proveedor");
         }
       }
+
       DB::commit();
       return Status::Success();
     }
@@ -367,6 +370,99 @@ class ProveedoresController extends Controller
       return Status::Error($e, "registrar el proveedor");
     }
   }
+
+  
+    public function ExportSupplier(Request $request)
+    {
+        $templatePath = storage_path('app/Compras/templateProveedores.xlsx');
+        if (!file_exists($templatePath)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Plantilla no encontrada'
+            ], 404);
+        }
+
+        try {
+            $spreadsheet = IOFactory::load($templatePath);
+            $sheet = $spreadsheet->getActiveSheet();
+
+            
+            $map = [
+              'razon_social'            => 'B9',
+              'nombre'                  => 'B10',  
+              'giro'                    => 'E11',
+              'calle'                   => 'B12',
+              'no_exterior'             => 'F12',
+              'no_interior'             => 'I12',
+              'cp'                      => 'B13',
+              'colonia'                 => 'F13',
+              'cuidad'                  => 'E14',  
+              'municipio'               => 'B14',
+              'estado'                  => 'H14',
+              'temp2_proveedor_banco'   => 'B17',
+              'temp2_proveedor_clabe'   => 'F17',
+              'temp2_proveedor_moneda'  => 'J17',
+              'limite_credito'          => 'H19',
+              'ventas_contacto'         => 'B22',
+              'ventas_telefono'         => 'F22',
+              'ventas_celular'          => 'I22',
+              'ventas_correo'           => 'F23',
+
+              'facturacion_contacto'    => 'B24',
+              'facturacion_telefono'    => 'F24',
+              'facturacion_celular'     => 'I24',
+              'facturacion_correo'      => 'F25',
+          ];  
+
+
+    $taxId = trim($request->input('taxid', ''));
+      $rfc   = trim($request->input('rfc', ''));
+
+      if ($taxId !== '') {
+          // Extranjero
+          $sheet->setCellValue('A11', 'TAX ID');
+          $sheet->setCellValue('B11', $taxId);   
+      } else {
+          // Nacional
+          $sheet->setCellValue('A11', 'RFC');    
+          $sheet->setCellValue('B11', $rfc);    
+      }
+
+
+          $sheet->setCellValue(
+              'I6',
+              Date::PHPToExcel(Carbon::now())
+          );
+
+          $sheet->getStyle('I6')
+            ->getNumberFormat()
+            ->setFormatCode('dd/mm/yyyy');
+
+            $usuario = Auth::user();
+            $sheet->setCellValue('F32', $usuario->name);
+
+
+            foreach ($map as $field => $cell) {
+                $sheet->setCellValue($cell, $request->input($field, ''));
+            }
+
+            
+            $fileName = 'PCO-02_F-01 Alta y Modificacion de Proveedores NR02.xlsx';
+            $writer = new Xlsx($spreadsheet);
+
+            return response()->streamDownload(function () use ($writer) {
+                $writer->save('php://output');
+            }, $fileName);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
 
   /**
    * Obtener los cambios del proveedor ingresado
@@ -676,3 +772,8 @@ class ProveedoresController extends Controller
     }
   }
 }
+
+
+
+
+

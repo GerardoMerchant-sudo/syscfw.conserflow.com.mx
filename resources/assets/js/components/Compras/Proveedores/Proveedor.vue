@@ -6,7 +6,7 @@
                 <i class="fa fa-align-justify"></i> Registro de Proveedores - {{anio}}
                  <template v-if="true">
                         <div class="dropdown float-sm-right mx-1">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ anio }}
                             </button>
@@ -14,7 +14,7 @@
                                 <button 
                                     v-for="year in Years" 
                                     :key="year.anio" 
-                                    class="dropdown-item" 
+                                    class="dropdown-item " 
                                     type="button"
                                     @click="selectYear(year.anio)">
                                     {{ year.anio }}
@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <button v-show="PermisosCrud.Create" type="button" @click="abrirModal()"
-                            class="btn btn-dark float-sm-right mx-1">
+                            class="btn btn-primary float-sm-right mx-1">
                             <i class="fas fa-plus mr-1"></i> Nuevo
                         </button>
                         <button v-show="PermisosCrud.Download" type="button" @click="DescargarReporte()"
@@ -204,7 +204,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <!---Dirección-->
                             <hr style="border: 1px solid #000; width: 100%; margin: 20px auto;">
                             <p class="font-weight-bold h6">Dirección</p>
                             <br>
@@ -244,7 +244,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-floating">
-                                            <input type="text" maxlength="10" v-validate="'required'"
+                                            <input type="text"  v-validate="'required'"
                                                 v-model="proveedor.no_interior" class="form-control"
                                                 data-vv-name="No.  Interior" autocomplete="off" placeholder="n.Interior" />
                                                 <label for="n.Interior">N° Interior</label>
@@ -271,6 +271,15 @@
                                             autocomplete="off" placeholder="Municipio" id="muni"/>
                                             <label for="muni">Municipio</label>
                                             <span class="text-danger">{{ errors.first('Municipio') }}</span>
+                                        </div>            
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" maxlength="75" minlength="3" v-validate="'required'"
+                                            v-model="proveedor.ciudad" class="form-control" data-vv-name="ciudad"
+                                            autocomplete="off" placeholder="Ciudad" id="ciudad"/>
+                                            <label for="ciudad">Ciudad</label>
+                                            <span class="text-danger">{{ errors.first('Ciudad') }}</span>
                                         </div>            
                                     </div>
                                     <div class="col">
@@ -375,7 +384,6 @@
 
                                     </div>
                                 </div>
-
 
                             </template>
                             <hr style="border: 1px solid #000; width: 100%; margin: 20px auto;">
@@ -526,16 +534,29 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" @click="cerrarModal()"><i
-                                    class="fas fa-window-close mr-1"></i>Cerrar</button>
 
                             <button @click="openModalExcel()" class="btn btn-success">
-                                Carga Excel
+                                <i class="fas fa-upload mr-1"></i>Carga Excel
                             </button> 
+                            <button
+                                class="btn btn-success"
+                                @click="descargarExcel()"
+                                :disabled="isDownloading"
+                            >
+                                <span v-if="isDownloading">
+                                    <i class="fas fa-spinner fa-spin mr-1"></i>
+                                    Generando...
+                                </span>
 
-                            <button type="button" v-if="tipoAccion == 1" class="btn btn-secondary"
-                                @click="GuardarProveedor(true)"><i class="fas fa-save mr-1"></i>Guardar</button>
-                            <button type="button" v-if="tipoAccion == 2" class="btn btn-secondary"
+                                <span v-else>
+                                    <i class="fas fa-download mr-1"></i>
+                                    Descargar Excel
+                                </span>
+                            </button>
+
+                            <button type="button" v-if="tipoAccion == 1" class="btn btn-primary"
+                                @click="GuardarProveedor(true)"><i class="fas fa-save mr-1"></i>Crear</button>
+                            <button type="button" v-if="tipoAccion == 2" class="btn btn-primary"
                                 @click="GuardarProveedor(false)"><i class="fas fa-save mr-1"></i>Actualizar</button>
                         </div>
                     </div>
@@ -797,7 +818,35 @@ export default
             yearUntil: new Date().getFullYear(),
             showModalExcel: false,
             loading: false,
-            taxidValido: false
+            isDownloading: false,
+            taxidValido: false,
+            form: {
+                razon_social: '',
+                nombre: '',
+                giro: '',
+                nacionalidad: '',
+                calle: '',
+                no_exterior: '',
+                no_interior: '',
+                cp: '',
+                colonia: '',
+                municipio: '',
+                ciudad: '',
+                estado: '',
+                temp2_proveedor_banco:'',
+                temp2_proveedor_cuenta:'',
+                temp2_proveedor_clabe:'',
+                temp2_proveedor_moneda: '',
+                limite_credito: '',
+                ventas_contacto: '',
+                ventas_telefono: '',
+                ventas_celular: '',
+                ventas_correo: '',
+                facturacion_contacto: '',
+                facturacion_telefono: '',
+                facturacion_celular: '',
+                facturacion_correo: '',
+            }
         }
     },
     watch: {
@@ -967,11 +1016,12 @@ export default
             data.append("no_exterior", this.proveedor.no_exterior);
             data.append("no_interior", this.proveedor.no_interior);
             data.append("estado", this.proveedor.estado);
+            data.append("ciudad", this.proveedor.ciudad);
             data.append("cp", this.proveedor.cp);
             data.append("nacionalidad", this.proveedor.nacionalidad);
             data.append("colonia", this.proveedor.colonia);
             data.append("municipio", this.proveedor.municipio);
-            data.append("ventas_contacto", this.proveedor.ventas_contacto); 
+            data.append("ventas_contacto", this.proveedor.ventas_contacto);
             data.append("ventas_telefono", this.proveedor.ventas_telefono);
             data.append("ventas_celular", this.proveedor.ventas_celular);
             data.append("ventas_correo", this.proveedor.ventas_correo);
@@ -989,29 +1039,27 @@ export default
             data.append("temp2_proveedor_condiciones", this.temp2_proveedor_condiciones);
             data.append("temp2_proveedor_moneda", this.temp2_proveedor_moneda);
             data.append("temp2_proveedor_banco", this.temp2_proveedor_banco);
-                const res = await axios.post(this.url, data);
-
+           const res =  await axios.post(this.url, data).then(res => {
                 if (res.data.status) {
                     this.cerrarModal();
                     this.ObtenerProveedores();
-
                     if (nuevo) {
                         toastr.success('Proveedor Registrado Correctamente');
-                    } else {
+                    }
+                    else {
                         toastr.success('Proveedor Actualizado Correctamente');
                     }
-                } else {
-                    toastr.error(res.data.message);
                 }
+            });
             } catch (error) {
-                toastr.error(
-                    error.response?.data?.message || 'Ocurrió un error inesperado'
-                );
+                toastr.error(error.response.data.message);
+
+
             }
             finally {
                 this.isLoading = false;
             }
-
+            
         },
         /**
          * Activar o desactivar el proveedor seleccionado
@@ -1069,6 +1117,7 @@ export default
                 regimen: "N/D",
                 calle: "N/D",
                 colonia: "N/D",
+                ciudad:"N/D",
                 no_exterior: "N/D",
                 no_interior: "N/D",
                 cp: "00000",
@@ -1509,9 +1558,56 @@ export default
                 }finally {
                     this.loading = false
                     this.closeModalExcel()
-
                 }
-            } 
+            },
+            
+            async descargarExcel() {
+                this.isDownloading = true
+                try {
+                    this.form = {
+                        razon_social: this.proveedor.razon_social,
+                        nombre: this.proveedor.nombre,
+                        rfc: this.proveedor.rfc,
+                        taxid: this.proveedor.taxid,
+                        giro: this.proveedor.giro,
+                        nacionalidad: this.proveedor.nacionalidad,
+                        calle: this.proveedor.calle,
+                        no_exterior: this.proveedor.no_exterior,
+                        no_interior: this.proveedor.no_interior,
+                        cp: this.proveedor.cp,
+                        colonia: this.proveedor.colonia,
+                        municipio: this.proveedor.municipio,
+                        ciudad: this.proveedor.ciudad,
+                        estado: this.proveedor.estado,
+                        temp2_proveedor_banco: this.temp2_proveedor_banco,
+                        temp2_proveedor_clabe: this.temp2_proveedor_clabe,
+                        temp2_proveedor_moneda: this.temp_proveedor_moneda,
+                        limite_credito: this.proveedor.limite_credito,
+                        ventas_contacto: this.proveedor.ventas_contacto,
+                        ventas_telefono: this.proveedor.ventas_telefono,
+                        ventas_celular: this.proveedor.ventas_celular,
+                        ventas_correo: this.proveedor.ventas_correo,
+                        facturacion_contacto: this.proveedor.facturacion_contacto,
+                        facturacion_telefono: this.proveedor.facturacion_telefono,
+                        facturacion_celular: this.proveedor.facturacion_celular,
+                        facturacion_correo: this.proveedor.facturacion_correo,
+                    }
+                    const response = await axios.post(
+                        '/proveedor/export',
+                        this.form,
+                        { responseType: 'blob' }
+                    );
+                    const url = window.URL.createObjectURL(response.data);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'PCO-02_F-01 Alta y Modificacion de Proveedores NR02.xlsx';
+                    link.click();
+                } catch (error) {
+                    toastr.error("Error al descargar el archivo");
+                } finally {
+                    this.isDownloading = false;
+                }
+            }
     },
     mounted()
     {

@@ -614,7 +614,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" REQUISICIONES\n            "), _vm.permisosCRUD.Create ? _c("button-header", {
+  }), _vm._v(" REQUISICIONES\r\n            "), _vm.permisosCRUD.Create ? _c("button-header", {
     attrs: {
       title: "Nuevo",
       icon: "fas fa-plus"
@@ -1382,7 +1382,7 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "mr-1",
     "class": _vm.icon
-  }), _vm._v(_vm._s(_vm.title) + "\n")]);
+  }), _vm._v(_vm._s(_vm.title) + "\r\n")]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

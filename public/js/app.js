@@ -93393,6 +93393,13 @@ var DiasFestivos = function DiasFestivos(r) {
     return r(__webpack_require__(/*! ./DiasFestivos.vue */ "./resources/assets/js/components/RH/DiasFestivos.vue"));
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
+
+// compotencias
+var competencias = function competencias(r) {
+  return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
+    return r(__webpack_require__(/*! ./Empleados/Competencia.vue */ "./resources/assets/js/components/RH/Empleados/Competencia.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
 var routes = [
 // Empleados
 {
@@ -93407,6 +93414,9 @@ var routes = [
 }, {
   path: '/rh/empleados/datosbancarios',
   component: DatosBancarios
+}, {
+  path: '/rh/empleados/competencias',
+  component: competencias
 },
 // Asistencia
 {

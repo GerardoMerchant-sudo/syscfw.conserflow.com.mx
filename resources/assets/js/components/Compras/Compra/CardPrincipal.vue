@@ -517,7 +517,7 @@ export default
       );
       me.listaEmpleados_elabora=[
         {
-          id: 390,
+          id: 1149,
           name: 'DOMINICK TOVANY MARTINEZ'
         },
         {
@@ -577,7 +577,6 @@ export default
             }
             case 'actualizar':
             {
-              console.log(data);
               this.selected = [];
               this.upload = true;
               Utilerias.resetObject(this.compra);

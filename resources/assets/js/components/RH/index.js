@@ -26,13 +26,17 @@ const FactoresRiesgo = r => require.ensure([], () => r (require('./FactoresRiesg
 // Días festivos
 const DiasFestivos = r => require.ensure([], () => r (require('./DiasFestivos.vue')), 'rh')
 
+// compotencias
+const competencias = r => require.ensure([], () => r (require('./Empleados/Competencia.vue')), 'rh')
+
 const routes = [
     // Empleados
     { path: '/rh/empleados/alta', component: Empleados },
     { path: '/rh/empleados/cumpleaños/', component: Cumples },
     { path: '/rh/empleados/vacaciones', component: Vacaciones },
     { path: '/rh/empleados/datosbancarios', component: DatosBancarios },
-    
+    { path: '/rh/empleados/competencias', component: competencias },
+
     // Asistencia
     { path: '/rh/asistencias/asistencia', component: Registro },
 

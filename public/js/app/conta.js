@@ -3180,7 +3180,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Cat. Productos y servicios\n                "), _c("button", {
+  }), _vm._v(" Cat. Productos y servicios\r\n                "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -3192,7 +3192,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n                ")])]), _vm._v(" "), _c("vue-element-loading", {
+  }), _vm._v(" Nuevo\r\n                ")])]), _vm._v(" "), _c("vue-element-loading", {
     attrs: {
       active: _vm.isLoading_datos
     }
@@ -3230,7 +3230,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v("  Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v("  Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -3247,7 +3247,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v("  Actualizar\n                                    ")])])])])];
+        }), _vm._v("  Actualizar\r\n                                    ")])])])])];
       }
     }])
   })], 1)], 1)]), _vm._v(" "), _c("div", {
@@ -3661,7 +3661,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" UNIDADES\n            "), _c("button", {
+  }), _vm._v(" UNIDADES\r\n            "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -3673,7 +3673,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v(" Nuevo\n            ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Nuevo\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -3708,7 +3708,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu"
         }, [_c("button", {
           staticClass: "dropdown-item",
@@ -3722,7 +3722,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar\n                                ")])])])])];
+        }), _vm._v(" Actualizar\r\n                                ")])])])])];
       }
     }])
   })], 1)]), _vm._v(" "), _vm.ver_modal_satcatunidades ? _c("div", {
@@ -3900,7 +3900,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-window-close"
-  }), _vm._v(" Cerrar\n                            ")]), _vm._v(" "), _vm.tipoAccion_satcatunidades == 1 ? _c("button", {
+  }), _vm._v(" Cerrar\r\n                            ")]), _vm._v(" "), _vm.tipoAccion_satcatunidades == 1 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -3912,7 +3912,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Guardar\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_satcatunidades == 2 ? _c("button", {
+  }), _vm._v(" Guardar\r\n                            ")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion_satcatunidades == 2 ? _c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button"
@@ -3924,7 +3924,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save"
-  }), _vm._v(" Actualizar\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
+  }), _vm._v(" Actualizar\r\n                            ")]) : _vm._e()])], 1)])])])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -3953,7 +3953,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Conceptos de la factura " + _vm._s(_vm.datos == null ? "" : _vm.datos.serie + " " + _vm.datos.folio) + "\n            "), _c("button", {
+  }), _vm._v(" Conceptos de la factura " + _vm._s(_vm.datos == null ? "" : _vm.datos.serie + " " + _vm.datos.folio) + "\r\n            "), _c("button", {
     staticClass: "btn btn-secondary float-sm-right",
     attrs: {
       type: "button"
@@ -3965,7 +3965,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-arrow-left"
-  }), _vm._v(" Atras\n            ")]), _vm._v(" "), _c("button", {
+  }), _vm._v(" Atras\r\n            ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -3977,7 +3977,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }, [_vm._v(" ")]), _vm._v("Nuevo\n            ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v(" ")]), _vm._v("Nuevo\r\n            ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success float-sm-right",
     attrs: {
       type: "button"
@@ -3989,7 +3989,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fa fa-file-excel-o"
-  }, [_vm._v(" ")]), _vm._v("Cargar\n            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(" ")]), _vm._v("Cargar\r\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("v-server-table", {
     ref: "Tablac",
@@ -4023,7 +4023,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                            ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                            ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -4041,7 +4041,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v("  Actualizar Concepto\n                                ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("  Actualizar Concepto\r\n                                ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button",
@@ -4054,7 +4054,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v("  Eliminar\n                                ")]), _vm._v(" "), _c("button", {
+        }), _vm._v("  Eliminar\r\n                                ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -4066,12 +4066,12 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-eye"
-        }), _vm._v("Observaciones\n                                ")])])])])];
+        }), _vm._v("Observaciones\r\n                                ")])])])])];
       }
     }, {
       key: "descripcion",
       fn: function fn(props) {
-        return [_vm._v("\n                    " + _vm._s(props.row.descripcion) + "\n                    "), props.row.observaciones ? _c("span", [_vm._v("\n                        - " + _vm._s(props.row.observaciones) + "\n                    ")]) : _vm._e()];
+        return [_vm._v("\r\n                    " + _vm._s(props.row.descripcion) + "\r\n                    "), props.row.observaciones ? _c("span", [_vm._v("\r\n                        - " + _vm._s(props.row.observaciones) + "\r\n                    ")]) : _vm._e()];
       }
     }])
   })], 1)]), _vm._v(" "), _c("div", {
@@ -4547,7 +4547,7 @@ var render = function render() {
     staticClass: "form-row"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-1"
-  }, [_vm._v("\n                     \n                "), _c("input", {
+  }, [_vm._v("\r\n                     \r\n                "), _c("input", {
     staticClass: "form-check-input",
     attrs: {
       type: "checkbox",
@@ -5414,7 +5414,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" Facturas " + _vm._s(_vm.usuario_texto) + "\n                "), _c("div", {
+  }), _vm._v(" Facturas " + _vm._s(_vm.usuario_texto) + "\r\n                "), _c("div", {
     staticClass: "dropdown float-sm-right"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle",
@@ -5426,7 +5426,7 @@ var render = function render() {
       "aria-expanded": "false",
       name: "button"
     }
-  }, [_vm._v("\n                        Emisor\n                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                        Emisor\r\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdown"
@@ -5452,7 +5452,7 @@ var render = function render() {
         return _vm.timbresRestantes();
       }
     }
-  }, [_c("i"), _vm._v("Timbres Restantes\n                ")]), _vm._v(" "), _c("button", {
+  }, [_c("i"), _vm._v("Timbres Restantes\r\n                ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -5464,7 +5464,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v("Nuevo\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -5502,7 +5502,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -5525,7 +5525,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "icon-pencil"
-        }), _vm._v(" Actualizar Factura\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Actualizar Factura\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5543,7 +5543,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v(" Agregar Conceptos\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Agregar Conceptos\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5561,7 +5561,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v(" Agregar Conceptos\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Agregar Conceptos\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5579,7 +5579,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v(" Ver detalles\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Ver detalles\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5597,7 +5597,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v(" Ver detalles\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Ver detalles\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5615,7 +5615,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar prefactura\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar prefactura\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5633,7 +5633,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-bell"
-        }), _vm._v(" Timbrar\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Timbrar\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5651,7 +5651,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-bell"
-        }), _vm._v(" Timbrar Prueba\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Timbrar Prueba\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5669,7 +5669,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar Factura Prueba\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar Factura Prueba\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5687,7 +5687,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar XML Prueba\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar XML Prueba\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5705,7 +5705,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5723,7 +5723,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar XML\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar XML\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5741,7 +5741,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-close"
-        }), _vm._v(" Cancelar factura\n                                    ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Cancelar factura\r\n                                    ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -5759,7 +5759,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-close"
-        }), _vm._v(" Cancelar Prueba\n                                    ")])])])])];
+        }), _vm._v(" Cancelar Prueba\r\n                                    ")])])])])];
       }
     }, {
       key: "timbrado",
@@ -6061,7 +6061,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios3"
     }
-  }, [_vm._v("\n                                            Anterior\n                                        ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Anterior\r\n                                        ")])])]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-2"
   }, [_c("div", {
     staticClass: "form-check"
@@ -6080,7 +6080,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios4"
     }
-  }, [_vm._v("\n                                            Existente\n                                        ")])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Existente\r\n                                        ")])])])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -6819,7 +6819,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios1"
     }
-  }, [_vm._v("\n                                            Nacional\n                                        ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Nacional\r\n                                        ")])])]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-2"
   }, [_c("div", {
     staticClass: "form-check"
@@ -6838,7 +6838,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios2"
     }
-  }, [_vm._v("\n                                            Extranjero\n                                        ")])])]), _vm._v(" "), _vm._m(6), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Extranjero\r\n                                        ")])])]), _vm._v(" "), _vm._m(6), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-4"
   }, [_c("input", {
     directives: [{
@@ -6985,7 +6985,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("i", {
     staticClass: "fa fa-align-justify"
-  }), _vm._v(" CFDI 4.0 - " + _vm._s(_vm.usuario_texto) + "\n                "), _c("div", {
+  }), _vm._v(" CFDI 4.0 - " + _vm._s(_vm.usuario_texto) + "\r\n                "), _c("div", {
     staticClass: "dropdown float-sm-right"
   }, [_c("button", {
     staticClass: "btn btn-secondary dropdown-toggle",
@@ -6997,7 +6997,7 @@ var render = function render() {
       "aria-expanded": "false",
       name: "button"
     }
-  }, [_vm._v("\n                        Emisor\n                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                        Emisor\r\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdown"
@@ -7024,7 +7024,7 @@ var render = function render() {
         return _vm.timbresRestantes();
       }
     }
-  }, [_c("i"), _vm._v("Timbres Restantes\n                ")]), _vm._v(" "), _c("button", {
+  }, [_c("i"), _vm._v("Timbres Restantes\r\n                ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-dark float-sm-right",
     attrs: {
       type: "button"
@@ -7036,7 +7036,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-plus"
-  }), _vm._v("Nuevo\n                ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("Nuevo\r\n                ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("vue-element-loading", {
     attrs: {
@@ -7074,7 +7074,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-grip-horizontal"
-        }), _vm._v(" Acciones\n                                ")]), _vm._v(" "), _c("div", {
+        }), _vm._v(" Acciones\r\n                                ")]), _vm._v(" "), _c("div", {
           staticClass: "dropdown-menu",
           attrs: {
             "aria-labelledby": "btnGroupDrop1"
@@ -7091,7 +7091,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-edit"
-        }), _vm._v(" Actualizar Factura\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Actualizar Factura\r\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -7109,12 +7109,12 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v(" Agregar Pagos\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Agregar Pagos\r\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
             value: props.row.descripcion_tipofactura === "Ingreso" || props.row.descripcion_tipofactura === "Egreso",
-            expression: "props.row.descripcion_tipofactura === 'Ingreso' \n                                        || props.row.descripcion_tipofactura === 'Egreso'"
+            expression: "props.row.descripcion_tipofactura === 'Ingreso' \r\n                                        || props.row.descripcion_tipofactura === 'Egreso'"
           }],
           staticClass: "dropdown-item",
           attrs: {
@@ -7127,7 +7127,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list"
-        }), _vm._v(" Agregar Conceptos\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Agregar Conceptos\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7139,7 +7139,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar prefactura\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar prefactura\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7151,7 +7151,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-bell"
-        }), _vm._v(" Timbrar 4.0\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Timbrar 4.0\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7163,12 +7163,12 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-warning"
-        }), _vm._v(" Timbrar Prueba\n                                        ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 1 ? [_c("button", {
+        }), _vm._v(" Timbrar Prueba\r\n                                        ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 1 ? [_c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
             value: props.row.descripcion_tipofactura === "Ingreso" || props.row.descripcion_tipofactura === "Egreso",
-            expression: "props.row.descripcion_tipofactura === 'Ingreso'\n                                        || props.row.descripcion_tipofactura === 'Egreso'"
+            expression: "props.row.descripcion_tipofactura === 'Ingreso'\r\n                                        || props.row.descripcion_tipofactura === 'Egreso'"
           }],
           staticClass: "dropdown-item",
           attrs: {
@@ -7181,7 +7181,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v(" Ver detalles\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Ver detalles\r\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -7199,7 +7199,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-list-ol"
-        }), _vm._v(" Ver detalles\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Ver detalles\r\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -7217,7 +7217,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar\r\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -7235,7 +7235,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar XML\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar XML\r\n                                        ")]), _vm._v(" "), _c("button", {
           directives: [{
             name: "show",
             rawName: "v-show",
@@ -7253,7 +7253,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-close"
-        }), _vm._v(" Cancelar factura\n                                        ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 9 ? [_c("button", {
+        }), _vm._v(" Cancelar factura\r\n                                        ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 9 ? [_c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7265,7 +7265,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-close"
-        }), _vm._v(" Cancelar Prueba\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Cancelar Prueba\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7277,7 +7277,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar XML Prueba\n                                        ")]), _vm._v(" "), _c("button", {
+        }), _vm._v(" Descargar XML Prueba\r\n                                        ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item",
           attrs: {
             type: "button"
@@ -7289,7 +7289,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fas fa-download"
-        }), _vm._v(" Descargar\n                                        ")])] : _vm._e()], 2)])])];
+        }), _vm._v(" Descargar\r\n                                        ")])] : _vm._e()], 2)])])];
       }
     }, {
       key: "timbrado",
@@ -7301,28 +7301,28 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "fa fa-files-o"
-        }), _vm._v(" Nuevo\n                            ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 1 ? [_c("button", {
+        }), _vm._v(" Nuevo\r\n                            ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 1 ? [_c("button", {
           staticClass: "btn btn-outline-success",
           attrs: {
             type: "button"
           }
         }, [_c("i", {
           staticClass: "fa fa-exclamation-circle"
-        }), _vm._v(" Timbrado\n                            ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 2 ? [_c("button", {
+        }), _vm._v(" Timbrado\r\n                            ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 2 ? [_c("button", {
           staticClass: "btn btn-outline-danger",
           attrs: {
             type: "button"
           }
         }, [_c("i", {
           staticClass: "fa fa-window-close"
-        }), _vm._v(" Cancelado\n                            ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 9 ? [_c("button", {
+        }), _vm._v(" Cancelado\r\n                            ")])] : _vm._e(), _vm._v(" "), props.row.timbrado == 9 ? [_c("button", {
           staticClass: "btn btn-outline-warning",
           attrs: {
             type: "button"
           }
         }, [_c("i", {
           staticClass: "fa fa-exclamation-circle"
-        }), _vm._v(" Prueba\n                            ")])] : _vm._e()];
+        }), _vm._v(" Prueba\r\n                            ")])] : _vm._e()];
       }
     }])
   })], 1)]), _vm._v(" "), _c("div", {
@@ -7598,7 +7598,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios3"
     }
-  }, [_vm._v("\n                                            Anterior\n                                        ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Anterior\r\n                                        ")])])]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-2"
   }, [_c("div", {
     staticClass: "form-check"
@@ -7617,7 +7617,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios4"
     }
-  }, [_vm._v("\n                                            Existente\n                                        ")])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Existente\r\n                                        ")])])])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -8418,7 +8418,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios1"
     }
-  }, [_vm._v("\n                                            Nacional\n                                        ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Nacional\r\n                                        ")])])]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-2"
   }, [_c("div", {
     staticClass: "form-check"
@@ -8437,7 +8437,7 @@ var render = function render() {
     attrs: {
       "for": "gridRadios2"
     }
-  }, [_vm._v("\n                                            Extranjero\n                                        ")])])]), _vm._v(" "), _vm._m(6), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n                                            Extranjero\r\n                                        ")])])]), _vm._v(" "), _vm._m(6), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-4"
   }, [_c("input", {
     directives: [{
@@ -8572,7 +8572,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nhr {\n    display: block;\n    margin-top: 2em;\n    margin-bottom: 2em;\n    margin-left: auto;\n    margin-right: auto;\n    border-style: inset;\n    border-width: 2px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nhr {\r\n    display: block;\r\n    margin-top: 2em;\r\n    margin-bottom: 2em;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    border-style: inset;\r\n    border-width: 2px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8596,7 +8596,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nhr {\n    display: block;\n    margin-top: 2em;\n    margin-bottom: 2em;\n    margin-left: auto;\n    margin-right: auto;\n    border-style: inset;\n    border-width: 2px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nhr {\r\n    display: block;\r\n    margin-top: 2em;\r\n    margin-bottom: 2em;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    border-style: inset;\r\n    border-width: 2px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

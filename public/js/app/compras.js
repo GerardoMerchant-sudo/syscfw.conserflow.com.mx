@@ -774,7 +774,7 @@ var Partidas = function Partidas(r) {
         name: 'DIEGO CRUZ MARTINEZ'
       });
       me.listaEmpleados_elabora = [{
-        id: 390,
+        id: 1149,
         name: 'DOMINICK TOVANY MARTINEZ'
       }, {
         id: 422,
@@ -825,7 +825,6 @@ var Partidas = function Partidas(r) {
                 }
               case 'actualizar':
                 {
-                  console.log(data);
                   this.selected = [];
                   this.upload = true;
                   _Herramientas_utilerias_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetObject(this.compra);
@@ -2383,6 +2382,9 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
           console.error(error);
         });
       }
+    },
+    formatPrecio: function formatPrecio(valor) {
+      return parseFloat(valor);
     }
   },
   mounted: function mounted() {}
@@ -3710,6 +3712,54 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
      */
     DescargarReporte: function DescargarReporte() {
       window.open("compras/evaluacion/descargarreporte/" + this.anio);
+    },
+    DescargarCartas: function DescargarCartas() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, url, link, _error$response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              if (!(!_this4.anio || !_this4.mes)) {
+                _context2.n = 1;
+                break;
+              }
+              return _context2.a(2);
+            case 1:
+              _context2.p = 1;
+              _this4.isLoading_proveedores = true;
+              _context2.n = 2;
+              return axios({
+                url: "compras/evaluacion/download-cards/".concat(_this4.anio, "/").concat(_this4.mes),
+                method: 'GET',
+                responseType: 'blob'
+              });
+            case 2:
+              response = _context2.v;
+              url = window.URL.createObjectURL(new Blob([response.data]));
+              link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', "Cartas_".concat(_this4.mes, "_").concat(_this4.anio, ".zip"));
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              window.URL.revokeObjectURL(url);
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t2 = _context2.v;
+              console.error('Error al descargar las cartas:', _t2);
+              toastr.error(((_error$response = _t2.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || 'No se pudo descargar el ZIP. Intenta de nuevo.');
+            case 4:
+              _context2.p = 4;
+              _this4.isLoading_proveedores = false;
+              return _context2.f(4);
+            case 5:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[1, 3, 4, 5]]);
+      }))();
     }
   }
 });
@@ -3829,7 +3879,35 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
       yearUntil: new Date().getFullYear(),
       showModalExcel: false,
       loading: false,
-      taxidValido: false
+      isDownloading: false,
+      taxidValido: false,
+      form: {
+        razon_social: '',
+        nombre: '',
+        giro: '',
+        nacionalidad: '',
+        calle: '',
+        no_exterior: '',
+        no_interior: '',
+        cp: '',
+        colonia: '',
+        municipio: '',
+        ciudad: '',
+        estado: '',
+        temp2_proveedor_banco: '',
+        temp2_proveedor_cuenta: '',
+        temp2_proveedor_clabe: '',
+        temp2_proveedor_moneda: '',
+        limite_credito: '',
+        ventas_contacto: '',
+        ventas_telefono: '',
+        ventas_celular: '',
+        ventas_correo: '',
+        facturacion_contacto: '',
+        facturacion_telefono: '',
+        facturacion_celular: '',
+        facturacion_correo: ''
+      }
     };
   },
   watch: {
@@ -3923,7 +4001,7 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
     GuardarProveedor: function GuardarProveedor(nuevo) {
       var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var isValid, tieneRFC, tieneTaxID, data, res, _error$response, _t;
+        var isValid, tieneRFC, tieneTaxID, data, res, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
@@ -4005,6 +4083,7 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
               data.append("no_exterior", _this2.proveedor.no_exterior);
               data.append("no_interior", _this2.proveedor.no_interior);
               data.append("estado", _this2.proveedor.estado);
+              data.append("ciudad", _this2.proveedor.ciudad);
               data.append("cp", _this2.proveedor.cp);
               data.append("nacionalidad", _this2.proveedor.nacionalidad);
               data.append("colonia", _this2.proveedor.colonia);
@@ -4028,26 +4107,25 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
               data.append("temp2_proveedor_moneda", _this2.temp2_proveedor_moneda);
               data.append("temp2_proveedor_banco", _this2.temp2_proveedor_banco);
               _context.n = 7;
-              return axios.post(_this2.url, data);
+              return axios.post(_this2.url, data).then(function (res) {
+                if (res.data.status) {
+                  _this2.cerrarModal();
+                  _this2.ObtenerProveedores();
+                  if (nuevo) {
+                    toastr.success('Proveedor Registrado Correctamente');
+                  } else {
+                    toastr.success('Proveedor Actualizado Correctamente');
+                  }
+                }
+              });
             case 7:
               res = _context.v;
-              if (res.data.status) {
-                _this2.cerrarModal();
-                _this2.ObtenerProveedores();
-                if (nuevo) {
-                  toastr.success('Proveedor Registrado Correctamente');
-                } else {
-                  toastr.success('Proveedor Actualizado Correctamente');
-                }
-              } else {
-                toastr.error(res.data.message);
-              }
               _context.n = 9;
               break;
             case 8:
               _context.p = 8;
               _t = _context.v;
-              toastr.error(((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || 'Ocurrió un error inesperado');
+              toastr.error(_t.response.data.message);
             case 9:
               _context.p = 9;
               _this2.isLoading = false;
@@ -4106,6 +4184,7 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
         regimen: "N/D",
         calle: "N/D",
         colonia: "N/D",
+        ciudad: "N/D",
         no_exterior: "N/D",
         no_interior: "N/D",
         cp: "00000",
@@ -4501,6 +4580,70 @@ var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client
           }
         }, _callee2, null, [[2, 4, 5, 6]]);
       }))();
+    },
+    descargarExcel: function descargarExcel() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, url, link, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _this8.isDownloading = true;
+              _context3.p = 1;
+              _this8.form = {
+                razon_social: _this8.proveedor.razon_social,
+                nombre: _this8.proveedor.nombre,
+                rfc: _this8.proveedor.rfc,
+                taxid: _this8.proveedor.taxid,
+                giro: _this8.proveedor.giro,
+                nacionalidad: _this8.proveedor.nacionalidad,
+                calle: _this8.proveedor.calle,
+                no_exterior: _this8.proveedor.no_exterior,
+                no_interior: _this8.proveedor.no_interior,
+                cp: _this8.proveedor.cp,
+                colonia: _this8.proveedor.colonia,
+                municipio: _this8.proveedor.municipio,
+                ciudad: _this8.proveedor.ciudad,
+                estado: _this8.proveedor.estado,
+                temp2_proveedor_banco: _this8.temp2_proveedor_banco,
+                temp2_proveedor_clabe: _this8.temp2_proveedor_clabe,
+                temp2_proveedor_moneda: _this8.temp_proveedor_moneda,
+                limite_credito: _this8.proveedor.limite_credito,
+                ventas_contacto: _this8.proveedor.ventas_contacto,
+                ventas_telefono: _this8.proveedor.ventas_telefono,
+                ventas_celular: _this8.proveedor.ventas_celular,
+                ventas_correo: _this8.proveedor.ventas_correo,
+                facturacion_contacto: _this8.proveedor.facturacion_contacto,
+                facturacion_telefono: _this8.proveedor.facturacion_telefono,
+                facturacion_celular: _this8.proveedor.facturacion_celular,
+                facturacion_correo: _this8.proveedor.facturacion_correo
+              };
+              _context3.n = 2;
+              return axios.post('/proveedor/export', _this8.form, {
+                responseType: 'blob'
+              });
+            case 2:
+              response = _context3.v;
+              url = window.URL.createObjectURL(response.data);
+              link = document.createElement('a');
+              link.href = url;
+              link.download = 'PCO-02_F-01 Alta y Modificacion de Proveedores NR02.xlsx';
+              link.click();
+              _context3.n = 4;
+              break;
+            case 3:
+              _context3.p = 3;
+              _t3 = _context3.v;
+              toastr.error("Error al descargar el archivo");
+            case 4:
+              _context3.p = 4;
+              _this8.isDownloading = false;
+              return _context3.f(4);
+            case 5:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[1, 3, 4, 5]]);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -4524,44 +4667,192 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var config = (__webpack_require__(/*! ../../Herramientas/config-vuetables-client */ "./resources/assets/js/components/Herramientas/config-vuetables-client.js").call)(undefined);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       listaProyectos: [],
-      proyectos: []
+      mostrarTodos: false,
+      proyectos: [],
+      dateStart: null,
+      dateEnd: null
+      // periods: [],
+      // selectedPeriod: null,
+      // anio: null,
+      // mes: null,
+      // yearSince: null,
+      // yearUntil: null,
+      // periodSelected: false, 
+      // periodEnd:null,
+      // periodStart:null
     };
+  },
+  mounted: function mounted() {
+    this.allProyects();
+  },
+  computed: {
+    nombrePeriodo: function nombrePeriodo() {
+      if (!this.mes || !this.anio) return '';
+      return "".concat(this.mes === 2 ? 'Febrero' : 'Agosto', " ").concat(this.anio);
+    }
   },
   methods: {
     /**
      * Obtener todos los proyectos
      */
-    ObtenrProyectos: function ObtenrProyectos() {
+    // ObtenrProyectos()
+    // {
+    //     axios.get('generales/proyectos/asd').then(res =>
+    //     {
+    //         this.listaProyectos = res.data.proyectos;
+    //     });
+    // },
+    // Obtener todos los proyectos
+    allProyects: function allProyects() {
       var _this = this;
-      axios.get('generales/proyectos/asd').then(function (res) {
-        _this.listaProyectos = res.data.proyectos;
-      });
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var res;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return axios.get('generales/proyectos/asd');
+            case 1:
+              res = _context.v;
+              _this.listaProyectos = res.data.proyectos;
+              return _context.a(2, res.data.proyectos);
+          }
+        }, _callee);
+      }))();
     },
-    /*
-     * Generar reporte
-     */
+    onToggleProyectos: function onToggleProyectos() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              if (!_this2.mostrarTodos) {
+                _context2.n = 2;
+                break;
+              }
+              _context2.n = 1;
+              return _this2.allProyects();
+            case 1:
+              _this2.proyectos = _context2.v;
+              _context2.n = 3;
+              break;
+            case 2:
+              _this2.proyectos = [];
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    //obtener proyectos por rangos de fecha
+    dateRange: function dateRange() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              if (_this3.dateStart && _this3.dateEnd) {
+                if (new Date(_this3.dateStart) > new Date(_this3.dateEnd)) {
+                  alert('La fecha de inicio no puede ser posterior a la fecha de fin.');
+                  _this3.dateEnd = '';
+                  _this3.periodStart = null;
+                  _this3.periodEnd = null;
+                  _this3.periodSelected = false;
+                  _this3.mes = null;
+                  _this3.anio = null;
+                }
+              }
+              _this3.$emit('date-range-selected', {
+                start: _this3.dateStart,
+                end: _this3.dateEnd
+              });
+            case 1:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    //Obtener los proyectos por periodos
+    //     setPeriodoActual(){
+    //         const today = new Date()
+    //         const currentMonth = today.getMonth() + 1
+    //         const currentYear = today.getFullYear()
+    //         this.anio = currentYear
+    //         if(currentMonth >= 2 && currentMonth <= 7){
+    //             this.mes = 8 // agosto
+    //         }else {
+    //             this.mes = 2 // febrero
+    //         }
+    //         this.ObtenrProyectos()
+    //     },
+    //     generatePeriods(){
+    //         this.periods = []
+    //         for(let year = this.yearSince; year <= this.yearUntil; year ++){
+    //             this.periods.push({
+    //                 month : `Febrero ${year}`,
+    //                 anio: year,
+    //                 mes:2
+    //             })
+    //             this.periods.push({
+    //                 month: `Agosto ${year}`,
+    //                 anio: year,
+    //                 mes: 8
+    //             })
+    //         } 
+    //     },
+    // seleccionarPeriodo(mes, anio) {
+    //     this.mes = mes
+    //     this.anio = anio
+    //     this.periodSelected = true
+    //     this.dateStart = null
+    //     this.dateEnd = null
+    //     if (mes === 2) {
+    //         this.periodStart = `${anio - 1}-08-01`
+    //         this.periodEnd = `${anio}-01-31`
+    //     }
+    //     if (mes === 8) {
+    //         this.periodStart = `${anio}-02-01`
+    //         this.periodEnd = `${anio}-07-31`
+    //     }
+    // },
     DescargarReporte: function DescargarReporte() {
-      var ids = this.proyectos.reduce(function (ids, p) {
-        return ids += "".concat(p.id, "&");
-      }, "");
-      if (this.proyectos == null) {
+      if (!this.proyectos || this.proyectos.length === 0) {
         toastr.warning('Seleccione un proyecto');
         return;
       }
-      if (this.proyectos.length == 0) {
-        toastr.warning('Seleccione un proyecto');
-        return;
+      var ids = this.proyectos.reduce(function (acc, p) {
+        return acc + "".concat(p.id, "&");
+      }, '');
+      var url = "compras/reporte/generalcompras/" + ids;
+
+      // RANGO LIBRE
+      if (this.dateStart && this.dateEnd) {
+        url += "?inicio=".concat(this.dateStart, "&fin=").concat(this.dateEnd);
       }
-      window.open("compras/reporte/generalcompras/" + ids, '_blank');
+
+      // PERIODO
+      else if (this.periodStart && this.periodEnd) {
+        url += "?inicio_p=".concat(this.periodStart, "&fin_p=").concat(this.periodEnd);
+      }
+      window.open(url, '_blank');
+
+      // reset
+      this.dateStart = null;
+      this.dateEnd = null;
+      // this.periodStart = null
+      // this.periodEnd = null
+      // this.periodSelected = false
+      this.proyectos = [];
     }
-  },
-  mounted: function mounted() {
-    this.ObtenrProyectos();
   }
 });
 
@@ -7555,7 +7846,22 @@ var render = function render() {
       fn: function fn(props) {
         return [_vm._v("\r\n                " + _vm._s(props.row.ad) + " " + _vm._s(props.row.comentario == null ? "" : props.row.comentario) + "\r\n            ")];
       }
-    }], null, false, 429929280)
+    }, {
+      key: "precio_unitario",
+      fn: function fn(props) {
+        return [_vm._v("\r\n                " + _vm._s(_vm.formatPrecio(props.row.precio_unitario)) + "\r\n            ")];
+      }
+    }, {
+      key: "cantidad",
+      fn: function fn(props) {
+        return [_vm._v("\r\n                " + _vm._s(_vm.formatPrecio(props.row.cantidad)) + "\r\n            ")];
+      }
+    }, {
+      key: "total",
+      fn: function fn(props) {
+        return [_vm._v("\r\n                " + _vm._s(_vm.formatPrecio(props.row.total)) + "\r\n            ")];
+      }
+    }], null, false, 2233513375)
   })], 1), _vm._v(" "), _c("div", {
     ref: "formLote",
     staticClass: "card"
@@ -7865,8 +8171,8 @@ var render = function render() {
     directives: [{
       name: "validate",
       rawName: "v-validate",
-      value: "decimal:2",
-      expression: "'decimal:2'"
+      value: "decimal:3",
+      expression: "'decimal:3'"
     }, {
       name: "model",
       rawName: "v-model",
@@ -9575,10 +9881,21 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-download mr-1"
-  }), _vm._v("Reporte\r\n                ")]), _vm._v(" "), _c("div", {
+  }), _vm._v("Reporte\r\n                ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary float-sm-right ml-2",
+    attrs: {
+      type: "button",
+      disabled: _vm.isLoading_proveedores
+    },
+    on: {
+      click: _vm.DescargarCartas
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-file-archive-o mr-1"
+  }), _vm._v("\r\n                        " + _vm._s(_vm.isLoading_proveedores ? "Descargando..." : "Descargar Cartas") + "\r\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown float-sm-right"
   }, [_c("button", {
-    staticClass: "btn btn-secondary dropdown-toggle",
+    staticClass: "btn btn-primary dropdown-toggle",
     attrs: {
       type: "button",
       id: "dropdownMenu2",
@@ -10734,7 +11051,7 @@ var render = function render() {
   }), _vm._v(" Registro de Proveedores - " + _vm._s(_vm.anio) + "\r\n                 "),  true ? [_c("div", {
     staticClass: "dropdown float-sm-right mx-1"
   }, [_c("button", {
-    staticClass: "btn btn-secondary dropdown-toggle",
+    staticClass: "btn btn-primary dropdown-toggle",
     attrs: {
       type: "button",
       id: "dropdownMenu2",
@@ -10767,7 +11084,7 @@ var render = function render() {
       value: _vm.PermisosCrud.Create,
       expression: "PermisosCrud.Create"
     }],
-    staticClass: "btn btn-dark float-sm-right mx-1",
+    staticClass: "btn btn-primary float-sm-right mx-1",
     attrs: {
       type: "button"
     },
@@ -11390,7 +11707,6 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      maxlength: "10",
       "data-vv-name": "No.  Interior",
       autocomplete: "off",
       placeholder: "n.Interior"
@@ -11496,6 +11812,47 @@ var render = function render() {
   }, [_vm._v("Municipio")]), _vm._v(" "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v(_vm._s(_vm.errors.first("Municipio")))])])]), _vm._v(" "), _c("div", {
+    staticClass: "col"
+  }, [_c("div", {
+    staticClass: "form-floating"
+  }, [_c("input", {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: "required",
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: _vm.proveedor.ciudad,
+      expression: "proveedor.ciudad"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      maxlength: "75",
+      minlength: "3",
+      "data-vv-name": "ciudad",
+      autocomplete: "off",
+      placeholder: "Ciudad",
+      id: "ciudad"
+    },
+    domProps: {
+      value: _vm.proveedor.ciudad
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.proveedor, "ciudad", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      "for": "ciudad"
+    }
+  }, [_vm._v("Ciudad")]), _vm._v(" "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.first("Ciudad")))])])]), _vm._v(" "), _c("div", {
     staticClass: "col"
   }, [_c("div", {
     staticClass: "form-floating"
@@ -12330,26 +12687,30 @@ var render = function render() {
   })], 1)])], 2), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
-    staticClass: "btn btn-outline-dark",
-    attrs: {
-      type: "button"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.cerrarModal();
-      }
-    }
-  }, [_c("i", {
-    staticClass: "fas fa-window-close mr-1"
-  }), _vm._v("Cerrar")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     on: {
       click: function click($event) {
         return _vm.openModalExcel();
       }
     }
-  }, [_vm._v("\r\n                                Carga Excel\r\n                            ")]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
-    staticClass: "btn btn-secondary",
+  }, [_c("i", {
+    staticClass: "fas fa-upload mr-1"
+  }), _vm._v("Carga Excel\r\n                            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-success",
+    attrs: {
+      disabled: _vm.isDownloading
+    },
+    on: {
+      click: function click($event) {
+        return _vm.descargarExcel();
+      }
+    }
+  }, [_vm.isDownloading ? _c("span", [_c("i", {
+    staticClass: "fas fa-spinner fa-spin mr-1"
+  }), _vm._v("\r\n                                    Generando...\r\n                                ")]) : _c("span", [_c("i", {
+    staticClass: "fas fa-download mr-1"
+  }), _vm._v("\r\n                                    Descargar Excel\r\n                                ")])]), _vm._v(" "), _vm.tipoAccion == 1 ? _c("button", {
+    staticClass: "btn btn-primary",
     attrs: {
       type: "button"
     },
@@ -12360,8 +12721,8 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fas fa-save mr-1"
-  }), _vm._v("Guardar")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
-    staticClass: "btn btn-secondary",
+  }), _vm._v("Crear")]) : _vm._e(), _vm._v(" "), _vm.tipoAccion == 2 ? _c("button", {
+    staticClass: "btn btn-primary",
     attrs: {
       type: "button"
     },
@@ -12799,20 +13160,79 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("main", {
     staticClass: "main"
-  }, [_c("div", {}, [_c("div", {
-    staticClass: "card",
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "card shadow-sm",
     staticStyle: {
       "min-height": "80vh"
     }
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
-    staticClass: "form-group row"
+    staticClass: "d-flex justify-content-end border-top mb-4",
+    staticStyle: {
+      "border-top": "6px solid #000"
+    }
+  }), _vm._v(" "), _c("i", {
+    staticClass: "fa fa-calendar mr-2 text-primary"
+  }), _vm._v(" "), _c("strong", [_vm._v("Generar Reporte por Rango de Fechas")]), _vm._v(" "), _c("div", {
+    staticClass: "row g-3 mb-4"
+  }, [_c("div", {
+    staticClass: "col-md-3"
   }, [_c("label", {
-    staticClass: "col-md-2 form-control-label"
-  }, [_vm._v("Proyecto")]), _vm._v(" "), _c("div", {
+    staticClass: "text-muted small"
+  }, [_vm._v("Fecha inicial")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dateStart,
+      expression: "dateStart"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.dateStart
+    },
+    on: {
+      change: _vm.dateRange,
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.dateStart = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("label", {
+    staticClass: "text-muted small"
+  }, [_vm._v("Fecha final")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dateEnd,
+      expression: "dateEnd"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.dateEnd
+    },
+    on: {
+      change: _vm.dateRange,
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.dateEnd = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
-  }, [_c("v-select", {
+  }, [_c("label", {
+    staticClass: "text-muted small"
+  }, [_vm._v("Proyectos")]), _vm._v(" "), _c("v-select", {
     attrs: {
       label: "nombre_corto",
       multiple: "",
@@ -12825,25 +13245,71 @@ var render = function render() {
       },
       expression: "proyectos"
     }
-  })], 1), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-success",
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "row mb-2"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "form-check"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.mostrarTodos,
+      expression: "mostrarTodos"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox",
+      id: "defaultCheck1"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.mostrarTodos) ? _vm._i(_vm.mostrarTodos, null) > -1 : _vm.mostrarTodos
+    },
+    on: {
+      change: [function ($event) {
+        var $$a = _vm.mostrarTodos,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.mostrarTodos = $$a.concat([$$v]));
+          } else {
+            $$i > -1 && (_vm.mostrarTodos = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.mostrarTodos = $$c;
+        }
+      }, _vm.onToggleProyectos]
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-check-label text-muted",
+    attrs: {
+      "for": "defaultCheck1"
+    }
+  }, [_vm._v("\r\n                    Todos los proyectos\r\n                    ")])])])]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-success px-4 mb-4",
     on: {
       click: function click($event) {
         return _vm.DescargarReporte();
       }
     }
   }, [_c("i", {
-    staticClass: "fas fa-file-excel mr-1"
-  }), _vm._v(" Exportar\r\n                    ")])])])])])]);
+    staticClass: "fas fa-file-excel mr-2"
+  }), _vm._v("\r\n            Generar Reporte\r\n            ")])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "card-header"
+    staticClass: "card-header bg-white border-0 pb-0"
+  }, [_c("h5", {
+    staticClass: "mb-0"
   }, [_c("i", {
-    staticClass: "fa fa-align-justify"
-  }), _vm._v("Reporte General de Compras\r\n            ")]);
+    staticClass: "fa fa-file-text mr-2 text-success"
+  }), _vm._v(" "), _c("strong", [_vm._v("Reporte General de Compras")])])]);
 }];
 render._withStripped = true;
 

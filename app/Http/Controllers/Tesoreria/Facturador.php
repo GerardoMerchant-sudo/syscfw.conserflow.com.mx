@@ -466,7 +466,7 @@ class Facturador
         return $totalimpuestos;
     }
 
-    /**
+  /**
      * [Complemento/pago20:Pagos] Complemento de Pago del comprobante
      * @param object $factura Factura
      * @param array $partidas_pagos Pagos del comprobante

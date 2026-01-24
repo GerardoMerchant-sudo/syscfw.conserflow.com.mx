@@ -34,6 +34,10 @@ Route::group(["middleware" => "auth"], function ()
 
     // Reportes
     Route::get("compras/reporte/generalcompras/{id}", "Compras\ComprasController@ReportGeneral");
+    // Cartas 
+    Route::get('compras/evaluacion/download-cards/{anio}/{mes}', 'Compras\EvaluacionProveedoresController@DownloadCards');
+ 
+
 
     // FIXME: 
     Route::resource("compras/{id}/compras", "Compras\ComprasController");
@@ -42,6 +46,7 @@ Route::group(["middleware" => "auth"], function ()
     // Proveedores
     Route::resource("proveedores", "Compras\ProveedoresController");
     Route::post('/read-excel','Compras\ProveedoresController@read');//Carga de excel 
+    Route::post('/proveedor/export', 'Compras\ProveedoresController@ExportSupplier');
     Route::post("compras/proveedores/activar", "Compras\ProveedoresController@Desactivar");
     Route::get("compras/proveedores/obtener/{anio}", "Compras\ProveedoresController@ObtenerProveedores");
     Route::get("compras/reportes/catalogoproveedores/{anio}", "Compras\ProveedoresController@DescargarReporte");
