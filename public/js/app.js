@@ -93395,9 +93395,19 @@ var DiasFestivos = function DiasFestivos(r) {
 };
 
 // compotencias
-var competencias = function competencias(r) {
+var competence = function competence(r) {
   return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
-    return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Empleados/Competencia.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+    return r(__webpack_require__(/*! ./Empleados/competence/Competence.vue */ "./resources/assets/js/components/RH/Empleados/competence/Competence.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var createCompetence = function createCompetence(r) {
+  return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
+    return r(__webpack_require__(/*! ./Empleados/competence/CreateCompetence.vue */ "./resources/assets/js/components/RH/Empleados/competence/CreateCompetence.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var retrieveEmployee = function retrieveEmployee(r) {
+  return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
+    return r(__webpack_require__(/*! ./Empleados/competence/retrieveEmployee.vue */ "./resources/assets/js/components/RH/Empleados/competence/retrieveEmployee.vue"));
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var routes = [
@@ -93416,7 +93426,18 @@ var routes = [
   component: DatosBancarios
 }, {
   path: '/rh/empleados/competencias',
-  component: competencias
+  component: competence
+}, {
+  path: '/rh/empleados/competence/competencias/createCompetencia',
+  component: createCompetence
+}, {
+  path: '/rh/competence/employee/:id',
+  name: 'RetrieveEmployee',
+  component: retrieveEmployee
+}, {
+  path: '/rh/competence/:id',
+  name: 'updateCompetence',
+  component: createCompetence
 },
 // Asistencia
 {

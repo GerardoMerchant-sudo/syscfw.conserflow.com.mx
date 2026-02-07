@@ -261,6 +261,11 @@ export default
                 if (res.data.status)
                     this.list_puestos = res.data.puestos;
                 else toastr.error(res.data.mensaje);
+            }).then(res =>
+            {
+                if (res.data.status)
+                    this.list_puestos = res.data.puestos;
+                else toastr.error(res.data.mensaje);
             })
         },
 

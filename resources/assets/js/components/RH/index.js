@@ -1,3 +1,5 @@
+
+
 // Empleados
 const Empleados = r => require.ensure([], () => r(require('./Empleados/Empleados.vue')), 'rh')
 const Cumples = r => require.ensure([], () => r(require('./Empleados/Cumpleanios.vue')), 'rh')
@@ -27,15 +29,20 @@ const FactoresRiesgo = r => require.ensure([], () => r (require('./FactoresRiesg
 const DiasFestivos = r => require.ensure([], () => r (require('./DiasFestivos.vue')), 'rh')
 
 // compotencias
-const competencias = r => require.ensure([], () => r (require('./Empleados/Competencia.vue')), 'rh')
+const competence = r => require.ensure([], () =>        r(require('./Empleados/competence/Competence.vue')), 'rh')
+const createCompetence = r => require.ensure([], () =>  r(require('./Empleados/competence/CreateCompetence.vue')), 'rh')
+const retrieveEmployee = r => require.ensure([], ()=>   r(require('./Empleados/competence/retrieveEmployee.vue')), 'rh')
 
 const routes = [
     // Empleados
-    { path: '/rh/empleados/alta', component: Empleados },
-    { path: '/rh/empleados/cumpleaños/', component: Cumples },
-    { path: '/rh/empleados/vacaciones', component: Vacaciones },
-    { path: '/rh/empleados/datosbancarios', component: DatosBancarios },
-    { path: '/rh/empleados/competencias', component: competencias },
+    {   path:'/rh/empleados/alta', component: Empleados },
+    {   path:'/rh/empleados/cumpleaños/', component: Cumples },
+    {   path:'/rh/empleados/vacaciones', component: Vacaciones },
+    {   path:'/rh/empleados/datosbancarios', component: DatosBancarios },
+    {   path:'/rh/empleados/competencias', component: competence},
+    {   path:'/rh/empleados/competence/competencias/createCompetencia', component: createCompetence },
+    {   path:'/rh/competence/employee/:id', name: 'RetrieveEmployee',component:retrieveEmployee },
+    {   path:'/rh/competence/:id', name: 'updateCompetence', component:createCompetence}, 
 
     // Asistencia
     { path: '/rh/asistencias/asistencia', component: Registro },

@@ -97,9 +97,7 @@
                             <span>&times;</span>
                         </button>
                         </div>
-
                         <div class="modal-body">
-
                             <div class="row mb-3">
                                 <div class="col-md-8 offset-md-2">
                                     <div class="form-floating">

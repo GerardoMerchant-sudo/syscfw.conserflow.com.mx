@@ -144,5 +144,10 @@ Route::group(["middleware" => "auth"], function ()
     Route::resource("rh/empleados", "RH\EmpleadoController");
 
     // Competencias
-    Route::resource("rh/competencias", "RH\CompetenceController");
+    Route::resource("rh/competence", "RH\CompetenceController");
+    Route::get("rh/competences/{nombre}", "RH\CompetenceController@download");
+    Route::get('/empleados', 'RH\CompetenceController@create');
+    Route::get('rh/competence/employee/{id}', 'RH\CompetenceController@retrieveEmployee');
+    Route::put("rh/competence/{id}", "RH\CompetenceController@update");
+
 });
