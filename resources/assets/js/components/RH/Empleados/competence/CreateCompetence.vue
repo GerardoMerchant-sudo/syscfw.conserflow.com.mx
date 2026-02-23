@@ -969,32 +969,32 @@ export default {
 </script>
 <style scoped>
 .docs-note {
-  background: #f6f7f8;
-  border: 1px solid #e0e0e0;
-  border-radius: 14px;
-  padding: 12px 14px;
+    background: #f6f7f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 14px;
+    padding: 12px 14px;
 }
 
 .docs-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
 }
 
 .docs-items {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .docs-items span {
-  font-size: 13px;
-  color: #666;
-  background: #ffffff;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid #e3e3e3;
+    font-size: 13px;
+    color: #666;
+    background: #ffffff;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid #e3e3e3;
 }
 
 

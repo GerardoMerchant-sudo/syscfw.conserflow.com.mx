@@ -23,4 +23,17 @@ Route::group(["middleware" => "auth"], function ()
     Route::post("calidad/calibracion/calibracion","Calidad\EquiposCalibracion2Controller@GuardarCalibraciones");
     Route::get("calidad/calibracion/certificado/{nombre}","Calidad\EquiposCalibracion2Controller@DescargarCertificado");
     Route::get("calidad/calibracion/equipos/descargar/{tipos}","Calidad\EquiposCalibracion2Controller@Reporte");
-});
+
+    //procedimiento
+    
+    Route::get('procedure/employee', 'Calidad\ProcedureController@employee');
+    Route::post('procedure/qualify', 'Calidad\ProcedureController@qualifyEmployee');
+    Route::put('procedure/qualification/{id}', 'Calidad\ProcedureController@updateWPQ');
+    Route::get('procedure/qualifications/{id}', 'Calidad\ProcedureController@retrieveWPQ');
+    Route::delete('procedure/qualification/delete/{id}', 'Calidad\ProcedureController@deleteQualification');
+    Route::get('procedure/download/wps/{id}', 'Calidad\ProcedureController@downloadWPS');
+    Route::get('procedure/download/pqr/{id}', 'Calidad\ProcedureController@downloadPQR');
+    Route::get('procedure/download/wpq/{id}', 'Calidad\ProcedureController@downloadWPQ');
+    
+    Route::resource('procedure', 'Calidad\ProcedureController');
+    });

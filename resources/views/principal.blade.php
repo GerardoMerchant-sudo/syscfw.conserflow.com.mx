@@ -47,30 +47,53 @@ header('Content-Type: text/html');
                 <span class="navbar-toggler-icon"></span>
             </button>
 	    <span class="text-danger text-center"></span>
-            <ul class="nav navbar-nav ml-auto">
-                <a class="nav-link nav-link" href="#" @click="abrirModalModulos">
+           <ul class="nav navbar-nav ml-auto" style="margin-right: 20px !important;">
+                <a class="nav-link nav-link" href="#" @click="abrirModalModulos" style="margin-right:10px">
                     <i class="fas fa-th icon-menu"></i>
                 </a>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle mr-2 nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img src="img/user2.png" class="img-avatar">
-                        <span class="d-md-down-none">{{ auth()->user()->name }}</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-header text-center">
-                            <strong>Cuenta</strong>
-                        </div>
-
-                        <form method="POST" action="{{ route('logout') }}">
-                            {{ csrf_field() }}
-                            <button class="dropdown-item" @click="cerrarSesion()"><i class="fa fa-lock"></i>Cerrar Sesión</button>
-                        </form>
-                        <form method="POST" action="{{ route('privacidad') }}" target="_blank">
-                            {{ csrf_field() }}
-                            <button class="dropdown-item"><i class="fas fa-user-secret"></i>Privacidad</button>
-                        </form>
+                <li class="nav-item dropdown fondo rounded-pill " style="list-style: none; margin-right: 10px; width: auto">
+                <a class="nav-link dropdown-toggle d-flex align-items-center no-caret" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="padding: 5px; transition: all 0.3s; margin-right:5px">
+                    <div class="nav-avatar-circle">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->name)[1] ?? '', 0, 1)) }}
                     </div>
-                </li>
+                    <span class="ml-2 d-md-down-none font-weight-bold" style="color: #2d3748; font-size: 0.95rem; margin-right: 10px;">
+                        {{ auth()->user()->name }}
+                    </span>
+                    <i class="fas fa-chevron-down text-muted" style="font-size: 0.7rem; margin-right: 15px;"></i>
+                </a>
+            <div class="dropdown-menu dropdown-menu-right profile-card-dropdown">
+                <div class="profile-card-header text-center">
+                    <div class="user-email-top">{{ auth()->user()->email }}</div>
+                    <div class="user-role-label">
+                    {{ auth()->user()->puesto->nombre ?? 'USUARIO' }}
+                </div>
+                    
+                    <div class="avatar-display-center">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->name)[1] ?? '', 0, 1)) }}
+                    </div>
+                    
+                    <h5 class="user-name-display">{{ auth()->user()->name }}</h5>
+                    
+                    <form method="POST" action="{{ route('privacidad') }}" target="_blank">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn-edit-profile btn btn-primary">
+                            <i class="fas fa-user-secret icon-privacidad"></i>
+                            <span>Privacidad</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="profile-card-footer">
+                    <form method="POST" action="{{ route('logout') }}" class="m-0">
+                        {{ csrf_field() }}
+                        <button class="btn-logout-ux" @click="cerrarSesion()" type="submit">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Cerrar sesión</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+    </li>
             </ul>
         </header>
 
@@ -91,13 +114,139 @@ header('Content-Type: text/html');
     <script src="js/plantilla.js"></script>
 
     <style>
+        .no-caret::after {
+    display: none !important;
+    content: none !important;
+}
         .icon-menu {
             font-size: 1.5rem;
             padding-right: 15px;
             border-right: 1px solid gray;
             line-height: 2rem;
         }
-       
+       /* Reset de Bootstrap para el Dropdown */
+    .profile-card-dropdown {
+        min-width: 280px;
+        border: none !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.12) !important;
+        padding: 0 !important;
+        margin-top: 15px !important;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.05) !important;
+
+        margin-right: 20px !important;
+    }
+
+    /* Avatar pequeño en la barra */
+    .nav-avatar-circle {
+        width: 38px;
+        height: 38px;
+        background: #5C92B7; 
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.8rem;
+    }
+
+    /* Contenido de la tarjeta */
+    .profile-card-header {
+        padding: 30px 20px;
+        background: #fff
+    }
+
+    .user-email-top {
+        color: #4a5568;
+        font-size: 0.9rem;
+        margin-bottom: 2px;
+    }
+
+    .user-role-label {
+        color: #a0aec0;
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+    }
+
+    /* Avatar grande central */
+    .avatar-display-center {
+        width: 85px;
+        height: 85px;
+        background: #5C92B7;
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0 auto 15px;
+    }
+
+    .user-name-display {
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 15px;
+        font-size: 1.25rem;
+    }
+
+    .btn-edit-profile {
+        background: transparent;
+        border: none;
+        color: #015D94;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+
+    .btn-edit-profile:hover { opacity: 0.7; }
+
+    /* Footer de la tarjeta */
+    .profile-card-footer {
+        border-top: 1px solid #f1f3f5;
+        padding: 15px;
+    }
+
+    .btn-logout-ux {
+        width: 100%;
+        background: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2d3748;
+        font-size: 0.95rem;
+        padding: 10px;
+        transition: background 0.2s;
+        border-radius: 12px;
+    }
+
+    .btn-logout-ux i {
+        margin-right: 15px;
+        color: #718096;
+        font-size: 1.1rem;
+    }
+
+    .btn-logout-ux:hover {
+        background: #f8f9fa;
+    }
+
+    /* Animación */
+    .dropdown.show .profile-card-dropdown {
+        animation: cardAppear 0.25s ease-out;
+    }
+    .fondo{
+         background: #e0e9f0;
+    }
+
+    @keyframes cardAppear {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
     </style>
 </body>
 
