@@ -96,151 +96,159 @@ class MaintenanceRequestController extends Controller
     }
 
     /**
-     * Exportar en excel solicitud de mantenimineto 
-     * Exportar solicitud de mantenimiento por ID
-     * @param {id} - Id del registro de la solicitud
-     *      
-     * */
-    public function ExportRequestM($id)
-    {
-        $maintenance = MaintenanceRequestModel::findOrFail($id);
+         * Exportar en excel solicitud de mantenimineto 
+         * Exportar solicitud de mantenimiento por ID
+         * @param: $request
+         */
+        public function ExportRequestM($id)
+        {
+            $maintenance = MaintenanceRequestModel::findOrFail($id);
 
-        $templatePath = storage_path('app/Mantenimiento/SolicitudMantenimientoEquiposherramientas.xlsx');
-        if (!file_exists($templatePath)) {
-            return response()->json(['status' => 'error', 'message' => 'Plantilla no encontrada']);
-        }
+            $templatePath = storage_path('app/Mantenimiento/SolicitudMantenimientoEquiposherramientas.xlsx');
+            if (!file_exists($templatePath)) {
+                return response()->json(['status' => 'error', 'message' => 'Plantilla no encontrada']);
+            }
 
-        try {
-            $spreadsheet = IOFactory::load($templatePath); //Abre excel
-            $sheet = $spreadsheet->getActiveSheet(); //Toma la hoja activa 
+            try {
+                $spreadsheet = IOFactory::load($templatePath);
+                $sheet = $spreadsheet->getActiveSheet();
 
-            //Mapeo de los campos
-            $map = [
-                'requested_by'        => 'A8',
-                'request_date'        => 'E8',
-                'request_number'      => 'G8',
-                'equipment_tool'      => 'A10',
-                'serial_number'       => 'E10',
-                'request_time'        => 'F10',
-                'problem_description' => 'A12',
-                'authorized_by'       => 'A14',
-                'auth_date'           => 'I14',
-                'start_date'          => 'G18',
-                'end_date'            => 'I18',
-                'observations'        => 'A46'                
+                $map = [
+                    'requested_by'        => 'A8',
+                    'request_date'        => 'E8',
+                    'request_number'      => 'G8',
+                    'equipment_tool'      => 'A10',
+                    'serial_number'       => 'E10',
+                    'request_time'        => 'F10',
+                    'problem_description' => 'A12',
+                    'authorized_by'       => 'A14',
+                    'auth_date'           => 'I14',
+                    'start_date'          => 'G18',
+                    'end_date'            => 'I18',
+                    'observations'        => 'A46'                
+                ];
+
+                foreach ($map as $field => $cell) {
+                    $sheet->setCellValue($cell, $maintenance->$field ?? '');
+                }
+
+                // ── Checkboxes ───────────────────────────────────────────────
+                $sheet->setCellValue('H10', $maintenance->request_type === 'Normal'        ? '✓' : '');
+                $sheet->setCellValue('J10', $maintenance->request_type === 'Urgente'       ? '✓' : '');
+                $sheet->setCellValue('C18', $maintenance->maintenance_type === 'Correctivo' ? '✓' : '');
+                $sheet->setCellValue('F18', $maintenance->maintenance_type === 'Preventivo' ? '✓' : '');
+
+                foreach (['H10', 'J10', 'C18', 'F18'] as $checkCell) {
+                    $sheet->getStyle($checkCell)->applyFromArray([
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                            'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        ],
+                        'font' => [
+                            'bold'  => true,
+                            'size'  => 12,
+                            'color' => ['argb' => '003366'],
+                        ],
+                    ]);
+                }
+
+        // ── Helper ─────────────────────────────────────────────
+            $formatAndSplit = function($text, $limit = 120) {
+                if (!$text) return [];
+
+                $lines = preg_split('/\r\n|\r|\n/', $text);
+                $text = implode(', ', array_filter(array_map('trim', $lines)));
+
+                $words = explode(' ', $text);
+                $result = [];
+                $current = '';
+
+                foreach ($words as $word) {
+                    if (strlen($current . ' ' . $word) <= $limit) {
+                        $current .= ($current ? ' ' : '') . $word;
+                    } else {
+                        $result[] = $current;
+                        $current = $word;
+                    }
+                }
+
+                if ($current) $result[] = $current;
+
+                return $result;
+            };
+
+            // ── Estilo ─────────────────────────────────────────────
+            $styleLeft = [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
             ];
 
-            //Recorre todo los campos
-            foreach ($map as $field => $cell) {
-                $sheet->setCellValue($cell, $maintenance->$field ?? ''); //Inserta datos
+            // ── ACTIVIDADES ────────────────────────────────────────
+            $lines = $formatAndSplit($maintenance->activities_to_perform, 120);
+
+            foreach ($lines as $i => $line) {
+                $cell = 'B' . (21 + $i);
+
+                $sheet->setCellValue($cell, $line);
+                $sheet->getStyle($cell)->applyFromArray($styleLeft);
             }
 
-            // ── Checkboxes ───────────────────────────────────────────────
-            $sheet->setCellValue('H10', $maintenance->request_type === 'Normal'        ? '✅' : '');
-            $sheet->setCellValue('J10', $maintenance->request_type === 'Urgente'       ? '✅' : '');
-            $sheet->setCellValue('C18', $maintenance->maintenance_type === 'Correctivo' ? '✅' : '');
-            $sheet->setCellValue('F18', $maintenance->maintenance_type === 'Preventivo' ? '✅' : '');
+            // ── DAÑOS ──────────────────────────────────────────────
+            $lines = $formatAndSplit($maintenance->damages_found, 120);
 
+            foreach ($lines as $i => $line) {
+                $cell = 'B' . (28 + $i);
 
-      // ── Helper ─────────────────────────────────────────────
-        $formatAndSplit = function($text, $limit = 120) {
-            if (!$text) return [];
+                $sheet->setCellValue($cell, $line);
+                $sheet->getStyle($cell)->applyFromArray($styleLeft);
+            }
 
-            $lines = preg_split('/\r\n|\r|\n/', $text); //separa las lineas y lo convierte en array 
-            $text = implode(', ', array_filter(array_map('trim', $lines))); //limpiar el array y unir 
-            $words = explode(' ', $text); //separa las palabras
-            $result = [];
-            $current = '';
+            // ── CAMBIOS ────────────────────────────────────────────
+            $lines = $formatAndSplit($maintenance->changes_repairs, 120);
 
-            foreach ($words as $word) {
-                if (strlen($current . ' ' . $word) <= $limit) //Construye una linea sin el parse del limite 
-                    {
-                    $current .= ($current ? ' ' : '') . $word;
-                } else {
-                    $result[] = $current; // cuando se llena guarda línea
-                    $current = $word;
+            foreach ($lines as $i => $line) {
+                $cell = 'B' . (34 + $i);
+
+                $sheet->setCellValue($cell, $line);
+                $sheet->getStyle($cell)->applyFromArray($styleLeft);
+            }
+
+            // ── REFACCIONES ────────────────────────────────────────
+            $lines = $formatAndSplit($maintenance->spare_parts_used, 100);
+
+            foreach ($lines as $i => $line) {
+                $cell = 'B' . (40 + $i);
+
+                $sheet->setCellValue($cell, $line);
+                $sheet->getStyle($cell)->applyFromArray($styleLeft);
+            }
+
+            // ── RESIDUOS ───────────────────────────────────────────
+            $lines = $formatAndSplit($maintenance->waste_generated, 40);
+
+            foreach ($lines as $i => $line) {
+                $cell = 'H' . (40 + $i);
+
+                $sheet->setCellValue($cell, $line);
+                $sheet->getStyle($cell)->applyFromArray($styleLeft);
+            }
+
+                $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+
+                // ── LOCAL devuelve XLSX ───────────────────────────────────────
+                if ($isWindows) {
+                    $writer = new Xlsx($spreadsheet);
+                    return response()->streamDownload(function () use ($writer) {
+                        $writer->save('php://output');
+                    }, "SolicitudMantenimiento_{$id}.xlsx", [
+                        'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    ]);
                 }
-            }
 
-            if ($current) $result[] = $current;
-
-            return $result;
-        };
-
-        // ── Estilo ─────────────────────────────────────────────
-        $styleLeft = [
-            'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            ],
-        ];
-
-        // ── ACTIVIDADES ────────────────────────────────────────
-        $lines = $formatAndSplit($maintenance->activities_to_perform, 120);
-
-        foreach ($lines as $i => $line) {
-            $cell = 'B' . (21 + $i);
-
-            $sheet->setCellValue($cell, $line);
-            $sheet->getStyle($cell)->applyFromArray($styleLeft);
-        }
-
-        // ── DAÑOS ──────────────────────────────────────────────
-        $lines = $formatAndSplit($maintenance->damages_found, 120);
-
-        foreach ($lines as $i => $line) {
-            $cell = 'B' . (28 + $i);
-
-            $sheet->setCellValue($cell, $line);
-            $sheet->getStyle($cell)->applyFromArray($styleLeft);
-        }
-
-        // ── CAMBIOS ────────────────────────────────────────────
-        $lines = $formatAndSplit($maintenance->changes_repairs, 120);
-
-        foreach ($lines as $i => $line) {
-            $cell = 'B' . (34 + $i);
-
-            $sheet->setCellValue($cell, $line);
-            $sheet->getStyle($cell)->applyFromArray($styleLeft);
-        }
-
-        // ── REFACCIONES ────────────────────────────────────────
-        $lines = $formatAndSplit($maintenance->spare_parts_used, 100);
-
-        foreach ($lines as $i => $line) {
-            $cell = 'B' . (40 + $i);
-
-            $sheet->setCellValue($cell, $line);
-            $sheet->getStyle($cell)->applyFromArray($styleLeft);
-        }
-
-        // ── RESIDUOS ───────────────────────────────────────────
-        $lines = $formatAndSplit($maintenance->waste_generated, 40);
-
-        foreach ($lines as $i => $line) {
-            $cell = 'H' . (40 + $i);
-
-            $sheet->setCellValue($cell, $line);
-            $sheet->getStyle($cell)->applyFromArray($styleLeft);
-        }
-
-        //detecta si estas en windowa
-            $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
-
-            // ── LOCAL devuelve XLSX ───────────────────────────────────────
-            if ($isWindows) {
-                $writer = new Xlsx($spreadsheet);
-                return response()->streamDownload(function () use ($writer) {
-                    $writer->save('php://output');
-                }, "PMN-04_F-02 Mantenimiento de equipos y herramientas NR01.xlsx", [
-                    'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                ]);
-            }
-
-            // ── PRODUCCIÓN devuelve PDF ───────────────────────────────────
-            
-            
+            // ── PRODUCCIÓN devuelve PDF con LibreOffice ───────────────────
+            $tmpDir = storage_path('app/tmp');
             if (!file_exists($tmpDir)) mkdir($tmpDir, 0755, true);
 
             $tmpXlsx = $tmpDir . '/' . uniqid('mnt_') . '.xlsx';
@@ -261,15 +269,60 @@ class MaintenanceRequestController extends Controller
             $pdf = file_get_contents($tmpPdf);
             @unlink($tmpPdf);
 
-            $filename = "PMN-04_F-02 Mantenimiento de equipos y herramientas NR01_{$id}.pdf";
             return response($pdf, 200, [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => "attachment; filename=\"reporte.pdf\"; filename*=UTF-8''" . rawurlencode($filename),
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => "attachment; filename=\"PMN-04_F-02_Mantenimiento_de_equipos_y_herramientas_NR01_{$id}.pdf\"",
             ]);
-
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            } catch (\Exception $e) {
+                return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            }
         }
-    }
 
+        public function exportBinnacleExcel()
+        {
+            // Todos los registros
+            $binnacles = MaintenanceRequestModel::all();
+
+            $templatePath = storage_path('app/Mantenimiento/Bitacora_Control_Equipos_Herramientas.xlsx');
+            if (!file_exists($templatePath)) {
+                return response()->json(['status' => 'error', 'message' => 'Plantilla no encontrada']);
+            }
+            try {
+                $spreadsheet = IOFactory::load($templatePath);
+                $sheet = $spreadsheet->getActiveSheet();
+                $startRow = 8;
+                foreach ($binnacles as $index => $binnacle) {
+                    $row = $startRow + $index; 
+                    $sheet->setCellValue('A' . $row, $binnacle->request_number   ?? '');
+                    $sheet->setCellValue('B' . $row, $binnacle->equipment_tool   ?? '');
+                    $sheet->setCellValue('C' . $row, $binnacle->serial_number    ?? '');
+                    $sheet->setCellValue('D' . $row, $binnacle->maintenance_type ?? '');
+                    $sheet->setCellValue('E' . $row, $binnacle->responsible      ?? '');
+                    $sheet->setCellValue('F' . $row, $binnacle->maintenanceDate  ?? '');
+                    $waste = $binnacle->waste_generated ?? '';
+                    $waste = preg_replace('/\r\n|\r|\n/', ', ', $waste);
+                    $waste = trim($waste, ', '); 
+                    $sheet->setCellValue('G' . $row, $waste);
+                }
+                $writer = new Xlsx($spreadsheet);
+                $fileName = 'PMN-04_F-04_Bitacora_de_Control_de_Equipos_y_Herramientas_NR00' . now()->format('Ymd_His') . '.xlsx';
+                return response()->streamDownload(function () use ($writer) {
+                    $writer->save('php://output');
+                }, $fileName, [
+                    'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'Cache-Control' => 'max-age=0',
+                ]);
+            } catch (\Exception $e) {
+                return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            }
+        }
+
+        public function stats()
+        {
+            return response()->json([
+                'solicitudes' => MaintenanceRequestModel::count(),
+                'bajas'       => \App\Maintenence\ToolLowModel::count(),
+                'bitacora'    => MaintenanceRequestModel::whereNotNull('responsible')->count(),
+            ]);
+        }
 }

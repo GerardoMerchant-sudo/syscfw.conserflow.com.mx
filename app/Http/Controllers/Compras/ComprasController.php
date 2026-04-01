@@ -700,40 +700,49 @@ class ComprasController extends Controller
   }
   protected function busqueda_filterByColumn($data, $queries)
   {
-    $queries = json_decode($queries, true);
+      $queries = json_decode($queries, true);
 
-    return $data->where(function ($q) use ($queries)
-    {
-      foreach ($queries as $field => $query)
+      return $data->where(function ($q) use ($queries)
       {
-        $_field = $field;
+          $columnMap = [
+              'folio' => 'ordenes_compras.folio',
+          ];
 
-        if (is_string($query))
-        {
-          $q->where($_field, 'LIKE', "%{$query}%");
-        }
-        else
-        {
-          $start = Carbon::createFromFormat('Y-m-d', substr($query['start'], 0, 10))->startOfDay();
-          $end = Carbon::createFromFormat('Y-m-d', substr($query['end'], 0, 10))->endOfDay();
+          foreach ($queries as $field => $query)
+          {
+              $_field = $columnMap[$field] ?? $field;
 
-          $q->whereBetween($_field, [$start, $end]);
-        }
-      }
-    });
+              if (is_string($query))
+              {
+                  $q->where($_field, 'LIKE', "%{$query}%");
+              }
+              else
+              {
+                  $start = Carbon::createFromFormat('Y-m-d', substr($query['start'], 0, 10))->startOfDay();
+                  $end = Carbon::createFromFormat('Y-m-d', substr($query['end'], 0, 10))->endOfDay();
+                  $q->whereBetween($_field, [$start, $end]);
+              }
+          }
+      });
   }
-
   protected function busqueda_filter($data, $query, $fields)
+{
+  return $data->where(function ($q) use ($query, $fields)
   {
-    return $data->where(function ($q) use ($query, $fields)
+    $columnMap = [
+      'folio' => 'ordenes_compras.folio',
+    ];  
+
+    foreach ($fields as $index => $field)
     {
-      foreach ($fields as $index => $field)
-      {
-        $method = $index ? 'orWhere' : 'where';
-        $q->{$method}($field, 'LIKE', "%{$query}%");
-      }
-    });
-  }
+      $method = $index ? 'orWhere' : 'where';
+
+      $_field = $columnMap[$field] ?? $field;
+
+      $q->{$method}($_field, 'LIKE', "%{$query}%");
+    }
+  });
+}
 
   public function calculo_dia_entrega($data)
   {

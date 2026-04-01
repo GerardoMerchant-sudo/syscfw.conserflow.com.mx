@@ -4,6 +4,22 @@
             <div class="card-header d-flex align-items-center">
                 <i class="fas fa-clipboard-list fa-2x text-primary mr-2"></i>
                 <span class="h5 mb-0">Bitácora de control de mantenimiento a equipo y herramientas</span>
+                <button 
+                class="btn btn-primary ml-auto rounded-pill"
+                @click="exportBinnacle"
+                :disabled="isLoadingExcel"
+                >
+                    <span v-if="isLoadingExcel">
+                        <span class="spinner-grow spinner-grow-sm me-2" role="status"></span>
+                        Exportando...
+                    </span>
+
+                    <span v-else>
+                        <i class="fas fa-file-excel mr-2"></i>
+                        Exportar Excel
+                    </span>
+                </button>
+
             </div>
             <div class="card-body">
                 <vue-element-loading :active="maintenanceTable_loading" />
@@ -26,17 +42,11 @@
                                     <i class="fas fa-grip-horizontal"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button class="dropdown-item text-primary">
-                                        <i class="fas fa-edit text-primary"></i> Actualizar
-                                    </button>
-                                    <button class="dropdown-item text-danger">
-                                        <i class="fas fa-trash-alt text-danger"></i> Eliminar
-                                    </button>
                                     <button
-                                        class="dropdown-item text-success"
+                                        class="dropdown-item text-primary"
                                         @click="openModalStaff(props.row)"
                                     >
-                                        <i class="fas fa-plus text-success"></i> Agregar Responsable
+                                        <i class="fas fa-plus text-primary"></i> Agregar Responsable
                                     </button>
                                 </div>
                             </div>
@@ -152,6 +162,7 @@ var config = require('../../Herramientas/config-vuetables-client').call(this)
 export default {
     data() {
         return {
+            isLoadingExcel: false,
             maintenanceTable_loading: false,
             isLoading: false,
             seeModalStaff: false,
@@ -273,7 +284,28 @@ export default {
             } finally {
                 this.maintenanceTable_loading = false
             }
-        }
+        },
+        //exporter de bitácora
+        async exportBinnacle() {
+            this.isLoadingExcel = true
+            try {
+                const response = await axios.get('maintenance/binnacle/export', {
+                    responseType: 'blob'
+                })
+                const url = window.URL.createObjectURL(new Blob([response.data]))
+                const link = document.createElement('a')
+                link.href = url
+                link.setAttribute('download', 'Bitacora_' + new Date().toISOString().slice(0, 10) + '.xlsx')
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+                window.URL.revokeObjectURL(url)
+            } catch (error) {
+                toastr.error('Error al exportar la bitácora')
+            }finally {
+                this.isLoadingExcel = false
+            }
+        },
     }
 }
 </script>

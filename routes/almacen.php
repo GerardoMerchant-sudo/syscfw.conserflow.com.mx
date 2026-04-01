@@ -21,4 +21,15 @@ Route::group(["middleware" => "auth"], function ()
 
     // Entradas
     Route::get("almacen/entradas/{id}", "EntradaController@obtenerocs");
+
+    //mantenimiento 
+    Route::resource("maintenance","Maintenance\MaintenanceRequestController");
+    Route::get("maintenance/export/{id}","Maintenance\MaintenanceRequestController@ExportRequestM");
+    Route::post("maintenance/responsible", "Maintenance\MaintenanceRequestController@addMaintenance");
+    Route::get('maintenance/binnacle/export',  'Maintenance\MaintenanceRequestController@exportBinnacleExcel');
+    Route::get('/mantenimiento/stats', 'Maintenance\MaintenanceRequestController@stats');
+    
+    //loow
+    Route::resource("toolsLow", "Maintenance\ToolLowController");
+    Route::get("loow/export/{id}","Maintenance\ToolLowController@exportPDFLoow");
 });

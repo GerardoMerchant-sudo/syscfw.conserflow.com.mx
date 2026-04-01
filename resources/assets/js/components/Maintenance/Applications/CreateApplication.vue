@@ -343,7 +343,7 @@ export default {
                 serial_number: null,
                 request_type: null,
                 problem_description: null,
-                authorized_by: "Diego Cruz Martinez",
+                authorized_by: "Valeria Hernandez Martinez",
                 auth_date: null,
                 maintenance_type: null,
                 start_date: null,

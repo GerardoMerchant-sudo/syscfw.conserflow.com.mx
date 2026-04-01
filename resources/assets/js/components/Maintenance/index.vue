@@ -97,10 +97,26 @@ export default {
     data() {
         return {
             stats: {
-                solicitudes: 24,
-                bajas: 3,
-                bitacora: 156
+                solicitudes: 0,
+                bajas: 0,
+                bitacora: 0
             }
+        }
+    },
+
+    created() {
+        this.fetchStats();
+    },
+
+    methods: {
+        fetchStats() {
+            axios.get('/mantenimiento/stats')
+                .then(response => {
+                    this.stats = response.data;
+                })
+                .catch(error => {
+                    console.error('Error al cargar estadísticas:', error);
+                });
         }
     }
 }
@@ -128,8 +144,6 @@ export default {
     font-size: 20px;
 }
 
-/* Fondos suaves */
-
 .bg-primary-soft {
     background: rgba(13, 110, 253, 0.1);
 }
@@ -141,8 +155,6 @@ export default {
 .bg-warning-soft {
     background: rgba(255, 193, 7, 0.15);
 }
-
-/* Bordes laterales */
 
 .solicitudes {
     border-left: 4px solid var(--bs-primary);

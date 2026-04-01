@@ -30,19 +30,16 @@
                                     <i class="fas fa-grip-horizontal"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                    <button class="dropdown-item text-primary" >
-                                        <i class="fas fa-bookmark text-primary"></i> Detalles
+                                    <button class="dropdown-item text-primary" 
+                                    @click="exportPDf(props.row.id)"
+                                    >
+                                        <i class="fas fa-file-download text-primary"></i> PDF
                                     </button>
                                     <button 
                                         @click="update(props.row.id)"
                                         class="dropdown-item text-primary"
                                         >
                                         <i class="fas fa-edit text-primary"></i> Actualizar
-                                    </button>
-                                    <button 
-                                        class="dropdown-item text-danger"
-                                        >
-                                        <i class="fas fa-trash-alt text-danger"></i> Eliminar
                                     </button>
                                     </div>
                                 </div>
@@ -99,6 +96,7 @@ export default {
     methods:{
         init(){
             this.retrieve()
+
         },
         update(id){
             this.$router.push({name:'UpdateLow', params:{id}})
@@ -117,6 +115,13 @@ export default {
                 this.toolsTable_loading = false
             }
         },
+        exportPDf(id){
+            try {
+                window.open(`loow/export/${id}`, '_blank')
+            } catch (error) {
+                toastr.error(error.response?.data?.message || 'Error al guardar')
+            }
+        }
     }
 }
 </script>

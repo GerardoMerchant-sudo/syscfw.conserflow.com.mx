@@ -194,7 +194,7 @@
                     <button
                         class="btn btn-primary rounded-pill float-right"
                         @click="submit"
-                        :disabled="isLoading">
+                        :disabled="isLoading || !isFormValid">
                         <span v-if="isLoading">
                             <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
                             {{ isEdit ? 'Actualizando...' : 'Creando...' }}
@@ -241,6 +241,22 @@ export default {
     computed: {
         isEdit() {
             return !!this.$route.params.id
+        },
+        isFormValid() {
+            return (
+                this.form.folio &&
+                this.form.date &&
+                this.form.equipment_name &&
+                this.form.brand &&
+                this.form.model &&
+                this.form.internal_code &&
+                this.form.serial_number &&
+                this.form.physical_verification &&
+                this.form.functional_verification &&
+                this.form.corrective_maintenance &&
+                this.form.reason &&
+                this.form.decommission_type
+            )
         }
     },
     methods: {

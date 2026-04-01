@@ -114,13 +114,10 @@ export default{
             }
         },
         descargarPDf(id){
-            this.isDownloading = true
             try {
                 window.open(`maintenance/export/${id}`, '_blank')
             } catch (error) {
                 toastr.error(error.response?.data?.message || 'Error al guardar')
-            }finally{
-                this.isDownloading = false
             }
         }
     }
