@@ -92479,12 +92479,42 @@ var EquiposCalib2 = function EquiposCalib2(r) {
     return r(__webpack_require__(/*! ./Calibracion/EquiposCalibracion2.vue */ "./resources/assets/js/components/Calidad/Calibracion/EquiposCalibracion2.vue"));
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
+//procedimietos
+var procedures = function procedures(r) {
+  return __webpack_require__.e(/*! require.ensure | calidad */ "calidad").then((function () {
+    return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Procedure/procedure.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var createProcedure = function createProcedure(r) {
+  return __webpack_require__.e(/*! require.ensure | calidad */ "calidad").then((function () {
+    return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Procedure/create.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var RetrievePQR = function RetrievePQR(r) {
+  return __webpack_require__.e(/*! require.ensure | calidad */ "calidad").then((function () {
+    return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Procedure/retrievePQR.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
 var rutas = [{
   path: '/calidad/dashboard',
   component: DashBoard
 }, {
   path: '/calidad/calib/equipos2',
   component: EquiposCalib2
+}, {
+  path: '/calidad/procedure',
+  component: procedures
+}, {
+  path: '/calidad/procedure/create',
+  component: createProcedure
+}, {
+  path: '/calidad/procedure/:id',
+  name: 'RetrievePQR',
+  component: RetrievePQR
+}, {
+  path: '/calidad/procedure/:id',
+  name: 'UpdateProcedure',
+  component: createProcedure
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rutas);
 
@@ -94103,6 +94133,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Trafico__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/Trafico */ "./resources/assets/js/components/Trafico/index.js");
 /* harmony import */ var _components_Ventas__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/Ventas */ "./resources/assets/js/components/Ventas/index.js");
 /* harmony import */ var _components_Viaticos__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/Viaticos */ "./resources/assets/js/components/Viaticos/index.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Maintenance/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+
 
 
 
@@ -94124,7 +94156,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var allRoutes = [];
-allRoutes = allRoutes.concat(_components_Almacen__WEBPACK_IMPORTED_MODULE_2__["default"], _components_RH__WEBPACK_IMPORTED_MODULE_10__["default"], _components_Proyecto__WEBPACK_IMPORTED_MODULE_9__["default"], _components_Sistema__WEBPACK_IMPORTED_MODULE_14__["default"], _components_Aplicacion__WEBPACK_IMPORTED_MODULE_3__["default"], _components_Compras__WEBPACK_IMPORTED_MODULE_5__["default"], _components_Trafico__WEBPACK_IMPORTED_MODULE_16__["default"], _components_TI__WEBPACK_IMPORTED_MODULE_15__["default"], _components_Contabilidad__WEBPACK_IMPORTED_MODULE_6__["default"], _components_Ventas__WEBPACK_IMPORTED_MODULE_17__["default"], _components_Costos__WEBPACK_IMPORTED_MODULE_7__["default"], _components_Viaticos__WEBPACK_IMPORTED_MODULE_18__["default"], _components_Calidad__WEBPACK_IMPORTED_MODULE_4__["default"], _components_Seguridad__WEBPACK_IMPORTED_MODULE_12__["default"], _components_SGI__WEBPACK_IMPORTED_MODULE_13__["default"], _components_Enfermeria__WEBPACK_IMPORTED_MODULE_8__["default"], _components_Salidas__WEBPACK_IMPORTED_MODULE_11__["default"]);
+allRoutes = allRoutes.concat(_components_Almacen__WEBPACK_IMPORTED_MODULE_2__["default"], _components_RH__WEBPACK_IMPORTED_MODULE_10__["default"], _components_Proyecto__WEBPACK_IMPORTED_MODULE_9__["default"], _components_Sistema__WEBPACK_IMPORTED_MODULE_14__["default"], _components_Aplicacion__WEBPACK_IMPORTED_MODULE_3__["default"], _components_Compras__WEBPACK_IMPORTED_MODULE_5__["default"], _components_Trafico__WEBPACK_IMPORTED_MODULE_16__["default"], _components_TI__WEBPACK_IMPORTED_MODULE_15__["default"], _components_Contabilidad__WEBPACK_IMPORTED_MODULE_6__["default"], _components_Ventas__WEBPACK_IMPORTED_MODULE_17__["default"], _components_Costos__WEBPACK_IMPORTED_MODULE_7__["default"], _components_Viaticos__WEBPACK_IMPORTED_MODULE_18__["default"], _components_Calidad__WEBPACK_IMPORTED_MODULE_4__["default"], _components_Seguridad__WEBPACK_IMPORTED_MODULE_12__["default"], _components_SGI__WEBPACK_IMPORTED_MODULE_13__["default"], _components_Enfermeria__WEBPACK_IMPORTED_MODULE_8__["default"], _components_Salidas__WEBPACK_IMPORTED_MODULE_11__["default"], Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Maintenance/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 var routes = allRoutes;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes,

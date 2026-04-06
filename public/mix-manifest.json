@@ -18,6 +18,7 @@
     "/js/app/trafico.js": "/js/app/trafico.js",
     "/js/app/venta.js": "/js/app/venta.js",
     "/js/app/via.js": "/js/app/via.js",
+    "/js/app/maintenance.js": "/js/app/maintenance.js",
     "/js/app/calib.js": "/js/app/calib.js",
     "/css/plantilla.css": "/css/plantilla.css",
     "/js/plantilla.js": "/js/plantilla.js"
