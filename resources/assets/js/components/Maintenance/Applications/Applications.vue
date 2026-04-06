@@ -35,7 +35,7 @@
                             class="dropdown-item text-primary"
                             @click="descargarPDf(props.row.id)"
                             >
-                            <i class="fas fa-file-download text-primary"></i> PDF
+                            <i class="fas fa-file-excel text-primary"></i> Excel
                         </button>
                         <button 
                             class="dropdown-item text-primary"
