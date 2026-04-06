@@ -26,11 +26,11 @@
         </tr>
         <tr>
             <td>REVISIÓN</td>
-            <td>01</td>
+            <td>02</td>
         </tr>
         <tr>
             <td>EMISIÓN</td>
-            <td>10.AGO.22</td>
+            <td>14.DIC.24</td>
         </tr>
         <tr>
             <td></td>
@@ -38,17 +38,17 @@
         <thead>
             <tr>
                 <th style="background-color : #0070C0; color:white" width="40"><b>No.</b></th>
-                <th style="background-color : #0070C0; color:white" width="40"><b>Razón Social</b></th>
-                <th style="background-color : #0070C0; color:white" width="35"><b>Nombre Comercial</b></th>
+                <th style="background-color : #0070C0; color:white" width="40"><b>RAZÓN SOCIAL</b></th>
+                <th style="background-color : #0070C0; color:white" width="35"><b>NOMBRE COMERCIAL</b></th>
                 <th style="background-color : #0070C0; color:white" width="16"><b>RFC</b></th>
-                <th style="background-color : #0070C0; color:white" width="40"><b>Tipo</b></th>
-                <th style="background-color : #0070C0; color:white" width="25"><b>Dirección</b></th>
-                <th style="background-color : #0070C0; color:white" width="30"><b>Contacto</b></th>
-                <th style="background-color : #0070C0; color:white" width="20"><b>Teléfono</b></th>
-                <th style="background-color : #0070C0; color:white" width="30"><b>Correo electrónico</b></th>
-                <th style="background-color : #0070C0; color:white" width="25"><b>Página</b></th>
-                <th style="background-color : #0070C0; color:white" width="25"><b>Límite de crédito</b></th>
-                <th style="background-color : #0070C0; color:white" width="10"><b>Categoría del Proveedor</b></th>
+                <th style="background-color : #0070C0; color:white" width="40"><b>SUMINISTRA</b></th>
+                <th style="background-color : #0070C0; color:white" width="25"><b>DIRECCIÓN</b></th>
+                <th style="background-color : #0070C0; color:white" width="30"><b>CONTACTO</b></th>
+                <th style="background-color : #0070C0; color:white" width="20"><b>TELÉFONO</b></th>
+                <th style="background-color : #0070C0; color:white" width="30"><b>CORREO ELECTRÓNICO</b></th>
+                <th style="background-color : #0070C0; color:white" width="25"><b>PÁGINA</b></th>
+                <th style="background-color : #0070C0; color:white" width="25"><b>CRÉDITO</b></th>
+                <th style="background-color : #0070C0; color:white" width="10"><b>CATEGORÍA DEL PROVEEDOR</b></th>
 
         </thead>
         <tbody>
@@ -58,13 +58,13 @@
                 <td>{{$proveedor["razon_social"]}}</td>
                 <td>{{$proveedor["nombre"]}}</td>
                 <td>{{$proveedor["rfc"]}}</td>
-                <td>{{$proveedor["tipo"]}}</td>
+                <td>{{$proveedor["giro"]}}</td>
                 <td>{{$proveedor["direccion"]}}</td>
                 <td>{{$proveedor["contacto"]}}</td>
                 <td>{{$proveedor["telefono"]}}</td>
                 <td>{{strtolower($proveedor["correo"])}}</td>
                 <td>{{strtolower($proveedor["pagina"])}}</td>
-                <td>$ {{number_format($proveedor["limite_credito"],2)}}</td>
+                <td>{{ $proveedor["limite_credito"] > 0 ? 'SI' : 'NO' }}</td>
                 @if($proveedor["total_evaluacion"]==null)
                 <td>SIN EVALUACIÓN</td>
                 @elseif($proveedor["total_evaluacion"]>=54)

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+Route::get('/pdf', 'PDFController@getPDF')->name('getPDF');
+
 
 Route::get('borrarentrada/{id}', "PartidaEntradaController@EliminarEntrada");
 Route::post('/vehiculos/combustible/cargarfechas', "Vehiculos\SubirDatosController@RegistrarCancelados");

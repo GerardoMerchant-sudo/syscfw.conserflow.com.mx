@@ -478,20 +478,21 @@ export default
     * [getListas Metodos de consulta a la BD ]
     * @return {Response} [Objetos almacenados en diferentes variables]
     */
-    getListas()
-    {
-      let me = this;
-      me.mostrar = 1;
-      axios.get("compras/proveedores/todos").then(res =>{
-
-        if(res.data.status)
-        {
-          me.listaProvedores=res.data.proveedores;
-        }else
-        {
-          toastr.error(res.data.mensaje);
-        }
-      })
+    getListas() {
+  let me = this;
+  me.mostrar = 1;
+  axios.get("compras/proveedores/todos").then(res => {
+    if (res.data.status) {
+      me.listaProvedores = res.data.proveedores.map(p => {
+        return {
+          ...p,
+          razon_social: `${p.id} - ${p.nombre} (${p.razon_social})`
+        };
+      });
+    } else {
+      toastr.error(res.data.mensaje);
+    }
+  })
 
       axios.get('/proyecto-listar-todos').then(response =>{
         me.listaProyectos = [];
@@ -510,26 +511,34 @@ export default
       me.listaEmpleados = [];
       me.listaEmpleados.push(
         {
-          id: 205,
-          name: 'RAMON CRUZ MARTINEZ'
+          id: 164,
+          name: 'DIEGO CRUZ MARTINEZ'
         },
       );
       me.listaEmpleados_elabora=[
         {
-          id: 952,
-          name: 'CARLOS ADAN MARTINEZ ROSAS'
+          id: 1149,
+          name: 'DOMINICK TOVANY MARTINEZ'
         },
         {
-          id: 71,
-          name: 'ERIKA HERNANDEZ MENDEZ'
+          id: 422,
+          name: 'ADRIANA HERRERA FLORES'
         },
         {
-          id: 205,
-          name: 'RAMON CRUZ MARTINEZ'
+          id: 833,
+          name: 'DIANA LARISA PEREZ DIAZ'
+        },
+        {
+          id: 893,
+          name: 'JOSEFINA GUADALUPE LOPEZ BARTOLO'
         },
         {
           id: 154,
           name: 'VALERIA HERNANDEZ MARTINEZ'
+        },
+        {
+          id: 390,
+          name: 'MARIA DE LA LUZ MARTINEZ HERRERA'
         },
       ]
 
@@ -568,7 +577,6 @@ export default
             }
             case 'actualizar':
             {
-              console.log(data);
               this.selected = [];
               this.upload = true;
               Utilerias.resetObject(this.compra);

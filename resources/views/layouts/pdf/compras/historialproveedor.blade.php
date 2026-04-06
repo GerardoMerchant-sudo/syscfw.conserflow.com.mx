@@ -172,7 +172,7 @@
             <tr>
                 <td class="bg-gray" width="15%">RFC</td>
                 <td>{{$campos->rfc}}</td>
-                <td class="bg-gray" width="8%">Giro</td>
+                <td class="bg-gray" width="8%">Suministra</td>
                 <td colspan="3">{{$campos->giro}}</td>
                 <td class="bg-gray" width="13%">Nacionalidad</td>
                 <td colspan="2">{{$campos->nacionalidad}}</td>

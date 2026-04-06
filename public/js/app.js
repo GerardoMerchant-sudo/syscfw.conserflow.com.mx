@@ -92482,17 +92482,29 @@ var EquiposCalib2 = function EquiposCalib2(r) {
 //procedimietos
 var procedures = function procedures(r) {
   return __webpack_require__.e(/*! require.ensure | calidad */ "calidad").then((function () {
+<<<<<<< HEAD
     return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Procedure/procedure.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+=======
+    return r(__webpack_require__(/*! ./Procedure/procedure.vue */ "./resources/assets/js/components/Calidad/Procedure/procedure.vue"));
+>>>>>>> develop
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var createProcedure = function createProcedure(r) {
   return __webpack_require__.e(/*! require.ensure | calidad */ "calidad").then((function () {
+<<<<<<< HEAD
     return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Procedure/create.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+=======
+    return r(__webpack_require__(/*! ./Procedure/create.vue */ "./resources/assets/js/components/Calidad/Procedure/create.vue"));
+>>>>>>> develop
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var RetrievePQR = function RetrievePQR(r) {
   return __webpack_require__.e(/*! require.ensure | calidad */ "calidad").then((function () {
+<<<<<<< HEAD
     return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Procedure/retrievePQR.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+=======
+    return r(__webpack_require__(/*! ./Procedure/retrievePQR.vue */ "./resources/assets/js/components/Calidad/Procedure/retrievePQR.vue"));
+>>>>>>> develop
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var rutas = [{
@@ -93266,6 +93278,81 @@ module.exports = {
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./resources/assets/js/components/Maintenance/index.js":
+/*!*************************************************************!*\
+  !*** ./resources/assets/js/components/Maintenance/index.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var Dashboard = function Dashboard(r) {
+  return __webpack_require__.e(/*! require.ensure | maintenance */ "maintenance").then((function () {
+    return r(__webpack_require__(/*! ./index.vue */ "./resources/assets/js/components/Maintenance/index.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var Applications = function Applications(r) {
+  return __webpack_require__.e(/*! require.ensure | maintenance */ "maintenance").then((function () {
+    return r(__webpack_require__(/*! ./Applications/Applications.vue */ "./resources/assets/js/components/Maintenance/Applications/Applications.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var CreateApplication = function CreateApplication(r) {
+  return __webpack_require__.e(/*! require.ensure | maintenance */ "maintenance").then((function () {
+    return r(__webpack_require__(/*! ./Applications/CreateApplication.vue */ "./resources/assets/js/components/Maintenance/Applications/CreateApplication.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var Low = function Low(r) {
+  return __webpack_require__.e(/*! require.ensure | maintenance */ "maintenance").then((function () {
+    return r(__webpack_require__(/*! ./Applications/Low.vue */ "./resources/assets/js/components/Maintenance/Applications/Low.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var CreateLow = function CreateLow(r) {
+  return __webpack_require__.e(/*! require.ensure | maintenance */ "maintenance").then((function () {
+    return r(__webpack_require__(/*! ./Applications/CreateLow.vue */ "./resources/assets/js/components/Maintenance/Applications/CreateLow.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var Binnacle = function Binnacle(r) {
+  return __webpack_require__.e(/*! require.ensure | maintenance */ "maintenance").then((function () {
+    return r(__webpack_require__(/*! ./Applications/Binnacle.vue */ "./resources/assets/js/components/Maintenance/Applications/Binnacle.vue"));
+  }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
+};
+var rutas = [{
+  path: '/maintenance',
+  component: Dashboard
+}, {
+  path: '/application',
+  component: Applications
+}, {
+  path: '/maintenance/create',
+  component: CreateApplication
+}, {
+  path: '/maintenance/low',
+  component: Low
+}, {
+  path: '/maintenance/createLow',
+  component: CreateLow
+}, {
+  path: '/maintenance/binnacle',
+  component: Binnacle
+}, {
+  path: '/maintenance/application/:id',
+  name: 'UpdateApp',
+  component: CreateApplication
+}, {
+  path: '/maintenance/low/:id',
+  name: 'UpdateLow',
+  component: CreateLow
+}];
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rutas);
+
+/***/ }),
+
+>>>>>>> develop
 /***/ "./resources/assets/js/components/Proyecto/index.js":
 /*!**********************************************************!*\
   !*** ./resources/assets/js/components/Proyecto/index.js ***!
@@ -93427,17 +93514,29 @@ var DiasFestivos = function DiasFestivos(r) {
 // compotencias
 var competence = function competence(r) {
   return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
+<<<<<<< HEAD
     return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Empleados/competence/Competence.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+=======
+    return r(__webpack_require__(/*! ./Empleados/competence/Competence.vue */ "./resources/assets/js/components/RH/Empleados/competence/Competence.vue"));
+>>>>>>> develop
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var createCompetence = function createCompetence(r) {
   return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
+<<<<<<< HEAD
     return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Empleados/competence/CreateCompetence.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+=======
+    return r(__webpack_require__(/*! ./Empleados/competence/CreateCompetence.vue */ "./resources/assets/js/components/RH/Empleados/competence/CreateCompetence.vue"));
+>>>>>>> develop
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var retrieveEmployee = function retrieveEmployee(r) {
   return __webpack_require__.e(/*! require.ensure | rh */ "rh").then((function () {
+<<<<<<< HEAD
     return r(__webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Empleados/competence/retrieveEmployee.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+=======
+    return r(__webpack_require__(/*! ./Empleados/competence/retrieveEmployee.vue */ "./resources/assets/js/components/RH/Empleados/competence/retrieveEmployee.vue"));
+>>>>>>> develop
   }).bind(null, __webpack_require__))['catch'](__webpack_require__.oe);
 };
 var routes = [
@@ -94133,7 +94232,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Trafico__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/Trafico */ "./resources/assets/js/components/Trafico/index.js");
 /* harmony import */ var _components_Ventas__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/Ventas */ "./resources/assets/js/components/Ventas/index.js");
 /* harmony import */ var _components_Viaticos__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/Viaticos */ "./resources/assets/js/components/Viaticos/index.js");
+<<<<<<< HEAD
 Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Maintenance/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+=======
+/* harmony import */ var _components_Maintenance_index__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/Maintenance/index */ "./resources/assets/js/components/Maintenance/index.js");
+>>>>>>> develop
 
 
 
@@ -94156,7 +94259,11 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var allRoutes = [];
+<<<<<<< HEAD
 allRoutes = allRoutes.concat(_components_Almacen__WEBPACK_IMPORTED_MODULE_2__["default"], _components_RH__WEBPACK_IMPORTED_MODULE_10__["default"], _components_Proyecto__WEBPACK_IMPORTED_MODULE_9__["default"], _components_Sistema__WEBPACK_IMPORTED_MODULE_14__["default"], _components_Aplicacion__WEBPACK_IMPORTED_MODULE_3__["default"], _components_Compras__WEBPACK_IMPORTED_MODULE_5__["default"], _components_Trafico__WEBPACK_IMPORTED_MODULE_16__["default"], _components_TI__WEBPACK_IMPORTED_MODULE_15__["default"], _components_Contabilidad__WEBPACK_IMPORTED_MODULE_6__["default"], _components_Ventas__WEBPACK_IMPORTED_MODULE_17__["default"], _components_Costos__WEBPACK_IMPORTED_MODULE_7__["default"], _components_Viaticos__WEBPACK_IMPORTED_MODULE_18__["default"], _components_Calidad__WEBPACK_IMPORTED_MODULE_4__["default"], _components_Seguridad__WEBPACK_IMPORTED_MODULE_12__["default"], _components_SGI__WEBPACK_IMPORTED_MODULE_13__["default"], _components_Enfermeria__WEBPACK_IMPORTED_MODULE_8__["default"], _components_Salidas__WEBPACK_IMPORTED_MODULE_11__["default"], Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Maintenance/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+=======
+allRoutes = allRoutes.concat(_components_Almacen__WEBPACK_IMPORTED_MODULE_2__["default"], _components_RH__WEBPACK_IMPORTED_MODULE_10__["default"], _components_Proyecto__WEBPACK_IMPORTED_MODULE_9__["default"], _components_Sistema__WEBPACK_IMPORTED_MODULE_14__["default"], _components_Aplicacion__WEBPACK_IMPORTED_MODULE_3__["default"], _components_Compras__WEBPACK_IMPORTED_MODULE_5__["default"], _components_Trafico__WEBPACK_IMPORTED_MODULE_16__["default"], _components_TI__WEBPACK_IMPORTED_MODULE_15__["default"], _components_Contabilidad__WEBPACK_IMPORTED_MODULE_6__["default"], _components_Ventas__WEBPACK_IMPORTED_MODULE_17__["default"], _components_Costos__WEBPACK_IMPORTED_MODULE_7__["default"], _components_Viaticos__WEBPACK_IMPORTED_MODULE_18__["default"], _components_Calidad__WEBPACK_IMPORTED_MODULE_4__["default"], _components_Seguridad__WEBPACK_IMPORTED_MODULE_12__["default"], _components_SGI__WEBPACK_IMPORTED_MODULE_13__["default"], _components_Enfermeria__WEBPACK_IMPORTED_MODULE_8__["default"], _components_Salidas__WEBPACK_IMPORTED_MODULE_11__["default"], _components_Maintenance_index__WEBPACK_IMPORTED_MODULE_19__["default"]);
+>>>>>>> develop
 var routes = allRoutes;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes,
@@ -94308,7 +94415,11 @@ var obtenerRuta = function obtenerRuta(tipo) {
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === "alm") return "js/app/alm.js";
+<<<<<<< HEAD
 /******/ 			if ({"Requisiciones-Detalles":1,"aplicacion":1,"calidad":1,"compras":1,"Requisiciones-Index":1,"conta":1,"proyecto":1,"sistema":1,"trafico":1,"venta":1,"calib":1}[chunkId]) return "js/app/" + chunkId + ".js";
+=======
+/******/ 			if ({"Requisiciones-Detalles":1,"aplicacion":1,"calidad":1,"compras":1,"Requisiciones-Index":1,"conta":1,"proyecto":1,"sistema":1,"trafico":1,"venta":1,"maintenance":1,"calib":1}[chunkId]) return "js/app/" + chunkId + ".js";
+>>>>>>> develop
 /******/ 			if (chunkId === "enf") return "js/app/enf.js";
 /******/ 			if (chunkId === "rh") return "js/app/rh.js";
 /******/ 			if (chunkId === "sal") return "js/app/sal.js";

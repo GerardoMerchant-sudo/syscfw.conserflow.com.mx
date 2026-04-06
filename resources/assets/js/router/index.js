@@ -18,6 +18,7 @@ import TI from "../components/TI";
 import Trafico from "../components/Trafico";
 import Ventas from "../components/Ventas";
 import Viaticos from "../components/Viaticos";
+import Mantenimiento from "../components/Maintenance/index";
 
 Vue.use(Router);
 
@@ -41,6 +42,7 @@ allRoutes = allRoutes.concat(
   SGI,
   Enfermeria,
   Salidas,
+  Mantenimiento
 );
 
 const routes = allRoutes;

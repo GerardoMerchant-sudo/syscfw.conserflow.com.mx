@@ -700,40 +700,49 @@ class ComprasController extends Controller
   }
   protected function busqueda_filterByColumn($data, $queries)
   {
-    $queries = json_decode($queries, true);
+      $queries = json_decode($queries, true);
 
-    return $data->where(function ($q) use ($queries)
-    {
-      foreach ($queries as $field => $query)
+      return $data->where(function ($q) use ($queries)
       {
-        $_field = $field;
+          $columnMap = [
+              'folio' => 'ordenes_compras.folio',
+          ];
 
-        if (is_string($query))
-        {
-          $q->where($_field, 'LIKE', "%{$query}%");
-        }
-        else
-        {
-          $start = Carbon::createFromFormat('Y-m-d', substr($query['start'], 0, 10))->startOfDay();
-          $end = Carbon::createFromFormat('Y-m-d', substr($query['end'], 0, 10))->endOfDay();
+          foreach ($queries as $field => $query)
+          {
+              $_field = $columnMap[$field] ?? $field;
 
-          $q->whereBetween($_field, [$start, $end]);
-        }
-      }
-    });
+              if (is_string($query))
+              {
+                  $q->where($_field, 'LIKE', "%{$query}%");
+              }
+              else
+              {
+                  $start = Carbon::createFromFormat('Y-m-d', substr($query['start'], 0, 10))->startOfDay();
+                  $end = Carbon::createFromFormat('Y-m-d', substr($query['end'], 0, 10))->endOfDay();
+                  $q->whereBetween($_field, [$start, $end]);
+              }
+          }
+      });
   }
-
   protected function busqueda_filter($data, $query, $fields)
+{
+  return $data->where(function ($q) use ($query, $fields)
   {
-    return $data->where(function ($q) use ($query, $fields)
+    $columnMap = [
+      'folio' => 'ordenes_compras.folio',
+    ];  
+
+    foreach ($fields as $index => $field)
     {
-      foreach ($fields as $index => $field)
-      {
-        $method = $index ? 'orWhere' : 'where';
-        $q->{$method}($field, 'LIKE', "%{$query}%");
-      }
-    });
-  }
+      $method = $index ? 'orWhere' : 'where';
+
+      $_field = $columnMap[$field] ?? $field;
+
+      $q->{$method}($_field, 'LIKE', "%{$query}%");
+    }
+  });
+}
 
   public function calculo_dia_entrega($data)
   {
@@ -1097,22 +1106,55 @@ class ComprasController extends Controller
   /**
    * Descarga el reporte general de las compra del proeycto ingresado
    */
-  public function ReportGeneral($ids)
+  public function ReportGeneral(Request $request, $ids)
   {
-    try
-    {
-      $ids = explode("&", $ids);
-      array_pop($ids);
-      ob_end_clean();
-      ob_start();
-      return Excel::download(new GeneralComprasExport($ids), 'Historico de Compras.xlsx');
-    }
-    catch (Exception $e)
-    {
-      Utilidades::errors($e);
-      return view("errors.500");
-    }
+      try {
+
+          $ids = explode("&", $ids);
+          array_pop($ids);
+
+          // rango libre (NO SE TOCA)
+          $startDate = $request->query('inicio');
+          $endDate   = $request->query('fin');
+
+          // 👇 ESTO FALTABA
+          $anio = $request->query('anio');
+          $mes  = $request->query('mes');
+
+          // periodo (nuevo)
+          $dateStartP = null;
+          $dateEndP   = null;
+
+          if ($anio && $mes) {
+
+              if ($mes == 2) {
+                  $dateStartP = ($anio - 1) . "-08-01";
+                  $dateEndP   = $anio . "-01-31";
+              }
+
+              if ($mes == 8) {
+                  $dateStartP = $anio . "-02-01";
+                  $dateEndP   = $anio . "-07-31";
+              }
+          }
+
+          // prioridad: periodo > rango
+          if ($dateStartP && $dateEndP) {
+              $startDate = $dateStartP;
+              $endDate   = $dateEndP;
+          }
+
+          return Excel::download(
+              new GeneralComprasExport($ids, $startDate, $endDate, $dateStartP, $dateEndP),
+              'Historico de Compras.xlsx'
+          );
+
+      } catch (Exception $e) {
+          Utilidades::errors($e);
+          return view("errors.500");
+      }
   }
+
 
   /**
    * Obtener las OC cerradas para correción de almacén

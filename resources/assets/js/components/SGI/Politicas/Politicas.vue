@@ -32,6 +32,10 @@
                         <div class="title">Politica de Reembolsos de gastos</div>
                         <div class="icon"> Entra Y Conoce Más <i class="fas fa-chevron-right"></i></div>
                     </li>
+                    <li style="--accent-color:#90e0ef" @click="abrirPolitica('riesgos_psicosociales')">
+                        <div class="title">Politica de factores de riesgo psicosocial</div>
+                        <div class="icon"> Entra Y Conoce Más <i class="fas fa-chevron-right"></i></div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -158,7 +162,8 @@ export default
                 vestimenta: "POLÍTICA DE VESTIMENTA",
                 papel: "POLÍTICA DE CERO PAPEL",
                 "seguridad-informacion": "POLÍTICA DE SEGURIDAD DE LA INFORMACIÓN",
-                "reembolsos-gastos":"POLITICA DE REEMBOLSOS DE GASTOS"
+                "reembolsos-gastos":"POLITICA DE REEMBOLSOS DE GASTOS",
+                "riesgos_psicosociales":"POLITICA DE FACTORES DE RIESGO PSICOSOCIAL"
             };
             this.type = file.type;
             this.ver_pdf = true;

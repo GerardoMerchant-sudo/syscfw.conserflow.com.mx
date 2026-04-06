@@ -35,4 +35,9 @@ class Empleado extends Model
         "salario_neto" // Semanal/Quincenal
     ];
     protected $table = "empleados";
+    
+    public function competences()
+    {
+        return $this->hasMany(CompetenceModel::class, 'empleado_id');
+    }
 }

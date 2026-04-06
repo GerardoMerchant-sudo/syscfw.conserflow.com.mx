@@ -28,8 +28,8 @@
                             <select class="form-control" @change="GenerarReporte" v-model="reporte_estado">
                                 <option value="1">Conserflow Semanal</option>
                                 <option value="2">Conserflow Quincenal</option>
-                                <option value="3">CSCT Semanal</option>
-                                <option value="4">CSCT Quincenal</option>
+                                <!-- <option value="3">CSCT Semanal</option>
+                                <option value="4">CSCT Quincenal</option> -->
                             </select>
                         </template>
                     </div>

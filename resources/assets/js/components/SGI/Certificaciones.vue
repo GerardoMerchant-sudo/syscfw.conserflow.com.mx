@@ -26,13 +26,13 @@
                         hasta el desarrollo de proyectos integrales
                     </p>
                 </div>
-                <div class="col">
+                <!-- <div class="col">
                     <p class="mb-1 mt-2 h5">Sociedad Americana de Ingenieros Mecánicos (ASME)</p>
                     <img class="border rounded px-2 my-2" @click="openModal('img/certificaciones/Certificado-ASME-2022.webp','Calidad')" src="img/certificaciones/Certificado-ASME-2022.webp" alt="Certificado-Conserflow-ISO-14001" height="400">
                     <p>
                         Fabricación de recipientes a presión en la ubicación mencionada y en sitios de campo controlados por la ubicación mencionada.
                     </p>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

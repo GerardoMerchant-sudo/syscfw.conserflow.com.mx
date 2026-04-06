@@ -182,7 +182,7 @@
                 <td class="bg-gray" width="8%">Suministra</td>
                 <td colspan="3">{{$campos->giro}}</td>
                 @else
-                <td class="bg-gray" width="8%">Giro</td>
+                <td class="bg-gray" width="8%">Suministra</td>
                 <td colspan="3">{{$campos->giro}}</td>
                  @endif
                 <td class="bg-gray" width="13%">Nacionalidad</td>

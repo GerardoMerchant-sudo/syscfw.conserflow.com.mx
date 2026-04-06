@@ -129,7 +129,7 @@ class Facturador
             {
                 $suma_subtotal += $p->importe;
                 $suma_descuento += $p->descuento;
-                $suma_impuesto += ($p->importe * $p->impuesto_iva);
+                $suma_impuesto += round($p->importe * $p->impuesto_iva, 2);
             }
             $total_pagos_f = 0;
             foreach ($this->partidas_pagos as $pp)
@@ -218,7 +218,7 @@ class Facturador
             // Si es obj de imp. suma impuestos al subtotal
             if ($p->obj_imp == "02")
             {
-                $suma_impuesto += ($p->importe * $p->impuesto_iva);
+                $suma_impuesto += round($p->importe * $p->impuesto_iva, 2);
             }
             $suma_subtotal += $p->importe;
             $suma_descuento += $p->descuento;
@@ -234,7 +234,7 @@ class Facturador
             substr($factura->fecha_hora, 5, 2) . '-' .
             substr($factura->fecha_hora, 8, 2) . 'T' .
             substr($factura->fecha_hora, 11, 8);
-        $t = ((($suma_subtotal - $suma_descuento) + round($suma_impuesto, 2)) - round($suma_retencion, 2));
+       $t = round((($suma_subtotal - $suma_descuento) + $suma_impuesto - $suma_retencion), 2);
         $t += $this->correccion_total;
         $comprobante = "xmlns:cfdi = http://www.sat.gob.mx/cfd/4" . PHP_EOL .
             "xmlns:xsi = http://www.w3.org/2001/XMLSchema-instance" . PHP_EOL .
@@ -409,26 +409,46 @@ class Facturador
         $suma_impuesto = 0;
         $suma_retencion = 0;
         $total_base = 0;
+        // foreach ($partidas as $p)
+        // {
+        //     // Si es objeto de impuesto, se suman sus impuestos
+        //     if ($p->obj_imp == "02")
+        //     {
+        //         $total_base += $p->importe;
+        //         $suma_impuesto += ($p->importe * $p->impuesto_iva);
+        //         if ($p->retencion > 0)
+        //         {
+        //             $suma_retencion += ($p->importe * $p->retencion);
+        //         }
+        //     }
+        // }
         foreach ($partidas as $p)
+{
+    if ($p->obj_imp == "02")
+    {
+        $total_base += round($p->importe, 2);
+
+        // IVA POR CONCEPTO (REDONDEADO)
+         $iva_concepto = round($p->importe * $p->impuesto_iva, 2);
+         $suma_impuesto += $iva_concepto;
+
+        //$suma_impuesto += ($p->importe * $p->impuesto_iva);
+
+        if ($p->retencion > 0)
         {
-            // Si es objeto de impuesto, se suman sus impuestos
-            if ($p->obj_imp == "02")
-            {
-                $total_base += $p->importe;
-                $suma_impuesto += ($p->importe * $p->impuesto_iva);
-                if ($p->retencion > 0)
-                {
-                    $suma_retencion += ($p->importe * $p->retencion);
-                }
-            }
+            $ret_concepto = round($p->importe * $p->retencion, 2);
+            $suma_retencion += $ret_concepto;
         }
+    }
+}
+
 
         // El valor reportado no coincide con el esperado
-        $suma_impuesto += $this->error_suma_impuesto;
+        //$suma_impuesto += $this->error_suma_impuesto;
         $totalimpuestos = "";//$partidas[0]->retencion == '' ? '' :
 	  //'TotalImpuestosRetenidos = ' . round($suma_retencion, 2);
 
-        $suma_impuesto += $this->correccion_impuesto;;
+        //$suma_impuesto += $this->correccion_impuesto;;
         $totalimpuestos .= PHP_EOL .
             'TotalImpuestosTrasladados = ' . round($suma_impuesto, 2) . PHP_EOL .
             ($partidas[0]->retencion == 0 ? '' :
@@ -448,114 +468,137 @@ class Facturador
         return $totalimpuestos;
     }
 
-    /**
+  /**
      * [Complemento/pago20:Pagos] Complemento de Pago del comprobante
      * @param object $factura Factura
      * @param array $partidas_pagos Pagos del comprobante
      */
     private function ComprobanteComplemento($factura, $partidas_pagos)
     {
-        $fecha_p = substr($factura->fecha_pago, 0, 4) . '-' . substr($factura->fecha_pago, 5, 2) . '-' . substr($factura->fecha_pago, 8, 2) . 'T' . substr($factura->fecha_pago, 11, 8);
+        $fecha_p = substr($factura->fecha_pago, 0, 4) . '-' .
+            substr($factura->fecha_pago, 5, 2) . '-' .
+            substr($factura->fecha_pago, 8, 2) . 'T' .
+            substr($factura->fecha_pago, 11, 8);
 
-        $complemento_header = '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos]' . PHP_EOL .
+        $complemento_header =
+            '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos]' . PHP_EOL .
             'Version = 2.0' . PHP_EOL;
 
-        $monto_total_pagos = 0; // Monto total de todos los pagos
-        $acum_pagos = "";
-        $total_impuesto_iva = 0;
+        $monto_total_pagos = 0;
         $total_base = 0;
-        foreach ($partidas_pagos as $p)
-        {
-            $complemento_pagos = ""; // Aux para el contenido de los pagos
-            $aux_tipo_cambio = "";
-            if ($p->tipo_cambio_dr != 0) // USD a MX
-            {
-                $monto = $p->importe_pagado;
-                //$monto = round($p->importe_pagado / $p->tipo_cambio_dr, 2);
-                $moneda = "USD";
-                $tipo_cambio = $p->tipo_cambio_dr;
-                // $aux_tipo_cambio = 'TipoCambioDR =' . $p->tipo_cambio_dr;
-		// $aux_tipo_cambio = 'TipoCambioDR =' . number_format(1/$tipo_cambio,6,".","");
-                $metodo_pago = $p->c_metodopago;
+        $total_impuesto_iva = 0;
+        $acum_pagos = "";
+
+        foreach ($partidas_pagos as $p) {
+            $complemento_pagos = "";
+
+            // ===============================
+            // MONEDA Y TIPO DE CAMBIO
+            // ===============================
+            if ($p->tipo_cambio_dr && $p->tipo_cambio_dr > 0) {
+                $moneda_dr = 'USD';
+                $tipo_cambio_p = (float) $p->tipo_cambio_dr;
+            } else {
+                $moneda_dr = $factura->scm_c_moneda;
+                $tipo_cambio_p = 1;
             }
-            else
-            {
-                $metodo_pago = $factura->scmp_c_metodopago;
-                $tipo_cambio = $factura->scm_c_moneda;
-                $moneda = $factura->scm_c_moneda;
-                $monto = $p->importe_pagado;
+
+            // En MXN siempre es 1
+            if ($factura->scm_c_moneda === 'MXN') {
+                $tipo_cambio_p = 1;
             }
-            $monto_total_pagos += $monto;
-            // En Moneda=MXN, TipoCambioP debe ser 1
-            $tipo_cambio = $factura->scm_c_moneda == "MXN" ? 1 : $factura->tipo_cambio;
-	    //$monto_total_pagos += number_format($monto*$tipo_cambio,2,".","");
-            $equivalencia = $factura->scm_c_moneda == $moneda ? 1 : $tipo_cambio;
-            $complemento_pagos .= '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago]' . PHP_EOL .
+
+            $monto = round($p->importe_pagado, 2);
+
+            // ACUMULAR MONTO TOTAL PAGOS (OBLIGATORIO)
+            $monto_total_pagos += round($monto * $tipo_cambio_p, 2);
+
+            $equivalencia = ($moneda_dr === $factura->scm_c_moneda)
+                ? 1
+                : round(1 / $tipo_cambio_p, 6);
+
+            // ===============================
+            // NODO PAGO
+            // ===============================
+            $complemento_pagos .=
+                '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago]' . PHP_EOL .
                 'FechaPago =' . $fecha_p . PHP_EOL .
                 'FormaDePagoP =' . $factura->scfp_clave . PHP_EOL .
                 'MonedaP =' . $factura->scm_c_moneda . PHP_EOL .
-                'TipoCambioP =' . $tipo_cambio . PHP_EOL .
+                'TipoCambioP =' . $tipo_cambio_p . PHP_EOL .
                 'Monto = ' . $monto . PHP_EOL .
-                'NumOperacion = 0' . PHP_EOL .
-                ';RfcEmisorCtaBen =' . $factura->rfc_cuenta_beneficiario . PHP_EOL .
-                ';RfcEmisorCtaOrd =' . $factura->rfc_cuenta_ordenante . PHP_EOL .
-                ';NomBancoOrdExt =' . $factura->ban_ordenante . PHP_EOL .
-                ';CtaBeneficiario =' . $factura->cuenta_ordenante . PHP_EOL . PHP_EOL .
+                'NumOperacion = 0' . PHP_EOL . PHP_EOL;
+
+            // ===============================
+            // DOCUMENTO RELACIONADO
+            // ===============================
+            $complemento_pagos .=
                 '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago/pago20:DoctoRelacionado]' . PHP_EOL .
                 'IdDocumento =' . $p->uuid . PHP_EOL .
                 'Serie =' . $p->serie . PHP_EOL .
                 'Folio =' . $p->folio . PHP_EOL .
-                'MonedaDR = ' . $moneda . PHP_EOL .
+                'MonedaDR = ' . $moneda_dr . PHP_EOL .
                 'EquivalenciaDR = ' . $equivalencia . PHP_EOL .
-                $aux_tipo_cambio . PHP_EOL .
                 'NumParcialidad = ' . $p->num_parcialidad . PHP_EOL .
-                'ImpSaldoAnt = ' . $p->saldo_anterior . PHP_EOL .
-                'ImpPagado =' . $p->importe_pagado . PHP_EOL .
-                'ImpSaldoInsoluto =' . $p->saldo_insoluto . PHP_EOL .
-                'ObjetoImpDR = ' . $p->obj_imp   . PHP_EOL;
+                'ImpSaldoAnt = ' . round($p->saldo_anterior, 2) . PHP_EOL .
+                'ImpPagado = ' . round($p->importe_pagado, 2) . PHP_EOL .
+                'ImpSaldoInsoluto = ' . round($p->saldo_insoluto, 2) . PHP_EOL .
+                'ObjetoImpDR = ' . $p->obj_imp . PHP_EOL;
 
-            if ($p->obj_imp == "02")
-            {
-                $base_dr = round($monto / 1.16, 2); // Obtener base
-                $importe_dr = round($base_dr * .16, 2); // iva
+            // ===============================
+            // IMPUESTOS DR (IVA 16%)
+            // ===============================
+            if ($p->obj_imp === "02") {
+                $base_dr = round($p->importe_pagado / 1.16, 2);
+                $importe_dr = round($base_dr * 0.16, 2);
+
                 $complemento_pagos .=
-                    "[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago/pago20:" .
-                    "DoctoRelacionado/pago20:ImpuestosDR/pago20:TrasladosDR/pago20:TrasladoDR]" . PHP_EOL .
-                    "TipoFactorDR=Tasa" . PHP_EOL .
-                    "TasaOCuotaDR=0.160000" . PHP_EOL .
-                    "BaseDR= " . $base_dr . PHP_EOL . // Importe
-                    "ImpuestoDR = 002"  . PHP_EOL . // IVa
-                    "ImporteDR= " . $importe_dr . PHP_EOL .
-                    "; ----------------------" . PHP_EOL;
-                $total_impuesto_iva += $importe_dr;
-                $total_base += $base_dr;
-		//$total_base += number_format($base_dr*$tipo_cambio,2,".","");
-		//$total_impuesto_iva += number_format($importe_dr *$tipo_cambio,2,".","");
+                    '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago/' .
+                    'pago20:DoctoRelacionado/pago20:ImpuestosDR/' .
+                    'pago20:TrasladosDR/pago20:TrasladoDR]' . PHP_EOL .
+                    'BaseDR = ' . $base_dr . PHP_EOL .
+                    'ImpuestoDR = 002' . PHP_EOL .
+                    'TipoFactorDR = Tasa' . PHP_EOL .
+                    'TasaOCuotaDR = 0.160000' . PHP_EOL .
+                    'ImporteDR = ' . $importe_dr . PHP_EOL;
+
+                $factor_tc = ($factura->scm_c_moneda === 'MXN') ? 1 : $tipo_cambio_p;
+
+                $total_base += round($base_dr * $factor_tc, 2);
+                $total_impuesto_iva += round($importe_dr * $factor_tc, 2);
+
+                // ===============================
+                // IMPUESTOS P
+                // ===============================
                 $complemento_pagos .=
-                    "[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago/pago20:ImpuestosP/" .
-                    "pago20:TrasladosP/pago20:TrasladoP]" . PHP_EOL .
-                    "BaseP=" . $base_dr . PHP_EOL .
-                    "ImpuestoP=002" . PHP_EOL . // IVA
-                    "TipoFactorP=Tasa" . PHP_EOL .
-                    "TasaOCuotaP=0.160000" . PHP_EOL . // IVA
-                    "ImporteP=" . $importe_dr . PHP_EOL;
-                }
-                $acum_pagos .= $complemento_pagos; // Guardar el pago actual
+                    '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Pago/' .
+                    'pago20:ImpuestosP/pago20:TrasladosP/pago20:TrasladoP]' . PHP_EOL .
+                    'BaseP = ' . $base_dr . PHP_EOL .
+                    'ImpuestoP = 002' . PHP_EOL .
+                    'TipoFactorP = Tasa' . PHP_EOL .
+                    'TasaOCuotaP = 0.160000' . PHP_EOL .
+                    'ImporteP = ' . $importe_dr . PHP_EOL;
+            }
+
+            $acum_pagos .= $complemento_pagos;
         }
 
-        $complemento_pagos_totales =
-            "[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Totales]" . PHP_EOL .
-            "TotalTrasladosBaseIVA16 = " . $total_base . PHP_EOL .
-            "TotalTrasladosImpuestoIVA16 =" . $total_impuesto_iva . PHP_EOL .
-            "MontoTotalPagos = $monto_total_pagos"  . PHP_EOL;
+        // ===============================
+        // TOTALES
+        // ===============================
+        $total_base = round($total_base, 2);
+        $total_impuesto_iva = round($total_impuesto_iva, 2);
+        $monto_total_pagos = round($monto_total_pagos, 2);
 
-        $complemento =
-            $complemento_header .
-            $complemento_pagos_totales .
-            $acum_pagos;
-        // $complemento_pagos;
-        return $complemento;
+        $complemento_totales =
+            '[cfdi:Comprobante/cfdi:Complemento/pago20:Pagos/pago20:Totales]' . PHP_EOL .
+            'TotalTrasladosBaseIVA16 = ' . $total_base . PHP_EOL .
+            'TotalTrasladosImpuestoIVA16 = ' . $total_impuesto_iva . PHP_EOL .
+            'MontoTotalPagos = ' . $monto_total_pagos . PHP_EOL;
+
+        return $complemento_header . $complemento_totales . $acum_pagos;
     }
+
 
     /**
      * [cfdi:Addenda] Adenda del Comprobante

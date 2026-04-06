@@ -12,24 +12,42 @@
 								@include('plantilla.flash')
 								</div>
 								<div class="p-5">
-									<div class="mb-4">
-										<p class="text-center">
-											<img class="img-logo" src="img/conserflow.png" alt="Conserflow-logo">
-										</p>
-									</div>
-									<form action="{{ route('login') }}" method="POST">
-									{{ csrf_field() }}
-										<div class="form-group">
-											<label for="name_user">Usuario</label>
-											<input type="text" required name="name_user" class="form-control" id="name_user">
-										</div>
-										<div class="form-group mb-4">
-											<label for="password">Contraseña</label>
-											<input type="password" required name="password" class="form-control" id="password">
-										</div>
-										<button type="submit" class="btn btn-block btn-login">Ingresar</button>
-									</form>
-								</div>
+                                <div class="mb-4 text-center">
+                                    <img class="img-logo" src="{{ asset('img/conserflow.png') }}">
+                                    <h3 class="mt-3 fw-bold text-primary">Bienvenido</h3>
+                                    <p class="text-muted">Ingresa tus credenciales</p>
+                                </div>
+
+                                <form action="{{ route('login') }}" method="POST">
+                                    @csrf
+                                    <div class="form-floating mb-3">
+										<input 
+										type="text" 
+										required 
+										name="name_user"
+										id="name_user"
+										class="form-control  rounded-pill"
+										placeholder="Tu usuario">
+                                        <label for="name_user">Usuario</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+										<input 
+										type="password" 
+										required 
+										name="password"
+										id="password"
+										class="form-control  rounded-pill"
+										placeholder="Pasdword">
+										<label id="password">Contraseña</label>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-lg rounded-pill btn-shadow">
+                                            Ingresar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
 							</div>
 						</div>
 					</div>
@@ -49,13 +67,34 @@
 		background-repeat: no-repeat;
 	}
 
-	.btn-login {
-		background-color: #015d93;
-		color: #fff;
-	}
+.login-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        transition: all 0.3s ease;
+    }
 
-	.img-logo {
-		height: 80px;
-		width: auto;
-	}
+    .login-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .img-logo {
+        height: 80px;
+    }
+
+    .btn-shadow {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .btn-shadow:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+
 </style>
