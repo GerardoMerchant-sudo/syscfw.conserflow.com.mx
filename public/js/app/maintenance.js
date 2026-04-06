@@ -352,6 +352,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     return {
       isLoading: false,
       isDownloading: false,
+      listEmployee: [],
       form: {
         requested_by: null,
         request_date: null,
@@ -383,8 +384,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       newChanges: '',
       changes: [],
       newSparePart: '',
-      newSpareWaste: '',
-      spareWaste: []
+      spareParts: [],
+      newWaste: '',
+      wastes: []
     };
   },
   mounted: function mounted() {
@@ -400,6 +402,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
   },
   methods: {
     init: function init() {
+      this.getEmployee();
       if (this.isEdit) {
         this.loadMaintenance();
       }
@@ -407,7 +410,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     loadMaintenance: function loadMaintenance() {
       var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var res, parts, wastes, _t;
+        var res, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
@@ -422,16 +425,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               _this.actividades = res.data.activities_to_perform ? res.data.activities_to_perform.split('\n').filter(Boolean) : [];
               _this.damages = res.data.damages_found ? res.data.damages_found.split('\n').filter(Boolean) : [];
               _this.changes = res.data.changes_repairs ? res.data.changes_repairs.split('\n').filter(Boolean) : [];
-
-              // Reconstruir spareWaste desde strings paralelos
-              parts = res.data.spare_parts_used ? res.data.spare_parts_used.split('\n').filter(Boolean) : [];
-              wastes = res.data.waste_generated ? res.data.waste_generated.split('\n').filter(Boolean) : [];
-              _this.spareWaste = parts.map(function (part, i) {
-                return {
-                  spare_parts_used: part,
-                  spare_waste: wastes[i] || 'N/A'
-                };
-              });
+              _this.spareParts = res.data.spare_parts_used ? res.data.spare_parts_used.split('\n').filter(Boolean) : [];
+              _this.wastes = res.data.waste_generated ? res.data.waste_generated.split('\n').filter(Boolean) : [];
               _context.n = 3;
               break;
             case 2:
@@ -457,12 +452,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               _this2.form.activities_to_perform = _this2.actividades.join('\n');
               _this2.form.damages_found = _this2.damages.join('\n');
               _this2.form.changes_repairs = _this2.changes.join('\n');
-              _this2.form.spare_parts_used = _this2.spareWaste.map(function (item) {
-                return item.spare_parts_used;
-              }).join('\n');
-              _this2.form.waste_generated = _this2.spareWaste.map(function (item) {
-                return item.spare_waste;
-              }).join('\n');
+              _this2.form.spare_parts_used = _this2.spareParts.join('\n');
+              _this2.form.waste_generated = _this2.wastes.join('\n');
               formData = new FormData();
               Object.entries(_this2.form).forEach(function (_ref) {
                 var _ref2 = _slicedToArray(_ref, 2),
@@ -515,6 +506,32 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
         }, _callee2, null, [[1, 6, 7, 8]]);
       }))();
     },
+    getEmployee: function getEmployee() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, _error$response2, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _context3.p = 0;
+              _context3.n = 1;
+              return axios.get("employee");
+            case 1:
+              response = _context3.v;
+              _this3.listEmployee = response.data;
+              console.log(_this3.listEmployee);
+              _context3.n = 3;
+              break;
+            case 2:
+              _context3.p = 2;
+              _t3 = _context3.v;
+              toastr.error(((_error$response2 = _t3.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || 'Error al Cargar Empleados');
+            case 3:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[0, 2]]);
+      }))();
+    },
     back: function back() {
       this.$router.go(-1);
     },
@@ -545,18 +562,23 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     eliminarChanges: function eliminarChanges(index) {
       this.changes.splice(index, 1);
     },
-    // Refacciones
-    addspareWaste: function addspareWaste() {
+    // REFACCIONES
+    addSparePart: function addSparePart() {
       if (!this.newSparePart.trim()) return;
-      this.spareWaste.push({
-        spare_parts_used: this.newSparePart.trim(),
-        spare_waste: this.newSpareWaste.trim() || 'N/A'
-      });
+      this.spareParts.push(this.newSparePart.trim());
       this.newSparePart = '';
-      this.newSpareWaste = '';
     },
-    eliminarSpare: function eliminarSpare(index) {
-      this.spareWaste.splice(index, 1);
+    removeSparePart: function removeSparePart(index) {
+      this.spareParts.splice(index, 1);
+    },
+    // RESIDUOS
+    addWaste: function addWaste() {
+      if (!this.newWaste.trim()) return;
+      this.wastes.push(this.newWaste.trim());
+      this.newWaste = '';
+    },
+    removeWaste: function removeWaste(index) {
+      this.wastes.splice(index, 1);
     }
   }
 });
@@ -925,8 +947,8 @@ var render = function render() {
             }
           }
         }, [_c("i", {
-          staticClass: "fas fa-file-download text-primary"
-        }), _vm._v(" PDF\n                    ")]), _vm._v(" "), _c("button", {
+          staticClass: "fas fa-file-excel text-primary"
+        }), _vm._v(" Excel\n                    ")]), _vm._v(" "), _c("button", {
           staticClass: "dropdown-item text-primary",
           on: {
             click: function click($event) {
@@ -1256,33 +1278,49 @@ var render = function render() {
     staticClass: "col"
   }, [_c("div", {
     staticClass: "form-floating"
-  }, [_c("input", {
+  }, [_c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.form.requested_by,
       expression: "form.requested_by"
     }],
-    staticClass: "form-control rounded-pill",
+    staticClass: "form-select rounded-pill",
+    staticStyle: {
+      cursor: "pointer"
+    },
     attrs: {
-      type: "text",
-      id: "requested_by",
+      id: "type",
       placeholder: "Requerido por"
     },
-    domProps: {
-      value: _vm.form.requested_by
-    },
     on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "requested_by", $event.target.value);
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "requested_by", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
-  }), _vm._v(" "), _c("label", {
+  }, [_c("option", {
     attrs: {
-      "for": "requested_by"
+      value: "",
+      disabled: ""
     }
-  }, [_vm._v("Requerido Por")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Selecciona")]), _vm._v(" "), _vm._l(_vm.listEmployee, function (employee) {
+    return _c("option", {
+      key: employee.id,
+      domProps: {
+        value: employee.full_name
+      }
+    }, [_vm._v("\n                                            " + _vm._s(employee.full_name) + "\n                                        ")]);
+  })], 2), _vm._v(" "), _c("label", {
+    attrs: {
+      "for": "type"
+    }
+  }, [_vm._v("Requerido por")])])]), _vm._v(" "), _c("div", {
     staticClass: "col"
   }, [_c("div", {
     staticClass: "form-floating"
@@ -1355,7 +1393,7 @@ var render = function render() {
       value: _vm.form.equipment_tool,
       expression: "form.equipment_tool"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-pill",
     attrs: {
       type: "text",
       id: "tools",
@@ -1494,7 +1532,7 @@ var render = function render() {
       value: _vm.form.problem_description,
       expression: "form.problem_description"
     }],
-    staticClass: "form-control rounded",
+    staticClass: "form-control rounded-textarea",
     staticStyle: {
       height: "130px"
     },
@@ -1754,7 +1792,7 @@ var render = function render() {
       staticClass: "card mb-2 shadow-sm rounded-pill"
     }, [_c("div", {
       staticClass: "card-body d-flex justify-content-between align-items-center p-2"
-    }, [_vm._v("\n                                            " + _vm._s(actividad) + "\n                                            "), _c("span", {
+    }, [_vm._v("\n                                                " + _vm._s(actividad) + "\n                                                "), _c("span", {
       staticStyle: {
         position: "absolute",
         top: "50%",
@@ -1772,7 +1810,7 @@ var render = function render() {
     })])])]);
   }), 0), _vm._v(" "), _vm.actividades.length === 0 ? _c("div", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                                    No hay actividades agregadas\n                                ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                        No hay actividades agregadas\n                                    ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "divider mb-3"
   }), _vm._v(" "), _c("div", {
     staticClass: "row"
@@ -1842,7 +1880,7 @@ var render = function render() {
       staticClass: "card mb-2 shadow-sm"
     }, [_c("div", {
       staticClass: "card-body d-flex justify-content-between align-items-center p-2"
-    }, [_vm._v("\n                                            " + _vm._s(damage) + "\n                                            "), _c("span", {
+    }, [_vm._v("\n                                                " + _vm._s(damage) + "\n                                                "), _c("span", {
       staticStyle: {
         position: "absolute",
         top: "50%",
@@ -1860,7 +1898,7 @@ var render = function render() {
     })])])]);
   }), 0), _vm._v(" "), _vm.damages.length === 0 ? _c("div", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                                    No hay daños agregados\n                                ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                        No hay daños agregados\n                                    ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "divider mb-3"
   }), _vm._v(" "), _c("div", {
     staticClass: "row"
@@ -1930,7 +1968,7 @@ var render = function render() {
       staticClass: "card mb-2 shadow-sm"
     }, [_c("div", {
       staticClass: "card-body d-flex justify-content-between align-items-center p-2"
-    }, [_vm._v("\n                                            " + _vm._s(change) + "\n                                            "), _c("span", {
+    }, [_vm._v("\n                                                " + _vm._s(change) + "\n                                                "), _c("span", {
       staticStyle: {
         position: "absolute",
         top: "50%",
@@ -1948,18 +1986,16 @@ var render = function render() {
     })])])]);
   }), 0), _vm._v(" "), _vm.changes.length === 0 ? _c("div", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                                    No hay cambios agregados\n                                ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                        No hay cambios agregados\n                                    ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "divider mb-3"
   }), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("strong", {
     staticClass: "h6 text-primary my-3 text-center"
-  }, [_vm._v("REFACCIONES A UTILIZAR")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("REFACCIONES")]), _vm._v(" "), _c("div", {
     staticClass: "col-5"
   }, [_c("div", {
-    staticClass: "d-flex flex-column"
-  }, [_c("div", {
-    staticClass: "form-floating mb-3"
+    staticClass: "form-floating position-relative"
   }, [_c("input", {
     directives: [{
       name: "model",
@@ -1967,58 +2003,25 @@ var render = function render() {
       value: _vm.newSparePart,
       expression: "newSparePart"
     }],
-    staticClass: "form-control rounded-pill",
+    staticClass: "form-control rounded-pill pe-5",
     attrs: {
       type: "text",
-      id: "used",
-      placeholder: "Refacciones Utilizadas"
+      placeholder: "Refacción"
     },
     domProps: {
       value: _vm.newSparePart
     },
     on: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.addSparePart.apply(null, arguments);
+      },
       input: function input($event) {
         if ($event.target.composing) return;
         _vm.newSparePart = $event.target.value;
       }
     }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      "for": "used"
-    }
-  }, [_vm._v("Refacciones Utilizadas")])]), _vm._v(" "), _vm.newSparePart ? _c("div", {
-    staticClass: "form-floating mb-3 position-relative"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.newSpareWaste,
-      expression: "newSpareWaste"
-    }],
-    staticClass: "form-control rounded-pill",
-    attrs: {
-      type: "text",
-      id: "waste",
-      placeholder: "Residuo Generado"
-    },
-    domProps: {
-      value: _vm.newSpareWaste
-    },
-    on: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.addspareWaste.apply(null, arguments);
-      },
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.newSpareWaste = $event.target.value;
-      }
-    }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      "for": "waste"
-    }
-  }, [_vm._v("Residuo Generado")]), _vm._v(" "), _c("span", {
+  }), _vm._v(" "), _c("label", [_vm._v("Refacción")]), _vm._v(" "), _vm.newSparePart ? _c("span", {
     staticStyle: {
       position: "absolute",
       top: "50%",
@@ -2027,38 +2030,121 @@ var render = function render() {
       cursor: "pointer"
     },
     on: {
-      click: _vm.addspareWaste
+      click: _vm.addSparePart
     }
   }, [_c("i", {
     staticClass: "fas fa-plus text-primary"
-  })])]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  })]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "col"
   }, [_c("div", {
     staticClass: "border rounded p-3 h-100"
-  }, [_c("div", {
+  }, [_c("h6", {
+    staticClass: "mb-3"
+  }, [_vm._v("Lista de refacciones")]), _vm._v(" "), _c("div", {
     staticStyle: {
-      "max-height": "200px",
+      "max-height": "135px",
       "overflow-y": "auto"
     }
-  }, [_vm.spareWaste.length ? _c("table", {
-    staticClass: "table table-sm table-bordered align-middle text-center"
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.spareWaste, function (item, index) {
-    return _c("tr", {
-      key: index
-    }, [_c("td", [_vm._v(_vm._s(item.spare_parts_used))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.spare_waste))]), _vm._v(" "), _c("td", [_c("i", {
-      staticClass: "fas fa-times-circle text-danger",
+  }, _vm._l(_vm.spareParts, function (item, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "card mb-2 shadow-sm"
+    }, [_c("div", {
+      staticClass: "card-body d-flex justify-content-between align-items-center p-2"
+    }, [_vm._v("\n                                            " + _vm._s(item) + "\n\n                                            "), _c("span", {
       staticStyle: {
         cursor: "pointer"
       },
       on: {
         click: function click($event) {
-          return _vm.eliminarSpare(index);
+          return _vm.removeSparePart(index);
         }
       }
-    })])]);
-  }), 0)]) : _c("div", {
+    }, [_c("i", {
+      staticClass: "fas fa-times-circle text-danger"
+    })])])]);
+  }), 0), _vm._v(" "), _vm.spareParts.length === 0 ? _c("div", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                                        No hay refacciones agregadas\n                                    ")])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                    No hay refacciones\n                                ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+    staticClass: "divider mb-3"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("strong", {
+    staticClass: "h6 text-primary my-3 text-center"
+  }, [_vm._v("RESIDUOS GENERADOS")]), _vm._v(" "), _c("div", {
+    staticClass: "col-5"
+  }, [_c("div", {
+    staticClass: "form-floating position-relative"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.newWaste,
+      expression: "newWaste"
+    }],
+    staticClass: "form-control rounded-pill pe-5",
+    attrs: {
+      type: "text",
+      placeholder: "Residuo"
+    },
+    domProps: {
+      value: _vm.newWaste
+    },
+    on: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.addWaste.apply(null, arguments);
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.newWaste = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("label", [_vm._v("Residuo generado")]), _vm._v(" "), _vm.newWaste ? _c("span", {
+    staticStyle: {
+      position: "absolute",
+      top: "50%",
+      right: "1rem",
+      transform: "translateY(-50%)",
+      cursor: "pointer"
+    },
+    on: {
+      click: _vm.addWaste
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-plus text-primary"
+  })]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col"
+  }, [_c("div", {
+    staticClass: "border rounded p-3 h-100"
+  }, [_c("h6", {
+    staticClass: "mb-3"
+  }, [_vm._v("Lista de residuos")]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "max-height": "135px",
+      "overflow-y": "auto"
+    }
+  }, _vm._l(_vm.wastes, function (item, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "card mb-2 shadow-sm"
+    }, [_c("div", {
+      staticClass: "card-body d-flex justify-content-between align-items-center p-2"
+    }, [_vm._v("\n                                            " + _vm._s(item) + "\n\n                                            "), _c("span", {
+      staticStyle: {
+        cursor: "pointer"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeWaste(index);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "fas fa-times-circle text-danger"
+    })])])]);
+  }), 0), _vm._v(" "), _vm.wastes.length === 0 ? _c("div", {
+    staticClass: "text-muted"
+  }, [_vm._v("\n                                    No hay residuos\n                                ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "row mt-3"
   }, [_c("div", {
     staticClass: "col-6"
@@ -2071,7 +2157,7 @@ var render = function render() {
       value: _vm.form.observations,
       expression: "form.observations"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-textarea",
     staticStyle: {
       height: "100px"
     },
@@ -2108,15 +2194,9 @@ var render = function render() {
       role: "status",
       "aria-hidden": "true"
     }
-  }), _vm._v("\n                                " + _vm._s(_vm.isEdit ? "Actualizando..." : "Creando...") + "\n                            ")]) : _c("span", [_vm._v("\n                                " + _vm._s(_vm.isEdit ? "Actualizar solicitud" : "Crear Solicitud") + "\n                            ")])])])])])])])]);
+  }), _vm._v("\n                                    " + _vm._s(_vm.isEdit ? "Actualizando..." : "Creando...") + "\n                                ")]) : _c("span", [_vm._v("\n                                    " + _vm._s(_vm.isEdit ? "Actualizar solicitud" : "Crear Solicitud") + "\n                                ")])])])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", {
-    staticClass: "table-light"
-  }, [_c("tr", [_c("th", [_vm._v("Refacción")]), _vm._v(" "), _c("th", [_vm._v("Residuo")]), _vm._v(" "), _c("th")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -2384,7 +2464,7 @@ var render = function render() {
       value: _vm.form.general_characteristics,
       expression: "form.general_characteristics"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-textarea",
     staticStyle: {
       height: "130px",
       "overflow-y": "auto"
@@ -2423,7 +2503,7 @@ var render = function render() {
       value: _vm.form.physical_verification,
       expression: "form.physical_verification"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-textarea",
     staticStyle: {
       height: "130px",
       "overflow-y": "auto"
@@ -2456,7 +2536,7 @@ var render = function render() {
       value: _vm.form.functional_verification,
       expression: "form.functional_verification"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-textarea",
     staticStyle: {
       height: "130px",
       "overflow-y": "auto"
@@ -2489,7 +2569,7 @@ var render = function render() {
       value: _vm.form.corrective_maintenance,
       expression: "form.corrective_maintenance"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-textarea",
     staticStyle: {
       height: "130px",
       "overflow-y": "auto"
@@ -2620,7 +2700,7 @@ var render = function render() {
       value: _vm.form.reusable_parts_description,
       expression: "form.reusable_parts_description"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control rounded-textarea",
     staticStyle: {
       height: "130px",
       "overflow-y": "auto"
@@ -2919,7 +2999,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.divider {\r\n    height: 1px;\r\n    background-color: #e0e0e0;\r\n    margin: 16px 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.divider {\r\n    height: 1px;\r\n    background-color: #e0e0e0;\r\n    margin: 16px 0;\n}\n.rounded-textarea {\r\n    border-radius: 0.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2943,7 +3023,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.divider {\r\n    height: 1px;\r\n    background-color: #e0e0e0;\r\n    margin: 16px 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.divider {\r\n    height: 1px;\r\n    background-color: #e0e0e0;\r\n    margin: 16px 0;\n}\n.rounded-textarea {\r\n    border-radius: 0.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

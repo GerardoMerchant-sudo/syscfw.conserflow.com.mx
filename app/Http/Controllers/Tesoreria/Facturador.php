@@ -129,7 +129,7 @@ class Facturador
             {
                 $suma_subtotal += $p->importe;
                 $suma_descuento += $p->descuento;
-                $suma_impuesto += ($p->importe * $p->impuesto_iva);
+                $suma_impuesto += round($p->importe * $p->impuesto_iva, 2);
             }
             $total_pagos_f = 0;
             foreach ($this->partidas_pagos as $pp)
@@ -218,7 +218,7 @@ class Facturador
             // Si es obj de imp. suma impuestos al subtotal
             if ($p->obj_imp == "02")
             {
-                $suma_impuesto += ($p->importe * $p->impuesto_iva);
+                $suma_impuesto += round($p->importe * $p->impuesto_iva, 2);
             }
             $suma_subtotal += $p->importe;
             $suma_descuento += $p->descuento;
@@ -234,7 +234,7 @@ class Facturador
             substr($factura->fecha_hora, 5, 2) . '-' .
             substr($factura->fecha_hora, 8, 2) . 'T' .
             substr($factura->fecha_hora, 11, 8);
-        $t = ((($suma_subtotal - $suma_descuento) + round($suma_impuesto, 2)) - round($suma_retencion, 2));
+       $t = round((($suma_subtotal - $suma_descuento) + $suma_impuesto - $suma_retencion), 2);
         $t += $this->correccion_total;
         $comprobante = "xmlns:cfdi = http://www.sat.gob.mx/cfd/4" . PHP_EOL .
             "xmlns:xsi = http://www.w3.org/2001/XMLSchema-instance" . PHP_EOL .
@@ -429,8 +429,10 @@ class Facturador
         $total_base += round($p->importe, 2);
 
         // IVA POR CONCEPTO (REDONDEADO)
-        $iva_concepto = round($p->importe * $p->impuesto_iva, 2);
-        $suma_impuesto += $iva_concepto;
+         $iva_concepto = round($p->importe * $p->impuesto_iva, 2);
+         $suma_impuesto += $iva_concepto;
+
+        //$suma_impuesto += ($p->importe * $p->impuesto_iva);
 
         if ($p->retencion > 0)
         {

@@ -28,6 +28,7 @@ Route::group(["middleware" => "auth"], function ()
     Route::post("maintenance/responsible", "Maintenance\MaintenanceRequestController@addMaintenance");
     Route::get('maintenance/binnacle/export',  'Maintenance\MaintenanceRequestController@exportBinnacleExcel');
     Route::get('/mantenimiento/stats', 'Maintenance\MaintenanceRequestController@stats');
+    Route::get('employee/', 'Maintenance\MaintenanceRequestController@employee');
     
     //loow
     Route::resource("toolsLow", "Maintenance\ToolLowController");

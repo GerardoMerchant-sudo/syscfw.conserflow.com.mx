@@ -13,10 +13,16 @@
                     <div class="container">
                         <div class="row mb-3">
                             <div class="col">
-                                <div class="form-floating">
-                                    <input v-model="form.requested_by" type="text" class="form-control rounded-pill"
-                                        id="requested_by" placeholder="Requerido por">
-                                    <label for="requested_by">Requerido Por</label>
+                                 <div class="form-floating">
+                                    <select style="cursor:pointer;" id="type" class="form-select rounded-pill"
+                                        v-model="form.requested_by" placeholder="Requerido por"
+                                        >
+                                        <option value="" disabled>Selecciona</option>
+                                        <option v-for="employee in listEmployee" :key="employee.id" :value="employee.full_name">
+                                            {{ employee.full_name }}
+                                        </option>
+                                    </select>
+                                    <label for="type">Requerido por</label>
                                 </div>
                             </div>
                             <div class="col">
@@ -38,8 +44,8 @@
                             <div class="col">
                                 <div class="form-floating">
                                     <input 
+                                    class="form-control rounded-pill"
                                     type="text" 
-                                    class="form-control"
                                     id="tools"
                                     placeholder="Nombre de Herramienta/Equipo"
                                     v-model="form.equipment_tool"
@@ -76,7 +82,7 @@
                         <div class="row mb-3">
                             <div class="col-6">
                                 <div class="form-floating">
-                                    <textarea style="height:130px;" id="problem" class="form-control rounded"
+                                    <textarea style="height:130px;" id="problem" class="form-control rounded-textarea"
                                         v-model="form.problem_description" placeholder="Descripción del Problema">
                                     </textarea>
                                     <label for="problem">Descripción del problema</label>
@@ -242,62 +248,96 @@
                         <!-- Refacciones -->
                         <div class="divider mb-3"></div>
                         <div class="row">
-                            <strong class="h6 text-primary my-3 text-center">REFACCIONES A UTILIZAR</strong>
-                            <div class="col-5">
-                                <div class="d-flex flex-column">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control rounded-pill" id="used"
-                                            v-model="newSparePart" placeholder="Refacciones Utilizadas">
-                                        <label for="used">Refacciones Utilizadas</label>
-                                    </div>
-                                    <div class="form-floating mb-3 position-relative" v-if="newSparePart">
-                                        <input type="text" class="form-control rounded-pill" id="waste"
-                                            v-model="newSpareWaste" placeholder="Residuo Generado"
-                                            @keyup.enter="addspareWaste">
-                                        <label for="waste">Residuo Generado</label>
-                                        <span @click="addspareWaste"
-                                            style="position: absolute; top: 50%; right: 1rem; transform: translateY(-50%); cursor: pointer;">
-                                            <i class="fas fa-plus text-primary"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="border rounded p-3 h-100">
-                                    <div style="max-height: 200px; overflow-y: auto;">
-                                        <table class="table table-sm table-bordered align-middle text-center"
-                                            v-if="spareWaste.length">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Refacción</th>
-                                                    <th>Residuo</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="(item, index) in spareWaste" :key="index">
-                                                    <td>{{ item.spare_parts_used }}</td>
-                                                    <td>{{ item.spare_waste }}</td>
-                                                    <td>
-                                                        <i class="fas fa-times-circle text-danger"
-                                                            style="cursor:pointer" @click="eliminarSpare(index)">
-                                                        </i>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div v-else class="text-muted">
-                                            No hay refacciones agregadas
-                                        </div>
-                                    </div>
-                                </div>
+                        <strong class="h6 text-primary my-3 text-center">REFACCIONES</strong>
+
+                        <div class="col-5">
+                            <div class="form-floating position-relative">
+                                <input type="text" class="form-control rounded-pill pe-5"
+                                    v-model="newSparePart"
+                                    placeholder="Refacción"
+                                    @keyup.enter="addSparePart">
+                                <label>Refacción</label>
+
+                                <span @click="addSparePart" v-if="newSparePart"
+                                    style="position: absolute; top: 50%; right: 1rem; transform: translateY(-50%); cursor: pointer;">
+                                    <i class="fas fa-plus text-primary"></i>
+                                </span>
                             </div>
                         </div>
 
+                        <div class="col">
+                            <div class="border rounded p-3 h-100">
+                                <h6 class="mb-3">Lista de refacciones</h6>
+
+                                <div style="max-height: 135px; overflow-y: auto;">
+                                    <div v-for="(item, index) in spareParts" :key="index"
+                                        class="card mb-2 shadow-sm">
+
+                                        <div class="card-body d-flex justify-content-between align-items-center p-2">
+                                            {{ item }}
+
+                                            <span @click="removeSparePart(index)"
+                                                style="cursor: pointer;">
+                                                <i class="fas fa-times-circle text-danger"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="spareParts.length === 0" class="text-muted">
+                                    No hay refacciones
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider mb-3"></div>
+                    <div class="row">
+                        <strong class="h6 text-primary my-3 text-center">RESIDUOS GENERADOS</strong>
+
+                        <div class="col-5">
+                            <div class="form-floating position-relative">
+                                <input type="text" class="form-control rounded-pill pe-5"
+                                    v-model="newWaste"
+                                    placeholder="Residuo"
+                                    @keyup.enter="addWaste">
+                                <label>Residuo generado</label>
+
+                                <span @click="addWaste" v-if="newWaste"
+                                    style="position: absolute; top: 50%; right: 1rem; transform: translateY(-50%); cursor: pointer;">
+                                    <i class="fas fa-plus text-primary"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="border rounded p-3 h-100">
+                                <h6 class="mb-3">Lista de residuos</h6>
+
+                                <div style="max-height: 135px; overflow-y: auto;">
+                                    <div v-for="(item, index) in wastes" :key="index"
+                                        class="card mb-2 shadow-sm">
+
+                                        <div class="card-body d-flex justify-content-between align-items-center p-2">
+                                            {{ item }}
+
+                                            <span @click="removeWaste(index)"
+                                                style="cursor: pointer;">
+                                                <i class="fas fa-times-circle text-danger"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="wastes.length === 0" class="text-muted">
+                                    No hay residuos
+                                </div>
+                            </div>
+                        </div>
+</div>
                         <div class="row mt-3">
                             <div class="col-6">
                                 <div class="form-floating">
-                                    <textarea class="form-control" id="observation" v-model="form.observations"
+                                    <textarea class="form-control rounded-textarea" id="observation" v-model="form.observations"
                                         placeholder="Observaciones" style="height:100px;"></textarea>
                                     <label for="observation">Observaciones</label>
                                 </div>
@@ -334,6 +374,7 @@ export default {
         return {
             isLoading: false,
             isDownloading:false,
+            listEmployee: [],
             form: {
                 requested_by: null,
                 request_date: null,
@@ -365,8 +406,9 @@ export default {
             newChanges: '',
             changes: [],
             newSparePart: '',
-            newSpareWaste: '',
-            spareWaste: []
+            spareParts: [],
+            newWaste: '',
+            wastes: [],
         }
     },
     mounted() {
@@ -375,6 +417,7 @@ export default {
     computed: {
         isEdit() {
             return !!this.$route.params.id
+            
         },
         isFormValid() {
             return this.form.requested_by &&
@@ -385,6 +428,7 @@ export default {
     },
     methods: {
         init() {
+            this.getEmployee()
             if (this.isEdit) {
                 this.loadMaintenance()
             }
@@ -404,18 +448,14 @@ export default {
                 this.changes = res.data.changes_repairs
                     ? res.data.changes_repairs.split('\n').filter(Boolean)
                     : []
+                this.spareParts = res.data.spare_parts_used
+                ? res.data.spare_parts_used.split('\n').filter(Boolean)
+                : []
 
-                // Reconstruir spareWaste desde strings paralelos
-                const parts = res.data.spare_parts_used
-                    ? res.data.spare_parts_used.split('\n').filter(Boolean)
-                    : []
-                const wastes = res.data.waste_generated
-                    ? res.data.waste_generated.split('\n').filter(Boolean)
-                    : []
-                this.spareWaste = parts.map((part, i) => ({
-                    spare_parts_used: part,
-                    spare_waste: wastes[i] || 'N/A'
-                }))
+            this.wastes = res.data.waste_generated
+                ? res.data.waste_generated.split('\n').filter(Boolean)
+                : []
+                
             } catch (error) {
                 toastr.error('Error al cargar el mantenimiento')
             }
@@ -427,12 +467,8 @@ export default {
                 this.form.activities_to_perform = this.actividades.join('\n')
                 this.form.damages_found = this.damages.join('\n')
                 this.form.changes_repairs = this.changes.join('\n')
-                this.form.spare_parts_used = this.spareWaste
-                    .map(item => item.spare_parts_used)
-                    .join('\n')
-                this.form.waste_generated = this.spareWaste
-                    .map(item => item.spare_waste)
-                    .join('\n')
+                this.form.spare_parts_used = this.spareParts.join('\n')
+                this.form.waste_generated = this.wastes.join('\n')
 
                 const formData = new FormData()
                 Object.entries(this.form).forEach(([key, value]) => {
@@ -468,6 +504,15 @@ export default {
                 this.isLoading = false
             }
         },
+        async getEmployee() {
+            try {
+                const response = await axios.get("employee") 
+                this.listEmployee = response.data
+                console.log(this.listEmployee)
+            } catch (error) {
+                toastr.error(error.response?.data?.message || 'Error al Cargar Empleados')
+            }
+        },
         back() {
             this.$router.go(-1)
         },
@@ -498,18 +543,24 @@ export default {
         eliminarChanges(index) {
             this.changes.splice(index, 1)
         },
-        // Refacciones
-        addspareWaste() {
+        // REFACCIONES
+        addSparePart() {
             if (!this.newSparePart.trim()) return
-            this.spareWaste.push({
-                spare_parts_used: this.newSparePart.trim(),
-                spare_waste: this.newSpareWaste.trim() || 'N/A'
-            })
+            this.spareParts.push(this.newSparePart.trim())
             this.newSparePart = ''
-            this.newSpareWaste = ''
         },
-        eliminarSpare(index) {
-            this.spareWaste.splice(index, 1)
+        removeSparePart(index) {
+            this.spareParts.splice(index, 1)
+        },
+
+        // RESIDUOS
+        addWaste() {
+            if (!this.newWaste.trim()) return
+            this.wastes.push(this.newWaste.trim())
+            this.newWaste = ''
+        },
+        removeWaste(index) {
+            this.wastes.splice(index, 1)
         },
     }
 }
@@ -520,5 +571,9 @@ export default {
     height: 1px;
     background-color: #e0e0e0;
     margin: 16px 0;
+}
+.rounded-textarea {
+    border-radius: 0.5rem;
+
 }
 </style>

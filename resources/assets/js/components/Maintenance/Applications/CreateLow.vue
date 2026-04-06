@@ -96,7 +96,7 @@
                                     <textarea
                                         style="height: 130px; overflow-y: auto;"
                                         id="generales"
-                                        class="form-control"
+                                        class="form-control rounded-textarea"
                                         placeholder="Caracteristicas Generales"
                                         v-model="form.general_characteristics">
                                     </textarea>
@@ -112,7 +112,7 @@
                                     <textarea
                                         style="height: 130px; overflow-y: auto;"
                                         id="physical"
-                                        class="form-control"
+                                        class="form-control rounded-textarea"
                                         placeholder="Verificación Física"
                                         v-model="form.physical_verification">
                                     </textarea>
@@ -124,7 +124,7 @@
                                     <textarea
                                         style="height: 130px; overflow-y: auto;"
                                         id="functional"
-                                        class="form-control"
+                                        class="form-control rounded-textarea"
                                         placeholder="Verificación Funcional"
                                         v-model="form.functional_verification">
                                     </textarea>
@@ -136,7 +136,7 @@
                                     <textarea
                                         style="height: 130px; overflow-y: auto;"
                                         id="corrective"
-                                        class="form-control"
+                                        class="form-control rounded-textarea"
                                         placeholder="Mantenimientos Correctivos"
                                         v-model="form.corrective_maintenance">
                                     </textarea>
@@ -180,7 +180,7 @@
                                     <textarea
                                         style="height: 130px; overflow-y: auto;"
                                         id="reusable"
-                                        class="form-control"
+                                        class="form-control rounded-textarea"
                                         v-model="form.reusable_parts_description"
                                         placeholder="Descripción de Piezas y/o Componentes Aprovechables">
                                     </textarea>
@@ -308,5 +308,9 @@ export default {
     height: 1px;
     background-color: #e0e0e0;
     margin: 16px 0;
+}
+.rounded-textarea {
+    border-radius: 0.5rem;
+
 }
 </style>
