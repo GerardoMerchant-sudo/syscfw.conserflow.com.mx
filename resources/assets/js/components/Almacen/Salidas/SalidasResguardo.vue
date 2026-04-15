@@ -89,6 +89,12 @@
                   </div>
                 </div>
                 <div class="form-row">
+                  <div class="col-md-8 mb-3">
+                    <label>Nombre de quien entrega</label>
+                    <v-select :options="listaEmpleados" label="name" v-model="empleado_entrega_id"></v-select>
+                  </div>
+                </div>
+                <div class="form-row">
                   <div class="col-md-2">
                     <label>&nbsp;</label>
                     <label>&nbsp;</label>
@@ -232,6 +238,7 @@ var config = require('../../Herramientas/config-vuetables-client').call(this);
 export default{
   data(){
     return {
+      listaEmpleadosObj: {},
       isLoading : false,
       modal : 0,
       tituloModal : '',
@@ -295,8 +302,6 @@ export default{
         filterByColumn: true,
         texts:config.texts
       },
-
-
       proyecto_id : '',
       fecha : '',
       empleado : '',
@@ -306,6 +311,8 @@ export default{
       cantidad_existente : '',
       cantidad_salida : '',
       id_art_calib:0,
+      empleado_entrega_id : null,
+
     }
   },
   methods : {
@@ -323,8 +330,9 @@ export default{
       });
 
       this.listaEmpleados = [];
-      axios.get('/vertodosempleados').then(response =>{
-        response.data.forEach(data =>{
+      axios.get('/vertodosempleados').then(response => {
+        response.data.forEach(data => {
+          this.listaEmpleadosObj[data.id] = data.nombre + ' ' + data.ap_paterno;
           this.listaEmpleados.push({
             id: data.id,
             name: data.nombre + ' ' + data.ap_paterno + ' ' + data.ap_materno
@@ -351,6 +359,11 @@ export default{
 
     cerrarModal(){
       this.modal = 0;
+        this.modal = 0;
+        this.empleado_entrega_id = null;
+        this.empleado = '';
+        this.proyecto_id = '';
+        this.listado_data = [];
     },
 
     cerrarModalArt(){
@@ -409,7 +422,6 @@ export default{
     Guardar(nuevo){
       this.$validator.validate().then(result=> {
         if (result) {
-
           axios({
             method : nuevo ? 'POST' : 'PUT',
             url : nuevo ? 'salida/reguardo/guardar/data' : 'salida/reguardo/actualizar/data',
@@ -417,6 +429,7 @@ export default{
               id : 0,
               proyecto : this.proyecto_id.id,
               empleado : this.empleado.id,
+              empleado_entrega_id : this.empleado_entrega_id ? this.empleado_entrega_id.id : null,
               fecha : this.fecha,
               data : this.listado_data,
             }
@@ -429,6 +442,8 @@ export default{
               this.listado_data = [];
               this.proyecto_id = '';
               this.empleado = '';
+              this.empleado_entrega_id = null;
+            
             }else
             {
               toastr.eror(res.data.mensaje);
@@ -452,13 +467,14 @@ export default{
       this.id_art_calib=data.row.a_id_calib;
     },
 
-    getData(){
-      axios.get('get/encabezados/salida/resguardo').then(response => {
-        this.tableData = response.data;
-      }).catch(e => {
-        console.error(e);
-      });
-    },
+  getData(){
+    axios.get('get/encabezados/salida/resguardo').then(response => {
+      this.tableData = Array.isArray(response.data) ? response.data : [];
+    }).catch(e => {
+      console.error(e);
+      this.tableData = [];
+    });
+  },
 
     detalles(data){
       this.detalle = true;
@@ -489,7 +505,7 @@ export default{
         input: 'text',
         confirmButtonText: 'Siguiente &rarr;',
         showCancelButton: true,
-        progressSteps: ['1', '2']
+        progressSteps: ['1', '2', '3', '4']
       }).queue([
         {
           title: 'Cantidad Retorno',
@@ -499,6 +515,20 @@ export default{
           title: 'Cantidad Defectuosos',
           inputValue: '0',
         },
+        {
+            title: 'Empleado que recibe',
+            input: 'select', 
+            inputOptions: this.listaEmpleadosObj, 
+            inputPlaceholder: 'Seleccione empleado',
+        },
+        {
+          title: 'Fecha de devolución',
+          input: 'text',
+          inputAttributes: {
+              type: 'date' 
+          },
+          inputValue: new Date().toISOString().split('T')[0], 
+      },
       ]).then((result) => {
         if (result.value) {
           // console.log(result.value);
@@ -513,6 +543,8 @@ export default{
               id : data.id,
               cantidad : result.value[0],
               cantidad_defectuoso : result.value[1],
+              empleado_recibe_id : result.value[2], 
+              fecha_devolucion : result.value[3],
             }).then(response =>{
               Swal.fire({
                 type: 'success',

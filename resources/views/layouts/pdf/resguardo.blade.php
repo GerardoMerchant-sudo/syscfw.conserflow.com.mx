@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>PAL-01-F_06 RESGUARDO DE HERRAMIENTAS</title>
+   <title>PAL-01-F_06 RESGUARDO DE HERRAMIENTAS este no es</title>
   <style type="text/css">
 
 @page {

@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>PAL-01-F_06 RESGUARDO DE HERRAMIENTAS</title>
+   <title>PAL-01-F_03 RESGUARDO DE HERRAMIENTAS</title>
   <style type="text/css">
 
 @page {
+    size: letter landscape;
     margin-top: 3cm;
     margin-left: 1cm;
     margin-right: 1cm;
@@ -84,11 +85,11 @@
           <tr>
 
           <td style="border: 1px solid; text-align: center;" ><div style="">REVISIÓN</div></td>
-          <td style="border: 1px solid; text-align: center;" ><div style="">00</div></td>
+          <td style="border: 1px solid; text-align: center;" ><div style="">02</div></td>
           </tr>
           <tr>
           <td style="border: 1px solid; text-align: center;" ><div style="">EMISIÓN</div></td>
-          <td style="border: 1px solid; text-align: center;" ><div style="">01.ABR.20</div></td>
+          <td style="border: 1px solid; text-align: center;" ><div style="">20.JUN.25</div></td>
           </tr>
     </table>
 
@@ -122,27 +123,33 @@ font-size: 12px;">
     <tr>
     <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="3%"><div style="color: white;"><b> PART.</b></div></td>
     <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="5%"><div style="color: white;"><b> CANT.</b></div></td>
-    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="10%"><div style="color: white;"><b> U.M.</b></div></td>
-    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="32%"><div style="color: white;"><b> DESCRIPCION</b></div></td>
+    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="6%"><div style="color: white;"><b> U.M.</b></div></td>
+    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="29%"><div style="color: white;"><b> DESCRIPCION</b></div></td>
     <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="15%"><div style="color: white;"><b> PROYECTO</b></div></td>
     <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="10%"><div style="color: white;"><b> FECHA DE ENTREGA.</b></div></td>
-    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="10%"><div style="color: white;"><b> FECHA DE DEVOLUCION</b></div></td>
-    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="15%"><div style="color: white;"><b> FIRMA</b></div></td>
+    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="10%"><div style="color: white;"><b> NOMBRE DE QUIEN ENTREGA </b></div></td>
+    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="15%"><div style="color: white;"><b> FIRMA DEL TRABAJADOR</b></div></td>
+    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="15%"><div style="color: white;"><b> FECHA DE DEVOLUCION</b></div></td>
+    <td style="border: 1px solid; text-align: center; background-color: #0070C0;" width="15%"><div style="color: white;"><b> NOMBRE DE QUIEN RECIBE </b></div></td>
     </tr>
     @foreach ($arreglo as $key => $value)
-    <tr>
-    <td style="border: 1px solid; background-color:#BFBFBF; text-align:center;"  ><b>{{$key + 1}}</b> </td>
-    <td style="border: 1px solid; text-align: center;" >&nbsp;{{$value['salida']->cantidad}}</td>
-    <td style="border: 1px solid; text-align: center;" >&nbsp;{{$value['salida']->unidad}}</td>
-    <td style="border: 1px solid; text-align: center;" >&nbsp;{{$value['salida']->descripcion}}</td>
-    <td style="border: 1px solid; text-align: center;" >&nbsp;{{$value['salida']->nombre_corto}}</td>
-    <td style="border: 1px solid; text-align: center;" >&nbsp;{{$value['salida']->fecha}}</td>
-    <td style="border: 1px solid; text-align: center;" >&nbsp;{{$value['retorno'] == null ? '' : $value['retorno']->fecha}}</td>
-    <td style="border: 1px solid; text-align: center;" >&nbsp;</td>
-    </tr>
+ <tr>
+    <td style="border: 1px solid; background-color:#BFBFBF; text-align:center;"><b>{{$key + 1}}</b></td>
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->cantidad}}</td>
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->unidad}}</td>
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->descripcion}}</td>
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->nombre_corto}}</td>
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->fecha}}</td>
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->nombre_entrega}}</td> 
+    <td style="border: 1px solid; text-align: center;">&nbsp;</td> 
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->fecha_devolucion ?? ''}}</td>
+    <td style="border: 1px solid; text-align: center;">&nbsp;{{$value['salida']->nombre_recibe ?? ''}}</td>
+</tr>
     @endforeach
     <tr>
-    <td style="border: 1px solid; background-color:#BFBFBF; text-align:center;"  ><b>-</b> </td>
+    <td style="border: 1px solid; text-align: center;" >&nbsp;</td>
+    <td style="border: 1px solid; text-align: center;" >&nbsp;</td>
+    <td style="border: 1px solid; text-align: center;" >&nbsp;</td>
     <td style="border: 1px solid; text-align: center;" >&nbsp;</td>
     <td style="border: 1px solid; text-align: center;" >&nbsp;</td>
     <td style="border: 1px solid; text-align: center;" >&nbsp;</td>
