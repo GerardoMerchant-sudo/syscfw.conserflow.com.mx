@@ -185,51 +185,93 @@ class SalidaPdfController extends Controller
    * @param  Int $id [Id de salida]
    * @return Response     [pdf]
    */
-  public function pdfsitionew($id)
-  {
-
+ public function pdfsitionew($id)
+{
     $ids = Auth::id();
 
     $salidas = DB::table('salidassitio')->select(
-      'salidassitio.*',
-      'proyectos.nombre AS pnombre',
-      'PU.nombre AS punombre',
-      'PU.area AS puarea',
-      DB::raw("CONCAT(EE.nombre,' ',EE.ap_paterno,' ',EE.ap_materno) AS entrega"),
-      DB::raw("CONCAT(ER.nombre,' ',ER.ap_paterno,' ',ER.ap_materno) AS recibe"),
-      DB::raw("CONCAT(ES.nombre,' ',ES.ap_paterno,' ',ES.ap_materno) AS solicita"),
-      DB::raw("CONCAT(E.nombre,' ',E.ap_paterno,' ',E.ap_materno) AS supervisor"),
-      DB::raw("CONCAT(EA.nombre,' ',EA.ap_paterno,' ',EA.ap_materno) AS autoriza")
+        'salidassitio.*',
+        'proyectos.nombre AS pnombre',
+        'PU.nombre AS punombre',
+        'PU.area AS puarea',
+        DB::raw("CONCAT(EE.nombre,' ',EE.ap_paterno,' ',EE.ap_materno) AS entrega"),
+        DB::raw("CONCAT(ER.nombre,' ',ER.ap_paterno,' ',ER.ap_materno) AS recibe"),
+        DB::raw("CONCAT(ES.nombre,' ',ES.ap_paterno,' ',ES.ap_materno) AS solicita"),
+        DB::raw("CONCAT(E.nombre,' ',E.ap_paterno,' ',E.ap_materno) AS supervisor"),
+        DB::raw("CONCAT(EA.nombre,' ',EA.ap_paterno,' ',EA.ap_materno) AS autoriza")
     )
-      ->leftJoin('empleados AS EE', 'EE.id', '=', 'salidassitio.empleado_entrega_id')
-      ->leftJoin('empleados AS ER', 'ER.id', '=', 'salidassitio.empleado_recibe_id')
-      ->leftJoin('empleados AS EA', 'EA.id', '=', 'salidassitio.empleado_autoriza_id')
-      ->leftJoin('empleados AS ES', 'ES.id', '=', 'salidassitio.empleado_solicita_id')
-      ->leftJoin('puestos AS PU', 'PU.id', '=', 'ES.puesto_id')
-      ->leftJoin('proyectos', 'proyectos.id', '=', 'salidassitio.proyecto_id')
-      ->leftJoin('tipo_salidas', 'tipo_salidas.id', '=', 'salidassitio.tiposalida_id')
-      ->leftJoin('supervisores_proyectos AS sp', 'sp.id', '=', 'salidassitio.supervisores_proyectos_id')
-      ->leftjoin('empleados AS E', 'E.id', '=', 'sp.supervisor_id')
-      ->where('salidassitio.id', '=', $id)->first();
-    $proyecto = \App\Proyecto::where('id', '=', $salidas->proyecto_id)->first();
-    $partidas = DB::table('partidas')
-      ->leftJoin('lote_almacen AS LA', 'LA.id', '=', 'partidas.lote_id')
-      ->leftJoin('articulos AS A', 'A.id', '=', 'LA.articulo_id')
-      ->leftJoin('grupos AS G', 'G.id', '=', 'A.grupo_id')
-      ->select('partidas.*',
-      DB::raw("IF(A.descripcion is null,A.nombre,
-      A.descripcion) as descripcion"),
-       'A.unidad', 'G.nombre AS gnombre')
-      ->where('salida_id', '=', $salidas->id)->where('tiposalida_id', '=', $salidas->tiposalida_id)->get();
-    $solicita_datos = Empleado::join('puestos AS p', 'p.id', '=', 'empleados.puesto_id')
-      ->where('empleados.id', $salidas->empleado_solicita_id)
-      ->select('p.*')->first();
+        ->leftJoin('empleados AS EE', 'EE.id', '=', 'salidassitio.empleado_entrega_id')
+        ->leftJoin('empleados AS ER', 'ER.id', '=', 'salidassitio.empleado_recibe_id')
+        ->leftJoin('empleados AS EA', 'EA.id', '=', 'salidassitio.empleado_autoriza_id')
+        ->leftJoin('empleados AS ES', 'ES.id', '=', 'salidassitio.empleado_solicita_id')
+        ->leftJoin('puestos AS PU', 'PU.id', '=', 'ES.puesto_id')
+        ->leftJoin('proyectos', 'proyectos.id', '=', 'salidassitio.proyecto_id')
+        ->leftJoin('tipo_salidas', 'tipo_salidas.id', '=', 'salidassitio.tiposalida_id')
+        ->leftJoin('supervisores_proyectos AS sp', 'sp.id', '=', 'salidassitio.supervisores_proyectos_id')
+        ->leftjoin('empleados AS E', 'E.id', '=', 'sp.supervisor_id')
+        ->where('salidassitio.id', '=', $id)->first();
 
-    $count = 1;
+    $proyecto = \App\Proyecto::where('id', '=', $salidas->proyecto_id)->first();
+
+    $partidas = DB::table('partidas')
+        ->leftJoin('lote_almacen AS LA', 'LA.id', '=', 'partidas.lote_id')
+        ->leftJoin('articulos AS A', 'A.id', '=', 'LA.articulo_id')
+        ->leftJoin('grupos AS G', 'G.id', '=', 'A.grupo_id')
+        ->select(
+            'partidas.*',
+            DB::raw("IF(A.descripcion is null, A.nombre, A.descripcion) as descripcion"),
+            'A.unidad',
+            'G.nombre AS gnombre'
+        )
+        ->where('salida_id', '=', $salidas->id)
+        ->where('tiposalida_id', '=', $salidas->tiposalida_id)
+        ->get();
+
+    $solicita_datos = Empleado::join('puestos AS p', 'p.id', '=', 'empleados.puesto_id')
+        ->where('empleados.id', $salidas->empleado_solicita_id)
+        ->select('p.*')->first();
+
+    // ↓ Bloque que faltaba ↓
+    if (strtotime($salidas->fecha) >= strtotime("2024-01-29"))
+    {
+        $emision  = "29.ENE.24";
+        $revision = "01";
+        $rfc      = "CON1912026U2";
+        $direccion = "
+            Calle Mezquite N° 5 Col. Santa <br>
+            Clara Santiago Miahuatlán, Puebla.<br>
+            C.P. 75820. Puebla, México";
+    }
+    else
+    {
+        $revision  = "00";
+        $emision   = "01.ABR.20";
+        $rfc       = "CON19120226U2";
+        $direccion = "
+            Calle Del Mezquite Lote 5 Mza. 3, Col. <br>
+            Santa Clara. Parque Industrial Tehuacan-Miahuatlán, <br>
+            Santiago Miahuatlan. C.P. 75820. Puebla, México";
+    }
+
+    $count   = 1;
     $tamanio = 16 - count($partidas);
-    $pdfsitio = PDF::loadView('pdf.salidanew', compact('solicita_datos', 'salidas', 'ids', 'count', 'proyecto', 'tamanio', 'partidas'));
+
+    $pdfsitio = PDF::loadView('pdf.salidanew', compact(
+        'solicita_datos',
+        'salidas',
+        'ids',
+        'count',
+        'proyecto',
+        'tamanio',
+        'partidas',
+        'emision',    // ← agregado
+        'revision',   // ← agregado
+        'direccion',  // ← agregado
+        'rfc'         // ← agregado
+    ));
+
     $pdfsitio->getDomPDF()->set_option("enable_php", true);
     $pdfsitio->setPaper('letter', 'portrait');
     return $pdfsitio->stream();
-  }
+}
 }

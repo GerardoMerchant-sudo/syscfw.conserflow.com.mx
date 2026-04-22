@@ -48,6 +48,9 @@
                 <button type="button" @click="retorno(props.row)" class="btn btn-outline-dark" href="#">
                   <i class="fas fa-retweet"></i>&nbsp;
                 </button>
+                <button type="button" @click="eliminar(props.row)" class="btn btn-outline-danger ml-1">
+                  <i class="fas fa-trash"></i>&nbsp;
+                </button>
               </template>
             </v-client-table>
           </div>
@@ -457,7 +460,6 @@ export default{
     },
 
     seleccionarArticulo(data){
-      console.log(data);
       this.catalogo_id = data.row.id;
       this.catalogo_descripcion = data.row.descripcion;
       this.cantidad_salida = data.row.cantidad;
@@ -481,7 +483,6 @@ export default{
       this.data_detalle = data;
       axios.get('partidas/salida/resguardo/' + data.id).then(response => {
         this.dataTableDetalle = response.data;
-        console.error(response.data);
       }).catch(e => {
         console.error(e);
       });
@@ -490,14 +491,37 @@ export default{
     atras(){
       this.detalle = false;
     },
-
-    eliminar(data){
-      // axios.get('partidas/salida/resguardo/eliminar/' + data.id).then(response => {
-      //   this.detalles(this.data_detalle);
-      // }).catch(e => {
-      //   console.error(e);
-      // });
-    },
+eliminar(data){
+  Swal.fire({
+    title: '¿Eliminar partida?',
+    text: data.descripcion + ' - Cantidad: ' + data.cantidad,
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.value) {
+      axios.get('partidas/salida/resguardo/eliminar/' + data.id)
+        .then(response => {
+          if (response.data.status) {
+            Swal.fire({
+              type: 'success',
+              title: 'Eliminado',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            this.detalles(this.data_detalle);
+          } else {
+            Swal.fire('Error', response.data.error, 'error');
+          }
+        }).catch(e => {
+          console.error(e);
+        });
+    }
+  });
+},
 
     retorno(data){
       // console.log(data);

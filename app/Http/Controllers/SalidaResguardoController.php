@@ -208,6 +208,8 @@ class SalidaResguardoController extends Controller
       $data = DB::table('salidasresguardo AS sr')
         ->join('proyectos AS p', 'p.id', 'sr.proyecto_id')
         ->leftJoin('empleados AS e', 'e.id', 'sr.empleado_solicita_id')
+        ->where('sr.activo', 1)
+        ->whereNotNull('sr.empleado_solicita_id')
         ->select(
           DB::raw("CONCAT(e.nombre,' ',e.ap_paterno,' ',e.ap_materno) AS empleado_solicita"), 
           'e.id',
@@ -236,6 +238,7 @@ class SalidaResguardoController extends Controller
         ->join('articulos AS a', 'la.articulo_id', 'a.id')
         ->select('p.*', 'a.descripcion', 'sr.fecha', 'pr.nombre_corto')
         ->where('p.tiposalida_id', '3')
+        ->where('sr.activo', 1)  // <-- agregar
         ->where('sr.empleado_solicita_id', $id)
         ->whereColumn('p.cantidad',">","p.cantidad_retorno")
         ->get();
@@ -248,33 +251,99 @@ class SalidaResguardoController extends Controller
   }
 
   public function EliminarP($id)
-  {
+{
     try
     {
+        DB::beginTransaction();
 
-      /*$hoy = date("Y-m-d");
-        $hora = date("H:i:s");
+        // Obtener la partida con sus relaciones necesarias
+        $partida = \App\Partidas::findOrFail($id);
+
+        // Solo se puede eliminar si no tiene retornos registrados
+        if ($partida->cantidad_retorno > 0)
+        {
+            return response()->json([
+                "status" => false,
+                "error"  => "No se puede eliminar una partida que ya tiene retornos registrados."
+            ]);
+        }
+
+        // Obtener lote_almacen para revertir cantidades
+        $loteAlmacen = \App\LoteAlmacen::findOrFail($partida->lote_id);
+
+        // 1. Restaurar cantidad en lote_almacen
+        $loteAlmacen->cantidad += $partida->cantidad;
+        Utilidades::auditar($loteAlmacen, $loteAlmacen->id, 2);
+        $loteAlmacen->update();
+
+        // 2. Restaurar cantidad en stock_articulos
+        $stockArticulo = \App\StockArticulo::where('articulo_id', $loteAlmacen->articulo_id)
+            ->where('stocke_id', $loteAlmacen->stocke_id)
+            ->firstOrFail();
+        $stockArticulo->cantidad += $partida->cantidad;
+        Utilidades::auditar($stockArticulo, $stockArticulo->id, 2);
+        $stockArticulo->update();
+
+        // 3. Restaurar cantidad en existencias
+        $existencias = \App\Existencia::where('id_lote', $loteAlmacen->lote_id)
+            ->where('articulo_id', $loteAlmacen->articulo_id)
+            ->first();
+        if ($existencias != null)
+        {
+            $existencias->cantidad += $partida->cantidad;
+            Utilidades::auditar($existencias, $existencias->id, 2);
+            $existencias->update();
+        }
+
+        // 4. Registrar movimiento de reversión
+        $salida = \App\SalidasResguardo::findOrFail($partida->salida_id);
+        $proyectos = \App\Proyecto::findOrFail($salida->proyecto_id);
+
         $movimiento = new \App\Movimiento();
-        $movimiento->cantidad = $value['cantidad'];
-        $movimiento->fecha = $hoy;
-        $movimiento->hora = $hora;
-        $movimiento->tipo_movimiento = 'Salida ';
-        $movimiento->folio = 'Salida-' . $lote_almacen->articulo_id . ' a ' . $tipo_salida_nombre;
-        $movimiento->proyecto_id = $proyectos->id;
-        $movimiento->lote_id =  $lote_almacen->id;
-        $movimiento->stocke_id =  $stk_id;
-        $movimiento->almacene_id = $lote_almacen->almacene_id;
-        $movimiento->stand_id = ($lote_almacen->stand_id == 'null') ? null : $lote_almacen->stand_id;
-        $movimiento->nivel_id = ($lote_almacen->nivel_id == 'null') ? null : $lote_almacen->nivel_id;
-        $movimiento->articulo_id = $lote_almacen->articulo_id;
+        $movimiento->cantidad       = $partida->cantidad;
+        $movimiento->fecha          = date("Y-m-d");
+        $movimiento->hora           = date("H:i:s");
+        $movimiento->tipo_movimiento = 'Entrada';
+        $movimiento->folio          = 'Cancelacion-Resg-' . $loteAlmacen->articulo_id;
+        $movimiento->proyecto_id    = $proyectos->id;
+        $movimiento->lote_id        = $loteAlmacen->id;
+        $movimiento->stocke_id      = $loteAlmacen->stocke_id;
+        $movimiento->almacene_id    = $loteAlmacen->almacene_id;
+        $movimiento->stand_id       = ($loteAlmacen->stand_id == 'null') ? null : $loteAlmacen->stand_id;
+        $movimiento->nivel_id       = ($loteAlmacen->nivel_id == 'null') ? null : $loteAlmacen->nivel_id;
+        $movimiento->articulo_id    = $loteAlmacen->articulo_id;
         Utilidades::auditar($movimiento, $movimiento->id, 2);
-        $movimiento->save();*/
+        $movimiento->save();
+
+        // 5. Revertir condición del equipo de calibración si aplica
+        $equipocalib = EquiposCatalogo::where("articulo_id", $loteAlmacen->articulo_id)->first();
+        if ($equipocalib != null)
+        {
+            $equipocalib->condicion = 1; // Activo
+            $equipocalib->update();
+        }
+
+        // 6. Eliminar la partida
+        $partida->delete();
+
+        // 7. Si el encabezado ya no tiene partidas, eliminarlo también
+        $partidasRestantes = \App\Partidas::where('salida_id', $salida->id)
+            ->where('tiposalida_id', 3)
+            ->count();
+        if ($partidasRestantes === 0)
+        {
+            $salida->delete();
+        }
+
+        DB::commit();
+        return response()->json(["status" => true]);
     }
     catch (\Throwable $e)
     {
-      Utilidades::errors($e);
+        DB::rollBack();
+        Utilidades::errors($e);
     }
-  }
+}
 
   public function RetornoResguardo(Request $request)
   {
@@ -414,6 +483,7 @@ class SalidaResguardoController extends Controller
     ->leftJoin('empleados AS ee', 'ee.id', 'sr.empleado_entrega_id')
     ->leftJoin('empleados AS er', 'er.id', 'p.empleado_recibe_id') 
     ->where('p.tiposalida_id', '3')
+    ->where('sr.activo', 1)  
     ->where('sr.empleado_solicita_id', $empleado_id)
     ->select(
       'p.*', 'sr.fecha', 'sr.proyecto_id', 'pr.nombre_corto', 'a.descripcion', 'a.unidad',

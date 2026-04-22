@@ -19,6 +19,11 @@ const Impresoras  = r => require.ensure([], () => r(require('./Mantenimientos/Im
 const MatrizPuesto  = r => require.ensure([], () => r(require('./MatrizPorPuesto.vue')), 'ti')
 
 const PropuestaEquipo= r => require.ensure([], () => r(require('./PropuestaEquipo.vue')), 'ti')
+
+// Request Changes ERP
+const Requests = r => require.ensure([], () => r(require('./RequestChangeERP/Request.vue')), 'ti')
+const CreateRequest = r => require.ensure([], () => r(require('./RequestChangeERP/CreateRequest.vue')), 'ti')
+
 const routes = [
     { path: '/ti/computo', component: Computo },
     { path: '/ti/impresion', component: Impresion },
@@ -33,6 +38,8 @@ const routes = [
     { path: '/ti/historico/servicios', component: Historico },
     { path: '/ti/equipopuesto/', component: MatrizPuesto },
     { path: '/ti/propuestaequipo/', component: PropuestaEquipo },
+    { path: '/ti/request', component: Requests },
+    { path: '/ti/createrequest', component: CreateRequest, name: 'CreateRequest' }
   ]
 
 export default routes
