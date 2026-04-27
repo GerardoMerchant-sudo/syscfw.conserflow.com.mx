@@ -11,7 +11,6 @@
                         </button>
                     </div>
                     <div class="card-body">
-
                         <v-client-table :columns="columns" :data="tableData" :options="options" ref="myTable">
                             <template slot="id" slot-scope="props">
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
