@@ -23,9 +23,7 @@
                 </div>
               </div>
             </template>
-
             <template slot="status" slot-scope="props">
-
               <template v-if="props.row.almacene_id == null" >
                 <button type="button" class="btn btn-success btn-sm" @click="abrirModalAlmacen(props.row)" >
                   <i class="fas fa-boxes"></i>&nbsp;Almacenar en ...&nbsp;&nbsp;</button>

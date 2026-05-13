@@ -59,7 +59,9 @@ class SalidaResguardoController extends Controller
       $id = Auth::user();
 
       $salida = \App\SalidasResguardo::where('proyecto_id', $request->proyecto)
-        ->where('fecha', $request->fecha)->where('empleado_solicita_id', $request->empleado)->first();
+        ->where('fecha', $request->fecha)
+        ->where('empleado_solicita_id', $request->empleado)
+        ->first();
       if (isset($salida) == false)
       {
         // code...
@@ -68,10 +70,10 @@ class SalidaResguardoController extends Controller
         $salida->folio = $this->generarFolio($request->proyecto);
         $salida->proyecto_id = $request->proyecto;
         $salida->tiposalida_id = 3;
-        $salida->empleado_entrega_id = $id->empleado_id;
+        $salida->empleado_entrega_id = $request->empleado_entrega_id;
         $salida->empleado_solicita_id = $request->empleado;
         $salida->supervisores_proyectos_id = $this->getSupervisor($request->proyecto_id);
-        Utilidades::auditar($salida, $salida->id);
+        Utilidades::auditar($salida, $salida->id); 
         $salida->save();
       }
 
@@ -198,15 +200,20 @@ class SalidaResguardoController extends Controller
     return $folio;
   }
 
+  //listo no mover
   public function getEncabezados()
   {
     try
     {
       $data = DB::table('salidasresguardo AS sr')
         ->join('proyectos AS p', 'p.id', 'sr.proyecto_id')
-        ->join('empleados AS e', 'e.id', 'sr.empleado_solicita_id')
-        ->select(DB::raw("CONCAT(e.nombre,' ',e.ap_paterno,' ',e.ap_materno) AS empleado_solicita"), 'e.id')
-        ->groupBy('e.id')
+        ->leftJoin('empleados AS e', 'e.id', 'sr.empleado_solicita_id')
+        ->select(
+          DB::raw("CONCAT(e.nombre,' ',e.ap_paterno,' ',e.ap_materno) AS empleado_solicita"), 
+          'e.id',
+          'sr.empleado_solicita_id')
+        ->whereNotNull('sr.empleado_solicita_id')
+        ->groupBy('sr.empleado_solicita_id','e.id', 'e.nombre', 'e.ap_paterno', 'e.ap_materno')
         ->get();
 
       return response()->json($data);
@@ -230,7 +237,7 @@ class SalidaResguardoController extends Controller
         ->select('p.*', 'a.descripcion', 'sr.fecha', 'pr.nombre_corto')
         ->where('p.tiposalida_id', '3')
         ->where('sr.empleado_solicita_id', $id)
-        ->where('p.cantidad',"<","p.cantidad_retorno")
+        ->whereColumn('p.cantidad',">","p.cantidad_retorno")
         ->get();
       return response()->json($partida);
     }
@@ -373,7 +380,9 @@ class SalidaResguardoController extends Controller
         $equipocalib->condicion = 1; // Activo
         $equipocalib->update();
       }
-
+      $partidaActualizar->empleado_recibe_id = $request->empleado_recibe_id;
+      $partidaActualizar->fecha_devolucion = $request->fecha_devolucion;
+      $partidaActualizar->save();
       DB::commit();
 
       //Actualizar cantidad en almacen
@@ -398,25 +407,34 @@ class SalidaResguardoController extends Controller
       ->first();
 
     $salida_resguardo = DB::table('partidas AS p')
-      ->join('lote_almacen AS la', 'la.id', 'p.lote_id')
-      ->join('articulos AS a', 'a.id', 'la.articulo_id')
-      ->join('salidasresguardo AS sr', 'sr.id', 'p.salida_id')
-      ->join('proyectos AS pr', 'pr.id', 'sr.proyecto_id')
-      ->where('p.tiposalida_id', '3')
-      ->where('sr.empleado_solicita_id', $empleado_id)
-      ->select('p.*', 'sr.fecha', 'sr.proyecto_id', 'pr.nombre_corto', 'a.descripcion', 'a.unidad')
-      ->get();
-
+    ->join('lote_almacen AS la', 'la.id', 'p.lote_id')
+    ->join('articulos AS a', 'a.id', 'la.articulo_id')
+    ->join('salidasresguardo AS sr', 'sr.id', 'p.salida_id')
+    ->join('proyectos AS pr', 'pr.id', 'sr.proyecto_id')
+    ->leftJoin('empleados AS ee', 'ee.id', 'sr.empleado_entrega_id')
+    ->leftJoin('empleados AS er', 'er.id', 'p.empleado_recibe_id') 
+    ->where('p.tiposalida_id', '3')
+    ->where('sr.empleado_solicita_id', $empleado_id)
+    ->select(
+      'p.*', 'sr.fecha', 'sr.proyecto_id', 'pr.nombre_corto', 'a.descripcion', 'a.unidad',
+      'p.fecha_devolucion', 
+      DB::raw("CONCAT(COALESCE(ee.nombre,''),' ',COALESCE(ee.ap_paterno,''),' ',COALESCE(ee.ap_materno,'')) AS nombre_entrega"),
+      DB::raw("CONCAT(COALESCE(er.nombre,''),' ',COALESCE(er.ap_paterno,''),' ',COALESCE(er.ap_materno,'')) AS nombre_recibe")
+  )
+    ->get();
 
     foreach ($salida_resguardo as $key => $value)
     {
       $retorno = DB::table('partidas_retorno AS pr')
-        ->leftjoin('salidas_retorno AS sr', 'sr.id', 'pr.salida_retorno_id')
-        ->where('pr.partida_id', $value->id)
-        ->select('pr.*', 'sr.fecha')
-        ->first();
+      ->leftJoin('salidas_retorno AS sr', 'sr.id', 'pr.salida_retorno_id')
+      ->where('pr.partida_id', $value->id)
+      ->select(
+        DB::raw('SUM(pr.cantidad_entrada) as total_retorno'),
+        DB::raw('MAX(sr.fecha) as fecha_devolucion')
+      )
+      ->first();
 
-      $arreglo[] = [
+    $arreglo[] = [
         'salida' => $value,
         'retorno' => $retorno,
       ];
