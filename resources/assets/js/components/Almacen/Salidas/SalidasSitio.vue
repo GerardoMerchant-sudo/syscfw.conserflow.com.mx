@@ -654,14 +654,14 @@ export default
                     console.log(error);
                 });
         },
-        validarFecha(dato)
-        {
-            if (dato < this.valorfecha)
-            {
-                toastr.error('La Fecha no Puede ser Anterior a la Actual');
-                this.salida.fecha = this.valorfecha;
-            }
-        },
+        // validarFecha(dato)
+        // {
+        //     if (dato < this.valorfecha)
+        //     {
+        //         toastr.error('La Fecha no Puede ser Anterior a la Actual');
+        //         this.salida.fecha = this.valorfecha;
+        //     }
+        // },
         guardarSalida(nuevo)
         {
             this.$validator.validate().then(result =>

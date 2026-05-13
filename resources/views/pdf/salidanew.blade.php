@@ -217,7 +217,9 @@
           <img src="img/Fer.png" width="100px">
           @elseif($salidas->supervisor === 'GUSTAVO ALBERTO MORALES PAULINO')
           <img src="img/Gusgri.png" width="150px">
-          @endif
+          @elseif($salidas->supervisor === 'FELIPE REYES ASCENCIO')
+          <img src="img/Felipe_Reyes_Ascencio.png" width="150px">
+          @endif  
 
         </td>
         <td>&nbsp;</td>
@@ -226,14 +228,14 @@
           <img src="img/3.png" width="150px">
           @elseif($salidas->empleado_entrega_id === 2 && $salidas->fecha >= '2020-04-27')
           <img src="img/2.png" width="150px">
-          @elseif($salidas->empleado_entrega_id === 147)
-          <img src="img/1.png" width="150px">
+          @elseif($salidas->empleado_entrega_id === 154)
+          <img src="img/4Va.png" width="150px">
           @endif
         </td>
         <td>&nbsp;</td>
         <td>
           @if($salidas->fecha >= '2020-03-11')
-          <img src="img/1.png" width="190px">
+          <img src="img/4Va.png" width="190px">
           @endif
         </td>
       </tr>
@@ -258,7 +260,8 @@
           @if ($salidas->fecha > '2025-06-30')
                     VALERIA HERNANDEZ MARTINEZ
           @endif
-        </td>
+        </t d>
+        
       </tr>
       <tr>
         <td style="border-top: 1px solid;
@@ -282,7 +285,10 @@
       </tr>
       <tr>
         <td></td>
-        <td>&nbsp;</td>
+        <td>
+          
+          &nbsp;
+        </td>
         <td></td>
       </tr>
       <tr>
@@ -290,13 +296,16 @@
           &nbsp;
         </td>
         <td>&nbsp;</td>
-        <td class="pdb">&nbsp;</td>
+        <td class="pdb">&nbsp;
+          <small> {{$salidas->solicita}}</small>
+        </td>
       </tr>
       <tr>
         <td style="border-top: 1px solid;
                             font-size: 12px;
                             font-family: Arial, Helvetica, sans-serif"><b>Nombre y Firma</b></td>
         <td>&nbsp;</td>
+        
         <td style="border-top: 1px solid; font-size: 12px;
         font-family: Arial, Helvetica, sans-serif"><b>Nombre y Firma</b></td>
       </tr>

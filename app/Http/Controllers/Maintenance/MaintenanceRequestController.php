@@ -267,7 +267,7 @@ class MaintenanceRequestController extends Controller
                 ], 500);
             }
         }
-
+        
         public function exportBinnacleExcel()
         {
             // Todos los registros
